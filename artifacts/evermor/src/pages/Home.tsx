@@ -199,9 +199,9 @@ export default function Home() {
             className={`font-serif text-[36px] md:text-[64px] lg:text-[80px] leading-[1.2] font-light text-[#F5F0E8] tracking-[0.01em] transition-opacity duration-1000 ease-in-out delay-300 ${
               mounted ? "opacity-100" : "opacity-0"
             }`}
-          >
-            Preserving the beginning of your family.
-          </h1>
+          >Preserving
+          the beginning
+          of your family.</h1>
           
           <p 
             className={`mt-4 md:mt-6 text-[14px] md:text-[16px] font-sans font-light text-[#F5F0E8]/80 tracking-[0.03em] max-w-[480px] leading-relaxed transition-opacity duration-800 ease-in-out delay-[600ms] ${
