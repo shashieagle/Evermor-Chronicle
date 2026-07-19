@@ -3,6 +3,7 @@ import { Route, Switch, Router as WouterRouter } from 'wouter';
 import Home from './pages/Home';
 import Beginnings from './pages/Beginnings';
 import BeginningsIndex from './pages/BeginningsIndex';
+import About from './pages/About';
 import Admin from './pages/Admin';
 
 const queryClient = new QueryClient();
@@ -13,6 +14,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/beginnings" component={BeginningsIndex} />
       <Route path="/beginnings/:slug" component={Beginnings} />
+      <Route path="/about" component={About} />
       <Route path="/admin" component={Admin} />
     </Switch>
   );

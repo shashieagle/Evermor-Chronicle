@@ -1,0 +1,271 @@
+# Evermor Website
+
+We are building the About page for Evermor.
+
+The Homepage, Beginnings page and Individual Beginning pages are already complete.
+
+Do NOT redesign the website.
+
+Reuse every existing design token, spacing, typography, navigation behaviour and animations from the existing website.
+
+This page must feel like another chapter of the same editorial experience.
+
+------------------------------------------------------------
+
+OBJECTIVE
+
+This page is NOT an "About Us" page.
+
+The Homepage already explains what Evermor believes.
+
+The Beginnings page already proves those beliefs.
+
+This page answers one question:
+
+"Who are the people I am trusting with my family's story?"
+
+The page should feel warm, honest and personal.
+
+Not promotional.
+
+Not corporate.
+
+Not like an agency profile.
+
+------------------------------------------------------------
+
+IMPLEMENT ONLY THE FIRST SECTION
+
+Do not build the rest of the About page.
+
+Leave a placeholder after this section.
+
+------------------------------------------------------------
+
+Navigation
+
+Reuse the existing navigation exactly.
+
+Home
+
+Beginnings
+
+About
+
+Begin Your Story
+
+No changes.
+
+------------------------------------------------------------
+
+Hero
+
+Height:
+Approximately 85vh.
+
+One calm portrait of Shashikanth and Deepika.
+
+Preferred photographs:
+
+• Walking together
+• Looking through albums
+• Talking with each other
+• Sitting naturally
+• Documentary style
+
+Avoid:
+
+• Cameras
+• Equipment
+• Studio portraits
+• Looking directly into camera
+• Dramatic wedding imagery
+
+The photograph should communicate warmth and trust.
+
+------------------------------------------------------------
+
+Layout
+
+Minimal.
+
+Large whitespace.
+
+Editorial proportions.
+
+The image and text should breathe.
+
+Desktop:
+
+Image occupies the majority of the screen.
+
+Text positioned comfortably without covering important parts of the image.
+
+Mobile:
+
+Maintain the emotional hierarchy.
+
+Do not simply shrink elements.
+
+------------------------------------------------------------
+
+Typography
+
+Headline
+
+We are Shashikanth & Deepika.
+
+Supporting Copy
+
+Partners in life.
+
+Partners in storytelling.
+
+Use existing typography system.
+
+Elegant serif headline.
+
+Simple sans-serif supporting copy.
+
+No CTA.
+
+No button.
+
+No statistics.
+
+No awards.
+
+No years of experience.
+
+No client logos.
+
+------------------------------------------------------------
+
+Transition
+
+After the hero naturally scroll into the editorial story.
+
+No divider.
+
+No new heading.
+
+No chapter title.
+
+Only generous whitespace.
+
+------------------------------------------------------------
+
+Editorial Story
+
+Maximum reading width:
+760px
+
+Use the following copy exactly.
+
+------------------------------------------------------------
+
+We didn't begin this journey because we wanted to become wedding photographers.
+
+We began because we were fascinated by people.
+
+The relationships they build.
+
+The families they belong to.
+
+The stories they carry.
+
+When we got married ourselves, something changed.
+
+We realised the memories we treasured most weren't the perfectly posed photographs.
+
+They were the moments we almost forgot.
+
+A quiet glance.
+
+Parents trying to hide their emotions.
+
+Friends laughing between ceremonies.
+
+Small conversations that no one planned.
+
+That experience changed the way we approached every wedding that followed.
+
+Today, we don't arrive with the intention of simply documenting a celebration.
+
+We arrive with the responsibility of preserving the beginning of a family's story.
+
+For us, this has never been just about photography.
+
+It has always been about people.
+
+------------------------------------------------------------
+
+Typography Behaviour
+
+Do not present this as one long paragraph.
+
+Break ideas naturally.
+
+Allow important thoughts to stand on their own line.
+
+Whitespace should become part of the reading experience.
+
+Do not use bold text for emphasis.
+
+The rhythm should come from spacing.
+
+------------------------------------------------------------
+
+Animation
+
+Use only the existing website animation system.
+
+Very subtle fade-ins.
+
+No parallax.
+
+No cinematic effects.
+
+No scrolling tricks.
+
+------------------------------------------------------------
+
+Accessibility
+
+Use semantic HTML.
+
+Maintain proper heading hierarchy.
+
+Responsive typography.
+
+Accessible colour contrast.
+
+------------------------------------------------------------
+
+Performance
+
+Reuse all existing components wherever possible.
+
+Do not duplicate styles.
+
+Do not introduce new dependencies.
+
+------------------------------------------------------------
+
+Placeholder
+
+After the editorial story create only one placeholder:
+
+<section id="our-approach"></section>
+
+Do not implement anything after this.
+
+------------------------------------------------------------
+
+Goal
+
+When a visitor finishes reading this section, they should feel like they know the people behind Evermor personally and trust them before seeing anything else.
+
+The experience should feel like reading a page from a beautifully designed book, not a company profile.
+
+Return clean, production-ready code consistent with the existing Evermor architecture.
