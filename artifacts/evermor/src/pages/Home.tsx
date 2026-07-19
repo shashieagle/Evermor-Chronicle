@@ -70,7 +70,8 @@ export default function Home() {
             mounted ? "opacity-100" : "opacity-0"
           }`}
         >
-          Discover Your Story <span>&#8594;</span>
+          <span>Discover Your Story</span>
+          <span className="block tracking-widest">──────────────→</span>
         </Link>
       </div>
     </main>
