@@ -69,7 +69,7 @@ function GrowingTextarea({
       rows={3}
       placeholder={placeholder}
       onInput={handleInput}
-      className="w-full resize-none bg-transparent font-serif font-light text-[#3A342C] placeholder-[#3A342C]/30 outline-none border-b border-[#3A342C]/20 focus:border-[#3A342C]/60 pb-3 leading-relaxed transition-colors duration-300"
+      className="w-full resize-none bg-transparent font-serif font-light text-[#3A342C] placeholder-[#3A342C]/25 outline-none border-b border-[#3A342C]/10 focus:border-[#3A342C]/45 pb-3 leading-relaxed transition-colors duration-300"
       style={{ fontSize: "clamp(15px, 1.3vw, 18px)", minHeight: 90 }}
     />
   );
@@ -94,7 +94,7 @@ function LineInput({
       type={type}
       placeholder={placeholder}
       required={required}
-      className="w-full bg-transparent font-serif font-light text-[#3A342C] placeholder-[#3A342C]/30 outline-none border-b border-[#3A342C]/20 focus:border-[#3A342C]/60 pb-2 transition-colors duration-300"
+      className="w-full bg-transparent font-serif font-light text-[#3A342C] placeholder-[#3A342C]/25 outline-none border-b border-[#3A342C]/10 focus:border-[#3A342C]/45 pb-2 transition-colors duration-300"
       style={{ fontSize: "clamp(15px, 1.3vw, 18px)" }}
     />
   );
@@ -113,7 +113,7 @@ function LineSelect({
       id={id}
       name={id}
       defaultValue=""
-      className="w-full bg-transparent font-serif font-light text-[#3A342C] outline-none border-b border-[#3A342C]/20 focus:border-[#3A342C]/60 pb-2 transition-colors duration-300 appearance-none cursor-pointer"
+      className="w-full bg-transparent font-serif font-light text-[#3A342C] outline-none border-b border-[#3A342C]/10 focus:border-[#3A342C]/45 pb-2 transition-colors duration-300 appearance-none cursor-pointer"
       style={{ fontSize: "clamp(15px, 1.3vw, 18px)" }}
     >
       {children}
@@ -324,13 +324,13 @@ export default function BeginYourStory() {
             "Before we talk about photographs or films, we'd simply love to get to know the two of you.",
             "The form below is just the beginning of that conversation.",
             "Share as much or as little as you'd like.",
-            "We'll read every enquiry personally, and if it feels like we're the right fit for one another, we'll arrange a conversation to hear the rest of your story.",
+            "We'll read every enquiry personally and, if it feels right, we'd love to meet you and hear your story.",
           ].map((line, i) => (
             <Fade key={i} delay={i * 40}>
               <p
                 className="font-serif font-light text-[#3A342C] leading-[1.85]"
                 style={{
-                  fontSize: "clamp(16px, 1.4vw, 19px)",
+                  fontSize: "clamp(18px, 1.6vw, 22px)",
                   marginBottom: "clamp(16px, 2.2vw, 28px)",
                 }}
               >
@@ -357,34 +357,34 @@ export default function BeginYourStory() {
           noValidate
         >
           {/* — Basic details ——————————————————————————————— */}
-          <Field label="Your Name" htmlFor="your-name">
+          <Field label="Your name" htmlFor="your-name">
             <LineInput id="your-name" placeholder="Your first name" required />
           </Field>
 
-          <Field label="Your Partner's Name" htmlFor="partner-name">
+          <Field label="Your partner's name" htmlFor="partner-name">
             <LineInput id="partner-name" placeholder="Their first name" required />
           </Field>
 
-          <Field label="Email Address" htmlFor="email">
+          <Field label="Email address" htmlFor="email">
             <LineInput id="email" type="email" placeholder="you@example.com" required />
           </Field>
 
-          <Field label="Phone Number" htmlFor="phone">
+          <Field label="Phone number" htmlFor="phone">
             <LineInput id="phone" type="tel" placeholder="+91 98765 43210" />
           </Field>
 
-          <Field label="Where Are You Based?" htmlFor="location">
+          <Field label="Where are you based?" htmlFor="location">
             <LineInput id="location" placeholder="Bangalore, India" />
           </Field>
 
-          <Field label="Wedding Date" htmlFor="wedding-date">
+          <Field label="Wedding date" htmlFor="wedding-date">
             <LineInput id="wedding-date" type="date" placeholder="We're still deciding." />
           </Field>
 
           {/* — Tell us about yourselves ———————————————————— */}
           <SectionHeading>Tell us a little about yourselves.</SectionHeading>
 
-          <Field label="About You" htmlFor="about-you">
+          <Field label="About you" htmlFor="about-you">
             <GrowingTextarea
               id="about-you"
               placeholder="We'd love to know anything you'd like to share before we meet—how you met, what you're dreaming of for your wedding, or simply what made you reach out to Evermor."
@@ -398,7 +398,7 @@ export default function BeginYourStory() {
             <LineInput id="venue" placeholder="If you've chosen one already." />
           </Field>
 
-          <Field label="Estimated Guest Count" htmlFor="guest-count">
+          <Field label="Estimated guest count" htmlFor="guest-count">
             <LineSelect id="guest-count">
               <option value="" disabled className="text-[#3A342C]/40">Select an estimate</option>
               <option value="below-100">Below 100</option>
@@ -409,7 +409,7 @@ export default function BeginYourStory() {
             </LineSelect>
           </Field>
 
-          <Field label="What Are You Looking For?" htmlFor="service">
+          <Field label="What are you looking for?" htmlFor="service">
             <div className="flex flex-col gap-5 pt-1" role="radiogroup" aria-label="Service type">
               {[
                 { value: "photography", label: "Photography" },
@@ -449,7 +449,7 @@ export default function BeginYourStory() {
             </div>
           </Field>
 
-          <Field label="Budget Range" htmlFor="budget">
+          <Field label="Budget range" htmlFor="budget">
             <LineSelect id="budget">
               <option value="" disabled className="text-[#3A342C]/40">Select a range</option>
               <option value="2-4">₹2–4 Lakhs</option>
@@ -488,6 +488,13 @@ export default function BeginYourStory() {
                   Let's begin over coffee&nbsp;&nbsp;→
                 </button>
               </div>
+
+              <p
+                className="font-serif font-light text-[#3A342C]/40 leading-[1.9]"
+                style={{ fontSize: "clamp(13px, 1.1vw, 15px)", marginTop: "clamp(24px, 3vw, 36px)" }}
+              >
+                From here, we'll read your enquiry personally and, if it feels like the right fit, we'll reach out to arrange a relaxed conversation.
+              </p>
             </div>
           </Fade>
         </form>
