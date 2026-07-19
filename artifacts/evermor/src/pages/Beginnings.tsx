@@ -35,7 +35,8 @@ function useInView(threshold = 0.08) {
 }
 
 // Consistent D-layout constants
-const PX  = 60;   // side margin in px — the warm frame that always shows
+const OFFSET  = "15%";   // 15% each side — the warm frame
+const OFFSET_NARROW = "30%"; // for the narrow portrait block
 const GAP = 5;    // gap between adjacent images
 
 // Fade wrapper for scroll-in
@@ -61,7 +62,7 @@ function Fade({ children, delay = 0, className = "" }: { children: React.ReactNo
 function Horizontal({ src, alt, height = 460 }: { src: string; alt: string; height?: number }) {
   return (
     <Fade>
-      <div style={{ padding: `0 ${PX}px`, marginBottom: GAP }}>
+      <div style={{ padding: `0 ${OFFSET}`, marginBottom: GAP }}>
         <img src={src} alt={alt} style={{ width: "100%", height, objectFit: "cover", display: "block" }} />
       </div>
     </Fade>
@@ -70,7 +71,7 @@ function Horizontal({ src, alt, height = 460 }: { src: string; alt: string; heig
 
 function VerticalPair({ a, b, altA, altB }: { a: string; b: string; altA: string; altB: string }) {
   return (
-    <div style={{ display: "flex", gap: GAP, padding: `0 ${PX}px`, marginBottom: GAP }}>
+    <div style={{ display: "flex", gap: GAP, padding: `0 ${OFFSET}`, marginBottom: GAP }}>
       <Fade className="flex-1" delay={0}>
         <img src={a} alt={altA} style={{ width: "100%", height: 720, objectFit: "cover", objectPosition: "top", display: "block" }} />
       </Fade>
@@ -84,7 +85,7 @@ function VerticalPair({ a, b, altA, altB }: { a: string; b: string; altA: string
 function NarrowPortrait({ src, alt }: { src: string; alt: string }) {
   return (
     <Fade>
-      <div style={{ padding: `0 ${PX * 3.5}px`, marginBottom: GAP }}>
+      <div style={{ padding: `0 ${OFFSET_NARROW}`, marginBottom: GAP }}>
         <img src={src} alt={alt} style={{ width: "100%", height: 760, objectFit: "cover", objectPosition: "top", display: "block" }} />
       </div>
     </Fade>
@@ -97,7 +98,7 @@ function MixedLeft({ tall, top, bot, altTall, altTop, altBot }: {
   altTall: string; altTop: string; altBot: string;
 }) {
   return (
-    <div style={{ display: "flex", gap: GAP, padding: `0 ${PX}px`, marginBottom: GAP }}>
+    <div style={{ display: "flex", gap: GAP, padding: `0 ${OFFSET}`, marginBottom: GAP }}>
       <Fade delay={0} style={{ width: "40%" } as any}>
         <img src={tall} alt={altTall} style={{ width: "100%", height: 740, objectFit: "cover", objectPosition: "top", display: "block" }} />
       </Fade>
@@ -119,7 +120,7 @@ function MixedRight({ top, bot, tall, altTop, altBot, altTall }: {
   altTop: string; altBot: string; altTall: string;
 }) {
   return (
-    <div style={{ display: "flex", gap: GAP, padding: `0 ${PX}px`, marginBottom: GAP }}>
+    <div style={{ display: "flex", gap: GAP, padding: `0 ${OFFSET}`, marginBottom: GAP }}>
       <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: GAP }}>
         <Fade delay={0}>
           <img src={top} alt={altTop} style={{ width: "100%", height: 356, objectFit: "cover", display: "block" }} />
@@ -315,7 +316,7 @@ export default function Beginnings() {
         >
           {videoEmbed ? (
             /* Embedded player */
-            <div className="px-[60px] py-20 md:py-28">
+            <div style={{ padding: "80px 15% 112px" }}>
               <p className="font-sans font-light text-[10px] uppercase tracking-[0.35em] text-[#F5F0E8]/35 mb-8 text-center">Film</p>
               <p className="font-serif font-light text-[22px] md:text-[28px] text-[#F5F0E8] leading-[1.3] tracking-[0.01em] mb-2 text-center">{story.couple}</p>
               <p className="font-sans font-light text-[12px] text-[#F5F0E8]/40 tracking-[0.06em] uppercase mb-10 text-center">{story.location}</p>
