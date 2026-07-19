@@ -719,17 +719,6 @@ export default function Home() {
           >
             Every Evermor story begins with understanding what is worth remembering.
           </p>
-          <div
-            ref={ch6CtaRef}
-            className={`inline-flex transition-all duration-[1000ms] ease-out ${
-              ch6CtaInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-            }`}
-            style={{ transitionDelay: ch6CtaInView ? '200ms' : '0ms' }}
-          >
-            <button className="font-sans font-light text-[12px] md:text-[13px] text-[#3A342C]/70 tracking-[0.18em] uppercase border border-[#3A342C]/30 px-10 py-4 hover:border-[#3A342C]/70 hover:text-[#3A342C] transition-all duration-500 ease-out">
-              Begin Your Story Discovery
-            </button>
-          </div>
         </div>
       </section>
 
