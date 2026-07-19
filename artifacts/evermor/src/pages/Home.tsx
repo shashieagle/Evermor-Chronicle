@@ -217,15 +217,6 @@ export default function Home() {
 
       {/* Chapter 2 - Why Evermor Exists */}
       <section className="bg-[#EAE3D3] py-32 md:py-48 flex flex-col items-center">
-        <h2
-          ref={eyebrowRef}
-          className={`uppercase tracking-[0.3em] md:tracking-[0.4em] font-sans font-light text-[11px] md:text-[12px] text-[#3A342C]/60 text-center mb-12 md:mb-16 transition-all duration-[800ms] ease-out ${
-            eyebrowInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-          }`}
-        >
-          WHY EVERMOR EXISTS
-        </h2>
-
         <div
           ref={copyRef}
           className={`max-w-[680px] mx-auto px-6 md:px-0 text-center transition-all duration-[800ms] ease-out delay-150 ${
