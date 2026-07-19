@@ -105,6 +105,17 @@ export default function Home() {
   const [closingRef, closingInView] = useInView();
   const [ctaRef, ctaInView] = useInView();
 
+  const [c6LabelRef, c6LabelInView] = useInView();
+  const [c6HeadlineRef, c6HeadlineInView] = useInView();
+  const [c6ParaRef, c6ParaInView] = useInView();
+  const [c6Q1Ref, c6Q1InView] = useInView();
+  const [c6Q2Ref, c6Q2InView] = useInView();
+  const [c6Q3Ref, c6Q3InView] = useInView();
+  const [c6Q4Ref, c6Q4InView] = useInView();
+  const [c6ClosingRef, c6ClosingInView] = useInView();
+  const [c6SupportRef, c6SupportInView] = useInView();
+  const [c6CtaRef, c6CtaInView] = useInView();
+
   const getStatementStyle = (start: number, end: number) => {
     if (scrollProgress <= start || scrollProgress >= end) return { opacity: 0, transform: 'translateY(12px)', pointerEvents: 'none' as const };
     const clamped = (scrollProgress - start) / (end - start);
@@ -638,6 +649,115 @@ export default function Home() {
             <span>──────────────→</span>
           </span>
         </div>
+      </section>
+
+      {/* Chapter 6 — Every Story Begins With Discovery */}
+      <section className="bg-[#EAE3D3] py-32 md:py-48">
+
+        {/* Header */}
+        <div className="max-w-[680px] mx-auto px-6 md:px-0 text-center">
+          <p
+            ref={c6LabelRef}
+            className={`uppercase tracking-[0.35em] font-sans font-light text-[10px] md:text-[11px] text-[#3A342C]/40 mb-12 md:mb-16 transition-all duration-[800ms] ease-out ${
+              c6LabelInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+          >
+            Every Story Begins With Discovery
+          </p>
+          <h2
+            ref={c6HeadlineRef}
+            className={`font-serif font-light text-[36px] md:text-[50px] lg:text-[58px] text-[#3A342C] leading-[1.15] tracking-[0.005em] mb-9 md:mb-12 transition-all duration-[800ms] ease-out ${
+              c6HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+            }`}
+            style={{ transitionDelay: c6HeadlineInView ? '80ms' : '0ms' }}
+          >
+            Before we preserve your story, we take the time to discover it.
+          </h2>
+          <p
+            ref={c6ParaRef}
+            className={`font-sans font-light text-[15px] md:text-[16px] text-[#3A342C]/60 leading-[1.9] tracking-[0.02em] transition-all duration-[800ms] ease-out ${
+              c6ParaInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            style={{ transitionDelay: c6ParaInView ? '120ms' : '0ms' }}
+          >
+            Every relationship carries its own rhythm, traditions, memories and quiet moments. We believe understanding those stories is what transforms beautiful photographs into meaningful memories.
+          </p>
+        </div>
+
+        {/* Divider */}
+        <div className="w-px h-20 md:h-28 bg-[#3A342C]/15 mx-auto my-20 md:my-32" />
+
+        {/* Questions */}
+        <div className="max-w-[720px] mx-auto px-6 md:px-0 text-center space-y-16 md:space-y-24">
+          <p
+            ref={c6Q1Ref}
+            className={`font-serif font-light italic text-[26px] md:text-[36px] lg:text-[42px] text-[#3A342C] leading-[1.3] tracking-[0.01em] transition-all duration-[900ms] ease-out ${
+              c6Q1InView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+            }`}
+          >
+            How did you know they were the one?
+          </p>
+          <p
+            ref={c6Q2Ref}
+            className={`font-serif font-light italic text-[26px] md:text-[36px] lg:text-[42px] text-[#3A342C] leading-[1.3] tracking-[0.01em] transition-all duration-[900ms] ease-out ${
+              c6Q2InView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+            }`}
+          >
+            Who shaped the people you've become?
+          </p>
+          <p
+            ref={c6Q3Ref}
+            className={`font-serif font-light italic text-[26px] md:text-[36px] lg:text-[42px] text-[#3A342C] leading-[1.3] tracking-[0.01em] transition-all duration-[900ms] ease-out ${
+              c6Q3InView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+            }`}
+          >
+            What moment changed everything?
+          </p>
+          <p
+            ref={c6Q4Ref}
+            className={`font-serif font-light italic text-[26px] md:text-[36px] lg:text-[42px] text-[#3A342C] leading-[1.3] tracking-[0.01em] transition-all duration-[900ms] ease-out ${
+              c6Q4InView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+            }`}
+          >
+            Which memories do you hope your children will one day see?
+          </p>
+        </div>
+
+        {/* Divider */}
+        <div className="w-px h-20 md:h-28 bg-[#3A342C]/15 mx-auto my-20 md:my-32" />
+
+        {/* Closing */}
+        <div className="max-w-[600px] mx-auto px-6 md:px-0 text-center">
+          <p
+            ref={c6ClosingRef}
+            className={`font-serif font-light text-[24px] md:text-[32px] lg:text-[36px] text-[#3A342C] leading-[1.3] tracking-[0.005em] mb-7 md:mb-9 transition-all duration-[800ms] ease-out ${
+              c6ClosingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+            }`}
+          >
+            Every couple has a story waiting to be discovered.
+          </p>
+          <p
+            ref={c6SupportRef}
+            className={`font-sans font-light text-[14px] md:text-[15px] text-[#3A342C]/55 leading-[1.85] tracking-[0.025em] mb-12 md:mb-16 transition-all duration-[800ms] ease-out ${
+              c6SupportInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            style={{ transitionDelay: c6SupportInView ? '100ms' : '0ms' }}
+          >
+            Our Story Discovery Session is where your journey with Evermor truly begins.
+          </p>
+          <div
+            ref={c6CtaRef}
+            className={`transition-all duration-[800ms] ease-out ${
+              c6CtaInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            style={{ transitionDelay: c6CtaInView ? '150ms' : '0ms' }}
+          >
+            <button className="font-sans font-light text-[12px] md:text-[13px] tracking-[0.12em] uppercase text-[#3A342C] border border-[#3A342C]/35 px-9 py-4 hover:bg-[#3A342C] hover:text-[#EAE3D3] hover:border-[#3A342C] transition-all duration-500 ease-out">
+              Discover Your Story
+            </button>
+          </div>
+        </div>
+
       </section>
 
     </div>
