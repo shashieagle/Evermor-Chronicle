@@ -110,15 +110,26 @@ function LineSelect({
   children: React.ReactNode;
 }) {
   return (
-    <select
-      id={id}
-      name={id}
-      defaultValue=""
-      className="w-full bg-transparent font-serif font-light text-[#3A342C] outline-none border-b border-[#3A342C]/10 focus:border-[#3A342C]/45 pb-2 transition-colors duration-300 appearance-none cursor-pointer"
-      style={{ fontSize: "clamp(15px, 1.3vw, 18px)" }}
-    >
-      {children}
-    </select>
+    <div className="relative">
+      <select
+        id={id}
+        name={id}
+        defaultValue=""
+        className="w-full bg-transparent font-serif font-light text-[#3A342C] outline-none border-b border-[#3A342C]/10 focus:border-[#3A342C]/45 pb-2 pr-6 transition-colors duration-300 appearance-none cursor-pointer"
+        style={{ fontSize: "clamp(16px, 1.3vw, 18px)" }}
+      >
+        {children}
+      </select>
+      {/* Visible dropdown indicator */}
+      <span
+        className="absolute right-1 bottom-[10px] pointer-events-none text-[#3A342C]/35"
+        aria-hidden="true"
+      >
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
+          <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </span>
+    </div>
   );
 }
 
@@ -191,20 +202,19 @@ export default function BeginYourStory() {
   if (submitted) {
     return (
       <div className="bg-[#FAFAF8] min-h-screen flex flex-col">
-        <nav
-          className="px-6 py-6 md:px-[100px] md:py-10 flex justify-between items-start"
-          style={{ opacity: mounted ? 1 : 0, transition: "opacity 800ms ease-in-out" }}
-        >
-          <Link href="/" className="font-serif text-2xl tracking-[0.02em] font-light text-[#3A342C] hover:opacity-70 transition-opacity duration-300">
-            Evermor
-          </Link>
-          <div className="flex gap-8 font-sans text-[13px] tracking-wide font-light">
-            <Link href="/" className="text-[#3A342C]/55 hover:text-[#3A342C] transition-colors duration-300">Home</Link>
-            <Link href="/beginnings" className="text-[#3A342C]/55 hover:text-[#3A342C] transition-colors duration-300">Beginnings</Link>
-            <Link href="/about" className="text-[#3A342C]/55 hover:text-[#3A342C] transition-colors duration-300">About</Link>
-            <Link href="/begin-your-story" className="text-[#3A342C] transition-colors duration-300">Begin Your Story</Link>
-          </div>
-        </nav>
+        <div className="relative">
+          <Nav
+            theme="light"
+            mounted={mounted}
+            position="absolute"
+            links={[
+              { href: "/", label: "Home" },
+              { href: "/beginnings", label: "Beginnings" },
+              { href: "/about", label: "About" },
+              { href: "/begin-your-story", label: "Begin Your Story", active: true },
+            ]}
+          />
+        </div>
         <div className="flex-1 flex flex-col items-center justify-center text-center px-6" style={{ paddingBottom: "15vh" }}>
           <p
             className="font-serif font-light text-[#3A342C] leading-[1.8]"
@@ -230,7 +240,7 @@ export default function BeginYourStory() {
       {/* ── 1. Hero — no image, pure typography ───────────────────── */}
       <section
         className="relative flex flex-col items-center justify-center text-center md:min-h-[85vh]"
-        style={{ padding: "clamp(110px, 18vh, 140px) clamp(24px, 8vw, 100px) clamp(60px, 10vh, 100px)" }}
+        style={{ padding: "clamp(110px, 18vh, 140px) clamp(24px, 8vw, 100px) clamp(40px, 8vh, 80px)" }}
       >
         {/* Nav */}
         <Nav
@@ -274,9 +284,9 @@ export default function BeginYourStory() {
           We'd love to know a little about the two of you before we ever pick up a camera.
         </p>
 
-        {/* Scroll indicator */}
+        {/* Scroll indicator — hidden on mobile where section has no min-height */}
         <div
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2"
           style={{
             transition: "opacity 800ms ease-out 600ms",
             opacity: mounted ? 1 : 0,
@@ -298,8 +308,8 @@ export default function BeginYourStory() {
       {/* ── 2. Before We Begin — personal editorial note ────────────── */}
       <section
         style={{
-          paddingTop: "clamp(100px, 12vw, 140px)",
-          paddingBottom: "clamp(100px, 12vw, 140px)",
+          paddingTop: "clamp(56px, 12vw, 140px)",
+          paddingBottom: "clamp(56px, 12vw, 140px)",
           paddingLeft: "clamp(24px, 8vw, 100px)",
           paddingRight: "clamp(24px, 8vw, 100px)",
         }}

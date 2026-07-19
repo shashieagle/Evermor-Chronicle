@@ -263,7 +263,7 @@ export default function Beginnings() {
         />
 
         {/* Hero content */}
-        <div className="absolute bottom-[80px] left-6 md:left-[100px] z-10 flex flex-col items-start">
+        <div className="absolute bottom-[80px] left-6 right-6 md:left-[100px] md:right-auto z-10 flex flex-col items-start">
           <h1 className={`font-serif text-[42px] md:text-[64px] lg:text-[76px] leading-[1.1] font-light text-[#F5F0E8] tracking-[0.01em] transition-all duration-[800ms] ease-out delay-[200ms] ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}>
             {story.title}
           </h1>
@@ -287,7 +287,7 @@ export default function Beginnings() {
       </section>
 
       {/* ── 2. Narrative ─────────────────────────────────────────── */}
-      <section className="bg-[#FAFAF8] py-32 md:py-48">
+      <section className="bg-[#FAFAF8] py-20 md:py-32 lg:py-48">
         <div
           ref={narrativeRef}
           className={`max-w-[620px] mx-auto px-6 md:px-0 transition-all duration-[1000ms] ease-out ${narrativeInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
@@ -377,7 +377,7 @@ export default function Beginnings() {
             </div>
           ) : (
             /* Coming soon placeholder */
-            <div className="py-40 md:py-56 flex flex-col items-center justify-center text-center px-6">
+            <div className="py-20 md:py-40 lg:py-56 flex flex-col items-center justify-center text-center px-6">
               <p className="font-sans font-light text-[10px] uppercase tracking-[0.35em] text-[#F5F0E8]/35 mb-10">Film</p>
               <p className="font-serif font-light text-[28px] md:text-[40px] text-[#F5F0E8] leading-[1.3] tracking-[0.01em] mb-6 max-w-[480px]">{story.couple}</p>
               <p className="font-sans font-light text-[13px] text-[#F5F0E8]/40 tracking-[0.06em] uppercase mb-16">{story.location}</p>
@@ -418,7 +418,7 @@ export default function Beginnings() {
       </section>
 
       {/* ── 9. Invitation ────────────────────────────────────────── */}
-      <section className="bg-[#EAE3D3] py-32 md:py-48">
+      <section className="bg-[#EAE3D3] py-20 md:py-32 lg:py-48">
         <div
           ref={inviteRef}
           className={`max-w-[640px] mx-auto px-6 md:px-0 text-center transition-all duration-[1000ms] ease-out ${inviteInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
@@ -440,7 +440,7 @@ export default function Beginnings() {
           <Link href={`/beginnings/${nextStory.slug}`}>
             <div
               ref={nextRef}
-              className={`mt-32 md:mt-48 max-w-[900px] mx-auto px-6 md:px-0 group cursor-pointer transition-all duration-[1000ms] ease-out ${nextInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+              className={`mt-20 md:mt-32 lg:mt-48 max-w-[900px] mx-auto px-6 md:px-0 group cursor-pointer transition-all duration-[1000ms] ease-out ${nextInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
             >
               <div className="border-t border-[#3A342C]/15 pt-12 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12">
                 <p className="font-sans font-light text-[11px] uppercase tracking-[0.28em] text-[#3A342C]/35 shrink-0">Next beginning</p>

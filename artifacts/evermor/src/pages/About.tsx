@@ -120,7 +120,7 @@ export default function About() {
         />
 
         {/* Headline — bottom-left, same anchor as story hero pages */}
-        <div className="absolute bottom-[80px] left-6 md:left-[100px] z-10 flex flex-col items-start gap-[14px]">
+        <div className="absolute bottom-[80px] left-6 right-6 md:left-[100px] md:right-auto z-10 flex flex-col items-start gap-[14px]">
           <h1
             className="font-serif font-light text-[#F5F0E8] tracking-[0.01em] leading-[1.1]"
             style={{
@@ -156,8 +156,8 @@ export default function About() {
       <section
         aria-label="Our story"
         style={{
-          paddingTop: "clamp(88px, 13vw, 168px)",
-          paddingBottom: "clamp(80px, 10vw, 140px)",
+          paddingTop: "clamp(56px, 13vw, 168px)",
+          paddingBottom: "clamp(56px, 10vw, 140px)",
           paddingLeft: "clamp(24px, 8vw, 100px)",
           paddingRight: "clamp(24px, 8vw, 100px)",
         }}
@@ -194,8 +194,8 @@ export default function About() {
       <section
         aria-label="Invitation"
         style={{
-          paddingTop: "clamp(180px, 18vw, 220px)",
-          paddingBottom: "clamp(120px, 14vw, 180px)",
+          paddingTop: "clamp(80px, 18vw, 220px)",
+          paddingBottom: "clamp(80px, 14vw, 180px)",
           paddingLeft: "clamp(24px, 8vw, 100px)",
           paddingRight: "clamp(24px, 8vw, 100px)",
         }}

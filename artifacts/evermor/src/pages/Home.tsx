@@ -186,7 +186,7 @@ export default function Home() {
         />
 
         {/* Hero Content */}
-        <div className="absolute bottom-[15%] md:bottom-[22%] left-6 md:left-16 max-w-[640px] z-10 flex flex-col items-start">
+        <div className="absolute bottom-[15%] md:bottom-[22%] left-6 right-6 md:left-16 md:right-auto max-w-[640px] z-10 flex flex-col items-start">
           <h1 
             className={`font-serif text-[36px] md:text-[64px] lg:text-[80px] leading-[1.2] font-light text-[#F5F0E8] tracking-[0.01em] transition-opacity duration-1000 ease-in-out delay-300 ${
               mounted ? "opacity-100" : "opacity-0"
@@ -215,7 +215,7 @@ export default function Home() {
         </div>
       </section>
       {/* Chapter 2 - Why Evermor Exists */}
-      <section className="bg-[#EAE3D3] py-32 md:py-48 flex flex-col items-center">
+      <section className="bg-[#EAE3D3] py-20 md:py-32 lg:py-48 flex flex-col items-center">
         <div
           ref={copyRef}
           className={`max-w-[680px] mx-auto px-6 md:px-0 text-center transition-all duration-[800ms] ease-out delay-150 ${
@@ -236,7 +236,7 @@ export default function Home() {
           <img
             src="/chapter2.jpg"
             alt="Editorial photograph"
-            className="w-full h-[480px] md:h-[640px] object-cover object-center"
+            className="w-full h-[320px] md:h-[480px] lg:h-[640px] object-cover object-center"
           />
         </div>
 
@@ -292,7 +292,7 @@ export default function Home() {
         </div>
       </section>
       {/* Chapter 4 - Beliefs */}
-      <section className="bg-[#F8F6F2] py-32 md:py-48">
+      <section className="bg-[#F8F6F2] py-20 md:py-32 lg:py-48">
 
         {/* Belief 1 */}
         <div className="max-w-[680px] mx-auto px-6 md:px-0 text-center mb-0">
@@ -462,12 +462,12 @@ export default function Home() {
         </p>
       </section>
       {/* Chapter 5 - Stories */}
-      <section className="bg-[#FAFAF8] pt-32 md:pt-48 pb-32 md:pb-48">
+      <section className="bg-[#FAFAF8] pt-20 md:pt-32 lg:pt-48 pb-20 md:pb-32 lg:pb-48">
         {/* Header */}
         <div className="max-w-[680px] mx-auto px-6 md:px-0 mb-20 md:mb-32">
           <h2
             ref={headingRef}
-            className={`font-serif font-light text-[52px] md:text-[72px] lg:text-[84px] text-[#3A342C] leading-[1.1] tracking-[0.005em] text-center mb-8 md:mb-10 transition-all duration-[800ms] ease-out ${
+            className={`font-serif font-light text-[38px] md:text-[52px] lg:text-[84px] text-[#3A342C] leading-[1.1] tracking-[0.005em] text-center mb-8 md:mb-10 transition-all duration-[800ms] ease-out ${
               headingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >Beginnings</h2>
@@ -488,7 +488,7 @@ export default function Home() {
             ref={s1ImgRef}
             src="/s1.jpg"
             alt="The beginning of Aditi & Karthik"
-            className={`h-[520px] md:h-[700px] lg:h-[820px] w-full object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
+            className={`h-[360px] md:h-[520px] lg:h-[820px] w-full object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
               s1ImgInView ? "opacity-100" : "opacity-0"
             }`}
           />
@@ -612,7 +612,7 @@ export default function Home() {
         </Link>
 
         {/* Closing Block */}
-        <div className="mt-24 md:mt-36 text-center max-w-[680px] mx-auto px-6 md:px-0">
+        <div className="mt-16 md:mt-24 lg:mt-36 text-center max-w-[680px] mx-auto px-6 md:px-0">
           <p
             ref={closingRef}
             className={`font-serif font-light italic text-[22px] md:text-[28px] text-[#3A342C]/60 tracking-[0.015em] leading-[1.5] mb-10 md:mb-14 transition-all duration-[800ms] ease-out ${

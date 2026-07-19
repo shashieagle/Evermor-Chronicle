@@ -43,10 +43,10 @@ export default function BeginningsIndex() {
       />
 
       {/* Header */}
-      <div className="pt-32 md:pt-56 pb-16 md:pb-28 max-w-[680px] mx-auto px-6 md:px-0 text-center">
+      <div className="pt-24 md:pt-56 pb-12 md:pb-28 max-w-[680px] mx-auto px-6 md:px-0 text-center">
         <h1
           ref={headingRef}
-          className={`font-serif font-light text-[52px] md:text-[72px] lg:text-[84px] text-[#3A342C] leading-[1.1] tracking-[0.005em] mb-8 md:mb-10 transition-all duration-[900ms] ease-out ${headingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}
+          className={`font-serif font-light text-[38px] md:text-[52px] lg:text-[84px] text-[#3A342C] leading-[1.1] tracking-[0.005em] mb-8 md:mb-10 transition-all duration-[900ms] ease-out ${headingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}
         >
           Beginnings
         </h1>
@@ -72,7 +72,7 @@ export default function BeginningsIndex() {
       </div>
 
       {/* Footer space */}
-      <div className="pb-40" />
+      <div className="pb-20 md:pb-40" />
     </div>
   );
 }
