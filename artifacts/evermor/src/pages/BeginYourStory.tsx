@@ -306,7 +306,7 @@ export default function BeginYourStory() {
           paddingRight: "clamp(24px, 8vw, 100px)",
         }}
       >
-        <div style={{ maxWidth: 640 }}>
+        <div style={{ maxWidth: 640, margin: "0 auto", textAlign: "center" }}>
 
           <Fade>
             <p
