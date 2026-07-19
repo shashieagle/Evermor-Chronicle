@@ -364,33 +364,12 @@ export default function BeginYourStory() {
           </Field>
 
           {/* — Tell us about yourselves ———————————————————— */}
-          <SectionHeading>Tell us about yourselves.</SectionHeading>
+          <SectionHeading>Tell us a little about yourselves.</SectionHeading>
 
-          <Field label="How Did Your Story Begin?" htmlFor="story-begin">
+          <Field label="About You" htmlFor="about-you">
             <GrowingTextarea
-              id="story-begin"
-              placeholder="Tell us how you met, what brought you together, or anything you'd like us to know about your journey."
-            />
-          </Field>
-
-          <Field label="What Are You Most Excited About?" htmlFor="excited">
-            <GrowingTextarea
-              id="excited"
-              placeholder={"Maybe it's seeing each other for the first time...\n\nA family tradition...\n\nA quiet moment together...\n\nOr simply having everyone you love in one place."}
-            />
-          </Field>
-
-          <Field label="Anything Especially Important to Your Family?" htmlFor="family">
-            <GrowingTextarea
-              id="family"
-              placeholder="Every family has traditions, relationships and stories that deserve to be remembered."
-            />
-          </Field>
-
-          <Field label="What Drew You to Evermor?" htmlFor="drew-you">
-            <GrowingTextarea
-              id="drew-you"
-              placeholder="We'd love to know what resonated with you."
+              id="about-you"
+              placeholder="We'd love to know anything you'd like to share before we meet—how you met, what you're dreaming of for your wedding, or simply what made you reach out to Evermor."
             />
           </Field>
 
