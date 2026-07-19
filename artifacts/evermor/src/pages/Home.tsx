@@ -153,7 +153,7 @@ export default function Home() {
   return (
     <div className="bg-[#EAE3D3] text-[#F5F0E8]">
       {/* Chapter 1 - Hero */}
-      <section className="relative h-[100vh] w-full overflow-hidden bg-[#F5F0E8] text-[#F5F0E8]">
+      <section className="relative h-[100vh] w-full overflow-hidden bg-[#FAFAF8] text-[#F5F0E8]">
         {/* Hero Image Background */}
         <div 
           className={`absolute inset-0 z-0 transition-opacity duration-[1200ms] ease-in-out ${
@@ -166,7 +166,7 @@ export default function Home() {
             className="w-full h-full object-cover"
           />
           {/* Warm Overlay */}
-          <div className="absolute inset-0 bg-[#F5F0E8]/15 mix-blend-overlay" />
+          <div className="absolute inset-0 bg-[#FAFAF8]/15 mix-blend-overlay" />
           {/* Subtle gradient for text legibility at bottom */}
           <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/40 to-transparent" />
         </div>
@@ -470,7 +470,7 @@ export default function Home() {
         </p>
       </section>
       {/* Chapter 5 - Stories */}
-      <section className="bg-[#F5F0E8] pt-32 md:pt-48 pb-32 md:pb-48">
+      <section className="bg-[#FAFAF8] pt-32 md:pt-48 pb-32 md:pb-48">
         {/* Header */}
         <div className="max-w-[680px] mx-auto px-6 md:px-0 mb-20 md:mb-32">
           <h2

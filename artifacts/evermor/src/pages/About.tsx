@@ -81,7 +81,7 @@ export default function About() {
   useEffect(() => { setMounted(true); }, []);
 
   return (
-    <div className="bg-[#F5F0E8] text-[#3A342C]">
+    <div className="bg-[#FAFAF8] text-[#3A342C]">
 
       {/* ── 1. Hero ──────────────────────────────────────────────────── */}
       <section className="relative h-[85vh] w-full overflow-hidden bg-[#1A1612]">

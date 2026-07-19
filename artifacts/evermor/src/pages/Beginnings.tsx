@@ -173,7 +173,7 @@ export default function Beginnings() {
 
   if (!staticStory) {
     return (
-      <div className="min-h-screen bg-[#F5F0E8] flex items-center justify-center">
+      <div className="min-h-screen bg-[#FAFAF8] flex items-center justify-center">
         <p className="font-serif font-light text-[#3A342C]/50 text-[20px]">This beginning hasn't been found.</p>
       </div>
     );
@@ -190,7 +190,7 @@ export default function Beginnings() {
   const videoEmbed = story.videoUrl ? embedUrl(story.videoUrl) : null;
 
   return (
-    <div className="bg-[#F5F0E8] text-[#3A342C]">
+    <div className="bg-[#FAFAF8] text-[#3A342C]">
 
       {/* ── 1. Hero ───────────────────────────────────────────────── */}
       <section className="relative h-[100vh] w-full overflow-hidden bg-[#1A1612]">
@@ -243,7 +243,7 @@ export default function Beginnings() {
       </section>
 
       {/* ── 2. Narrative ─────────────────────────────────────────── */}
-      <section className="bg-[#F5F0E8] py-32 md:py-48">
+      <section className="bg-[#FAFAF8] py-32 md:py-48">
         <div
           ref={narrativeRef}
           className={`max-w-[620px] mx-auto px-6 md:px-0 transition-all duration-[1000ms] ease-out ${narrativeInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
@@ -361,7 +361,7 @@ export default function Beginnings() {
       </section>
 
       {/* ── 8. Reflection ────────────────────────────────────────── */}
-      <section className="bg-[#F5F0E8] py-40 md:py-64">
+      <section className="bg-[#FAFAF8] py-40 md:py-64">
         <div
           ref={reflectionRef}
           className={`max-w-[580px] mx-auto px-6 md:px-0 transition-all duration-[1000ms] ease-out ${reflectionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}

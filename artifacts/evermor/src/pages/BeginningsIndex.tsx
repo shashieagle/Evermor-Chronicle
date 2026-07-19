@@ -26,7 +26,7 @@ export default function BeginningsIndex() {
   useEffect(() => { setMounted(true); }, []);
 
   return (
-    <div className="bg-[#F5F0E8] text-[#3A342C] min-h-screen">
+    <div className="bg-[#FAFAF8] text-[#3A342C] min-h-screen">
 
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-20 px-6 py-6 md:px-16 md:py-10 flex justify-between items-start transition-opacity duration-[800ms] ease-in-out ${mounted ? "opacity-100" : "opacity-0"}`}>

@@ -189,7 +189,7 @@ export default function BeginYourStory() {
   // ── Confirmation screen ────────────────────────────────────────────────────
   if (submitted) {
     return (
-      <div className="bg-[#F5F0E8] min-h-screen flex flex-col">
+      <div className="bg-[#FAFAF8] min-h-screen flex flex-col">
         <nav
           className="px-6 py-6 md:px-[100px] md:py-10 flex justify-between items-start"
           style={{ opacity: mounted ? 1 : 0, transition: "opacity 800ms ease-in-out" }}
@@ -224,7 +224,7 @@ export default function BeginYourStory() {
 
   // ── Main page ──────────────────────────────────────────────────────────────
   return (
-    <div className="bg-[#F5F0E8] text-[#3A342C]">
+    <div className="bg-[#FAFAF8] text-[#3A342C]">
 
       {/* ── 1. Hero — no image, pure typography ───────────────────── */}
       <section
