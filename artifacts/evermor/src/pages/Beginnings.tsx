@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "wouter";
 
-// Story data — swap image and copy here when adding new beginnings
+// Story data — add new beginnings here
 const stories: Record<string, {
-  image: string;
-  alt: string;
+  slug: string;
   title: string;
-  names: string;
+  couple: string;
   location: string;
+  heroImage: string;
+  hasFilm: boolean;
 }> = {
   "shaun-sowmya": {
-    image: "/beginnings-shaun-sowmya.jpg",
-    alt: "Shaun and Sowmya — a quiet beginning in Bangalore",
+    slug: "shaun-sowmya",
     title: "A Second Beginning",
-    names: "Shaun & Sowmya",
+    couple: "Shaun & Sowmya",
     location: "Bangalore, India",
+    heroImage: "/beginnings-shaun-sowmya.jpg",
+    hasFilm: true,
   },
 };
 
@@ -42,8 +44,8 @@ export default function Beginnings() {
         >
           {story && (
             <img
-              src={story.image}
-              alt={story.alt}
+              src={story.heroImage}
+              alt={`${story.couple} — ${story.location}`}
               className="w-full h-full object-cover object-center"
               loading="eager"
             />
@@ -97,7 +99,7 @@ export default function Beginnings() {
               mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
             }`}
           >
-            {story?.names ?? ""}
+            {story?.couple ?? ""}
           </p>
 
           {/* Location */}
