@@ -485,7 +485,7 @@ export default function BeginYourStory() {
                   className="font-sans font-light tracking-[0.1em] uppercase text-[#3A342C]/75 hover:opacity-45 transition-opacity duration-300 cursor-pointer bg-transparent border-none outline-none focus-visible:underline"
                   style={{ fontSize: "clamp(11px, 1vw, 13px)" }}
                 >
-                  Share Your Story&nbsp;&nbsp;→
+                  Let's begin over coffee&nbsp;&nbsp;→
                 </button>
               </div>
             </div>
