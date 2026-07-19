@@ -297,16 +297,6 @@ export default function Home() {
       {/* Chapter 4 - Beliefs */}
       <section className="bg-[#F8F6F2] py-32 md:py-48">
 
-        {/* Section label */}
-        <h2
-          ref={c4LabelRef}
-          className={`mb-24 md:mb-36 text-center uppercase tracking-[0.35em] font-sans font-light text-[11px] md:text-[12px] text-[#3A342C]/45 transition-all duration-[800ms] ease-out ${
-            c4LabelInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-          }`}
-        >
-          WHAT WE BELIEVE
-        </h2>
-
         {/* Belief 1 */}
         <div className="max-w-[680px] mx-auto px-6 md:px-0 text-center mb-0">
           <p
