@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "wouter";
 import { stories } from "../data/stories";
+import Nav from "../components/Nav";
 
 function useInView(threshold = 0.15) {
   const [isInView, setIsInView] = useState(false);
@@ -29,17 +30,17 @@ export default function BeginningsIndex() {
     <div className="bg-[#FAFAF8] text-[#3A342C] min-h-screen">
 
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-20 px-6 py-6 md:px-16 md:py-10 flex justify-between items-start transition-opacity duration-[800ms] ease-in-out ${mounted ? "opacity-100" : "opacity-0"}`}>
-        <Link href="/" className="font-serif text-2xl tracking-[0.02em] font-light text-[#3A342C] hover:opacity-60 transition-opacity duration-300">
-          Evermor
-        </Link>
-        <div className="flex gap-8 font-sans text-[13px] tracking-wide font-light">
-          <Link href="/" className="text-[#3A342C]/55 hover:text-[#3A342C] transition-colors duration-300">Home</Link>
-          <Link href="/beginnings" className="text-[#3A342C] transition-colors duration-300">Beginnings</Link>
-          <Link href="/about" className="text-[#3A342C]/55 hover:text-[#3A342C] transition-colors duration-300">About</Link>
-          <Link href="/begin-your-story" className="text-[#3A342C]/55 hover:text-[#3A342C] transition-colors duration-300">Begin Your Story</Link>
-        </div>
-      </nav>
+      <Nav
+        theme="light"
+        mounted={mounted}
+        position="fixed"
+        links={[
+          { href: "/", label: "Home" },
+          { href: "/beginnings", label: "Beginnings", active: true },
+          { href: "/about", label: "About" },
+          { href: "/begin-your-story", label: "Begin Your Story" },
+        ]}
+      />
 
       {/* Header */}
       <div className="pt-48 md:pt-56 pb-20 md:pb-28 max-w-[680px] mx-auto px-6 md:px-0 text-center">

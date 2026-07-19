@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
+import Nav from "../components/Nav";
 
 // ─── Reuse site-wide scroll-fade ─────────────────────────────────────────────
 function useInView(threshold = 0.06) {
@@ -70,7 +71,7 @@ function GrowingTextarea({
       placeholder={placeholder}
       onInput={handleInput}
       className="w-full resize-none bg-transparent font-serif font-light text-[#3A342C] placeholder-[#3A342C]/25 outline-none border-b border-[#3A342C]/10 focus:border-[#3A342C]/45 pb-3 leading-relaxed transition-colors duration-300"
-      style={{ fontSize: "clamp(15px, 1.3vw, 18px)", minHeight: 90 }}
+      style={{ fontSize: "clamp(16px, 1.3vw, 18px)", minHeight: 90 }}
     />
   );
 }
@@ -95,7 +96,7 @@ function LineInput({
       placeholder={placeholder}
       required={required}
       className="w-full bg-transparent font-serif font-light text-[#3A342C] placeholder-[#3A342C]/25 outline-none border-b border-[#3A342C]/10 focus:border-[#3A342C]/45 pb-2 transition-colors duration-300"
-      style={{ fontSize: "clamp(15px, 1.3vw, 18px)" }}
+      style={{ fontSize: "clamp(16px, 1.3vw, 18px)" }}
     />
   );
 }
@@ -232,20 +233,17 @@ export default function BeginYourStory() {
         style={{ minHeight: "85vh", padding: "120px clamp(24px, 8vw, 100px) 80px" }}
       >
         {/* Nav */}
-        <nav
-          className="absolute top-0 left-0 right-0 px-6 py-6 md:px-[100px] md:py-10 flex justify-between items-start"
-          style={{ opacity: mounted ? 1 : 0, transition: "opacity 800ms ease-in-out" }}
-        >
-          <Link href="/" className="font-serif text-2xl tracking-[0.02em] font-light text-[#3A342C] hover:opacity-70 transition-opacity duration-300">
-            Evermor
-          </Link>
-          <div className="flex gap-8 font-sans text-[13px] tracking-wide font-light">
-            <Link href="/" className="text-[#3A342C]/55 hover:text-[#3A342C] transition-colors duration-300">Home</Link>
-            <Link href="/beginnings" className="text-[#3A342C]/55 hover:text-[#3A342C] transition-colors duration-300">Beginnings</Link>
-            <Link href="/about" className="text-[#3A342C]/55 hover:text-[#3A342C] transition-colors duration-300">About</Link>
-            <Link href="/begin-your-story" className="text-[#3A342C] transition-colors duration-300">Begin Your Story</Link>
-          </div>
-        </nav>
+        <Nav
+          theme="light"
+          mounted={mounted}
+          position="absolute"
+          links={[
+            { href: "/", label: "Home" },
+            { href: "/beginnings", label: "Beginnings" },
+            { href: "/about", label: "About" },
+            { href: "/begin-your-story", label: "Begin Your Story", active: true },
+          ]}
+        />
 
         {/* Headline */}
         <h1

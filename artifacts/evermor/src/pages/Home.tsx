@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "wouter";
+import Nav from "../components/Nav";
 
 function useInView() {
   const [isInView, setIsInView] = useState(false);
@@ -172,24 +173,17 @@ export default function Home() {
         </div>
 
         {/* Navigation */}
-        <nav 
-          className={`absolute top-0 left-0 right-0 z-10 px-6 py-6 md:px-16 md:py-10 flex justify-between items-start transition-opacity duration-800 ease-in-out ${
-            mounted ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <div className="font-serif text-2xl tracking-[0.02em] font-light text-[#F5F0E8]">Evermor Tales</div>
-          <div className="flex gap-8 font-sans text-[13px] tracking-wide font-light">
-            <Link href="/beginnings" className="text-[#F5F0E8]/75 hover:text-[#F5F0E8] transition-colors duration-300">
-              Beginnings
-            </Link>
-            <Link href="/about" className="text-[#F5F0E8]/75 hover:text-[#F5F0E8] transition-colors duration-300">
-              About
-            </Link>
-            <Link href="/begin-your-story" className="text-[#F5F0E8]/75 hover:text-[#F5F0E8] transition-colors duration-300">
-              Begin Your Story
-            </Link>
-          </div>
-        </nav>
+        <Nav
+          theme="dark"
+          mounted={mounted}
+          position="absolute"
+          brandName="Evermor Tales"
+          links={[
+            { href: "/beginnings", label: "Beginnings" },
+            { href: "/about", label: "About" },
+            { href: "/begin-your-story", label: "Begin Your Story" },
+          ]}
+        />
 
         {/* Hero Content */}
         <div className="absolute bottom-[15%] md:bottom-[22%] left-6 md:left-16 max-w-[640px] z-10 flex flex-col items-start">
@@ -216,7 +210,7 @@ export default function Home() {
             }`}
           >
             <span>Discover Your Story</span>
-            <span className="block tracking-widest">──────────────→</span>
+            <span className="block tracking-widest">→</span>
           </Link>
         </div>
       </section>

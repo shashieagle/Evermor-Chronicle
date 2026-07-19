@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "wouter";
+import Nav from "../components/Nav";
 
 // ─── Scroll-fade — identical to the rest of the site ─────────────────────────
 function useInView(threshold = 0.08) {
@@ -106,26 +107,17 @@ export default function About() {
         </div>
 
         {/* Nav */}
-        <nav
-          className="absolute top-0 left-0 right-0 z-10 px-6 py-6 md:px-[100px] md:py-10 flex justify-between items-start"
-          style={{
-            transition: "opacity 800ms ease-in-out",
-            opacity: mounted ? 1 : 0,
-          }}
-        >
-          <Link
-            href="/"
-            className="font-serif text-2xl tracking-[0.02em] font-light text-[#F5F0E8] hover:opacity-80 transition-opacity duration-300"
-          >
-            Evermor
-          </Link>
-          <div className="flex gap-8 font-sans text-[13px] tracking-wide font-light">
-            <Link href="/" className="text-[#F5F0E8]/70 hover:text-[#F5F0E8] transition-colors duration-300">Home</Link>
-            <Link href="/beginnings" className="text-[#F5F0E8]/70 hover:text-[#F5F0E8] transition-colors duration-300">Beginnings</Link>
-            <Link href="/about" className="text-[#F5F0E8] transition-colors duration-300">About</Link>
-            <Link href="/begin-your-story" className="text-[#F5F0E8]/70 hover:text-[#F5F0E8] transition-colors duration-300">Begin Your Story</Link>
-          </div>
-        </nav>
+        <Nav
+          theme="dark"
+          mounted={mounted}
+          position="absolute"
+          links={[
+            { href: "/", label: "Home" },
+            { href: "/beginnings", label: "Beginnings" },
+            { href: "/about", label: "About", active: true },
+            { href: "/begin-your-story", label: "Begin Your Story" },
+          ]}
+        />
 
         {/* Headline — bottom-left, same anchor as story hero pages */}
         <div className="absolute bottom-[80px] left-6 md:left-[100px] z-10 flex flex-col items-start gap-[14px]">

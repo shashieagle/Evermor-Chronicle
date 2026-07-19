@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "wouter";
+import Nav from "../components/Nav";
 import { storiesBySlug, stories } from "../data/stories";
 
 const BASE = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
@@ -35,12 +36,27 @@ function useInView(threshold = 0.08) {
 }
 
 // Consistent D-layout constants
-const OFFSET  = "15%";   // 15% each side — the warm frame
-const OFFSET_NARROW = "30%"; // for the narrow portrait block
-const GAP = 5;    // gap between adjacent images
+const OFFSET        = "15%";
+const OFFSET_NARROW = "30%";
+const GAP = 5;
+
+// Mobile breakpoint hook
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth < 768 : false
+  );
+  useEffect(() => {
+    const handler = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handler, { passive: true });
+    return () => window.removeEventListener("resize", handler);
+  }, []);
+  return isMobile;
+}
 
 // Fade wrapper for scroll-in
-function Fade({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
+function Fade({ children, delay = 0, className = "", style: extraStyle = {} }: {
+  children: React.ReactNode; delay?: number; className?: string; style?: React.CSSProperties;
+}) {
   const [ref, inView] = useInView();
   return (
     <div
@@ -50,6 +66,7 @@ function Fade({ children, delay = 0, className = "" }: { children: React.ReactNo
         transition: `opacity 900ms ease-out ${delay}ms, transform 900ms ease-out ${delay}ms`,
         opacity: inView ? 1 : 0,
         transform: inView ? "translateY(0)" : "translateY(18px)",
+        ...extraStyle,
       }}
     >
       {children}
@@ -60,16 +77,30 @@ function Fade({ children, delay = 0, className = "" }: { children: React.ReactNo
 // ── Gallery blocks ────────────────────────────────────────────────────────────
 
 function Horizontal({ src, alt, height = 460 }: { src: string; alt: string; height?: number }) {
+  const m = useIsMobile();
   return (
     <Fade>
-      <div style={{ padding: `0 ${OFFSET}`, marginBottom: GAP }}>
-        <img src={src} alt={alt} style={{ width: "100%", height, objectFit: "cover", display: "block" }} />
+      <div style={{ padding: m ? 0 : `0 ${OFFSET}`, marginBottom: GAP }}>
+        <img src={src} alt={alt} style={{ width: "100%", height: m ? 260 : height, objectFit: "cover", display: "block" }} />
       </div>
     </Fade>
   );
 }
 
 function VerticalPair({ a, b, altA, altB }: { a: string; b: string; altA: string; altB: string }) {
+  const m = useIsMobile();
+  if (m) {
+    return (
+      <div style={{ marginBottom: GAP }}>
+        <Fade delay={0}>
+          <img src={a} alt={altA} style={{ width: "100%", height: 340, objectFit: "cover", objectPosition: "top", display: "block", marginBottom: GAP }} />
+        </Fade>
+        <Fade delay={80}>
+          <img src={b} alt={altB} style={{ width: "100%", height: 340, objectFit: "cover", objectPosition: "top", display: "block" }} />
+        </Fade>
+      </div>
+    );
+  }
   return (
     <div style={{ display: "flex", gap: GAP, padding: `0 ${OFFSET}`, marginBottom: GAP }}>
       <Fade className="flex-1" delay={0}>
@@ -83,10 +114,11 @@ function VerticalPair({ a, b, altA, altB }: { a: string; b: string; altA: string
 }
 
 function NarrowPortrait({ src, alt }: { src: string; alt: string }) {
+  const m = useIsMobile();
   return (
     <Fade>
-      <div style={{ padding: `0 ${OFFSET_NARROW}`, marginBottom: GAP }}>
-        <img src={src} alt={alt} style={{ width: "100%", height: 760, objectFit: "cover", objectPosition: "top", display: "block" }} />
+      <div style={{ padding: m ? "0 5%" : `0 ${OFFSET_NARROW}`, marginBottom: GAP }}>
+        <img src={src} alt={alt} style={{ width: "100%", height: m ? 420 : 760, objectFit: "cover", objectPosition: "top", display: "block" }} />
       </div>
     </Fade>
   );
@@ -97,18 +129,24 @@ function MixedLeft({ tall, top, bot, altTall, altTop, altBot }: {
   tall: string; top: string; bot: string;
   altTall: string; altTop: string; altBot: string;
 }) {
+  const m = useIsMobile();
+  if (m) {
+    return (
+      <div style={{ marginBottom: GAP }}>
+        <Fade delay={0}><img src={tall} alt={altTall} style={{ width: "100%", height: 360, objectFit: "cover", objectPosition: "top", display: "block", marginBottom: GAP }} /></Fade>
+        <Fade delay={80}><img src={top} alt={altTop} style={{ width: "100%", height: 240, objectFit: "cover", display: "block", marginBottom: GAP }} /></Fade>
+        <Fade delay={160}><img src={bot} alt={altBot} style={{ width: "100%", height: 240, objectFit: "cover", display: "block" }} /></Fade>
+      </div>
+    );
+  }
   return (
     <div style={{ display: "flex", gap: GAP, padding: `0 ${OFFSET}`, marginBottom: GAP }}>
-      <Fade delay={0} style={{ width: "40%" } as any}>
+      <Fade delay={0} style={{ width: "40%" }}>
         <img src={tall} alt={altTall} style={{ width: "100%", height: 740, objectFit: "cover", objectPosition: "top", display: "block" }} />
       </Fade>
       <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: GAP }}>
-        <Fade delay={80}>
-          <img src={top} alt={altTop} style={{ width: "100%", height: 366, objectFit: "cover", display: "block" }} />
-        </Fade>
-        <Fade delay={160}>
-          <img src={bot} alt={altBot} style={{ width: "100%", height: 366, objectFit: "cover", display: "block" }} />
-        </Fade>
+        <Fade delay={80}><img src={top} alt={altTop} style={{ width: "100%", height: 366, objectFit: "cover", display: "block" }} /></Fade>
+        <Fade delay={160}><img src={bot} alt={altBot} style={{ width: "100%", height: 366, objectFit: "cover", display: "block" }} /></Fade>
       </div>
     </div>
   );
@@ -119,17 +157,23 @@ function MixedRight({ top, bot, tall, altTop, altBot, altTall }: {
   top: string; bot: string; tall: string;
   altTop: string; altBot: string; altTall: string;
 }) {
+  const m = useIsMobile();
+  if (m) {
+    return (
+      <div style={{ marginBottom: GAP }}>
+        <Fade delay={0}><img src={top} alt={altTop} style={{ width: "100%", height: 240, objectFit: "cover", display: "block", marginBottom: GAP }} /></Fade>
+        <Fade delay={80}><img src={bot} alt={altBot} style={{ width: "100%", height: 240, objectFit: "cover", display: "block", marginBottom: GAP }} /></Fade>
+        <Fade delay={120}><img src={tall} alt={altTall} style={{ width: "100%", height: 360, objectFit: "cover", objectPosition: "top", display: "block" }} /></Fade>
+      </div>
+    );
+  }
   return (
     <div style={{ display: "flex", gap: GAP, padding: `0 ${OFFSET}`, marginBottom: GAP }}>
       <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: GAP }}>
-        <Fade delay={0}>
-          <img src={top} alt={altTop} style={{ width: "100%", height: 356, objectFit: "cover", display: "block" }} />
-        </Fade>
-        <Fade delay={80}>
-          <img src={bot} alt={altBot} style={{ width: "100%", height: 356, objectFit: "cover", display: "block" }} />
-        </Fade>
+        <Fade delay={0}><img src={top} alt={altTop} style={{ width: "100%", height: 356, objectFit: "cover", display: "block" }} /></Fade>
+        <Fade delay={80}><img src={bot} alt={altBot} style={{ width: "100%", height: 356, objectFit: "cover", display: "block" }} /></Fade>
       </div>
-      <Fade delay={120} style={{ width: "40%" } as any}>
+      <Fade delay={120} style={{ width: "40%" }}>
         <img src={tall} alt={altTall} style={{ width: "100%", height: 716, objectFit: "cover", objectPosition: "top", display: "block" }} />
       </Fade>
     </div>
@@ -206,17 +250,17 @@ export default function Beginnings() {
         </div>
 
         {/* Nav */}
-        <nav className={`absolute top-0 left-0 right-0 z-10 px-6 py-6 md:px-[100px] md:py-10 flex justify-between items-start transition-opacity duration-[800ms] ease-in-out ${mounted ? "opacity-100" : "opacity-0"}`}>
-          <Link href="/" className="font-serif text-2xl tracking-[0.02em] font-light text-[#F5F0E8] hover:opacity-80 transition-opacity duration-300">
-            Evermor
-          </Link>
-          <div className="flex gap-8 font-sans text-[13px] tracking-wide font-light">
-            <Link href="/" className="text-[#F5F0E8]/75 hover:text-[#F5F0E8] transition-colors duration-300">Home</Link>
-            <Link href="/beginnings" className="text-[#F5F0E8] transition-colors duration-300">Beginnings</Link>
-            <Link href="/about" className="text-[#F5F0E8]/75 hover:text-[#F5F0E8] transition-colors duration-300">About</Link>
-            <Link href="/begin-your-story" className="text-[#F5F0E8]/75 hover:text-[#F5F0E8] transition-colors duration-300">Begin Your Story</Link>
-          </div>
-        </nav>
+        <Nav
+          theme="dark"
+          mounted={mounted}
+          position="absolute"
+          links={[
+            { href: "/", label: "Home" },
+            { href: "/beginnings", label: "Beginnings", active: true },
+            { href: "/about", label: "About" },
+            { href: "/begin-your-story", label: "Begin Your Story" },
+          ]}
+        />
 
         {/* Hero content */}
         <div className="absolute bottom-[80px] left-6 md:left-[100px] z-10 flex flex-col items-start">
@@ -316,7 +360,7 @@ export default function Beginnings() {
         >
           {videoEmbed ? (
             /* Embedded player */
-            <div style={{ padding: "80px 15% 112px" }}>
+            <div style={{ padding: "clamp(40px,8vw,80px) clamp(24px,8vw,15%) clamp(56px,10vw,112px)" }}>
               <p className="font-sans font-light text-[10px] uppercase tracking-[0.35em] text-[#F5F0E8]/35 mb-8 text-center">Film</p>
               <p className="font-serif font-light text-[22px] md:text-[28px] text-[#F5F0E8] leading-[1.3] tracking-[0.01em] mb-2 text-center">{story.couple}</p>
               <p className="font-sans font-light text-[12px] text-[#F5F0E8]/40 tracking-[0.06em] uppercase mb-10 text-center">{story.location}</p>
