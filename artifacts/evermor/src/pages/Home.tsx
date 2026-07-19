@@ -118,7 +118,14 @@ export default function Home() {
   const [ch7NoteRef, ch7NoteInView] = useInView();
 
   const getStatementStyle = (start: number, end: number) => {
-    if (scrollProgress <= start || scrollProgress >= end) return { opacity: 0, transform: 'translateY(12px)', pointerEvents: 'none' as const };
+    // Already past this statement
+    if (scrollProgress >= end) return { opacity: 0, transform: 'translateY(-8px)', pointerEvents: 'none' as const };
+    // Before this statement's window
+    if (scrollProgress <= start) {
+      // First statement (start=0) should be fully visible before user scrolls into section
+      if (start === 0) return { opacity: 1, transform: 'translateY(0px)' };
+      return { opacity: 0, transform: 'translateY(12px)', pointerEvents: 'none' as const };
+    }
     const clamped = (scrollProgress - start) / (end - start);
     return {
       opacity: Math.sin(clamped * Math.PI),
@@ -168,7 +175,9 @@ export default function Home() {
           />
           {/* Warm Overlay */}
           <div className="absolute inset-0 bg-[#FAFAF8]/15 mix-blend-overlay" />
-          {/* Subtle gradient for text legibility at bottom */}
+          {/* Top gradient for nav legibility */}
+          <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/45 to-transparent" />
+          {/* Bottom gradient for hero text legibility */}
           <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/40 to-transparent" />
         </div>
 
