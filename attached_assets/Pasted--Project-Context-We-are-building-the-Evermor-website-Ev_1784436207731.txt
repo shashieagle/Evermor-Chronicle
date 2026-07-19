@@ -1,0 +1,283 @@
+# Project Context
+
+We are building the Evermor website.
+
+Evermor is NOT a wedding photography portfolio.
+
+It is an editorial storytelling experience built around preserving the beginning of a family's journey.
+
+The website already has a completed Homepage with a premium editorial design language:
+- Minimal
+- Elegant
+- Calm
+- Lots of whitespace
+- Serif + Sans typography
+- Soft fade animations
+- Large imagery
+- No flashy effects
+- No gradients
+- No glassmorphism
+- No heavy shadows
+- No unnecessary animations
+
+The navigation currently consists of:
+
+Home
+Beginnings
+About
+Begin Your Story
+
+The new page you are creating belongs under:
+
+/beginnings/[slug]
+
+Example:
+
+/beginnings/shaun-sowmya
+
+This page should inherit all typography, spacing, colors, navigation, transitions and design tokens from the Homepage.
+
+DO NOT redesign the navigation.
+
+DO NOT create a different visual language.
+
+The user should feel they are still inside the Evermor experience.
+
+--------------------------------------------------
+
+# Objective
+
+Implement ONLY Chapter 1 (Hero).
+
+Nothing else.
+
+Do not implement future chapters.
+
+Leave clean placeholders below for future sections.
+
+--------------------------------------------------
+
+# Hero Behaviour
+
+The hero occupies the full viewport height (100vh).
+
+The page should load directly into the hero.
+
+There should be no large margin above it.
+
+Navigation remains visible exactly as it behaves on the Homepage.
+
+--------------------------------------------------
+
+# Hero Layout
+
+Use one full-screen hero image.
+
+No carousel.
+
+No slideshow.
+
+No autoplay video.
+
+No zoom effect.
+
+No parallax.
+
+No background video.
+
+One single photograph only.
+
+The image should cover the viewport while preserving visual quality.
+
+Use object-fit: cover.
+
+The image should be capable of being swapped dynamically in future.
+
+--------------------------------------------------
+
+# Overlay
+
+Apply a subtle dark overlay only if necessary for text readability.
+
+The image should still feel bright and natural.
+
+Avoid making it overly cinematic or dark.
+
+--------------------------------------------------
+
+# Hero Content
+
+Bottom-left aligned.
+
+Keep generous margins.
+
+Content order:
+
+Title
+
+"A Second Beginning"
+
+Couple Names
+
+"Shaun & Sowmya"
+
+Location
+
+"Bangalore, India"
+
+Below this place a subtle downward indicator.
+
+The down indicator should gently fade in and out.
+
+No bouncing animation.
+
+--------------------------------------------------
+
+# Typography
+
+Title:
+
+Large elegant serif.
+
+Approximately 60–80px desktop.
+
+Responsive on mobile.
+
+Couple names:
+
+Clean sans-serif.
+
+Medium weight.
+
+Location:
+
+Small uppercase.
+
+Wide letter spacing.
+
+Muted opacity.
+
+Exactly the same typography system used throughout the Homepage.
+
+--------------------------------------------------
+
+# Spacing
+
+Keep large breathing room.
+
+Do not crowd the content near the edges.
+
+Desktop:
+80–120px padding from left.
+
+80px from bottom.
+
+Mobile:
+
+Maintain the same visual hierarchy.
+
+Do not simply shrink everything.
+
+Reposition intelligently.
+
+--------------------------------------------------
+
+# Animation
+
+When page loads:
+
+Image fades in.
+
+Text fades upward very subtly.
+
+Duration approximately:
+
+600–800ms.
+
+No dramatic motion.
+
+--------------------------------------------------
+
+# Responsiveness
+
+Desktop:
+Beautiful editorial composition.
+
+Tablet:
+Maintain proportions.
+
+Mobile:
+
+Image remains full screen.
+
+Text stays readable.
+
+No clipping.
+
+No overlap.
+
+--------------------------------------------------
+
+# Accessibility
+
+Use semantic HTML.
+
+Hero image must have descriptive alt text.
+
+Typography must meet accessibility contrast.
+
+Navigation remains keyboard accessible.
+
+--------------------------------------------------
+
+# Performance
+
+Hero image should support lazy optimisation without visual popping.
+
+Future image loading should be easy to integrate.
+
+--------------------------------------------------
+
+# Future Compatibility
+
+Below the hero create empty section containers ONLY.
+
+Do not implement them.
+
+Example:
+
+<section id="beginning-introduction"></section>
+
+<section id="story-gallery"></section>
+
+<section id="story-film"></section>
+
+<section id="quiet-moments"></section>
+
+<section id="reflection"></section>
+
+<section id="next-beginning"></section>
+
+These are placeholders only.
+
+--------------------------------------------------
+
+# Important
+
+Do not redesign any existing components.
+
+Reuse the Homepage component library wherever possible.
+
+Reuse typography tokens.
+
+Reuse spacing system.
+
+Reuse animation utilities.
+
+Reuse navigation.
+
+Maintain consistent design language.
+
+The user should feel this page naturally extends from the Homepage rather than looking like a separate project.
+
+Return clean, production-ready code that follows the existing project architecture.

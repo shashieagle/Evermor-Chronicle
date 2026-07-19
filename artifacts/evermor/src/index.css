@@ -32,3 +32,8 @@
     @apply font-sans antialiased bg-background text-foreground;
   }
 }
+
+@keyframes evermor-breathe {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.75; }
+}
