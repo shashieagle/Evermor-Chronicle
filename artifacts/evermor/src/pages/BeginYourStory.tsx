@@ -229,8 +229,8 @@ export default function BeginYourStory() {
 
       {/* ── 1. Hero — no image, pure typography ───────────────────── */}
       <section
-        className="relative flex flex-col items-center justify-center text-center"
-        style={{ minHeight: "85vh", padding: "120px clamp(24px, 8vw, 100px) 80px" }}
+        className="relative flex flex-col items-center justify-center text-center md:min-h-[85vh]"
+        style={{ padding: "clamp(110px, 18vh, 140px) clamp(24px, 8vw, 100px) clamp(60px, 10vh, 100px)" }}
       >
         {/* Nav */}
         <Nav

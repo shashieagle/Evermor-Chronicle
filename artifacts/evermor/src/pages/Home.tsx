@@ -505,12 +505,12 @@ export default function Home() {
 
         {/* Layout Block 2 */}
         <Link href="/beginnings/shaun-sowmya" className="block mt-12 md:mt-20 group cursor-pointer">
-          <div className="flex gap-3 md:gap-5 px-4 md:px-8 lg:px-16">
+          <div className="flex flex-col md:flex-row gap-3 md:gap-5 px-4 md:px-8 lg:px-16">
             <img
               ref={s2ImgRef}
               src="/s2.jpg"
               alt="Vertical portrait left"
-              className={`flex-1 h-[480px] md:h-[640px] lg:h-[740px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
+              className={`w-full flex-1 h-[320px] md:h-[640px] lg:h-[740px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
                 s2ImgInView ? "opacity-100" : "opacity-0"
               }`}
             />
@@ -518,7 +518,7 @@ export default function Home() {
               ref={s3ImgRef}
               src="/s3.jpg"
               alt="Vertical portrait right"
-              className={`flex-1 h-[480px] md:h-[640px] lg:h-[740px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
+              className={`w-full flex-1 h-[320px] md:h-[640px] lg:h-[740px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
                 s3ImgInView ? "opacity-100" : "opacity-0"
               }`}
               style={{ transitionDelay: s3ImgInView ? '100ms' : '0ms' }}
@@ -581,12 +581,12 @@ export default function Home() {
 
         {/* Layout Block 5 */}
         <Link href="/beginnings/shaun-sowmya" className="block mt-12 md:mt-20 group cursor-pointer">
-          <div className="flex gap-3 md:gap-5 px-4 md:px-8 lg:px-16">
+          <div className="flex flex-col md:flex-row gap-3 md:gap-5 px-4 md:px-8 lg:px-16">
             <img
               ref={s6ImgRef}
               src="/s6.jpg"
               alt="Vertical portrait left"
-              className={`flex-1 h-[480px] md:h-[640px] lg:h-[740px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
+              className={`w-full flex-1 h-[320px] md:h-[640px] lg:h-[740px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
                 s6ImgInView ? "opacity-100" : "opacity-0"
               }`}
             />
@@ -594,7 +594,7 @@ export default function Home() {
               ref={s7ImgRef}
               src="/s7.jpg"
               alt="Vertical portrait right"
-              className={`flex-1 h-[480px] md:h-[640px] lg:h-[740px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
+              className={`w-full flex-1 h-[320px] md:h-[640px] lg:h-[740px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
                 s7ImgInView ? "opacity-100" : "opacity-0"
               }`}
               style={{ transitionDelay: s7ImgInView ? '100ms' : '0ms' }}
@@ -629,7 +629,7 @@ export default function Home() {
             style={{ transitionDelay: ctaInView ? '150ms' : '0ms' }}
           >
             <span>Discover Your Story</span>
-            <span>──────────────→</span>
+            <span>→</span>
           </span>
         </div>
       </section>

@@ -323,7 +323,7 @@ export default function Beginnings() {
       </section>
 
       {/* ── 4. Pause ─────────────────────────────────────────────── */}
-      <section className="bg-[#F8F6F2] py-40 md:py-64">
+      <section className="bg-[#F8F6F2] py-20 md:py-40 lg:py-64">
         <div
           ref={pauseRef}
           className={`max-w-[560px] mx-auto px-6 md:px-0 text-center transition-all duration-[1100ms] ease-out ${pauseInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
@@ -405,7 +405,7 @@ export default function Beginnings() {
       </section>
 
       {/* ── 8. Reflection ────────────────────────────────────────── */}
-      <section className="bg-[#FAFAF8] py-40 md:py-64">
+      <section className="bg-[#FAFAF8] py-20 md:py-40 lg:py-64">
         <div
           ref={reflectionRef}
           className={`max-w-[580px] mx-auto px-6 md:px-0 transition-all duration-[1000ms] ease-out ${reflectionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
