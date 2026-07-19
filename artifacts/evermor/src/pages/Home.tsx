@@ -219,7 +219,6 @@ export default function Home() {
           </Link>
         </div>
       </section>
-
       {/* Chapter 2 - Why Evermor Exists */}
       <section className="bg-[#EAE3D3] py-32 md:py-48 flex flex-col items-center">
         <div
@@ -255,7 +254,6 @@ export default function Home() {
           Every family begins with a story.
         </p>
       </section>
-
       {/* Chapter 3 - Scroll Narrative */}
       <section ref={chapter3Ref} className="relative h-[400vh] w-full bg-[#EAE3D3]">
         <div className="sticky top-0 h-[100vh] overflow-hidden">
@@ -298,7 +296,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* Chapter 4 - Beliefs */}
       <section className="bg-[#F8F6F2] py-32 md:py-48">
 
@@ -469,7 +466,6 @@ export default function Home() {
           Every belief shapes the way we preserve your beginning.
         </p>
       </section>
-
       {/* Chapter 5 - Stories */}
       <section className="bg-[#F5F0E8] pt-32 md:pt-48 pb-32 md:pb-48">
         {/* Header */}
@@ -479,9 +475,7 @@ export default function Home() {
             className={`font-serif font-light text-[52px] md:text-[72px] lg:text-[84px] text-[#3A342C] leading-[1.1] tracking-[0.005em] text-center mb-8 md:mb-10 transition-all duration-[800ms] ease-out ${
               headingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
-          >
-            Stories
-          </h2>
+          >Beginnings</h2>
           <p
             ref={introRef}
             className={`font-sans font-light text-[15px] md:text-[17px] text-[#3A342C]/60 leading-[1.9] tracking-[0.02em] text-center transition-all duration-[800ms] ease-out ${
@@ -644,7 +638,6 @@ export default function Home() {
           </span>
         </div>
       </section>
-
       {/* Chapter 6 — Memory */}
       {/* Sticky scroll sequence */}
       <section ref={chapter6Ref} className="relative h-[600vh] w-full bg-[#F8F6F2]">
@@ -707,7 +700,6 @@ export default function Home() {
 
         </div>
       </section>
-
       {/* Chapter 6 — Closing (below sticky scroll) */}
       <section className="bg-[#F8F6F2] pt-32 md:pt-48 pb-40 md:pb-60">
         <div className="max-w-[640px] mx-auto px-6 md:px-0 text-center">
@@ -721,7 +713,6 @@ export default function Home() {
           </p>
         </div>
       </section>
-
       {/* Chapter 7 — Final Invitation */}
       <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
 
@@ -781,7 +772,6 @@ export default function Home() {
 
         </div>
       </section>
-
     </div>
   );
 }
