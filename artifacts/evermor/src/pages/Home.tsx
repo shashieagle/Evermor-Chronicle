@@ -69,6 +69,30 @@ export default function Home() {
   const chapter3Ref = useRef<HTMLElement>(null);
   const scrollProgress = useScrollProgress(chapter3Ref);
 
+  const [c4LabelRef, c4LabelInView] = useInView();
+  
+  const [b1HeadlineRef, b1HeadlineInView] = useInView();
+  const [b1CopyRef, b1CopyInView] = useInView();
+  const [b1ImageRef, b1ImageInView] = useInView();
+
+  const [b2HeadlineRef, b2HeadlineInView] = useInView();
+  const [b2CopyRef, b2CopyInView] = useInView();
+  const [b2ImageRef, b2ImageInView] = useInView();
+
+  const [b3HeadlineRef, b3HeadlineInView] = useInView();
+  const [b3CopyRef, b3CopyInView] = useInView();
+  const [b3ImageRef, b3ImageInView] = useInView();
+
+  const [b4HeadlineRef, b4HeadlineInView] = useInView();
+  const [b4CopyRef, b4CopyInView] = useInView();
+  const [b4ImageRef, b4ImageInView] = useInView();
+
+  const [b5HeadlineRef, b5HeadlineInView] = useInView();
+  const [b5CopyRef, b5CopyInView] = useInView();
+  const [b5ImageRef, b5ImageInView] = useInView();
+
+  const [c4ClosingRef, c4ClosingInView] = useInView();
+
   const getStatementStyle = (start: number, end: number) => {
     if (scrollProgress <= start || scrollProgress >= end) return { opacity: 0, transform: 'translateY(12px)', pointerEvents: 'none' as const };
     const clamped = (scrollProgress - start) / (end - start);
@@ -246,6 +270,172 @@ export default function Home() {
             </p>
           </div>
         </div>
+      </section>
+
+      {/* Chapter 4 - Beliefs */}
+      <section className="bg-[#F8F6F2] py-32 md:py-48">
+        <h2
+          ref={c4LabelRef}
+          className={`mb-20 md:mb-28 text-center uppercase tracking-[0.35em] font-sans font-light text-[11px] md:text-[12px] text-[#3A342C]/55 transition-all duration-[800ms] ease-out ${
+            c4LabelInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          }`}
+        >
+          WHAT WE BELIEVE.
+        </h2>
+
+        {/* Belief 1 */}
+        <div className="mb-28 md:mb-40">
+          <h3
+            ref={b1HeadlineRef}
+            className={`font-serif text-[36px] md:text-[48px] lg:text-[54px] font-light text-[#3A342C] tracking-[0.005em] leading-[1.15] text-center max-w-[760px] mx-auto px-6 md:px-0 transition-all duration-[800ms] ease-out ${
+              b1HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+          >
+            People before pictures.
+          </h3>
+          <p
+            ref={b1CopyRef}
+            className={`mt-6 md:mt-8 font-sans font-light text-[15px] md:text-[17px] text-[#3A342C]/70 leading-[1.85] tracking-[0.02em] text-center max-w-[680px] mx-auto px-6 md:px-0 transition-all duration-[800ms] ease-out ${
+              b1CopyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+            style={{ transitionDelay: b1CopyInView ? '150ms' : '0ms' }}
+          >
+            Every wedding is remembered through the people who lived it. Before we create photographs, we take the time to understand the relationships, emotions, and moments that matter most.
+          </p>
+          <img
+            ref={b1ImageRef}
+            src="/belief1.jpg"
+            alt="People before pictures"
+            className={`mt-14 md:mt-20 w-full h-[420px] md:h-[580px] object-cover object-center transition-all duration-[800ms] ease-out ${
+              b1ImageInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+          />
+        </div>
+
+        {/* Belief 2 */}
+        <div className="mb-28 md:mb-40">
+          <h3
+            ref={b2HeadlineRef}
+            className={`font-serif text-[36px] md:text-[48px] lg:text-[54px] font-light text-[#3A342C] tracking-[0.005em] leading-[1.15] text-center max-w-[760px] mx-auto px-6 md:px-0 transition-all duration-[800ms] ease-out ${
+              b2HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+          >
+            Stories before trends.
+          </h3>
+          <p
+            ref={b2CopyRef}
+            className={`mt-6 md:mt-8 font-sans font-light text-[15px] md:text-[17px] text-[#3A342C]/70 leading-[1.85] tracking-[0.02em] text-center max-w-[680px] mx-auto px-6 md:px-0 transition-all duration-[800ms] ease-out ${
+              b2CopyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+            style={{ transitionDelay: b2CopyInView ? '150ms' : '0ms' }}
+          >
+            Beautiful imagery may capture attention today, but meaningful stories continue to resonate for generations. We create work that remains timeless long after trends have faded.
+          </p>
+          <img
+            ref={b2ImageRef}
+            src="/belief2.jpg"
+            alt="Stories before trends"
+            className={`mt-14 md:mt-20 w-full h-[420px] md:h-[580px] object-cover object-center transition-all duration-[800ms] ease-out ${
+              b2ImageInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+          />
+        </div>
+
+        {/* Belief 3 */}
+        <div className="mb-28 md:mb-40">
+          <h3
+            ref={b3HeadlineRef}
+            className={`font-serif text-[36px] md:text-[48px] lg:text-[54px] font-light text-[#3A342C] tracking-[0.005em] leading-[1.15] text-center max-w-[760px] mx-auto px-6 md:px-0 transition-all duration-[800ms] ease-out ${
+              b3HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+          >
+            Discovery before documentation.
+          </h3>
+          <p
+            ref={b3CopyRef}
+            className={`mt-6 md:mt-8 font-sans font-light text-[15px] md:text-[17px] text-[#3A342C]/70 leading-[1.85] tracking-[0.02em] text-center max-w-[680px] mx-auto px-6 md:px-0 transition-all duration-[800ms] ease-out ${
+              b3CopyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+            style={{ transitionDelay: b3CopyInView ? '150ms' : '0ms' }}
+          >
+            Every couple is different. Every family carries its own history. Before a single frame is created, we invest time in discovering what makes your story uniquely yours.
+          </p>
+          <img
+            ref={b3ImageRef}
+            src="/belief3.jpg"
+            alt="Discovery before documentation"
+            className={`mt-14 md:mt-20 w-full h-[420px] md:h-[580px] object-cover object-center transition-all duration-[800ms] ease-out ${
+              b3ImageInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+          />
+        </div>
+
+        {/* Belief 4 */}
+        <div className="mb-28 md:mb-40">
+          <h3
+            ref={b4HeadlineRef}
+            className={`font-serif text-[36px] md:text-[48px] lg:text-[54px] font-light text-[#3A342C] tracking-[0.005em] leading-[1.15] text-center max-w-[760px] mx-auto px-6 md:px-0 transition-all duration-[800ms] ease-out ${
+              b4HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+          >
+            Craft with purpose.
+          </h3>
+          <p
+            ref={b4CopyRef}
+            className={`mt-6 md:mt-8 font-sans font-light text-[15px] md:text-[17px] text-[#3A342C]/70 leading-[1.85] tracking-[0.02em] text-center max-w-[680px] mx-auto px-6 md:px-0 transition-all duration-[800ms] ease-out ${
+              b4CopyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+            style={{ transitionDelay: b4CopyInView ? '150ms' : '0ms' }}
+          >
+            Every photograph, every film, every edit is made intentionally. We believe craftsmanship is measured not by complexity, but by emotional honesty.
+          </p>
+          <img
+            ref={b4ImageRef}
+            src="/belief4.jpg"
+            alt="Craft with purpose"
+            className={`mt-14 md:mt-20 w-full h-[420px] md:h-[580px] object-cover object-center transition-all duration-[800ms] ease-out ${
+              b4ImageInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+          />
+        </div>
+
+        {/* Belief 5 */}
+        <div className="mb-28 md:mb-40">
+          <h3
+            ref={b5HeadlineRef}
+            className={`font-serif text-[36px] md:text-[48px] lg:text-[54px] font-light text-[#3A342C] tracking-[0.005em] leading-[1.15] text-center max-w-[760px] mx-auto px-6 md:px-0 transition-all duration-[800ms] ease-out ${
+              b5HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+          >
+            Trust before everything.
+          </h3>
+          <p
+            ref={b5CopyRef}
+            className={`mt-6 md:mt-8 font-sans font-light text-[15px] md:text-[17px] text-[#3A342C]/70 leading-[1.85] tracking-[0.02em] text-center max-w-[680px] mx-auto px-6 md:px-0 transition-all duration-[800ms] ease-out ${
+              b5CopyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+            style={{ transitionDelay: b5CopyInView ? '150ms' : '0ms' }}
+          >
+            Being invited into one of life's most meaningful moments is a privilege. We carry that responsibility with care, respect, and gratitude throughout the entire journey.
+          </p>
+          <img
+            ref={b5ImageRef}
+            src="/belief5.jpg"
+            alt="Trust before everything"
+            className={`mt-14 md:mt-20 w-full h-[420px] md:h-[580px] object-cover object-center transition-all duration-[800ms] ease-out ${
+              b5ImageInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+          />
+        </div>
+
+        <p
+          ref={c4ClosingRef}
+          className={`mt-20 md:mt-32 font-serif font-light italic text-[18px] md:text-[22px] text-[#3A342C]/60 tracking-[0.02em] text-center max-w-[760px] mx-auto px-6 md:px-0 transition-all duration-[800ms] ease-out ${
+            c4ClosingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          }`}
+        >
+          Every belief shapes the way we preserve your beginning.
+        </p>
       </section>
     </div>
   );
