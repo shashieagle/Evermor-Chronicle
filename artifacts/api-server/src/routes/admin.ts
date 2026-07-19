@@ -51,17 +51,48 @@ router.get("/admin/stories/:slug", async (req: Request, res: Response) => {
   }
 });
 
+// ── Create story ──────────────────────────────────────────────────────────────
+router.post("/admin/stories", async (req: Request, res: Response) => {
+  const { slug, couple, location } = req.body;
+  if (!slug || !couple) return res.status(400).json({ error: "slug and couple are required" });
+  try {
+    const [story] = await db.insert(storiesTable).values({
+      slug: (slug as string).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
+      title: couple,
+      couple,
+      location: location || "",
+      hasFilm: false,
+      updatedAt: new Date(),
+    }).returning();
+    res.json({ story });
+  } catch (err: any) {
+    if (err?.code === "23505") return res.status(409).json({ error: "A story with this slug already exists" });
+    res.status(500).json({ error: "Failed to create story" });
+  }
+});
+
 // ── Update story fields ───────────────────────────────────────────────────────
 router.put("/admin/stories/:slug", async (req: Request, res: Response) => {
-  const { title, couple, location, narrative, pause, reflection, videoUrl, hasFilm } = req.body;
+  const { title, couple, location, narrative, pause, reflection, videoUrl, hasFilm, heroImage } = req.body;
   try {
     await db.update(storiesTable)
-      .set({ title, couple, location, narrative, pause, reflection, videoUrl, hasFilm,
+      .set({ title, couple, location, narrative, pause, reflection, videoUrl, hasFilm, heroImage,
              updatedAt: new Date() })
       .where(eq(storiesTable.slug, req.params.slug));
     res.json({ ok: true });
   } catch {
     res.status(500).json({ error: "Failed to update story" });
+  }
+});
+
+// ── Delete story ──────────────────────────────────────────────────────────────
+router.delete("/admin/stories/:slug", async (req: Request, res: Response) => {
+  try {
+    await db.delete(storyPhotosTable).where(eq(storyPhotosTable.storySlug, req.params.slug));
+    await db.delete(storiesTable).where(eq(storiesTable.slug, req.params.slug));
+    res.json({ ok: true });
+  } catch {
+    res.status(500).json({ error: "Failed to delete story" });
   }
 });
 

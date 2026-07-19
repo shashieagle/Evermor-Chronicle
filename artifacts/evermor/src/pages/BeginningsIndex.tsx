@@ -1,7 +1,18 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "wouter";
-import { stories } from "../data/stories";
 import Nav from "../components/Nav";
+
+const BASE = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
+const API  = `${BASE}/api`;
+
+interface ApiStory {
+  slug: string;
+  title: string;
+  couple: string;
+  location: string;
+  heroImage: string | null;
+  hasFilm: boolean;
+}
 
 function useInView(threshold = 0.15) {
   const [isInView, setIsInView] = useState(false);
@@ -21,10 +32,20 @@ function useInView(threshold = 0.15) {
 
 export default function BeginningsIndex() {
   const [mounted, setMounted] = useState(false);
+  const [stories, setStories] = useState<ApiStory[]>([]);
+  const [loading, setLoading] = useState(true);
   const [headingRef, headingInView] = useInView();
   const [introRef, introInView] = useInView();
 
   useEffect(() => { setMounted(true); }, []);
+
+  useEffect(() => {
+    fetch(`${API}/stories`)
+      .then(r => r.json())
+      .then(d => { setStories(d.stories || []); })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
 
   return (
     <div className="bg-[#FAFAF8] text-[#3A342C] min-h-screen">
@@ -66,9 +87,19 @@ export default function BeginningsIndex() {
 
       {/* Stories */}
       <div className="max-w-[900px] mx-auto px-6 md:px-0">
-        {stories.map((story, i) => (
-          <StoryRow key={story.slug} story={story} index={i} />
-        ))}
+        {loading ? (
+          <div className="py-20 text-center font-sans font-light text-[13px] text-[#3A342C]/35 tracking-[0.12em] uppercase">
+            Loading…
+          </div>
+        ) : stories.length === 0 ? (
+          <div className="py-20 text-center font-serif font-light text-[20px] text-[#3A342C]/40 italic">
+            Stories coming soon.
+          </div>
+        ) : (
+          stories.map((story, i) => (
+            <StoryRow key={story.slug} story={story} index={i} />
+          ))
+        )}
       </div>
 
       {/* Footer space */}
@@ -77,7 +108,7 @@ export default function BeginningsIndex() {
   );
 }
 
-function StoryRow({ story, index }: { story: (typeof stories)[0]; index: number }) {
+function StoryRow({ story, index }: { story: ApiStory; index: number }) {
   const [ref, inView] = useInView();
   const [imgRef, imgInView] = useInView(0.05);
 
@@ -89,13 +120,18 @@ function StoryRow({ story, index }: { story: (typeof stories)[0]; index: number 
         style={{ transitionDelay: inView ? `${index * 80}ms` : "0ms" }}
       >
         {/* Image */}
-        <div className="w-full md:w-[340px] shrink-0 overflow-hidden">
-          <img
-            ref={imgRef}
-            src={story.heroImage}
-            alt={`${story.couple} — ${story.location}`}
-            className={`w-full h-[260px] md:h-[220px] object-cover object-center transition-all duration-[700ms] ease-out group-hover:scale-[1.02] ${imgInView ? "opacity-100" : "opacity-0"}`}
-          />
+        <div className="w-full md:w-[340px] shrink-0 overflow-hidden bg-[#EAE3D3]">
+          {story.heroImage ? (
+            <img
+              ref={imgRef}
+              src={story.heroImage}
+              alt={`${story.couple} — ${story.location}`}
+              loading="lazy"
+              className={`w-full h-[260px] md:h-[220px] object-cover object-center transition-all duration-[700ms] ease-out group-hover:scale-[1.02] ${imgInView ? "opacity-100" : "opacity-0"}`}
+            />
+          ) : (
+            <div className="w-full h-[260px] md:h-[220px]" />
+          )}
         </div>
 
         {/* Meta */}

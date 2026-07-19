@@ -15,7 +15,7 @@ const API  = `${BASE}/api`;
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface StoryRow {
   slug: string; title: string; couple: string; location: string;
-  heroImage: string; hasFilm: boolean; videoUrl: string | null;
+  heroImage: string | null; hasFilm: boolean; videoUrl: string | null;
   narrative: string | null; pause: string | null; reflection: string | null;
 }
 interface Photo { id: number; url: string; objectPath: string | null; position: number; }
@@ -28,21 +28,30 @@ function apiHeaders(token: string) {
 function embedUrl(raw: string): string | null {
   try {
     const u = new URL(raw);
-    // YouTube
     const ytId = u.searchParams.get("v") ||
       (u.hostname === "youtu.be" ? u.pathname.slice(1) : null);
     if (ytId) return `https://www.youtube.com/embed/${ytId}`;
-    // Vimeo
     if (u.hostname.includes("vimeo.com")) {
       const id = u.pathname.split("/").filter(Boolean)[0];
       if (id) return `https://player.vimeo.com/video/${id}`;
     }
-    return raw; // pass through if already embed URL or unknown
+    return raw;
   } catch { return null; }
 }
 
+function toSlug(couple: string) {
+  return couple.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
 // ── Sortable photo tile ───────────────────────────────────────────────────────
-function SortablePhoto({ photo, onDelete }: { photo: Photo; onDelete: (id: number) => void }) {
+function SortablePhoto({
+  photo, onDelete, isHero, onSetHero,
+}: {
+  photo: Photo;
+  onDelete: (id: number) => void;
+  isHero: boolean;
+  onSetHero: (url: string) => void;
+}) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: photo.id });
   return (
@@ -59,6 +68,31 @@ function SortablePhoto({ photo, onDelete }: { photo: Photo; onDelete: (id: numbe
         style={{ width: "100%", aspectRatio: "3/4", objectFit: "cover", display: "block", borderRadius: 2 }}
         {...attributes} {...listeners}
       />
+      {/* Hero badge */}
+      {isHero && (
+        <div style={{
+          position: "absolute", top: 6, left: 6,
+          background: "rgba(58,52,44,0.85)", color: "#F5F0E8",
+          fontSize: 9, letterSpacing: "0.14em", textTransform: "uppercase",
+          padding: "3px 7px", borderRadius: 2, pointerEvents: "none",
+        }}>Hero</div>
+      )}
+      {/* Set hero button */}
+      {!isHero && (
+        <button
+          onClick={() => onSetHero(photo.url)}
+          onPointerDown={e => e.stopPropagation()}
+          title="Set as hero image"
+          style={{
+            position: "absolute", top: 6, left: 6,
+            width: 24, height: 24, borderRadius: "50%",
+            border: "none", background: "rgba(0,0,0,0.45)", color: "#fff",
+            fontSize: 13, lineHeight: 1, cursor: "pointer", display: "flex",
+            alignItems: "center", justifyContent: "center",
+          }}
+        >☆</button>
+      )}
+      {/* Delete button */}
       <button
         onClick={() => onDelete(photo.id)}
         onPointerDown={e => e.stopPropagation()}
@@ -99,6 +133,18 @@ export default function Admin() {
   const [uploading, setUploading] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
 
+  // New story modal
+  const [showNew, setShowNew]     = useState(false);
+  const [newCouple, setNewCouple] = useState("");
+  const [newLocation, setNewLocation] = useState("");
+  const [newSlug, setNewSlug]     = useState("");
+  const [creating, setCreating]   = useState(false);
+  const [createError, setCreateError] = useState("");
+
+  // Delete confirmation
+  const [showDelete, setShowDelete] = useState(false);
+  const [deleting, setDeleting]     = useState(false);
+
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
@@ -122,13 +168,16 @@ export default function Admin() {
   useEffect(() => { if (token) verify(token); }, []);
 
   // ── Load stories list ──────────────────────────────────────────────────────
-  useEffect(() => {
+  const loadStories = useCallback(async () => {
     if (!authed) return;
-    fetch(`${API}/admin/stories`, { headers: { "X-Admin-Token": token } })
-      .then(r => r.json())
-      .then(d => { setStories(d.stories || []); if (d.stories?.length) setSelected(d.stories[0].slug); })
-      .catch(() => {});
-  }, [authed]);
+    const r = await fetch(`${API}/admin/stories`, { headers: { "X-Admin-Token": token } });
+    const d = await r.json();
+    const list: StoryRow[] = d.stories || [];
+    setStories(list);
+    if (list.length && !selected) setSelected(list[0].slug);
+  }, [authed, token]);
+
+  useEffect(() => { loadStories(); }, [authed]);
 
   // ── Load selected story ────────────────────────────────────────────────────
   useEffect(() => {
@@ -167,6 +216,42 @@ export default function Admin() {
     setSaving(false);
   };
 
+  // ── Create story ───────────────────────────────────────────────────────────
+  const createStory = async () => {
+    if (!newCouple.trim()) return;
+    setCreating(true); setCreateError("");
+    const slug = newSlug || toSlug(newCouple);
+    try {
+      const r = await fetch(`${API}/admin/stories`, {
+        method: "POST", headers: apiHeaders(token),
+        body: JSON.stringify({ slug, couple: newCouple, location: newLocation }),
+      });
+      const d = await r.json();
+      if (!r.ok) { setCreateError(d.error || "Failed to create"); setCreating(false); return; }
+      setStories(prev => [...prev, d.story]);
+      setSelected(d.story.slug);
+      setShowNew(false); setNewCouple(""); setNewLocation(""); setNewSlug("");
+    } catch { setCreateError("Could not connect to server"); }
+    setCreating(false);
+  };
+
+  // ── Delete story ───────────────────────────────────────────────────────────
+  const deleteStory = async () => {
+    if (!selected) return;
+    setDeleting(true);
+    try {
+      await fetch(`${API}/admin/stories/${selected}`, {
+        method: "DELETE", headers: { "X-Admin-Token": token },
+      });
+      const remaining = stories.filter(s => s.slug !== selected);
+      setStories(remaining);
+      setSelected(remaining[0]?.slug ?? null);
+      if (!remaining.length) setStory(null);
+      setShowDelete(false);
+    } catch {}
+    setDeleting(false);
+  };
+
   // ── Upload photos ──────────────────────────────────────────────────────────
   const uploadFiles = async (files: FileList) => {
     if (!selected || files.length === 0) return;
@@ -175,14 +260,11 @@ export default function Admin() {
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       try {
-        // 1. Get presigned URL
         const urlRes = await fetch(`${API}/admin/photos/request-url`, {
           method: "POST", headers: apiHeaders(token),
         });
         const { uploadURL, objectPath } = await urlRes.json();
-        // 2. PUT file to GCS
         await fetch(uploadURL, { method: "PUT", body: file, headers: { "Content-Type": file.type } });
-        // 3. Save to DB
         const saveRes = await fetch(`${API}/admin/stories/${selected}/photos`, {
           method: "POST", headers: apiHeaders(token),
           body: JSON.stringify({ objectPath, position: nextPos + i }),
@@ -210,8 +292,27 @@ export default function Admin() {
 
   // ── Delete photo ───────────────────────────────────────────────────────────
   const deletePhoto = async (id: number) => {
+    const photo = photos.find(p => p.id === id);
     await fetch(`${API}/admin/photos/${id}`, { method: "DELETE", headers: { "X-Admin-Token": token } });
     setPhotos(prev => prev.filter(p => p.id !== id));
+    // Clear heroImage if this photo was the hero
+    if (photo && story && photo.url === story.heroImage) {
+      await fetch(`${API}/admin/stories/${selected}`, {
+        method: "PUT", headers: apiHeaders(token),
+        body: JSON.stringify({ ...form, heroImage: null }),
+      });
+      setStory(prev => prev ? { ...prev, heroImage: null } : prev);
+    }
+  };
+
+  // ── Set hero image ─────────────────────────────────────────────────────────
+  const setHeroImage = async (url: string) => {
+    if (!selected) return;
+    await fetch(`${API}/admin/stories/${selected}`, {
+      method: "PUT", headers: apiHeaders(token),
+      body: JSON.stringify({ ...form, heroImage: url }),
+    });
+    setStory(prev => prev ? { ...prev, heroImage: url } : prev);
   };
 
   // ── Styles ─────────────────────────────────────────────────────────────────
@@ -257,13 +358,102 @@ export default function Admin() {
   return (
     <div style={{ minHeight: "100vh", background: bg, color: ink, display: "flex", ...sans }}>
 
-      {/* Sidebar */}
-      <aside style={{ width: 240, borderRight: line, padding: "32px 0", flexShrink: 0, overflowY: "auto" }}>
+      {/* ── New Story Modal ───────────────────────────────────────────────── */}
+      {showNew && (
+        <div
+          onClick={() => setShowNew(false)}
+          style={{ position: "fixed", inset: 0, background: "rgba(26,22,18,0.5)", zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center" }}
+        >
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{ background: bg, width: 440, padding: 48, borderRadius: 2 }}
+          >
+            <h2 style={{ ...serif, fontSize: 24, fontWeight: 300, margin: "0 0 32px", color: ink }}>New Story</h2>
+            <div style={{ marginBottom: 20 }}>
+              <label style={label}>Couple names *</label>
+              <input
+                style={input}
+                placeholder="e.g. Priya & Rohan"
+                value={newCouple}
+                autoFocus
+                onChange={e => {
+                  setNewCouple(e.target.value);
+                  setNewSlug(toSlug(e.target.value));
+                }}
+              />
+            </div>
+            <div style={{ marginBottom: 20 }}>
+              <label style={label}>Location</label>
+              <input
+                style={input}
+                placeholder="e.g. Udaipur, India"
+                value={newLocation}
+                onChange={e => setNewLocation(e.target.value)}
+              />
+            </div>
+            <div style={{ marginBottom: 28 }}>
+              <label style={label}>URL slug (auto-generated)</label>
+              <input
+                style={{ ...input, color: `${ink}60` }}
+                value={newSlug}
+                onChange={e => setNewSlug(e.target.value)}
+              />
+              <p style={{ ...sans, fontSize: 11, color: `${ink}45`, marginTop: 6 }}>
+                Will appear at /beginnings/{newSlug || "…"}
+              </p>
+            </div>
+            {createError && <p style={{ ...sans, fontSize: 12, color: "#c0392b", marginBottom: 16 }}>{createError}</p>}
+            <div style={{ display: "flex", gap: 12 }}>
+              <button
+                onClick={createStory}
+                disabled={creating || !newCouple.trim()}
+                style={{ ...sans, fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", color: bg, background: ink, border: "none", padding: "12px 28px", cursor: "pointer", opacity: creating || !newCouple.trim() ? 0.5 : 1, flex: 1 }}
+              >{creating ? "Creating…" : "Create Story"}</button>
+              <button
+                onClick={() => { setShowNew(false); setCreateError(""); setNewCouple(""); setNewLocation(""); setNewSlug(""); }}
+                style={{ ...sans, fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", color: `${ink}60`, background: "transparent", border: line, padding: "12px 20px", cursor: "pointer" }}
+              >Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Delete Confirmation Modal ─────────────────────────────────────── */}
+      {showDelete && (
+        <div
+          onClick={() => setShowDelete(false)}
+          style={{ position: "fixed", inset: 0, background: "rgba(26,22,18,0.5)", zIndex: 100, display: "flex", alignItems: "center", justifyContent: "center" }}
+        >
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{ background: bg, width: 400, padding: 40, borderRadius: 2 }}
+          >
+            <h2 style={{ ...serif, fontSize: 22, fontWeight: 300, margin: "0 0 12px", color: ink }}>Delete story?</h2>
+            <p style={{ ...sans, fontSize: 13, color: `${ink}65`, lineHeight: 1.6, marginBottom: 28 }}>
+              This will permanently delete <strong>{story?.couple}</strong> and all their photos. This cannot be undone.
+            </p>
+            <div style={{ display: "flex", gap: 12 }}>
+              <button
+                onClick={deleteStory}
+                disabled={deleting}
+                style={{ ...sans, fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", color: "#fff", background: "#c0392b", border: "none", padding: "12px 24px", cursor: "pointer", opacity: deleting ? 0.6 : 1 }}
+              >{deleting ? "Deleting…" : "Delete"}</button>
+              <button
+                onClick={() => setShowDelete(false)}
+                style={{ ...sans, fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", color: `${ink}60`, background: "transparent", border: line, padding: "12px 20px", cursor: "pointer" }}
+              >Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Sidebar ───────────────────────────────────────────────────────── */}
+      <aside style={{ width: 240, borderRight: line, padding: "32px 0", flexShrink: 0, overflowY: "auto", display: "flex", flexDirection: "column" }}>
         <div style={{ padding: "0 24px 24px", borderBottom: line }}>
           <p style={{ ...serif, fontSize: 20, fontWeight: 300, margin: 0 }}>Evermor</p>
           <p style={{ fontSize: 11, color: `${ink}55`, letterSpacing: "0.18em", textTransform: "uppercase", margin: "4px 0 0" }}>Admin</p>
         </div>
-        <div style={{ padding: "16px 0" }}>
+        <div style={{ padding: "16px 0", flex: 1 }}>
           <p style={{ ...label, padding: "0 24px", marginBottom: 8 }}>Stories</p>
           {stories.map(s => (
             <button
@@ -281,6 +471,17 @@ export default function Admin() {
               <div style={{ fontSize: 11, color: `${ink}55`, marginTop: 2 }}>{s.location}</div>
             </button>
           ))}
+          {/* New story button */}
+          <button
+            onClick={() => setShowNew(true)}
+            style={{
+              display: "block", width: "100%", textAlign: "left",
+              padding: "10px 24px", border: "none", cursor: "pointer",
+              background: "transparent", borderLeft: "2px solid transparent",
+              color: `${ink}50`, fontSize: 12, marginTop: 8,
+              letterSpacing: "0.1em", textTransform: "uppercase",
+            }}
+          >+ New story</button>
         </div>
         <div style={{ padding: "16px 24px", borderTop: line }}>
           <button
@@ -290,19 +491,30 @@ export default function Admin() {
         </div>
       </aside>
 
-      {/* Main */}
+      {/* ── Main ──────────────────────────────────────────────────────────── */}
       <main style={{ flex: 1, overflowY: "auto", padding: "40px 56px" }}>
         {!story ? (
-          <p style={{ color: `${ink}40`, fontSize: 14 }}>Select a story</p>
+          <div style={{ paddingTop: 40 }}>
+            <p style={{ color: `${ink}40`, fontSize: 14, marginBottom: 24 }}>No story selected.</p>
+            <button
+              onClick={() => setShowNew(true)}
+              style={{ ...sans, fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", color: bg, background: ink, border: "none", padding: "12px 28px", cursor: "pointer" }}
+            >+ Create first story</button>
+          </div>
         ) : (
           <>
+            {/* Header */}
             <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 40 }}>
               <div>
                 <h2 style={{ ...serif, fontSize: 28, fontWeight: 300, margin: "0 0 4px" }}>{story.couple}</h2>
                 <p style={{ fontSize: 12, color: `${ink}55`, letterSpacing: "0.18em", textTransform: "uppercase", margin: 0 }}>{story.location}</p>
               </div>
-              <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
                 {saveMsg && <span style={{ fontSize: 12, color: saveMsg.includes("✓") ? "#2e7d32" : "#c0392b" }}>{saveMsg}</span>}
+                <button
+                  onClick={() => setShowDelete(true)}
+                  style={{ ...sans, fontSize: 12, letterSpacing: "0.14em", textTransform: "uppercase", color: `${ink}50`, background: "transparent", border: line, padding: "10px 18px", cursor: "pointer" }}
+                >Delete</button>
                 <button
                   onClick={save} disabled={saving}
                   style={{ ...sans, fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", color: bg, background: ink, border: "none", padding: "10px 28px", cursor: saving ? "default" : "pointer", opacity: saving ? 0.6 : 1 }}
@@ -310,10 +522,10 @@ export default function Admin() {
               </div>
             </div>
 
-            {/* ── Photos ─────────────────────────────────────────────── */}
+            {/* ── Photos ────────────────────────────────────────────────── */}
             <section style={{ marginBottom: 48 }}>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
-                <p style={label}>Photos <span style={{ fontWeight: 400, letterSpacing: 0, textTransform: "none" }}>— drag to reorder</span></p>
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+                <p style={label}>Photos <span style={{ fontWeight: 400, letterSpacing: 0, textTransform: "none" }}>— drag to reorder · ☆ sets hero image</span></p>
                 <div style={{ display: "flex", gap: 8 }}>
                   <input
                     ref={fileRef} type="file" accept="image/*" multiple
@@ -327,6 +539,18 @@ export default function Admin() {
                 </div>
               </div>
 
+              {/* Hero image indicator */}
+              {story.heroImage && (
+                <p style={{ ...sans, fontSize: 11, color: `${ink}45`, marginBottom: 16 }}>
+                  Hero image is set — shown on the Beginnings index.
+                </p>
+              )}
+              {!story.heroImage && photos.length > 0 && (
+                <p style={{ ...sans, fontSize: 11, color: "#b8860b", marginBottom: 16 }}>
+                  No hero image set. Click ☆ on a photo to use it as the cover on the Beginnings index.
+                </p>
+              )}
+
               {photos.length === 0 ? (
                 <div
                   onClick={() => fileRef.current?.click()}
@@ -339,7 +563,13 @@ export default function Admin() {
                   <SortableContext items={photos.map(p => p.id)} strategy={rectSortingStrategy}>
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))", gap: 8 }}>
                       {photos.map(p => (
-                        <SortablePhoto key={p.id} photo={p} onDelete={deletePhoto} />
+                        <SortablePhoto
+                          key={p.id}
+                          photo={p}
+                          onDelete={deletePhoto}
+                          isHero={p.url === story.heroImage}
+                          onSetHero={setHeroImage}
+                        />
                       ))}
                       {/* Upload tile */}
                       <div
@@ -352,7 +582,7 @@ export default function Admin() {
               )}
             </section>
 
-            {/* ── Details ────────────────────────────────────────────── */}
+            {/* ── Details ───────────────────────────────────────────────── */}
             <section style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginBottom: 40 }}>
               <div>
                 <label style={label}>Story title</label>
@@ -393,7 +623,7 @@ export default function Admin() {
               <textarea style={textarea} value={form.reflection} onChange={e => setForm(f => ({ ...f, reflection: e.target.value }))} rows={4} />
             </div>
 
-            {/* ── Video ──────────────────────────────────────────────── */}
+            {/* ── Video ─────────────────────────────────────────────────── */}
             <section style={{ borderTop: line, paddingTop: 40, marginBottom: 48 }}>
               <p style={label}>Film / video embed</p>
               <p style={{ fontSize: 12, color: `${ink}55`, marginBottom: 16, lineHeight: 1.6 }}>Paste a YouTube or Vimeo URL. The film section will show an embedded player instead of "available soon".</p>
