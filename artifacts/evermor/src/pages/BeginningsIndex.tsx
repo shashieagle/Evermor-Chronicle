@@ -120,17 +120,17 @@ function StoryRow({ story, index }: { story: ApiStory; index: number }) {
         style={{ transitionDelay: inView ? `${index * 80}ms` : "0ms" }}
       >
         {/* Image */}
-        <div className="w-full md:w-[340px] shrink-0 overflow-hidden bg-[#EAE3D3]">
+        <div className="w-full md:w-[300px] lg:w-[340px] shrink-0 overflow-hidden bg-[#EAE3D3] aspect-[3/4]">
           {story.heroImage ? (
             <img
               ref={imgRef}
               src={story.heroImage}
               alt={`${story.couple} — ${story.location}`}
               loading="lazy"
-              className={`w-full h-[260px] md:h-[220px] object-cover object-center transition-all duration-[700ms] ease-out group-hover:scale-[1.02] ${imgInView ? "opacity-100" : "opacity-0"}`}
+              className={`w-full h-full object-cover object-center transition-all duration-[700ms] ease-out group-hover:scale-[1.03] ${imgInView ? "opacity-100" : "opacity-0"}`}
             />
           ) : (
-            <div className="w-full h-[260px] md:h-[220px]" />
+            <div className="w-full h-full" />
           )}
         </div>
 
