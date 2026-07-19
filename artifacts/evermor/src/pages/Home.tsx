@@ -645,14 +645,6 @@ export default function Home() {
       <section ref={chapter6Ref} className="relative h-[600vh] w-full bg-[#F8F6F2]">
         <div className="sticky top-0 h-[100vh] overflow-hidden flex items-center justify-center">
 
-          {/* Persistent label */}
-          <p
-            className="absolute top-10 md:top-14 left-0 right-0 text-center uppercase tracking-[0.35em] font-sans font-light text-[10px] md:text-[11px] text-[#3A342C]"
-            style={{ opacity: Math.min(chapter6Progress * 25, 0.35), transition: 'opacity 1s ease' }}
-          >
-            MEMORY.
-          </p>
-
           {/* Statement 1 */}
           <div
             className="absolute inset-0 flex items-center justify-center px-6"
