@@ -27,37 +27,6 @@ function useInView() {
   return [ref, isInView] as const;
 }
 
-function useScrollProgress(ref: any) {
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!ref.current) return;
-      const rect = ref.current.getBoundingClientRect();
-      const sectionTop = window.scrollY + rect.top;
-      const sectionHeight = ref.current.offsetHeight;
-      const windowHeight = window.innerHeight;
-      
-      const scrollableHeight = sectionHeight - windowHeight;
-      if (scrollableHeight <= 0) return;
-      
-      const p = (window.scrollY - sectionTop) / scrollableHeight;
-      setProgress(Math.max(0, Math.min(1, p)));
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    
-    window.addEventListener('resize', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleScroll);
-    };
-  }, [ref]);
-
-  return progress;
-}
 
 export default function Home() {
   const [mounted, setMounted] = useState(false);
@@ -67,11 +36,18 @@ export default function Home() {
   const [imageRef, imageInView] = useInView();
   const [transitionLineRef, transitionLineInView] = useInView();
 
-  const chapter3Ref = useRef<HTMLElement>(null);
-  const scrollProgress = useScrollProgress(chapter3Ref);
+  // Chapter 3 — per-panel IntersectionObserver
+  const [ch3s1Ref, ch3s1InView] = useInView();
+  const [ch3s2Ref, ch3s2InView] = useInView();
+  const [ch3s3Ref, ch3s3InView] = useInView();
+  const [ch3imgRef, ch3imgInView] = useInView();
 
-  const chapter6Ref = useRef<HTMLElement>(null);
-  const chapter6Progress = useScrollProgress(chapter6Ref);
+  // Chapter 6 — per-panel IntersectionObserver
+  const [ch6s1Ref, ch6s1InView] = useInView();
+  const [ch6s2Ref, ch6s2InView] = useInView();
+  const [ch6s3Ref, ch6s3InView] = useInView();
+  const [ch6s4Ref, ch6s4InView] = useInView();
+  const [ch6s5Ref, ch6s5InView] = useInView();
 
   const [ch6ClosingRef, ch6ClosingInView] = useInView();
   const [ch6CtaRef, ch6CtaInView] = useInView();
@@ -117,42 +93,6 @@ export default function Home() {
   const [ch7BtnRef, ch7BtnInView] = useInView();
   const [ch7NoteRef, ch7NoteInView] = useInView();
 
-  const getStatementStyle = (start: number, end: number) => {
-    // Already past this statement
-    if (scrollProgress >= end) return { opacity: 0, transform: 'translateY(-8px)', pointerEvents: 'none' as const };
-    // Before this statement's window
-    if (scrollProgress <= start) {
-      // First statement (start=0) should be fully visible before user scrolls into section
-      if (start === 0) return { opacity: 1, transform: 'translateY(0px)' };
-      return { opacity: 0, transform: 'translateY(12px)', pointerEvents: 'none' as const };
-    }
-    const clamped = (scrollProgress - start) / (end - start);
-    return {
-      opacity: Math.sin(clamped * Math.PI),
-      transform: `translateY(${(1 - clamped * 2) * 12}px)`,
-    };
-  };
-
-  const getImageStyle = (start: number, end: number) => {
-    if (scrollProgress <= start) return { opacity: 0, pointerEvents: 'none' as const };
-    const clamped = (scrollProgress - start) / (end - start);
-    return {
-      opacity: clamped >= 0.5 ? 1 : Math.sin(clamped * Math.PI),
-    };
-  };
-
-  const getCh6Stmt = (start: number, end: number, linger = false): React.CSSProperties => {
-    if (chapter6Progress <= start) return { opacity: 0, transform: 'translateY(10px)', pointerEvents: 'none' };
-    if (chapter6Progress >= end) {
-      if (linger) return { opacity: 1, transform: 'translateY(0px)' };
-      return { opacity: 0, transform: 'translateY(-8px)', pointerEvents: 'none' };
-    }
-    const p = (chapter6Progress - start) / (end - start);
-    return {
-      opacity: Math.sin(p * Math.PI),
-      transform: `translateY(${(1 - p * 2) * 10}px)`,
-    };
-  };
 
   useEffect(() => {
     setMounted(true);
@@ -258,48 +198,69 @@ export default function Home() {
           Every family begins with a story.
         </p>
       </section>
-      {/* Chapter 3 - Scroll Narrative */}
-      <section ref={chapter3Ref} className="relative h-[400vh] w-full bg-[#EAE3D3]">
-        <div className="sticky top-0 h-[100vh] overflow-hidden">
-          {/* Statements */}
-          <div 
-            className="absolute inset-0 flex items-center justify-center font-serif text-[32px] md:text-[48px] lg:text-[56px] font-light text-[#3A342C] tracking-[0.01em] leading-[1.3] max-w-[760px] mx-auto text-center px-6"
-            style={getStatementStyle(0.00, 0.25)}
+      {/* Chapter 3 - Scroll Narrative (per-panel, IntersectionObserver) */}
+      <div className="w-full bg-[#EAE3D3]">
+        {/* Panel 1 */}
+        <div
+          ref={ch3s1Ref}
+          className="flex items-center justify-center min-h-screen px-8"
+        >
+          <p
+            className={`font-serif font-light text-[32px] md:text-[52px] lg:text-[60px] text-[#3A342C] tracking-[0.01em] leading-[1.25] text-center max-w-[720px] transition-all duration-[1100ms] ease-out ${
+              ch3s1InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
           >
             A wedding marks a moment.
-          </div>
-          
-          <div 
-            className="absolute inset-0 flex items-center justify-center font-serif text-[32px] md:text-[48px] lg:text-[56px] font-light text-[#3A342C] tracking-[0.01em] leading-[1.3] max-w-[760px] mx-auto text-center px-6"
-            style={getStatementStyle(0.25, 0.50)}
+          </p>
+        </div>
+
+        {/* Panel 2 */}
+        <div
+          ref={ch3s2Ref}
+          className="flex items-center justify-center min-h-screen px-8"
+        >
+          <p
+            className={`font-serif font-light text-[32px] md:text-[52px] lg:text-[60px] text-[#3A342C] tracking-[0.01em] leading-[1.25] text-center max-w-[720px] transition-all duration-[1100ms] ease-out ${
+              ch3s2InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
           >
             A marriage shapes a lifetime.
-          </div>
-          
-          <div 
-            className="absolute inset-0 flex items-center justify-center font-serif text-[32px] md:text-[48px] lg:text-[56px] font-light text-[#3A342C] tracking-[0.01em] leading-[1.3] max-w-[760px] mx-auto text-center px-6"
-            style={getStatementStyle(0.50, 0.70)}
+          </p>
+        </div>
+
+        {/* Panel 3 */}
+        <div
+          ref={ch3s3Ref}
+          className="flex items-center justify-center min-h-screen px-8"
+        >
+          <p
+            className={`font-serif font-light text-[32px] md:text-[52px] lg:text-[60px] text-[#3A342C] tracking-[0.01em] leading-[1.25] text-center max-w-[720px] transition-all duration-[1100ms] ease-out ${
+              ch3s3InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
           >
             The beginning deserves to be remembered.
-          </div>
-
-          {/* Image Reveal */}
-          <div 
-            className="absolute inset-0"
-            style={getImageStyle(0.70, 1.00)}
-          >
-            <img 
-              src="/chapter3.jpg" 
-              alt="Editorial wedding photography" 
-              className="w-full h-full object-cover object-center"
-            />
-            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/30 to-transparent" />
-            <p className="absolute bottom-12 md:bottom-16 left-0 right-0 text-center font-serif font-light italic text-[16px] md:text-[20px] text-[#F5F0E8]/85 tracking-[0.02em]">
-              How we preserve that beginning matters.
-            </p>
-          </div>
+          </p>
         </div>
-      </section>
+
+        {/* Panel 4 — Image */}
+        <div
+          ref={ch3imgRef}
+          className={`relative h-[80vh] md:h-screen overflow-hidden transition-opacity duration-[1400ms] ease-out ${
+            ch3imgInView ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
+          <img
+            src="/chapter3.jpg"
+            alt="Editorial wedding photography"
+            className="w-full h-full object-cover object-center"
+            loading="lazy"
+          />
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/35 to-transparent" />
+          <p className="absolute bottom-12 md:bottom-16 left-0 right-0 text-center font-serif font-light italic text-[16px] md:text-[20px] text-[#F5F0E8]/85 tracking-[0.02em]">
+            How we preserve that beginning matters.
+          </p>
+        </div>
+      </div>
       {/* Chapter 4 - Beliefs */}
       <section className="bg-[#F8F6F2] py-20 md:py-32 lg:py-48">
 
@@ -642,68 +603,83 @@ export default function Home() {
           </span>
         </div>
       </section>
-      {/* Chapter 6 — Memory */}
-      {/* Sticky scroll sequence */}
-      <section ref={chapter6Ref} className="relative h-[600vh] w-full bg-[#F8F6F2]">
-        <div className="sticky top-0 h-[100vh] overflow-hidden flex items-center justify-center">
-
-          {/* Statement 1 */}
-          <div
-            className="absolute inset-0 flex items-center justify-center px-6"
-            style={getCh6Stmt(0.00, 0.17)}
+      {/* Chapter 6 — Memory (per-panel, IntersectionObserver) */}
+      <div className="w-full bg-[#F8F6F2]">
+        {/* Panel 1 */}
+        <div
+          ref={ch6s1Ref}
+          className="flex items-center justify-center min-h-screen px-8"
+        >
+          <p
+            className={`font-serif font-light text-[32px] md:text-[50px] lg:text-[58px] text-[#3A342C] leading-[1.2] tracking-[0.005em] text-center max-w-[720px] transition-all duration-[1100ms] ease-out ${
+              ch6s1InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
           >
-            <p className="font-serif font-light text-[32px] md:text-[50px] lg:text-[58px] text-[#3A342C] leading-[1.2] tracking-[0.005em] text-center max-w-[720px]">
-              Every family remembers differently.
-            </p>
-          </div>
-
-          {/* Statement 2 — four lines */}
-          <div
-            className="absolute inset-0 flex items-center justify-center px-6"
-            style={getCh6Stmt(0.20, 0.42)}
-          >
-            <div className="text-center max-w-[600px]">
-              <p className="font-serif font-light text-[22px] md:text-[34px] lg:text-[40px] text-[#3A342C] leading-[1.7] tracking-[0.01em]">
-                Some remember voices.<br />
-                Some remember photographs.<br />
-                Some remember places.<br />
-                Some remember silence.
-              </p>
-            </div>
-          </div>
-
-          {/* Statement 3 */}
-          <div
-            className="absolute inset-0 flex items-center justify-center px-6"
-            style={getCh6Stmt(0.44, 0.62)}
-          >
-            <p className="font-serif font-light text-[28px] md:text-[44px] lg:text-[52px] text-[#3A342C] leading-[1.25] tracking-[0.005em] text-center max-w-[700px]">
-              But every family deserves something that brings them back.
-            </p>
-          </div>
-
-          {/* Statement 4 */}
-          <div
-            className="absolute inset-0 flex items-center justify-center px-6"
-            style={getCh6Stmt(0.64, 0.79)}
-          >
-            <p className="font-serif font-light text-[30px] md:text-[48px] lg:text-[56px] text-[#3A342C] leading-[1.2] tracking-[0.005em] text-center max-w-[680px]">
-              We don't simply preserve what happened.
-            </p>
-          </div>
-
-          {/* Statement 5 — lingers */}
-          <div
-            className="absolute inset-0 flex items-center justify-center px-6"
-            style={{ ...getCh6Stmt(0.81, 1.00, true), transition: 'opacity 1.2s ease, transform 1.2s ease' }}
-          >
-            <p className="font-serif font-light text-[40px] md:text-[62px] lg:text-[72px] text-[#3A342C] leading-[1.1] tracking-[0.005em] text-center max-w-[680px]">
-              We preserve what it meant.
-            </p>
-          </div>
-
+            Every family remembers differently.
+          </p>
         </div>
-      </section>
+
+        {/* Panel 2 — four lines */}
+        <div
+          ref={ch6s2Ref}
+          className="flex items-center justify-center min-h-screen px-8"
+        >
+          <div
+            className={`text-center max-w-[600px] transition-all duration-[1100ms] ease-out ${
+              ch6s2InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+          >
+            <p className="font-serif font-light text-[24px] md:text-[36px] lg:text-[42px] text-[#3A342C] leading-[1.8] tracking-[0.01em]">
+              Some remember voices.<br />
+              Some remember photographs.<br />
+              Some remember places.<br />
+              Some remember silence.
+            </p>
+          </div>
+        </div>
+
+        {/* Panel 3 */}
+        <div
+          ref={ch6s3Ref}
+          className="flex items-center justify-center min-h-screen px-8"
+        >
+          <p
+            className={`font-serif font-light text-[28px] md:text-[44px] lg:text-[52px] text-[#3A342C] leading-[1.25] tracking-[0.005em] text-center max-w-[700px] transition-all duration-[1100ms] ease-out ${
+              ch6s3InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+          >
+            But every family deserves something that brings them back.
+          </p>
+        </div>
+
+        {/* Panel 4 */}
+        <div
+          ref={ch6s4Ref}
+          className="flex items-center justify-center min-h-screen px-8"
+        >
+          <p
+            className={`font-serif font-light text-[30px] md:text-[48px] lg:text-[56px] text-[#3A342C] leading-[1.2] tracking-[0.005em] text-center max-w-[680px] transition-all duration-[1100ms] ease-out ${
+              ch6s4InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+          >
+            We don't simply preserve what happened.
+          </p>
+        </div>
+
+        {/* Panel 5 — closing statement, larger */}
+        <div
+          ref={ch6s5Ref}
+          className="flex items-center justify-center min-h-screen px-8"
+        >
+          <p
+            className={`font-serif font-light text-[40px] md:text-[62px] lg:text-[72px] text-[#3A342C] leading-[1.1] tracking-[0.005em] text-center max-w-[680px] transition-all duration-[1400ms] ease-out ${
+              ch6s5InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+          >
+            We preserve what it meant.
+          </p>
+        </div>
+      </div>
       {/* Chapter 6 — Closing (below sticky scroll) */}
       <section className="bg-[#F8F6F2] pt-32 md:pt-48 pb-40 md:pb-60">
         <div className="max-w-[640px] mx-auto px-6 md:px-0 text-center">
