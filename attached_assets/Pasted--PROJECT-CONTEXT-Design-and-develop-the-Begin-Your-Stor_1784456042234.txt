@@ -1,0 +1,538 @@
+# PROJECT CONTEXT
+
+Design and develop the "Begin Your Story" page for the Evermor website.
+
+Evermor is an editorial storytelling studio that preserves the beginning of a family's story.
+
+The Homepage, Beginnings page, Individual Beginning pages and About page are already completed.
+
+This page is NOT a contact page.
+
+It is the first conversation between Evermor and a couple.
+
+The experience should feel warm, calm, personal and deeply intentional.
+
+Visitors should leave feeling understood rather than processed.
+
+Reuse the existing design system completely.
+
+DO NOT redesign the website.
+
+Reuse:
+
+• Navigation
+• Typography
+• Colours
+• Background
+• Grid
+• Spacing
+• Components
+• Motion
+• Footer
+
+The page must feel like the final chapter before a conversation begins.
+
+------------------------------------------------------------
+
+# PAGE STRUCTURE
+
+The page contains only four movements.
+
+1. Hero
+
+2. Gentle Introduction
+
+3. The Conversation
+
+4. Quiet Closing
+
+Nothing else.
+
+No testimonials.
+
+No FAQ.
+
+No pricing.
+
+No cards.
+
+No decorative graphics.
+
+No icons.
+
+No illustrations.
+
+------------------------------------------------------------
+
+# HERO
+
+Height:
+Approximately 85vh.
+
+No hero image.
+
+The page should breathe.
+
+Everything is centred.
+
+Large whitespace.
+
+------------------------------------------------------------
+
+Headline
+
+Begin Your Story
+
+------------------------------------------------------------
+
+Supporting copy
+
+Every story begins with a conversation.
+
+We'd love to know a little about the two of you before we ever pick up a camera.
+
+------------------------------------------------------------
+
+Below this...
+
+A subtle downward scroll indicator.
+
+Minimal.
+
+No dramatic animation.
+
+------------------------------------------------------------
+
+# GENTLE INTRODUCTION
+
+After generous whitespace...
+
+Display a small editorial note.
+
+There are no right or wrong answers.
+
+Write as much or as little as you'd like.
+
+The more we understand your story,
+the more honestly we can preserve it.
+
+Small typography.
+
+Muted colour.
+
+Maximum width:
+560px.
+
+Centre aligned.
+
+------------------------------------------------------------
+
+# THE CONVERSATION
+
+Maximum content width:
+
+720px.
+
+Single-column layout.
+
+No cards.
+
+No bordered sections.
+
+No grey backgrounds.
+
+The page should feel like writing in a beautiful journal.
+
+Each question has generous vertical spacing.
+
+Approximately 56–72px between questions.
+
+------------------------------------------------------------
+
+BEGIN WITH
+
+Your Name
+
+Simple text input.
+
+------------------------------------------------------------
+
+Your Partner's Name
+
+Simple text input.
+
+------------------------------------------------------------
+
+Email Address
+
+Email input.
+
+------------------------------------------------------------
+
+Phone Number
+
+Telephone input.
+
+------------------------------------------------------------
+
+Where are you based?
+
+Placeholder:
+
+Bangalore, India
+
+------------------------------------------------------------
+
+Wedding Date
+
+Date picker.
+
+Allow empty value.
+
+Placeholder:
+
+We're still deciding.
+
+------------------------------------------------------------
+
+After generous whitespace...
+
+Display a small editorial heading.
+
+Tell us about yourselves.
+
+Small elegant typography.
+
+------------------------------------------------------------
+
+QUESTION
+
+How did your story begin?
+
+Large expanding textarea.
+
+Placeholder
+
+Tell us how you met, what brought you together, or anything you'd like us to know about your journey.
+
+------------------------------------------------------------
+
+QUESTION
+
+What are you most excited about when you think of your wedding day?
+
+Large expanding textarea.
+
+Placeholder
+
+Maybe it's seeing each other for the first time...
+
+A family tradition...
+
+A quiet moment together...
+
+Or simply having everyone you love in one place.
+
+------------------------------------------------------------
+
+QUESTION
+
+Is there anything especially important to your family that you'd love us to know?
+
+Large expanding textarea.
+
+Placeholder
+
+Every family has traditions, relationships and stories that deserve to be remembered.
+
+------------------------------------------------------------
+
+QUESTION
+
+What drew you to Evermor?
+
+Large expanding textarea.
+
+Placeholder
+
+We'd love to know what resonated with you.
+
+------------------------------------------------------------
+
+After generous whitespace...
+
+Display a small editorial heading.
+
+A few practical details.
+
+------------------------------------------------------------
+
+Venue
+
+Optional.
+
+Placeholder
+
+If you've chosen one already.
+
+------------------------------------------------------------
+
+Estimated Guest Count
+
+Dropdown
+
+Below 100
+
+100–200
+
+200–400
+
+400+
+
+We're not sure yet
+
+------------------------------------------------------------
+
+What are you looking for?
+
+Elegant radio buttons.
+
+Photography
+
+Photography + Film
+
+We're still exploring
+
+------------------------------------------------------------
+
+Budget Range
+
+Dropdown
+
+₹2–4 Lakhs
+
+₹4–6 Lakhs
+
+₹6–8 Lakhs
+
+₹8 Lakhs+
+
+Let's discuss together
+
+------------------------------------------------------------
+
+# SUBMISSION AREA
+
+After generous whitespace...
+
+Display the following text.
+
+Thank you for taking the time to share a little of your story.
+
+Every inquiry is read personally by us.
+
+We'll usually get back to you within two working days.
+
+Maximum width:
+560px.
+
+Centre aligned.
+
+------------------------------------------------------------
+
+Below this...
+
+Display the primary action.
+
+Share Your Story →
+
+Do NOT use a filled button.
+
+Do NOT use an outlined button.
+
+Display it as elegant editorial typography.
+
+Hover interaction:
+
+• subtle underline
+
+OR
+
+• gentle opacity transition
+
+Nothing else.
+
+------------------------------------------------------------
+
+# QUIET CLOSING
+
+After another generous amount of whitespace...
+
+Display one final sentence.
+
+Every family begins somewhere.
+
+Thank you for letting us become a small part of yours.
+
+Small typography.
+
+Muted colour.
+
+Centre aligned.
+
+This should feel like the final sentence of a beautifully printed book.
+
+------------------------------------------------------------
+
+# DESIGN LANGUAGE
+
+The entire page should feel calm.
+
+Minimal.
+
+Editorial.
+
+Quiet.
+
+Human.
+
+Whitespace is a design element.
+
+Avoid visual noise.
+
+Do not introduce:
+
+• Cards
+
+• Shadows
+
+• Borders around sections
+
+• Large coloured backgrounds
+
+• Decorative shapes
+
+• Icons
+
+• Illustrations
+
+Everything should feel effortless.
+
+------------------------------------------------------------
+
+# FORM DESIGN
+
+Inputs should almost disappear.
+
+Use either:
+
+• thin underline
+
+OR
+
+• extremely subtle border
+
+Rounded corners should be minimal.
+
+Labels remain visible.
+
+Focused input:
+
+• underline darkens slightly
+
+• label shifts subtly
+
+No dramatic animations.
+
+Textareas automatically expand while typing.
+
+------------------------------------------------------------
+
+# TYPOGRAPHY
+
+Maintain the existing Evermor typography system.
+
+Editorial rhythm.
+
+Generous line-height.
+
+Large whitespace between paragraphs.
+
+Never allow long walls of text.
+
+------------------------------------------------------------
+
+# RESPONSIVENESS
+
+Desktop:
+
+Single elegant reading column.
+
+Tablet:
+
+Maintain generous margins.
+
+Mobile:
+
+Preserve whitespace.
+
+Do not compress vertical rhythm.
+
+The page should still feel slow and intentional.
+
+------------------------------------------------------------
+
+# ACCESSIBILITY
+
+Semantic HTML.
+
+Accessible labels.
+
+Keyboard navigation.
+
+Visible focus states.
+
+ARIA where appropriate.
+
+------------------------------------------------------------
+
+# PERFORMANCE
+
+Reuse existing components.
+
+Reuse typography tokens.
+
+Reuse spacing utilities.
+
+Reuse animations.
+
+Do not introduce additional libraries.
+
+------------------------------------------------------------
+
+# MOTION
+
+Reuse the site's animation system.
+
+Fade-up transitions only.
+
+Duration:
+600–800ms.
+
+No parallax.
+
+No cinematic effects.
+
+No excessive scrolling animations.
+
+------------------------------------------------------------
+
+# FINAL EXPERIENCE
+
+When someone finishes this page, they should not feel like they submitted an enquiry.
+
+They should feel like they have written the first page of their family's story.
+
+The entire experience should feel deeply personal, elegant and timeless.
+
+Return clean, production-ready code that integrates seamlessly into the existing Evermor website.

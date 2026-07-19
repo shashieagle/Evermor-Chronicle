@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Beginnings from './pages/Beginnings';
 import BeginningsIndex from './pages/BeginningsIndex';
 import About from './pages/About';
+import BeginYourStory from './pages/BeginYourStory';
 import Admin from './pages/Admin';
 
 const queryClient = new QueryClient();
@@ -15,6 +16,7 @@ function Router() {
       <Route path="/beginnings" component={BeginningsIndex} />
       <Route path="/beginnings/:slug" component={Beginnings} />
       <Route path="/about" component={About} />
+      <Route path="/begin-your-story" component={BeginYourStory} />
       <Route path="/admin" component={Admin} />
     </Switch>
   );
