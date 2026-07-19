@@ -2,20 +2,121 @@ import { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "wouter";
 import { storiesBySlug, stories } from "../data/stories";
 
-function useInView(threshold = 0.12) {
+function useInView(threshold = 0.08) {
   const [isInView, setIsInView] = useState(false);
   const ref = useRef<any>(null);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setIsInView(true); observer.unobserve(el); } },
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setIsInView(true); obs.unobserve(el); } },
       { threshold }
     );
-    observer.observe(el);
-    return () => observer.disconnect();
+    obs.observe(el);
+    return () => obs.disconnect();
   }, []);
   return [ref, isInView] as const;
+}
+
+// Consistent D-layout constants
+const PX  = 60;   // side margin in px — the warm frame that always shows
+const GAP = 5;    // gap between adjacent images
+
+// Fade wrapper for scroll-in
+function Fade({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
+  const [ref, inView] = useInView();
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        transition: `opacity 900ms ease-out ${delay}ms, transform 900ms ease-out ${delay}ms`,
+        opacity: inView ? 1 : 0,
+        transform: inView ? "translateY(0)" : "translateY(18px)",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+// ── Gallery blocks ────────────────────────────────────────────────────────────
+
+function Horizontal({ src, alt, height = 460 }: { src: string; alt: string; height?: number }) {
+  return (
+    <Fade>
+      <div style={{ padding: `0 ${PX}px`, marginBottom: GAP }}>
+        <img src={src} alt={alt} style={{ width: "100%", height, objectFit: "cover", display: "block" }} />
+      </div>
+    </Fade>
+  );
+}
+
+function VerticalPair({ a, b, altA, altB }: { a: string; b: string; altA: string; altB: string }) {
+  return (
+    <div style={{ display: "flex", gap: GAP, padding: `0 ${PX}px`, marginBottom: GAP }}>
+      <Fade className="flex-1" delay={0}>
+        <img src={a} alt={altA} style={{ width: "100%", height: 720, objectFit: "cover", objectPosition: "top", display: "block" }} />
+      </Fade>
+      <Fade className="flex-1" delay={120}>
+        <img src={b} alt={altB} style={{ width: "100%", height: 720, objectFit: "cover", objectPosition: "top", display: "block" }} />
+      </Fade>
+    </div>
+  );
+}
+
+function NarrowPortrait({ src, alt }: { src: string; alt: string }) {
+  return (
+    <Fade>
+      <div style={{ padding: `0 ${PX * 3.5}px`, marginBottom: GAP }}>
+        <img src={src} alt={alt} style={{ width: "100%", height: 760, objectFit: "cover", objectPosition: "top", display: "block" }} />
+      </div>
+    </Fade>
+  );
+}
+
+// Tall vertical left (40%) + two horizontal strips stacked right
+function MixedLeft({ tall, top, bot, altTall, altTop, altBot }: {
+  tall: string; top: string; bot: string;
+  altTall: string; altTop: string; altBot: string;
+}) {
+  return (
+    <div style={{ display: "flex", gap: GAP, padding: `0 ${PX}px`, marginBottom: GAP }}>
+      <Fade delay={0} style={{ width: "40%" } as any}>
+        <img src={tall} alt={altTall} style={{ width: "100%", height: 740, objectFit: "cover", objectPosition: "top", display: "block" }} />
+      </Fade>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: GAP }}>
+        <Fade delay={80}>
+          <img src={top} alt={altTop} style={{ width: "100%", height: 366, objectFit: "cover", display: "block" }} />
+        </Fade>
+        <Fade delay={160}>
+          <img src={bot} alt={altBot} style={{ width: "100%", height: 366, objectFit: "cover", display: "block" }} />
+        </Fade>
+      </div>
+    </div>
+  );
+}
+
+// Two horizontal strips stacked left + tall vertical right (40%)
+function MixedRight({ top, bot, tall, altTop, altBot, altTall }: {
+  top: string; bot: string; tall: string;
+  altTop: string; altBot: string; altTall: string;
+}) {
+  return (
+    <div style={{ display: "flex", gap: GAP, padding: `0 ${PX}px`, marginBottom: GAP }}>
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: GAP }}>
+        <Fade delay={0}>
+          <img src={top} alt={altTop} style={{ width: "100%", height: 356, objectFit: "cover", display: "block" }} />
+        </Fade>
+        <Fade delay={80}>
+          <img src={bot} alt={altBot} style={{ width: "100%", height: 356, objectFit: "cover", display: "block" }} />
+        </Fade>
+      </div>
+      <Fade delay={120} style={{ width: "40%" } as any}>
+        <img src={tall} alt={altTall} style={{ width: "100%", height: 716, objectFit: "cover", objectPosition: "top", display: "block" }} />
+      </Fade>
+    </div>
+  );
 }
 
 export default function Beginnings() {
@@ -23,18 +124,12 @@ export default function Beginnings() {
   const [mounted, setMounted] = useState(false);
 
   const story = slug ? storiesBySlug[slug] : undefined;
-
-  // Find next story for invitation section
   const currentIndex = stories.findIndex((s) => s.slug === slug);
   const nextStory = stories[(currentIndex + 1) % stories.length];
 
-  // Section refs
   const [narrativeRef, narrativeInView] = useInView();
-  const [img1Ref, img1InView] = useInView(0.05);
   const [pauseRef, pauseInView] = useInView();
-  const [img2Ref, img2InView] = useInView(0.05);
   const [filmRef, filmInView] = useInView(0.05);
-  const [img3Ref, img3InView] = useInView(0.05);
   const [reflectionRef, reflectionInView] = useInView();
   const [inviteRef, inviteInView] = useInView();
   const [nextRef, nextInView] = useInView(0.05);
@@ -48,6 +143,12 @@ export default function Beginnings() {
       </div>
     );
   }
+
+  // Build photo pool — use story.photos if provided, else cycle the two base images
+  const base = [story.heroImage, story.photo2];
+  const pool = story.photos && story.photos.length > 0 ? story.photos : base;
+  const p = (i: number) => pool[i % pool.length];
+  const alt = story.couple;
 
   return (
     <div className="bg-[#F5F0E8] text-[#3A342C]">
@@ -117,13 +218,24 @@ export default function Beginnings() {
         </div>
       </section>
 
-      {/* ── 3. Images ────────────────────────────────────────────── */}
-      <section className="bg-[#EAE3D3]">
-        <img
-          ref={img1Ref}
-          src={story.heroImage}
-          alt={story.couple}
-          className={`w-full h-[60vh] md:h-[75vh] object-cover object-center transition-opacity duration-[1200ms] ease-out ${img1InView ? "opacity-100" : "opacity-0"}`}
+      {/* ── 3–5. Gallery — part one ───────────────────────────────── */}
+      <section className="bg-[#EAE3D3] pt-2 pb-1">
+        {/* Horizontal */}
+        <Horizontal src={p(0)} alt={alt} height={460} />
+
+        {/* Vertical pair */}
+        <VerticalPair a={p(1)} b={p(0)} altA={alt} altB={alt} />
+
+        {/* Horizontal */}
+        <Horizontal src={p(1)} alt={alt} height={460} />
+
+        {/* Narrow centred portrait */}
+        <NarrowPortrait src={p(0)} alt={alt} />
+
+        {/* Mixed: vertical left + stacked right */}
+        <MixedLeft
+          tall={p(1)} top={p(0)} bot={p(1)}
+          altTall={alt} altTop={alt} altBot={alt}
         />
       </section>
 
@@ -139,13 +251,21 @@ export default function Beginnings() {
         </div>
       </section>
 
-      {/* ── 5. Images ────────────────────────────────────────────── */}
-      <section className="bg-[#EAE3D3]">
-        <img
-          ref={img2Ref}
-          src={story.photo2}
-          alt={`${story.couple} — a moment`}
-          className={`w-full h-[60vh] md:h-[75vh] object-cover object-center transition-opacity duration-[1200ms] ease-out ${img2InView ? "opacity-100" : "opacity-0"}`}
+      {/* ── 5. Gallery — part two ─────────────────────────────────── */}
+      <section className="bg-[#EAE3D3] pt-2 pb-1">
+        {/* Horizontal */}
+        <Horizontal src={p(0)} alt={alt} height={460} />
+
+        {/* Vertical pair */}
+        <VerticalPair a={p(1)} b={p(0)} altA={alt} altB={alt} />
+
+        {/* Horizontal */}
+        <Horizontal src={p(1)} alt={alt} height={460} />
+
+        {/* Mixed: stacked left + vertical right */}
+        <MixedRight
+          top={p(0)} bot={p(1)} tall={p(0)}
+          altTop={alt} altBot={alt} altTall={alt}
         />
       </section>
 
@@ -155,40 +275,32 @@ export default function Beginnings() {
           ref={filmRef}
           className={`bg-[#1A1612] py-40 md:py-56 flex flex-col items-center justify-center text-center px-6 transition-opacity duration-[1200ms] ease-out ${filmInView ? "opacity-100" : "opacity-0"}`}
         >
-          <p className="font-sans font-light text-[10px] uppercase tracking-[0.35em] text-[#F5F0E8]/35 mb-10">
-            Film
-          </p>
+          <p className="font-sans font-light text-[10px] uppercase tracking-[0.35em] text-[#F5F0E8]/35 mb-10">Film</p>
           <p className="font-serif font-light text-[28px] md:text-[40px] text-[#F5F0E8] leading-[1.3] tracking-[0.01em] mb-6 max-w-[480px]">
             {story.couple}
           </p>
           <p className="font-sans font-light text-[13px] text-[#F5F0E8]/40 tracking-[0.06em] uppercase mb-16">
             {story.location}
           </p>
-          {/* Play indicator */}
           <div className="w-[72px] h-[72px] rounded-full border border-[#F5F0E8]/25 flex items-center justify-center hover:border-[#F5F0E8]/60 transition-colors duration-500 cursor-pointer">
             <svg width="16" height="20" viewBox="0 0 16 20" fill="none">
               <path d="M1 1.5L15 10L1 18.5V1.5Z" fill="rgba(245,240,232,0.6)" />
             </svg>
           </div>
-          <p className="mt-8 font-sans font-light text-[11px] text-[#F5F0E8]/25 tracking-[0.1em] uppercase">
-            Film available soon
-          </p>
+          <p className="mt-8 font-sans font-light text-[11px] text-[#F5F0E8]/25 tracking-[0.1em] uppercase">Film available soon</p>
         </section>
       )}
 
-      {/* ── 7. Images ────────────────────────────────────────────── */}
-      <section className="bg-[#EAE3D3] flex gap-[3px] md:gap-1">
-        <img
-          ref={img3Ref}
-          src={story.photo2}
-          alt={`${story.couple} — detail`}
-          className={`w-1/2 h-[50vh] md:h-[65vh] object-cover object-center transition-opacity duration-[1200ms] ease-out ${img3InView ? "opacity-100" : "opacity-0"}`}
-        />
-        <img
-          src={story.heroImage}
-          alt={`${story.couple} — portrait`}
-          className={`w-1/2 h-[50vh] md:h-[65vh] object-cover object-center transition-opacity duration-[1200ms] ease-out delay-[150ms] ${img3InView ? "opacity-100" : "opacity-0"}`}
-        />
+      {/* ── 7. Gallery — closing ──────────────────────────────────── */}
+      <section className="bg-[#EAE3D3] pt-2 pb-2">
+        {/* Horizontal */}
+        <Horizontal src={p(1)} alt={alt} height={460} />
+
+        {/* Vertical pair */}
+        <VerticalPair a={p(0)} b={p(1)} altA={alt} altB={alt} />
+
+        {/* Closing horizontal */}
+        <Horizontal src={p(0)} alt={alt} height={460} />
       </section>
 
       {/* ── 8. Reflection ────────────────────────────────────────── */}
@@ -210,9 +322,7 @@ export default function Beginnings() {
           ref={inviteRef}
           className={`max-w-[640px] mx-auto px-6 md:px-0 text-center transition-all duration-[1000ms] ease-out ${inviteInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
         >
-          <p className="font-sans font-light text-[11px] uppercase tracking-[0.3em] text-[#3A342C]/40 mb-10">
-            Begin Your Story
-          </p>
+          <p className="font-sans font-light text-[11px] uppercase tracking-[0.3em] text-[#3A342C]/40 mb-10">Begin Your Story</p>
           <p className="font-serif font-light text-[26px] md:text-[34px] text-[#3A342C] leading-[1.4] tracking-[0.01em] mb-14">
             If you feel something when you look at these photographs, we would be honoured to make yours.
           </p>
@@ -229,12 +339,10 @@ export default function Beginnings() {
           <Link href={`/beginnings/${nextStory.slug}`}>
             <div
               ref={nextRef}
-              className={`mt-32 md:mt-48 max-w-[900px] mx-auto px-6 md:px-0 group cursor-pointer transition-all duration-[1000ms] ease-out ${nextRef ? (nextInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6") : "opacity-0"}`}
+              className={`mt-32 md:mt-48 max-w-[900px] mx-auto px-6 md:px-0 group cursor-pointer transition-all duration-[1000ms] ease-out ${nextInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
             >
               <div className="border-t border-[#3A342C]/15 pt-12 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-12">
-                <p className="font-sans font-light text-[11px] uppercase tracking-[0.28em] text-[#3A342C]/35 shrink-0">
-                  Next beginning
-                </p>
+                <p className="font-sans font-light text-[11px] uppercase tracking-[0.28em] text-[#3A342C]/35 shrink-0">Next beginning</p>
                 <div className="flex items-center gap-8 flex-1">
                   <img
                     src={nextStory.heroImage}
@@ -249,9 +357,7 @@ export default function Beginnings() {
                       {nextStory.couple} — {nextStory.location}
                     </p>
                   </div>
-                  <span className="ml-auto font-sans font-light text-[12px] tracking-[0.1em] text-[#3A342C]/35 group-hover:text-[#3A342C]/70 transition-colors duration-300 uppercase">
-                    View →
-                  </span>
+                  <span className="ml-auto font-sans font-light text-[12px] tracking-[0.1em] text-[#3A342C]/35 group-hover:text-[#3A342C]/70 transition-colors duration-300 uppercase">View →</span>
                 </div>
               </div>
             </div>

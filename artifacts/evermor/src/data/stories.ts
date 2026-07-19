@@ -5,6 +5,7 @@ export interface Story {
   location: string;
   heroImage: string;
   photo2: string;
+  photos?: string[];   // full gallery — falls back to cycling heroImage + photo2
   hasFilm: boolean;
   narrative: string;
   pause: string;
