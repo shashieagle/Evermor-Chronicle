@@ -177,9 +177,7 @@ export default function Home() {
             mounted ? "opacity-100" : "opacity-0"
           }`}
         >
-          <div className="font-serif text-2xl tracking-[0.02em] font-light text-[#F5F0E8]">
-            Evermor
-          </div>
+          <div className="font-serif text-2xl tracking-[0.02em] font-light text-[#F5F0E8]">Evermor Tales</div>
           <div className="flex gap-8 font-sans text-[13px] tracking-wide font-light">
             <Link href="/beginnings" className="text-[#F5F0E8]/75 hover:text-[#F5F0E8] transition-colors duration-300">
               Beginnings
