@@ -26,6 +26,38 @@ function useInView() {
   return [ref, isInView] as const;
 }
 
+function useScrollProgress(ref: any) {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!ref.current) return;
+      const rect = ref.current.getBoundingClientRect();
+      const sectionTop = window.scrollY + rect.top;
+      const sectionHeight = ref.current.offsetHeight;
+      const windowHeight = window.innerHeight;
+      
+      const scrollableHeight = sectionHeight - windowHeight;
+      if (scrollableHeight <= 0) return;
+      
+      const p = (window.scrollY - sectionTop) / scrollableHeight;
+      setProgress(Math.max(0, Math.min(1, p)));
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    
+    window.addEventListener('resize', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+    };
+  }, [ref]);
+
+  return progress;
+}
+
 export default function Home() {
   const [mounted, setMounted] = useState(false);
 
@@ -33,6 +65,26 @@ export default function Home() {
   const [copyRef, copyInView] = useInView();
   const [imageRef, imageInView] = useInView();
   const [transitionLineRef, transitionLineInView] = useInView();
+
+  const chapter3Ref = useRef<HTMLElement>(null);
+  const scrollProgress = useScrollProgress(chapter3Ref);
+
+  const getStatementStyle = (start: number, end: number) => {
+    if (scrollProgress <= start || scrollProgress >= end) return { opacity: 0, transform: 'translateY(12px)', pointerEvents: 'none' as const };
+    const clamped = (scrollProgress - start) / (end - start);
+    return {
+      opacity: Math.sin(clamped * Math.PI),
+      transform: `translateY(${(1 - clamped * 2) * 12}px)`,
+    };
+  };
+
+  const getImageStyle = (start: number, end: number) => {
+    if (scrollProgress <= start) return { opacity: 0, pointerEvents: 'none' as const };
+    const clamped = (scrollProgress - start) / (end - start);
+    return {
+      opacity: clamped >= 0.5 ? 1 : Math.sin(clamped * Math.PI),
+    };
+  };
 
   useEffect(() => {
     setMounted(true);
@@ -151,6 +203,49 @@ export default function Home() {
         >
           Every family begins with a story.
         </p>
+      </section>
+
+      {/* Chapter 3 - Scroll Narrative */}
+      <section ref={chapter3Ref} className="relative h-[400vh] w-full bg-[#EAE3D3]">
+        <div className="sticky top-0 h-[100vh] overflow-hidden">
+          {/* Statements */}
+          <div 
+            className="absolute inset-0 flex items-center justify-center font-serif text-[32px] md:text-[48px] lg:text-[56px] font-light text-[#3A342C] tracking-[0.01em] leading-[1.3] max-w-[760px] mx-auto text-center px-6"
+            style={getStatementStyle(0.00, 0.25)}
+          >
+            A wedding marks a moment.
+          </div>
+          
+          <div 
+            className="absolute inset-0 flex items-center justify-center font-serif text-[32px] md:text-[48px] lg:text-[56px] font-light text-[#3A342C] tracking-[0.01em] leading-[1.3] max-w-[760px] mx-auto text-center px-6"
+            style={getStatementStyle(0.25, 0.50)}
+          >
+            A marriage shapes a lifetime.
+          </div>
+          
+          <div 
+            className="absolute inset-0 flex items-center justify-center font-serif text-[32px] md:text-[48px] lg:text-[56px] font-light text-[#3A342C] tracking-[0.01em] leading-[1.3] max-w-[760px] mx-auto text-center px-6"
+            style={getStatementStyle(0.50, 0.70)}
+          >
+            The beginning deserves to be remembered.
+          </div>
+
+          {/* Image Reveal */}
+          <div 
+            className="absolute inset-0"
+            style={getImageStyle(0.70, 1.00)}
+          >
+            <img 
+              src="/chapter3.jpg" 
+              alt="Editorial wedding photography" 
+              className="w-full h-full object-cover object-center"
+            />
+            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/30 to-transparent" />
+            <p className="absolute bottom-12 md:bottom-16 left-0 right-0 text-center font-serif font-light italic text-[16px] md:text-[20px] text-[#F5F0E8]/85 tracking-[0.02em]">
+              How we preserve that beginning matters.
+            </p>
+          </div>
+        </div>
       </section>
     </div>
   );
