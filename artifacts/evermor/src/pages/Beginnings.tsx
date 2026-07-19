@@ -2,6 +2,22 @@ import { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "wouter";
 import { storiesBySlug, stories } from "../data/stories";
 
+const BASE = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
+
+function embedUrl(raw: string): string | null {
+  try {
+    const u = new URL(raw);
+    const ytId = u.searchParams.get("v") ||
+      (u.hostname === "youtu.be" ? u.pathname.slice(1) : null);
+    if (ytId) return `https://www.youtube.com/embed/${ytId}`;
+    if (u.hostname.includes("vimeo.com")) {
+      const id = u.pathname.split("/").filter(Boolean)[0];
+      if (id) return `https://player.vimeo.com/video/${id}`;
+    }
+    return raw;
+  } catch { return null; }
+}
+
 function useInView(threshold = 0.08) {
   const [isInView, setIsInView] = useState(false);
   const ref = useRef<any>(null);
@@ -119,13 +135,19 @@ function MixedRight({ top, bot, tall, altTop, altBot, altTall }: {
   );
 }
 
+interface DbPhoto { id: number; url: string; position: number; }
+
 export default function Beginnings() {
   const { slug } = useParams<{ slug: string }>();
   const [mounted, setMounted] = useState(false);
 
-  const story = slug ? storiesBySlug[slug] : undefined;
+  const staticStory = slug ? storiesBySlug[slug] : undefined;
   const currentIndex = stories.findIndex((s) => s.slug === slug);
   const nextStory = stories[(currentIndex + 1) % stories.length];
+
+  // DB overlay — fetched after mount, silent fallback on error
+  const [dbOverlay, setDbOverlay] = useState<Record<string, any>>({});
+  const [dbPhotos, setDbPhotos] = useState<DbPhoto[]>([]);
 
   const [narrativeRef, narrativeInView] = useInView();
   const [pauseRef, pauseInView] = useInView();
@@ -136,7 +158,19 @@ export default function Beginnings() {
 
   useEffect(() => { setMounted(true); }, []);
 
-  if (!story) {
+  useEffect(() => {
+    if (!slug) return;
+    fetch(`${BASE}/api/stories/${slug}`)
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        if (!d) return;
+        if (d.story) setDbOverlay(d.story);
+        if (d.photos?.length > 0) setDbPhotos(d.photos);
+      })
+      .catch(() => {});
+  }, [slug]);
+
+  if (!staticStory) {
     return (
       <div className="min-h-screen bg-[#F5F0E8] flex items-center justify-center">
         <p className="font-serif font-light text-[#3A342C]/50 text-[20px]">This beginning hasn't been found.</p>
@@ -144,11 +178,15 @@ export default function Beginnings() {
     );
   }
 
-  // Build photo pool — use story.photos if provided, else cycle the two base images
-  const base = [story.heroImage, story.photo2];
-  const pool = story.photos && story.photos.length > 0 ? story.photos : base;
+  // Merge static + DB — DB fields win when present
+  const story = { ...staticStory, ...dbOverlay };
+
+  // Build photo pool — DB uploaded photos take priority, else cycle hero + photo2
+  const base = [staticStory.heroImage, staticStory.photo2];
+  const pool = dbPhotos.length > 0 ? dbPhotos.map(p => p.url) : base;
   const p = (i: number) => pool[i % pool.length];
   const alt = story.couple;
+  const videoEmbed = story.videoUrl ? embedUrl(story.videoUrl) : null;
 
   return (
     <div className="bg-[#F5F0E8] text-[#3A342C]">
@@ -273,21 +311,39 @@ export default function Beginnings() {
       {story.hasFilm && (
         <section
           ref={filmRef}
-          className={`bg-[#1A1612] py-40 md:py-56 flex flex-col items-center justify-center text-center px-6 transition-opacity duration-[1200ms] ease-out ${filmInView ? "opacity-100" : "opacity-0"}`}
+          className={`bg-[#1A1612] transition-opacity duration-[1200ms] ease-out ${filmInView ? "opacity-100" : "opacity-0"}`}
         >
-          <p className="font-sans font-light text-[10px] uppercase tracking-[0.35em] text-[#F5F0E8]/35 mb-10">Film</p>
-          <p className="font-serif font-light text-[28px] md:text-[40px] text-[#F5F0E8] leading-[1.3] tracking-[0.01em] mb-6 max-w-[480px]">
-            {story.couple}
-          </p>
-          <p className="font-sans font-light text-[13px] text-[#F5F0E8]/40 tracking-[0.06em] uppercase mb-16">
-            {story.location}
-          </p>
-          <div className="w-[72px] h-[72px] rounded-full border border-[#F5F0E8]/25 flex items-center justify-center hover:border-[#F5F0E8]/60 transition-colors duration-500 cursor-pointer">
-            <svg width="16" height="20" viewBox="0 0 16 20" fill="none">
-              <path d="M1 1.5L15 10L1 18.5V1.5Z" fill="rgba(245,240,232,0.6)" />
-            </svg>
-          </div>
-          <p className="mt-8 font-sans font-light text-[11px] text-[#F5F0E8]/25 tracking-[0.1em] uppercase">Film available soon</p>
+          {videoEmbed ? (
+            /* Embedded player */
+            <div className="px-[60px] py-20 md:py-28">
+              <p className="font-sans font-light text-[10px] uppercase tracking-[0.35em] text-[#F5F0E8]/35 mb-8 text-center">Film</p>
+              <p className="font-serif font-light text-[22px] md:text-[28px] text-[#F5F0E8] leading-[1.3] tracking-[0.01em] mb-2 text-center">{story.couple}</p>
+              <p className="font-sans font-light text-[12px] text-[#F5F0E8]/40 tracking-[0.06em] uppercase mb-10 text-center">{story.location}</p>
+              <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+                <iframe
+                  src={videoEmbed}
+                  title={`${story.couple} — Film`}
+                  className="absolute inset-0 w-full h-full"
+                  style={{ border: "none" }}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+          ) : (
+            /* Coming soon placeholder */
+            <div className="py-40 md:py-56 flex flex-col items-center justify-center text-center px-6">
+              <p className="font-sans font-light text-[10px] uppercase tracking-[0.35em] text-[#F5F0E8]/35 mb-10">Film</p>
+              <p className="font-serif font-light text-[28px] md:text-[40px] text-[#F5F0E8] leading-[1.3] tracking-[0.01em] mb-6 max-w-[480px]">{story.couple}</p>
+              <p className="font-sans font-light text-[13px] text-[#F5F0E8]/40 tracking-[0.06em] uppercase mb-16">{story.location}</p>
+              <div className="w-[72px] h-[72px] rounded-full border border-[#F5F0E8]/25 flex items-center justify-center hover:border-[#F5F0E8]/60 transition-colors duration-500 cursor-pointer">
+                <svg width="16" height="20" viewBox="0 0 16 20" fill="none">
+                  <path d="M1 1.5L15 10L1 18.5V1.5Z" fill="rgba(245,240,232,0.6)" />
+                </svg>
+              </div>
+              <p className="mt-8 font-sans font-light text-[11px] text-[#F5F0E8]/25 tracking-[0.1em] uppercase">Film available soon</p>
+            </div>
+          )}
         </section>
       )}
 
