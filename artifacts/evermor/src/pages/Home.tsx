@@ -69,6 +69,12 @@ export default function Home() {
   const chapter3Ref = useRef<HTMLElement>(null);
   const scrollProgress = useScrollProgress(chapter3Ref);
 
+  const chapter6Ref = useRef<HTMLElement>(null);
+  const chapter6Progress = useScrollProgress(chapter6Ref);
+
+  const [ch6ClosingRef, ch6ClosingInView] = useInView();
+  const [ch6CtaRef, ch6CtaInView] = useInView();
+
   const [c4LabelRef, c4LabelInView] = useInView();
   
   const [b1HeadlineRef, b1HeadlineInView] = useInView();
@@ -119,6 +125,19 @@ export default function Home() {
     const clamped = (scrollProgress - start) / (end - start);
     return {
       opacity: clamped >= 0.5 ? 1 : Math.sin(clamped * Math.PI),
+    };
+  };
+
+  const getCh6Stmt = (start: number, end: number, linger = false): React.CSSProperties => {
+    if (chapter6Progress <= start) return { opacity: 0, transform: 'translateY(10px)', pointerEvents: 'none' };
+    if (chapter6Progress >= end) {
+      if (linger) return { opacity: 1, transform: 'translateY(0px)' };
+      return { opacity: 0, transform: 'translateY(-8px)', pointerEvents: 'none' };
+    }
+    const p = (chapter6Progress - start) / (end - start);
+    return {
+      opacity: Math.sin(p * Math.PI),
+      transform: `translateY(${(1 - p * 2) * 10}px)`,
     };
   };
 
@@ -637,6 +656,102 @@ export default function Home() {
             <span>Discover Your Story</span>
             <span>──────────────→</span>
           </span>
+        </div>
+      </section>
+
+      {/* Chapter 6 — Memory */}
+      {/* Sticky scroll sequence */}
+      <section ref={chapter6Ref} className="relative h-[600vh] w-full bg-[#F8F6F2]">
+        <div className="sticky top-0 h-[100vh] overflow-hidden flex items-center justify-center">
+
+          {/* Persistent label */}
+          <p
+            className="absolute top-10 md:top-14 left-0 right-0 text-center uppercase tracking-[0.35em] font-sans font-light text-[10px] md:text-[11px] text-[#3A342C]"
+            style={{ opacity: Math.min(chapter6Progress * 25, 0.35), transition: 'opacity 1s ease' }}
+          >
+            MEMORY.
+          </p>
+
+          {/* Statement 1 */}
+          <div
+            className="absolute inset-0 flex items-center justify-center px-6"
+            style={getCh6Stmt(0.00, 0.17)}
+          >
+            <p className="font-serif font-light text-[32px] md:text-[50px] lg:text-[58px] text-[#3A342C] leading-[1.2] tracking-[0.005em] text-center max-w-[720px]">
+              Every family remembers differently.
+            </p>
+          </div>
+
+          {/* Statement 2 — four lines */}
+          <div
+            className="absolute inset-0 flex items-center justify-center px-6"
+            style={getCh6Stmt(0.20, 0.42)}
+          >
+            <div className="text-center max-w-[600px]">
+              <p className="font-serif font-light text-[22px] md:text-[34px] lg:text-[40px] text-[#3A342C] leading-[1.7] tracking-[0.01em]">
+                Some remember voices.<br />
+                Some remember photographs.<br />
+                Some remember places.<br />
+                Some remember silence.
+              </p>
+            </div>
+          </div>
+
+          {/* Statement 3 */}
+          <div
+            className="absolute inset-0 flex items-center justify-center px-6"
+            style={getCh6Stmt(0.44, 0.62)}
+          >
+            <p className="font-serif font-light text-[28px] md:text-[44px] lg:text-[52px] text-[#3A342C] leading-[1.25] tracking-[0.005em] text-center max-w-[700px]">
+              But every family deserves something that brings them back.
+            </p>
+          </div>
+
+          {/* Statement 4 */}
+          <div
+            className="absolute inset-0 flex items-center justify-center px-6"
+            style={getCh6Stmt(0.64, 0.79)}
+          >
+            <p className="font-serif font-light text-[30px] md:text-[48px] lg:text-[56px] text-[#3A342C] leading-[1.2] tracking-[0.005em] text-center max-w-[680px]">
+              We don't simply preserve what happened.
+            </p>
+          </div>
+
+          {/* Statement 5 — lingers */}
+          <div
+            className="absolute inset-0 flex items-center justify-center px-6"
+            style={{ ...getCh6Stmt(0.81, 1.00, true), transition: 'opacity 1.2s ease, transform 1.2s ease' }}
+          >
+            <p className="font-serif font-light text-[40px] md:text-[62px] lg:text-[72px] text-[#3A342C] leading-[1.1] tracking-[0.005em] text-center max-w-[680px]">
+              We preserve what it meant.
+            </p>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Chapter 6 — Closing (below sticky scroll) */}
+      <section className="bg-[#F8F6F2] pt-32 md:pt-48 pb-40 md:pb-60">
+        <div className="max-w-[640px] mx-auto px-6 md:px-0 text-center">
+          <p
+            ref={ch6ClosingRef}
+            className={`font-serif font-light text-[18px] md:text-[22px] lg:text-[24px] text-[#3A342C]/65 leading-[1.7] tracking-[0.015em] mb-14 md:mb-20 transition-all duration-[1000ms] ease-out ${
+              ch6ClosingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+          >
+            Every Evermor story begins with understanding what is worth remembering.
+          </p>
+          <div
+            ref={ch6CtaRef}
+            className={`inline-flex transition-all duration-[1000ms] ease-out ${
+              ch6CtaInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+            style={{ transitionDelay: ch6CtaInView ? '200ms' : '0ms' }}
+          >
+            <button className="font-sans font-light text-[12px] md:text-[13px] text-[#3A342C]/70 tracking-[0.18em] uppercase border border-[#3A342C]/30 px-10 py-4 hover:border-[#3A342C]/70 hover:text-[#3A342C] transition-all duration-500 ease-out">
+              Begin Your Story Discovery
+            </button>
+          </div>
         </div>
       </section>
 
