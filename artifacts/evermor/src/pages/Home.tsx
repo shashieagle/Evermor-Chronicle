@@ -93,6 +93,22 @@ export default function Home() {
 
   const [c4ClosingRef, c4ClosingInView] = useInView();
 
+  const [headingRef, headingInView] = useInView();
+  const [introRef, introInView] = useInView();
+  const [s1ImgRef, s1ImgInView] = useInView();
+  const [s1CapRef, s1CapInView] = useInView();
+  const [s2ImgRef, s2ImgInView] = useInView();
+  const [s3ImgRef, s3ImgInView] = useInView();
+  const [pair1CapRef, pair1CapInView] = useInView();
+  const [s4ImgRef, s4ImgInView] = useInView();
+  const [s4CapRef, s4CapInView] = useInView();
+  const [s5ImgRef, s5ImgInView] = useInView();
+  const [s5CapRef, s5CapInView] = useInView();
+  const [s6ImgRef, s6ImgInView] = useInView();
+  const [s7ImgRef, s7ImgInView] = useInView();
+  const [pair2CapRef, pair2CapInView] = useInView();
+  const [closingRef, closingInView] = useInView();
+  const [ctaRef, ctaInView] = useInView();
 
   const getStatementStyle = (start: number, end: number) => {
     if (scrollProgress <= start || scrollProgress >= end) return { opacity: 0, transform: 'translateY(12px)', pointerEvents: 'none' as const };
@@ -437,6 +453,181 @@ export default function Home() {
         >
           Every belief shapes the way we preserve your beginning.
         </p>
+      </section>
+
+      {/* Chapter 5 - Stories */}
+      <section className="bg-[#F5F0E8] pt-32 md:pt-48 pb-32 md:pb-48">
+        {/* Header */}
+        <div className="max-w-[680px] mx-auto px-6 md:px-0 mb-20 md:mb-32">
+          <h2
+            ref={headingRef}
+            className={`font-serif font-light text-[52px] md:text-[72px] lg:text-[84px] text-[#3A342C] leading-[1.1] tracking-[0.005em] text-center mb-8 md:mb-10 transition-all duration-[800ms] ease-out ${
+              headingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+          >
+            Stories
+          </h2>
+          <p
+            ref={introRef}
+            className={`font-sans font-light text-[15px] md:text-[17px] text-[#3A342C]/60 leading-[1.9] tracking-[0.02em] text-center transition-all duration-[800ms] ease-out ${
+              introInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            style={{ transitionDelay: introInView ? '150ms' : '0ms' }}
+          >
+            Every beginning is different. Every emotion is real. Every story deserves to be remembered.
+          </p>
+        </div>
+
+        {/* Layout Block 1 */}
+        <div className="w-full">
+          <img
+            ref={s1ImgRef}
+            src="/s1.jpg"
+            alt="The beginning of Aditi & Karthik"
+            className={`h-[520px] md:h-[700px] lg:h-[820px] w-full object-cover object-center transition-opacity duration-[1000ms] ease-out ${
+              s1ImgInView ? "opacity-100" : "opacity-0"
+            }`}
+          />
+          <p
+            ref={s1CapRef}
+            className={`font-sans font-light italic text-[11px] md:text-[12px] text-[#3A342C]/45 tracking-[0.04em] text-center mt-4 md:mt-5 transition-all duration-[800ms] ease-out ${
+              s1CapInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            style={{ transitionDelay: s1CapInView ? '100ms' : '0ms' }}
+          >
+            The beginning of Aditi & Karthik.
+          </p>
+        </div>
+
+        {/* Layout Block 2 */}
+        <div className="mt-12 md:mt-20">
+          <div className="flex gap-3 md:gap-5 px-4 md:px-8 lg:px-16">
+            <img
+              ref={s2ImgRef}
+              src="/s2.jpg"
+              alt="Vertical portrait left"
+              className={`flex-1 h-[480px] md:h-[640px] lg:h-[740px] object-cover object-center transition-opacity duration-[1000ms] ease-out ${
+                s2ImgInView ? "opacity-100" : "opacity-0"
+              }`}
+            />
+            <img
+              ref={s3ImgRef}
+              src="/s3.jpg"
+              alt="Vertical portrait right"
+              className={`flex-1 h-[480px] md:h-[640px] lg:h-[740px] object-cover object-center transition-opacity duration-[1000ms] ease-out ${
+                s3ImgInView ? "opacity-100" : "opacity-0"
+              }`}
+              style={{ transitionDelay: s3ImgInView ? '100ms' : '0ms' }}
+            />
+          </div>
+          <p
+            ref={pair1CapRef}
+            className={`font-sans font-light italic text-[11px] md:text-[12px] text-[#3A342C]/45 tracking-[0.04em] text-center mt-4 md:mt-5 px-4 md:px-8 lg:px-16 transition-all duration-[800ms] ease-out ${
+              pair1CapInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            style={{ transitionDelay: pair1CapInView ? '100ms' : '0ms' }}
+          >
+            Before promises became memories.
+          </p>
+        </div>
+
+        {/* Layout Block 3 */}
+        <div className="mt-12 md:mt-20">
+          <img
+            ref={s4ImgRef}
+            src="/s4.jpg"
+            alt="Cinematic landscape"
+            className={`h-[340px] md:h-[460px] lg:h-[520px] w-full object-cover object-center transition-opacity duration-[1000ms] ease-out ${
+              s4ImgInView ? "opacity-100" : "opacity-0"
+            }`}
+          />
+          <p
+            ref={s4CapRef}
+            className={`font-sans font-light italic text-[11px] md:text-[12px] text-[#3A342C]/45 tracking-[0.04em] text-center mt-4 md:mt-5 transition-all duration-[800ms] ease-out ${
+              s4CapInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            style={{ transitionDelay: s4CapInView ? '100ms' : '0ms' }}
+          >
+            Where the evening held still.
+          </p>
+        </div>
+
+        {/* Layout Block 4 */}
+        <div className="mt-12 md:mt-20">
+          <div className="max-w-[560px] md:max-w-[680px] mx-auto px-6 md:px-0">
+            <img
+              ref={s5ImgRef}
+              src="/s5.jpg"
+              alt="Intimate close-up"
+              className={`w-full h-[420px] md:h-[520px] object-cover object-center transition-opacity duration-[1000ms] ease-out ${
+                s5ImgInView ? "opacity-100" : "opacity-0"
+              }`}
+            />
+            <p
+              ref={s5CapRef}
+              className={`font-sans font-light italic text-[11px] md:text-[12px] text-[#3A342C]/45 tracking-[0.04em] text-center mt-4 md:mt-5 transition-all duration-[800ms] ease-out ${
+                s5CapInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
+              style={{ transitionDelay: s5CapInView ? '100ms' : '0ms' }}
+            >
+              The people who made this day unforgettable.
+            </p>
+          </div>
+        </div>
+
+        {/* Layout Block 5 */}
+        <div className="mt-12 md:mt-20">
+          <div className="flex gap-3 md:gap-5 px-4 md:px-8 lg:px-16">
+            <img
+              ref={s6ImgRef}
+              src="/s6.jpg"
+              alt="Vertical portrait left"
+              className={`flex-1 h-[480px] md:h-[640px] lg:h-[740px] object-cover object-center transition-opacity duration-[1000ms] ease-out ${
+                s6ImgInView ? "opacity-100" : "opacity-0"
+              }`}
+            />
+            <img
+              ref={s7ImgRef}
+              src="/s7.jpg"
+              alt="Vertical portrait right"
+              className={`flex-1 h-[480px] md:h-[640px] lg:h-[740px] object-cover object-center transition-opacity duration-[1000ms] ease-out ${
+                s7ImgInView ? "opacity-100" : "opacity-0"
+              }`}
+              style={{ transitionDelay: s7ImgInView ? '100ms' : '0ms' }}
+            />
+          </div>
+          <p
+            ref={pair2CapRef}
+            className={`font-sans font-light italic text-[11px] md:text-[12px] text-[#3A342C]/45 tracking-[0.04em] text-center mt-4 md:mt-5 px-4 md:px-8 lg:px-16 transition-all duration-[800ms] ease-out ${
+              pair2CapInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            style={{ transitionDelay: pair2CapInView ? '100ms' : '0ms' }}
+          >
+            Every family begins with a moment like this.
+          </p>
+        </div>
+
+        {/* Closing Block */}
+        <div className="mt-24 md:mt-36 text-center max-w-[680px] mx-auto px-6 md:px-0">
+          <p
+            ref={closingRef}
+            className={`font-serif font-light italic text-[22px] md:text-[28px] text-[#3A342C]/60 tracking-[0.015em] leading-[1.5] mb-10 md:mb-14 transition-all duration-[800ms] ease-out ${
+              closingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+          >
+            No two beginnings are ever the same.
+          </p>
+          <span
+            ref={ctaRef}
+            className={`flex flex-col items-center gap-2 font-sans font-light text-[13px] md:text-[14px] text-[#3A342C]/50 tracking-[0.05em] hover:text-[#3A342C]/85 transition-all duration-[800ms] ease-out cursor-pointer ${
+              ctaInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            style={{ transitionDelay: ctaInView ? '150ms' : '0ms' }}
+          >
+            <span>Discover Your Story</span>
+            <span>──────────────→</span>
+          </span>
+        </div>
       </section>
 
     </div>
