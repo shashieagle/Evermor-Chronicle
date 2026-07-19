@@ -1,4 +1,4 @@
-// Variant A — "The Breath": slow, cinematic. Every image breathes alone.
+// Variant A — "The Breath": slow, cinematic. All images are large.
 const imgs = [
   "/__mockup/images/img1.jpg","/__mockup/images/img2.jpg","/__mockup/images/img3.jpg",
   "/__mockup/images/img4.jpg","/__mockup/images/img5.jpg","/__mockup/images/img6.jpg",
@@ -10,130 +10,104 @@ const imgs = [
 ];
 
 const serif = { fontFamily: "'Cormorant Garamond', 'Playfair Display', Georgia, serif" };
-const sans = { fontFamily: "'Inter', sans-serif" };
-const bg = "#F5F0E8";
-const ink = "#3A342C";
+const sans  = { fontFamily: "'Inter', sans-serif" };
+const bg    = "#F5F0E8";
+const ink   = "#3A342C";
 
 export function Breath() {
   return (
-    <div style={{ background: bg, color: ink, minHeight: "100vh" }}>
-      {/* Label */}
-      <div style={{ ...sans, fontSize: 11, letterSpacing: "0.28em", textTransform: "uppercase", color: `${ink}55`, padding: "28px 40px 0", opacity: 0.7 }}>
-        A — The Breath
-      </div>
+    <div style={{ background: bg, color: ink }}>
+      <div style={{ ...sans, fontSize: 11, letterSpacing: "0.28em", textTransform: "uppercase", color: `${ink}66`, padding: "28px 40px 0" }}>A — The Breath</div>
 
-      {/* 1 — Full-bleed solo */}
-      <div style={{ margin: "32px 0 0" }}>
-        <img src={imgs[0]} alt="" style={{ width: "100%", height: 520, objectFit: "cover", display: "block" }} />
-        <p style={{ ...sans, fontSize: 11, color: `${ink}50`, letterSpacing: "0.04em", fontStyle: "italic", textAlign: "center", marginTop: 10 }}>1</p>
-      </div>
-
-      {/* 2–3 — Paired verticals */}
-      <div style={{ display: "flex", gap: 4, margin: "4px 0" }}>
-        <div style={{ flex: 1 }}>
-          <img src={imgs[1]} alt="" style={{ width: "100%", height: 440, objectFit: "cover", display: "block" }} />
-          <p style={{ ...sans, fontSize: 11, color: `${ink}50`, letterSpacing: "0.04em", fontStyle: "italic", textAlign: "center", marginTop: 8 }}>2</p>
-        </div>
-        <div style={{ flex: 1 }}>
-          <img src={imgs[2]} alt="" style={{ width: "100%", height: 440, objectFit: "cover", display: "block" }} />
-          <p style={{ ...sans, fontSize: 11, color: `${ink}50`, letterSpacing: "0.04em", fontStyle: "italic", textAlign: "center", marginTop: 8 }}>3</p>
-        </div>
+      {/* 1 — Full-bleed, very tall */}
+      <div style={{ marginTop: 32 }}>
+        <img src={imgs[0]} alt="1" style={{ width: "100%", height: 780, objectFit: "cover", display: "block" }} />
       </div>
 
       {/* Pause */}
-      <div style={{ padding: "72px 80px", textAlign: "center" }}>
-        <p style={{ ...serif, fontSize: 22, fontStyle: "italic", color: `${ink}60`, lineHeight: 1.6, maxWidth: 480, margin: "0 auto" }}>
-          Every image holds still for as long as it needs to.
-        </p>
+      <div style={{ padding: "80px 80px", textAlign: "center" }}>
+        <p style={{ ...serif, fontSize: 24, fontStyle: "italic", color: `${ink}60`, lineHeight: 1.6, maxWidth: 480, margin: "0 auto" }}>Every image holds still for as long as it needs to.</p>
       </div>
 
-      {/* 4 — Full-bleed, shorter */}
-      <div>
-        <img src={imgs[3]} alt="" style={{ width: "100%", height: 400, objectFit: "cover", display: "block" }} />
-        <p style={{ ...sans, fontSize: 11, color: `${ink}50`, letterSpacing: "0.04em", fontStyle: "italic", textAlign: "center", marginTop: 10 }}>4</p>
-      </div>
-
-      {/* 5–6 — Paired with side margins */}
-      <div style={{ display: "flex", gap: 4, margin: "4px 40px" }}>
-        <div style={{ flex: 1 }}>
-          <img src={imgs[4]} alt="" style={{ width: "100%", height: 380, objectFit: "cover", display: "block" }} />
-          <p style={{ ...sans, fontSize: 11, color: `${ink}50`, letterSpacing: "0.04em", fontStyle: "italic", textAlign: "center", marginTop: 8 }}>5</p>
-        </div>
-        <div style={{ flex: 1 }}>
-          <img src={imgs[5]} alt="" style={{ width: "100%", height: 380, objectFit: "cover", display: "block" }} />
-          <p style={{ ...sans, fontSize: 11, color: `${ink}50`, letterSpacing: "0.04em", fontStyle: "italic", textAlign: "center", marginTop: 8 }}>6</p>
-        </div>
-      </div>
-
-      {/* 7 — Centred portrait, narrow */}
-      <div style={{ padding: "48px 160px 0" }}>
-        <img src={imgs[6]} alt="" style={{ width: "100%", height: 480, objectFit: "cover", display: "block" }} />
-        <p style={{ ...sans, fontSize: 11, color: `${ink}50`, letterSpacing: "0.04em", fontStyle: "italic", textAlign: "center", marginTop: 10 }}>7</p>
-      </div>
-
-      {/* Pause */}
-      <div style={{ padding: "72px 80px", textAlign: "center" }}>
-        <p style={{ ...serif, fontSize: 22, fontStyle: "italic", color: `${ink}60`, lineHeight: 1.6, maxWidth: 480, margin: "0 auto" }}>
-          The quieter the image, the louder the memory.
-        </p>
-      </div>
-
-      {/* 8–9–10 — Three columns */}
+      {/* 2–3 — Paired tall verticals, edge to edge */}
       <div style={{ display: "flex", gap: 4 }}>
-        {[imgs[7], imgs[8], imgs[9]].map((src, i) => (
-          <div key={i} style={{ flex: 1 }}>
-            <img src={src} alt="" style={{ width: "100%", height: 300, objectFit: "cover", display: "block" }} />
-            <p style={{ ...sans, fontSize: 11, color: `${ink}50`, letterSpacing: "0.04em", fontStyle: "italic", textAlign: "center", marginTop: 8 }}>{8 + i}</p>
-          </div>
-        ))}
+        <img src={imgs[1]} alt="2" style={{ flex: 1, height: 680, objectFit: "cover", display: "block" }} />
+        <img src={imgs[2]} alt="3" style={{ flex: 1, height: 680, objectFit: "cover", display: "block" }} />
       </div>
 
-      {/* 11 — Full-bleed */}
-      <div style={{ margin: "4px 0" }}>
-        <img src={imgs[10]} alt="" style={{ width: "100%", height: 420, objectFit: "cover", display: "block" }} />
-        <p style={{ ...sans, fontSize: 11, color: `${ink}50`, letterSpacing: "0.04em", fontStyle: "italic", textAlign: "center", marginTop: 10 }}>11</p>
+      {/* 4 — Full-bleed */}
+      <div style={{ marginTop: 4 }}>
+        <img src={imgs[3]} alt="4" style={{ width: "100%", height: 700, objectFit: "cover", display: "block" }} />
       </div>
 
-      {/* 12–13 — Paired */}
-      <div style={{ display: "flex", gap: 4, margin: "4px 0" }}>
-        {[imgs[11], imgs[12]].map((src, i) => (
-          <div key={i} style={{ flex: 1 }}>
-            <img src={src} alt="" style={{ width: "100%", height: 360, objectFit: "cover", display: "block" }} />
-            <p style={{ ...sans, fontSize: 11, color: `${ink}50`, letterSpacing: "0.04em", fontStyle: "italic", textAlign: "center", marginTop: 8 }}>{12 + i}</p>
-          </div>
-        ))}
+      {/* Pause */}
+      <div style={{ padding: "80px 80px", textAlign: "center" }}>
+        <p style={{ ...serif, fontSize: 24, fontStyle: "italic", color: `${ink}60`, lineHeight: 1.6, maxWidth: 480, margin: "0 auto" }}>The quieter the image, the louder the memory.</p>
       </div>
 
-      {/* 14 — Solo wide, padded */}
-      <div style={{ padding: "48px 80px 0" }}>
-        <img src={imgs[13]} alt="" style={{ width: "100%", height: 380, objectFit: "cover", display: "block" }} />
-        <p style={{ ...sans, fontSize: 11, color: `${ink}50`, letterSpacing: "0.04em", fontStyle: "italic", textAlign: "center", marginTop: 10 }}>14</p>
+      {/* 5 — Wide landscape, padded sides */}
+      <div style={{ padding: "0 60px" }}>
+        <img src={imgs[4]} alt="5" style={{ width: "100%", height: 580, objectFit: "cover", display: "block" }} />
       </div>
 
-      {/* 15–16 — Paired */}
-      <div style={{ display: "flex", gap: 4, margin: "48px 0 0" }}>
-        {[imgs[14], imgs[15]].map((src, i) => (
-          <div key={i} style={{ flex: 1 }}>
-            <img src={src} alt="" style={{ width: "100%", height: 360, objectFit: "cover", display: "block" }} />
-            <p style={{ ...sans, fontSize: 11, color: `${ink}50`, letterSpacing: "0.04em", fontStyle: "italic", textAlign: "center", marginTop: 8 }}>{15 + i}</p>
-          </div>
-        ))}
+      {/* 6–7 — Paired tall */}
+      <div style={{ display: "flex", gap: 4, marginTop: 4 }}>
+        <img src={imgs[5]} alt="6" style={{ flex: 1, height: 660, objectFit: "cover", display: "block" }} />
+        <img src={imgs[6]} alt="7" style={{ flex: 1, height: 660, objectFit: "cover", display: "block" }} />
       </div>
 
-      {/* 17 — Full-bleed */}
-      <div style={{ margin: "4px 0" }}>
-        <img src={imgs[16]} alt="" style={{ width: "100%", height: 440, objectFit: "cover", display: "block" }} />
-        <p style={{ ...sans, fontSize: 11, color: `${ink}50`, letterSpacing: "0.04em", fontStyle: "italic", textAlign: "center", marginTop: 10 }}>17</p>
+      {/* 8 — Full-bleed */}
+      <div style={{ marginTop: 4 }}>
+        <img src={imgs[7]} alt="8" style={{ width: "100%", height: 720, objectFit: "cover", display: "block" }} />
       </div>
 
-      {/* 18–19–20 — Three columns */}
-      <div style={{ display: "flex", gap: 4, margin: "4px 0" }}>
-        {[imgs[17], imgs[18], imgs[19]].map((src, i) => (
-          <div key={i} style={{ flex: 1 }}>
-            <img src={src} alt="" style={{ width: "100%", height: 300, objectFit: "cover", display: "block" }} />
-            <p style={{ ...sans, fontSize: 11, color: `${ink}50`, letterSpacing: "0.04em", fontStyle: "italic", textAlign: "center", marginTop: 8 }}>{18 + i}</p>
-          </div>
-        ))}
+      {/* 9 — Portrait, narrow centred */}
+      <div style={{ padding: "48px 180px 0" }}>
+        <img src={imgs[8]} alt="9" style={{ width: "100%", height: 640, objectFit: "cover", display: "block" }} />
+      </div>
+
+      {/* Pause */}
+      <div style={{ padding: "80px 80px", textAlign: "center" }}>
+        <p style={{ ...serif, fontSize: 24, fontStyle: "italic", color: `${ink}60`, lineHeight: 1.6, maxWidth: 480, margin: "0 auto" }}>Some frames ask you to be still with them.</p>
+      </div>
+
+      {/* 10–11 — Paired tall */}
+      <div style={{ display: "flex", gap: 4 }}>
+        <img src={imgs[9]}  alt="10" style={{ flex: 1, height: 660, objectFit: "cover", display: "block" }} />
+        <img src={imgs[10]} alt="11" style={{ flex: 1, height: 660, objectFit: "cover", display: "block" }} />
+      </div>
+
+      {/* 12 — Full-bleed */}
+      <div style={{ marginTop: 4 }}>
+        <img src={imgs[11]} alt="12" style={{ width: "100%", height: 700, objectFit: "cover", display: "block" }} />
+      </div>
+
+      {/* 13–14 — Paired */}
+      <div style={{ display: "flex", gap: 4, marginTop: 4 }}>
+        <img src={imgs[12]} alt="13" style={{ flex: 1, height: 620, objectFit: "cover", display: "block" }} />
+        <img src={imgs[13]} alt="14" style={{ flex: 1, height: 620, objectFit: "cover", display: "block" }} />
+      </div>
+
+      {/* 15 — Full-bleed tall */}
+      <div style={{ marginTop: 4 }}>
+        <img src={imgs[14]} alt="15" style={{ width: "100%", height: 740, objectFit: "cover", display: "block" }} />
+      </div>
+
+      {/* 16–17 — Paired */}
+      <div style={{ display: "flex", gap: 4, marginTop: 4 }}>
+        <img src={imgs[15]} alt="16" style={{ flex: 1, height: 640, objectFit: "cover", display: "block" }} />
+        <img src={imgs[16]} alt="17" style={{ flex: 1, height: 640, objectFit: "cover", display: "block" }} />
+      </div>
+
+      {/* 18 — Wide, padded */}
+      <div style={{ padding: "48px 60px 0" }}>
+        <img src={imgs[17]} alt="18" style={{ width: "100%", height: 580, objectFit: "cover", display: "block" }} />
+      </div>
+
+      {/* 19–20 — Paired closing */}
+      <div style={{ display: "flex", gap: 4, marginTop: 4 }}>
+        <img src={imgs[18]} alt="19" style={{ flex: 1, height: 660, objectFit: "cover", display: "block" }} />
+        <img src={imgs[19]} alt="20" style={{ flex: 1, height: 660, objectFit: "cover", display: "block" }} />
       </div>
 
       <div style={{ padding: "80px 0", textAlign: "center" }}>
