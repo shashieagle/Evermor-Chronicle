@@ -181,11 +181,14 @@ export default function Home() {
             Evermor
           </div>
           <div className="flex gap-8 font-sans text-[13px] tracking-wide font-light">
-            <Link href="/our-work" className="text-[#F5F0E8]/75 hover:text-[#F5F0E8] transition-colors duration-300">
-              Our Work
+            <Link href="/beginnings" className="text-[#F5F0E8]/75 hover:text-[#F5F0E8] transition-colors duration-300">
+              Beginnings
             </Link>
-            <Link href="/begin" className="text-[#F5F0E8]/75 hover:text-[#F5F0E8] transition-colors duration-300">
-              Begin
+            <Link href="/about" className="text-[#F5F0E8]/75 hover:text-[#F5F0E8] transition-colors duration-300">
+              About
+            </Link>
+            <Link href="/begin-your-story" className="text-[#F5F0E8]/75 hover:text-[#F5F0E8] transition-colors duration-300">
+              Begin Your Story
             </Link>
           </div>
         </nav>
@@ -488,12 +491,12 @@ export default function Home() {
         </div>
 
         {/* Layout Block 1 */}
-        <div className="w-full">
+        <Link href="/beginnings/shaun-sowmya" className="block w-full group cursor-pointer">
           <img
             ref={s1ImgRef}
             src="/s1.jpg"
             alt="The beginning of Aditi & Karthik"
-            className={`h-[520px] md:h-[700px] lg:h-[820px] w-full object-cover object-center transition-opacity duration-[1000ms] ease-out ${
+            className={`h-[520px] md:h-[700px] lg:h-[820px] w-full object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
               s1ImgInView ? "opacity-100" : "opacity-0"
             }`}
           />
@@ -506,16 +509,16 @@ export default function Home() {
           >
             The beginning of Aditi & Karthik.
           </p>
-        </div>
+        </Link>
 
         {/* Layout Block 2 */}
-        <div className="mt-12 md:mt-20">
+        <Link href="/beginnings/shaun-sowmya" className="block mt-12 md:mt-20 group cursor-pointer">
           <div className="flex gap-3 md:gap-5 px-4 md:px-8 lg:px-16">
             <img
               ref={s2ImgRef}
               src="/s2.jpg"
               alt="Vertical portrait left"
-              className={`flex-1 h-[480px] md:h-[640px] lg:h-[740px] object-cover object-center transition-opacity duration-[1000ms] ease-out ${
+              className={`flex-1 h-[480px] md:h-[640px] lg:h-[740px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
                 s2ImgInView ? "opacity-100" : "opacity-0"
               }`}
             />
@@ -523,7 +526,7 @@ export default function Home() {
               ref={s3ImgRef}
               src="/s3.jpg"
               alt="Vertical portrait right"
-              className={`flex-1 h-[480px] md:h-[640px] lg:h-[740px] object-cover object-center transition-opacity duration-[1000ms] ease-out ${
+              className={`flex-1 h-[480px] md:h-[640px] lg:h-[740px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
                 s3ImgInView ? "opacity-100" : "opacity-0"
               }`}
               style={{ transitionDelay: s3ImgInView ? '100ms' : '0ms' }}
@@ -538,15 +541,15 @@ export default function Home() {
           >
             Before promises became memories.
           </p>
-        </div>
+        </Link>
 
         {/* Layout Block 3 */}
-        <div className="mt-12 md:mt-20">
+        <Link href="/beginnings/shaun-sowmya" className="block mt-12 md:mt-20 group cursor-pointer">
           <img
             ref={s4ImgRef}
             src="/s4.jpg"
             alt="Cinematic landscape"
-            className={`h-[340px] md:h-[460px] lg:h-[520px] w-full object-cover object-center transition-opacity duration-[1000ms] ease-out ${
+            className={`h-[340px] md:h-[460px] lg:h-[520px] w-full object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
               s4ImgInView ? "opacity-100" : "opacity-0"
             }`}
           />
@@ -559,16 +562,16 @@ export default function Home() {
           >
             Where the evening held still.
           </p>
-        </div>
+        </Link>
 
         {/* Layout Block 4 */}
-        <div className="mt-12 md:mt-20">
+        <Link href="/beginnings/shaun-sowmya" className="block mt-12 md:mt-20 group cursor-pointer">
           <div className="max-w-[560px] md:max-w-[680px] mx-auto px-6 md:px-0">
             <img
               ref={s5ImgRef}
               src="/s5.jpg"
               alt="Intimate close-up"
-              className={`w-full h-[420px] md:h-[520px] object-cover object-center transition-opacity duration-[1000ms] ease-out ${
+              className={`w-full h-[420px] md:h-[520px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
                 s5ImgInView ? "opacity-100" : "opacity-0"
               }`}
             />
@@ -582,16 +585,16 @@ export default function Home() {
               The people who made this day unforgettable.
             </p>
           </div>
-        </div>
+        </Link>
 
         {/* Layout Block 5 */}
-        <div className="mt-12 md:mt-20">
+        <Link href="/beginnings/shaun-sowmya" className="block mt-12 md:mt-20 group cursor-pointer">
           <div className="flex gap-3 md:gap-5 px-4 md:px-8 lg:px-16">
             <img
               ref={s6ImgRef}
               src="/s6.jpg"
               alt="Vertical portrait left"
-              className={`flex-1 h-[480px] md:h-[640px] lg:h-[740px] object-cover object-center transition-opacity duration-[1000ms] ease-out ${
+              className={`flex-1 h-[480px] md:h-[640px] lg:h-[740px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
                 s6ImgInView ? "opacity-100" : "opacity-0"
               }`}
             />
@@ -599,7 +602,7 @@ export default function Home() {
               ref={s7ImgRef}
               src="/s7.jpg"
               alt="Vertical portrait right"
-              className={`flex-1 h-[480px] md:h-[640px] lg:h-[740px] object-cover object-center transition-opacity duration-[1000ms] ease-out ${
+              className={`flex-1 h-[480px] md:h-[640px] lg:h-[740px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
                 s7ImgInView ? "opacity-100" : "opacity-0"
               }`}
               style={{ transitionDelay: s7ImgInView ? '100ms' : '0ms' }}
@@ -614,7 +617,7 @@ export default function Home() {
           >
             Every family begins with a moment like this.
           </p>
-        </div>
+        </Link>
 
         {/* Closing Block */}
         <div className="mt-24 md:mt-36 text-center max-w-[680px] mx-auto px-6 md:px-0">

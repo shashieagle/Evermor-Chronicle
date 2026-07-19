@@ -1,24 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "wouter";
-
-// Story data — add new beginnings here
-const stories: Record<string, {
-  slug: string;
-  title: string;
-  couple: string;
-  location: string;
-  heroImage: string;
-  hasFilm: boolean;
-}> = {
-  "shaun-sowmya": {
-    slug: "shaun-sowmya",
-    title: "A Second Beginning",
-    couple: "Shaun & Sowmya",
-    location: "Bangalore, India",
-    heroImage: "/beginnings-shaun-sowmya.jpg",
-    hasFilm: true,
-  },
-};
+import { storiesBySlug } from "../data/stories";
 
 export default function Beginnings() {
   const { slug } = useParams<{ slug: string }>();

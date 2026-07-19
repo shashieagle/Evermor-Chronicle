@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Route, Switch, Router as WouterRouter } from 'wouter';
 import Home from './pages/Home';
 import Beginnings from './pages/Beginnings';
+import BeginningsIndex from './pages/BeginningsIndex';
 
 const queryClient = new QueryClient();
 
@@ -9,6 +10,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/beginnings" component={BeginningsIndex} />
       <Route path="/beginnings/:slug" component={Beginnings} />
     </Switch>
   );
