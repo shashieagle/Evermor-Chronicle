@@ -1,0 +1,409 @@
+# PROJECT CONTEXT
+
+We are building the About page for the Evermor website.
+
+Evermor is not a wedding photography company.
+
+It is an editorial storytelling studio that preserves the beginning of a family's story.
+
+The Homepage, Beginnings page and Individual Beginning pages are already complete.
+
+The About page must inherit EXACTLY the same visual language.
+
+DO NOT redesign the website.
+
+Reuse:
+
+• Existing navigation
+• Typography
+• Colour palette
+• Beige background
+• Grid system
+• Whitespace
+• Components
+• Animation utilities
+• Spacing scale
+
+The About page should feel like another chapter in the same book.
+
+------------------------------------------------------------
+
+# OBJECTIVE
+
+This page has ONE purpose.
+
+Help visitors trust the people behind Evermor.
+
+The Homepage already explains the philosophy.
+
+The Beginnings page already demonstrates the work.
+
+This page should simply introduce the people behind Evermor in a warm, honest and understated way.
+
+Do NOT repeat ideas already explained elsewhere.
+
+Do NOT make this page feel like an agency profile.
+
+Less is more.
+
+------------------------------------------------------------
+
+# PAGE STRUCTURE
+
+The page consists of only THREE movements.
+
+1. Hero
+
+2. Editorial Story
+
+3. Quiet Invitation
+
+Nothing else.
+
+No timelines.
+
+No process diagrams.
+
+No service explanation.
+
+No philosophy cards.
+
+No statistics.
+
+No awards.
+
+No client logos.
+
+No counters.
+
+------------------------------------------------------------
+
+# HERO
+
+Height:
+Approximately 85vh.
+
+------------------------------------------------------------
+
+# HERO IMAGE
+
+One calm documentary-style portrait of Shashikanth and Deepika.
+
+Preferred imagery:
+
+• Walking together
+
+• Sitting naturally
+
+• Looking through albums
+
+• Talking together
+
+• Quiet candid interaction
+
+Avoid:
+
+• Cameras
+
+• Studio portraits
+
+• Looking directly into the camera
+
+• Dramatic wedding poses
+
+The image should communicate warmth, trust and authenticity.
+
+------------------------------------------------------------
+
+# HERO LAYOUT
+
+Minimal.
+
+Large whitespace.
+
+Editorial proportions.
+
+Image should dominate.
+
+Text should never compete with the image.
+
+Desktop:
+
+The image occupies most of the hero.
+
+The copy is positioned comfortably within the composition.
+
+Mobile:
+
+Maintain hierarchy.
+
+Do not simply scale down.
+
+Ensure the image still feels immersive.
+
+------------------------------------------------------------
+
+# HERO TYPOGRAPHY
+
+Headline
+
+We are Shashikanth & Deepika.
+
+Supporting text
+
+Partners in life.
+
+Partners in storytelling.
+
+No buttons.
+
+No CTA.
+
+No icons.
+
+No social media.
+
+No decorative graphics.
+
+------------------------------------------------------------
+
+# TRANSITION
+
+As the visitor scrolls...
+
+The hero naturally gives way to the editorial story.
+
+No divider.
+
+No chapter heading.
+
+No visual interruption.
+
+Only generous whitespace.
+
+------------------------------------------------------------
+
+# EDITORIAL STORY
+
+Maximum content width:
+
+720–760px.
+
+Centre aligned container.
+
+Readable line length.
+
+Large line spacing.
+
+Comfortable paragraph spacing.
+
+The page should feel like reading an editorial essay.
+
+Use the following copy.
+
+------------------------------------------------------------
+
+We didn't begin this journey because we wanted to become wedding photographers.
+
+We began because we were fascinated by people.
+
+The relationships they build.
+
+The families they belong to.
+
+The stories they carry.
+
+When we got married ourselves, something changed.
+
+We realised the memories we treasured most weren't the perfectly posed photographs.
+
+They were the moments we almost forgot.
+
+A quiet glance.
+
+Parents trying to hide their emotions.
+
+Friends laughing between ceremonies.
+
+Small conversations that no one planned.
+
+That experience changed the way we approached every wedding that followed.
+
+Today, we don't arrive with the intention of simply documenting a celebration.
+
+We arrive with the responsibility of preserving the beginning of a family's story.
+
+For us, this has never been just about photography.
+
+It has always been about people.
+
+------------------------------------------------------------
+
+# TYPOGRAPHY
+
+Never display this as one large block.
+
+Break naturally.
+
+Allow important thoughts to stand alone.
+
+Whitespace creates rhythm.
+
+Do not use bold text for emphasis.
+
+Do not use decorative quotes.
+
+------------------------------------------------------------
+
+# QUIET INVITATION
+
+After the editorial story...
+
+Create a generous pause.
+
+Approximately 180–220px vertical whitespace.
+
+Then place one final editorial statement.
+
+------------------------------------------------------------
+
+If our story resonates with you,
+
+perhaps it's time to begin yours.
+
+------------------------------------------------------------
+
+Below that, with generous spacing,
+
+display a simple text link.
+
+Begin Your Story →
+
+Do NOT use a filled button.
+
+Do NOT use an outlined button.
+
+The interaction should feel like turning the page of a beautifully printed book.
+
+On hover:
+
+• subtle underline OR
+• gentle opacity transition
+
+Nothing more.
+
+------------------------------------------------------------
+
+# VISUAL LANGUAGE
+
+Maintain the same editorial identity as the Homepage.
+
+Minimal.
+
+Calm.
+
+Elegant.
+
+Timeless.
+
+No visual clutter.
+
+No cards.
+
+No borders.
+
+No drop shadows.
+
+No gradients.
+
+No glassmorphism.
+
+No unnecessary icons.
+
+No decorative illustrations.
+
+Whitespace is a design element.
+
+------------------------------------------------------------
+
+# ANIMATION
+
+Reuse existing animation system.
+
+Image fades in.
+
+Text fades upward subtly.
+
+Duration:
+
+600–800ms.
+
+No parallax.
+
+No cinematic effects.
+
+No scrolling tricks.
+
+------------------------------------------------------------
+
+# RESPONSIVENESS
+
+Desktop:
+
+Editorial composition.
+
+Tablet:
+
+Maintain proportions.
+
+Mobile:
+
+Reading should remain effortless.
+
+Preserve generous spacing.
+
+Do not compress the experience.
+
+------------------------------------------------------------
+
+# ACCESSIBILITY
+
+Semantic HTML.
+
+Proper heading hierarchy.
+
+Accessible contrast.
+
+Responsive typography.
+
+Keyboard accessible navigation.
+
+------------------------------------------------------------
+
+# PERFORMANCE
+
+Reuse existing components.
+
+Reuse typography tokens.
+
+Reuse spacing utilities.
+
+Reuse animation utilities.
+
+Do not duplicate styles.
+
+Do not introduce new libraries.
+
+------------------------------------------------------------
+
+# FINAL EXPERIENCE
+
+When someone finishes this page they should not feel like they have read an About Us page.
+
+They should feel like they have met two people they would trust with preserving one of the most important days of their lives.
+
+The final emotion should be calm, personal and reassuring.
+
+The transition into "Begin Your Story" should feel inevitable rather than promotional.
+
+Return clean, production-ready code consistent with the existing Evermor architecture.
