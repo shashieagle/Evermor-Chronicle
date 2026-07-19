@@ -297,31 +297,49 @@ export default function BeginYourStory() {
         </div>
       </section>
 
-      {/* ── 2. Gentle Introduction ──────────────────────────────────── */}
+      {/* ── 2. Before We Begin — personal editorial note ────────────── */}
       <section
         style={{
-          paddingTop: "clamp(80px, 10vw, 128px)",
-          paddingBottom: "clamp(80px, 10vw, 120px)",
+          paddingTop: "clamp(100px, 12vw, 140px)",
+          paddingBottom: "clamp(100px, 12vw, 140px)",
           paddingLeft: "clamp(24px, 8vw, 100px)",
           paddingRight: "clamp(24px, 8vw, 100px)",
         }}
       >
-        <Fade>
-          <div style={{ maxWidth: 560, margin: "0 auto", textAlign: "center" }}>
+        <div style={{ maxWidth: 640 }}>
+
+          <Fade>
             <p
-              className="font-serif font-light text-[#3A342C]/50 leading-[1.9]"
-              style={{ fontSize: "clamp(14px, 1.2vw, 16px)" }}
+              className="font-sans font-light tracking-[0.1em] uppercase text-[#3A342C]/45 mb-8"
+              style={{ fontSize: "clamp(9px, 0.85vw, 11px)" }}
             >
-              There are no right or wrong answers.
-              <br />
-              Write as much or as little as you'd like.
-              <br />
-              The more we understand your story,
-              <br />
-              the more honestly we can preserve it.
+              Before We Begin
             </p>
-          </div>
-        </Fade>
+          </Fade>
+
+          {[
+            "First, congratulations.",
+            "If you've found your way here, you're probably in the middle of planning one of the most meaningful days of your lives together.",
+            "Thank you for taking the time to explore our work.",
+            "Before we talk about photographs or films, we'd simply love to get to know the two of you.",
+            "The form below is just the beginning of that conversation.",
+            "Share as much or as little as you'd like.",
+            "We'll read every enquiry personally, and if it feels like we're the right fit for one another, we'll arrange a conversation to hear the rest of your story.",
+          ].map((line, i) => (
+            <Fade key={i} delay={i * 40}>
+              <p
+                className="font-serif font-light text-[#3A342C] leading-[1.85]"
+                style={{
+                  fontSize: "clamp(16px, 1.4vw, 19px)",
+                  marginBottom: "clamp(16px, 2.2vw, 28px)",
+                }}
+              >
+                {line}
+              </p>
+            </Fade>
+          ))}
+
+        </div>
       </section>
 
       {/* ── 3. The Conversation ─────────────────────────────────────── */}

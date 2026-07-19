@@ -1,0 +1,118 @@
+# UPDATE THE "BEGIN YOUR STORY" PAGE
+
+The page currently opens with the hero:
+
+"Begin Your Story"
+
+"Every story begins with a conversation."
+
+"We'd love to know a little about the two of you before we ever pick up a camera."
+
+Keep the hero exactly as it is.
+
+DO NOT change the typography, spacing, layout or overall visual language.
+
+Instead, insert a new editorial introduction between the hero section and the enquiry form.
+
+This introduction should feel like a warm welcome from Shashikanth and Deepika.
+
+It should NOT feel like marketing copy.
+
+It should feel like a personal letter.
+
+------------------------------------------------------------
+
+# SECTION TITLE
+
+Before We Begin
+
+Use the existing editorial heading style from the website.
+
+Small and understated.
+
+------------------------------------------------------------
+
+# COPY
+
+First, congratulations.
+
+If you've found your way here, you're probably in the middle of planning one of the most meaningful days of your lives together.
+
+Thank you for taking the time to explore our work.
+
+Before we talk about photographs or films, we'd simply love to get to know the two of you.
+
+The form below is just the beginning of that conversation.
+
+Share as much or as little as you'd like.
+
+We'll read every enquiry personally, and if it feels like we're the right fit for one another, we'll arrange a conversation to hear the rest of your story.
+
+------------------------------------------------------------
+
+# DESIGN
+
+This section should feel like reading a personal note.
+
+Maximum content width:
+640px
+
+Left aligned within the existing content grid.
+
+Do NOT centre the paragraphs.
+
+Use generous line height.
+
+Break the copy into short paragraphs.
+
+Avoid large walls of text.
+
+Add approximately 100–120px of vertical spacing above and below this section so it naturally separates the hero from the enquiry form.
+
+No cards.
+
+No coloured background.
+
+No borders.
+
+No icons.
+
+No illustrations.
+
+No decorative elements.
+
+Let typography and whitespace carry the experience.
+
+------------------------------------------------------------
+
+# TRANSITION
+
+Immediately after this editorial introduction, begin the enquiry form.
+
+Do NOT insert another heading like "The Conversation."
+
+Allow the page to flow naturally into the first field:
+
+Your Name
+
+The visitor should feel as though they're responding to a personal letter rather than filling out a contact form.
+
+------------------------------------------------------------
+
+# MICRO INTERACTION
+
+As users scroll from the welcome note into the form, maintain the site's existing fade-up animation.
+
+No additional motion or visual effects.
+
+------------------------------------------------------------
+
+# OBJECTIVE
+
+This section should create one feeling:
+
+"We're about to have a genuine conversation."
+
+The transition from reading to writing should feel effortless, intimate and calm.
+
+The experience should remain fully consistent with Evermor's editorial design language and understated luxury aesthetic.
