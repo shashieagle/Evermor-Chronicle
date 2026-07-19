@@ -6,7 +6,7 @@ export default function Beginnings() {
   const { slug } = useParams<{ slug: string }>();
   const [mounted, setMounted] = useState(false);
 
-  const story = slug ? stories[slug] : undefined;
+  const story = slug ? storiesBySlug[slug] : undefined;
 
   useEffect(() => {
     setMounted(true);
