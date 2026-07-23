@@ -288,7 +288,7 @@ export default function Home() {
             }`}
             style={{ transitionDelay: b1HeadlineInView ? '80ms' : '0ms' }}
           >
-            People before pictures.
+            Connection over composition.
           </h3>
           <p
             ref={b1CopyRef}
