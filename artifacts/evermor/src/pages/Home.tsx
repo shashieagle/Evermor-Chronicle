@@ -93,6 +93,14 @@ export default function Home() {
   const [ch7BtnRef, ch7BtnInView] = useInView();
   const [ch7NoteRef, ch7NoteInView] = useInView();
 
+  // About section (inline on home)
+  const [aboutImgRef, aboutImgInView] = useInView();
+  const [aboutT1Ref, aboutT1InView] = useInView();
+  const [aboutT2Ref, aboutT2InView] = useInView();
+  const [aboutT3Ref, aboutT3InView] = useInView();
+  const [aboutT4Ref, aboutT4InView] = useInView();
+  const [aboutLinkRef, aboutLinkInView] = useInView();
+
 
   useEffect(() => {
     setMounted(true);
@@ -431,6 +439,104 @@ export default function Home() {
           Every belief shapes the way we preserve your beginning.
         </p>
       </section>
+      {/* About — inline landing section */}
+      <section className="bg-[#FAFAF8] py-24 md:py-40 lg:py-56">
+        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-16 flex flex-col md:flex-row gap-14 md:gap-20 lg:gap-28 items-start">
+
+          {/* Portrait */}
+          <div
+            ref={aboutImgRef}
+            className={`w-full md:w-[340px] lg:w-[400px] shrink-0 aspect-[3/4] overflow-hidden transition-all duration-[1200ms] ease-out ${
+              aboutImgInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
+            <img
+              src="/about-hero.jpg"
+              alt="Shashikanth and Deepika"
+              loading="lazy"
+              className="w-full h-full object-cover object-center"
+            />
+          </div>
+
+          {/* Text */}
+          <div className="flex-1 flex flex-col justify-center pt-2 md:pt-10">
+
+            <p
+              ref={aboutT1Ref}
+              className={`font-sans font-light uppercase tracking-[0.22em] text-[10px] text-[#3A342C]/35 mb-8 transition-all duration-[800ms] ease-out ${
+                aboutT1InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+            >
+              Who we are
+            </p>
+
+            <div
+              ref={aboutT2Ref}
+              className={`transition-all duration-[1000ms] ease-out ${
+                aboutT2InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              }`}
+            >
+              <p className="font-serif font-light text-[#3A342C] leading-[1.8] mb-4" style={{ fontSize: 'clamp(17px, 1.4vw, 20px)' }}>
+                We are Shashikanth &amp; Deepika.
+              </p>
+              <p className="font-serif font-light text-[#3A342C] leading-[1.8] mb-4" style={{ fontSize: 'clamp(17px, 1.4vw, 20px)' }}>
+                We didn't begin this journey because we wanted to become wedding photographers.
+                We began because we were fascinated by people.
+              </p>
+              <div className="h-5" />
+              <p className="font-serif font-light text-[#3A342C] leading-[1.8] mb-4" style={{ fontSize: 'clamp(17px, 1.4vw, 20px)' }}>
+                When we got married ourselves, something changed.
+              </p>
+              <p className="font-serif font-light text-[#3A342C] leading-[1.8]" style={{ fontSize: 'clamp(17px, 1.4vw, 20px)' }}>
+                We realised the memories we treasured most weren't the perfectly posed photographs.
+                They were the moments we almost forgot.
+              </p>
+            </div>
+
+            <div
+              ref={aboutT3Ref}
+              className={`mt-8 transition-all duration-[1000ms] ease-out ${
+                aboutT3InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              }`}
+            >
+              <p className="font-serif font-light text-[#3A342C] leading-[1.8] mb-4" style={{ fontSize: 'clamp(17px, 1.4vw, 20px)' }}>
+                Today, we don't arrive with the intention of simply documenting a celebration.
+              </p>
+              <p className="font-serif font-light text-[#3A342C] leading-[1.8]" style={{ fontSize: 'clamp(17px, 1.4vw, 20px)' }}>
+                We arrive with the responsibility of preserving the beginning of a family's story.
+              </p>
+            </div>
+
+            <div
+              ref={aboutT4Ref}
+              className={`mt-6 transition-all duration-[1000ms] ease-out ${
+                aboutT4InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              }`}
+            >
+              <p className="font-serif font-light italic text-[#3A342C]/55 leading-[1.8]" style={{ fontSize: 'clamp(16px, 1.3vw, 19px)' }}>
+                For us, this has never been just about photography.
+                It has always been about people.
+              </p>
+            </div>
+
+            <div
+              ref={aboutLinkRef}
+              className={`mt-10 md:mt-14 transition-all duration-[800ms] ease-out ${
+                aboutLinkInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+              }`}
+            >
+              <Link
+                href="/about"
+                className="font-sans font-light text-[#3A342C]/60 tracking-[0.14em] uppercase text-[11px] hover:text-[#3A342C] transition-colors duration-300"
+              >
+                Read our full story&nbsp;&nbsp;→
+              </Link>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
       {/* Chapter 5 - Stories */}
       <section className="bg-[#FAFAF8] pt-20 md:pt-32 lg:pt-48 pb-20 md:pb-32 lg:pb-48">
         {/* Header */}
