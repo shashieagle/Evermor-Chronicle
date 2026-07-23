@@ -56,18 +56,23 @@ export default function Home() {
   
   const [b1HeadlineRef, b1HeadlineInView] = useInView();
   const [b1CopyRef, b1CopyInView] = useInView();
+  const [b1ImgRef, b1ImgInView] = useInView();
 
   const [b2HeadlineRef, b2HeadlineInView] = useInView();
   const [b2CopyRef, b2CopyInView] = useInView();
+  const [b2ImgRef, b2ImgInView] = useInView();
 
   const [b3HeadlineRef, b3HeadlineInView] = useInView();
   const [b3CopyRef, b3CopyInView] = useInView();
+  const [b3ImgRef, b3ImgInView] = useInView();
 
   const [b4HeadlineRef, b4HeadlineInView] = useInView();
   const [b4CopyRef, b4CopyInView] = useInView();
+  const [b4ImgRef, b4ImgInView] = useInView();
 
   const [b5HeadlineRef, b5HeadlineInView] = useInView();
   const [b5CopyRef, b5CopyInView] = useInView();
+  const [b5ImgRef, b5ImgInView] = useInView();
 
   const [c4ClosingRef, c4ClosingInView] = useInView();
 
@@ -272,161 +277,109 @@ export default function Home() {
       {/* Chapter 4 - Beliefs */}
       <section className="bg-[#F8F6F2] py-20 md:py-32 lg:py-48">
 
-        {/* Belief 1 */}
-        <div className="max-w-[680px] mx-auto px-6 md:px-0 text-center mb-0">
-          <p
-            ref={b1HeadlineRef}
-            className={`font-sans font-light uppercase tracking-[0.2em] text-[10px] md:text-[11px] text-[#3A342C]/35 mb-6 transition-all duration-[800ms] ease-out ${
-              b1HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        {/* Belief 1 — image left */}
+        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-16 flex flex-col md:flex-row items-center gap-12 md:gap-20 lg:gap-28">
+          <div
+            ref={b1ImgRef}
+            className={`w-full md:w-[380px] lg:w-[420px] shrink-0 aspect-[3/4] overflow-hidden transition-all duration-[1100ms] ease-out ${
+              b1ImgInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            I
-          </p>
-          <h3
-            className={`font-serif font-light text-[38px] md:text-[52px] lg:text-[58px] text-[#3A342C] leading-[1.12] tracking-[0.005em] mb-7 md:mb-9 transition-all duration-[800ms] ease-out ${
-              b1HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-            style={{ transitionDelay: b1HeadlineInView ? '80ms' : '0ms' }}
-          >
-            Connection over composition.
-          </h3>
-          <p
-            ref={b1CopyRef}
-            className={`font-sans font-light text-[15px] md:text-[16px] text-[#3A342C]/60 leading-[1.9] tracking-[0.02em] transition-all duration-[800ms] ease-out ${
-              b1CopyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-            style={{ transitionDelay: b1CopyInView ? '100ms' : '0ms' }}
-          >
-            Every wedding is remembered through the people who lived it. Before we create photographs, we take the time to understand the relationships, emotions, and moments that matter most.
-          </p>
+            <img src="/belief1.jpg" alt="Connection over composition" className="w-full h-full object-cover object-center" loading="lazy" />
+          </div>
+          <div ref={b1HeadlineRef} className={`flex-1 transition-all duration-[1000ms] ease-out ${b1HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <p className="font-sans font-light uppercase tracking-[0.22em] text-[10px] text-[#3A342C]/35 mb-6">I</p>
+            <h3 className="font-serif font-light text-[34px] md:text-[44px] lg:text-[52px] text-[#3A342C] leading-[1.15] tracking-[0.005em] mb-6">
+              Connection over composition.
+            </h3>
+            <p ref={b1CopyRef} className={`font-sans font-light text-[15px] md:text-[16px] text-[#3A342C]/60 leading-[1.9] tracking-[0.02em] transition-all duration-[800ms] ease-out ${b1CopyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: b1CopyInView ? '120ms' : '0ms' }}>
+              Every wedding is remembered through the people who lived it. Before we create photographs, we take the time to understand the relationships, emotions, and moments that matter most.
+            </p>
+          </div>
         </div>
 
-        {/* Divider */}
-        <div className="w-px h-16 md:h-20 bg-[#3A342C]/15 mx-auto my-16 md:my-24" />
-
-        {/* Belief 2 */}
-        <div className="max-w-[680px] mx-auto px-6 md:px-0 text-center">
-          <p
-            ref={b2HeadlineRef}
-            className={`font-sans font-light uppercase tracking-[0.2em] text-[10px] md:text-[11px] text-[#3A342C]/35 mb-6 transition-all duration-[800ms] ease-out ${
-              b2HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        {/* Belief 2 — image right */}
+        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-16 flex flex-col md:flex-row-reverse items-center gap-12 md:gap-20 lg:gap-28 mt-24 md:mt-36 lg:mt-48">
+          <div
+            ref={b2ImgRef}
+            className={`w-full md:w-[380px] lg:w-[420px] shrink-0 aspect-[3/4] overflow-hidden transition-all duration-[1100ms] ease-out ${
+              b2ImgInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            II
-          </p>
-          <h3
-            className={`font-serif font-light text-[38px] md:text-[52px] lg:text-[58px] text-[#3A342C] leading-[1.12] tracking-[0.005em] mb-7 md:mb-9 transition-all duration-[800ms] ease-out ${
-              b2HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-            style={{ transitionDelay: b2HeadlineInView ? '80ms' : '0ms' }}
-          >
-            Stories before trends.
-          </h3>
-          <p
-            ref={b2CopyRef}
-            className={`font-sans font-light text-[15px] md:text-[16px] text-[#3A342C]/60 leading-[1.9] tracking-[0.02em] transition-all duration-[800ms] ease-out ${
-              b2CopyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-            style={{ transitionDelay: b2CopyInView ? '100ms' : '0ms' }}
-          >
-            Beautiful imagery may capture attention today, but meaningful stories continue to resonate for generations. We create work that remains timeless long after trends have faded.
-          </p>
+            <img src="/belief2.jpg" alt="Stories before trends" className="w-full h-full object-cover object-center" loading="lazy" />
+          </div>
+          <div ref={b2HeadlineRef} className={`flex-1 transition-all duration-[1000ms] ease-out ${b2HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <p className="font-sans font-light uppercase tracking-[0.22em] text-[10px] text-[#3A342C]/35 mb-6">II</p>
+            <h3 className="font-serif font-light text-[34px] md:text-[44px] lg:text-[52px] text-[#3A342C] leading-[1.15] tracking-[0.005em] mb-6">
+              Stories before trends.
+            </h3>
+            <p ref={b2CopyRef} className={`font-sans font-light text-[15px] md:text-[16px] text-[#3A342C]/60 leading-[1.9] tracking-[0.02em] transition-all duration-[800ms] ease-out ${b2CopyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: b2CopyInView ? '120ms' : '0ms' }}>
+              Beautiful imagery may capture attention today, but meaningful stories continue to resonate for generations. We create work that remains timeless long after trends have faded.
+            </p>
+          </div>
         </div>
 
-        {/* Divider */}
-        <div className="w-px h-16 md:h-20 bg-[#3A342C]/15 mx-auto my-16 md:my-24" />
-
-        {/* Belief 3 */}
-        <div className="max-w-[680px] mx-auto px-6 md:px-0 text-center">
-          <p
-            ref={b3HeadlineRef}
-            className={`font-sans font-light uppercase tracking-[0.2em] text-[10px] md:text-[11px] text-[#3A342C]/35 mb-6 transition-all duration-[800ms] ease-out ${
-              b3HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        {/* Belief 3 — image left */}
+        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-16 flex flex-col md:flex-row items-center gap-12 md:gap-20 lg:gap-28 mt-24 md:mt-36 lg:mt-48">
+          <div
+            ref={b3ImgRef}
+            className={`w-full md:w-[380px] lg:w-[420px] shrink-0 aspect-[3/4] overflow-hidden transition-all duration-[1100ms] ease-out ${
+              b3ImgInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            III
-          </p>
-          <h3
-            className={`font-serif font-light text-[38px] md:text-[52px] lg:text-[58px] text-[#3A342C] leading-[1.12] tracking-[0.005em] mb-7 md:mb-9 transition-all duration-[800ms] ease-out ${
-              b3HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-            style={{ transitionDelay: b3HeadlineInView ? '80ms' : '0ms' }}
-          >
-            Discovery before documentation.
-          </h3>
-          <p
-            ref={b3CopyRef}
-            className={`font-sans font-light text-[15px] md:text-[16px] text-[#3A342C]/60 leading-[1.9] tracking-[0.02em] transition-all duration-[800ms] ease-out ${
-              b3CopyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-            style={{ transitionDelay: b3CopyInView ? '100ms' : '0ms' }}
-          >
-            Every couple is different. Every family carries its own history. Before a single frame is created, we invest time in discovering what makes your story uniquely yours.
-          </p>
+            <img src="/belief3.jpg" alt="Discovery before documentation" className="w-full h-full object-cover object-center" loading="lazy" />
+          </div>
+          <div ref={b3HeadlineRef} className={`flex-1 transition-all duration-[1000ms] ease-out ${b3HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <p className="font-sans font-light uppercase tracking-[0.22em] text-[10px] text-[#3A342C]/35 mb-6">III</p>
+            <h3 className="font-serif font-light text-[34px] md:text-[44px] lg:text-[52px] text-[#3A342C] leading-[1.15] tracking-[0.005em] mb-6">
+              Discovery before documentation.
+            </h3>
+            <p ref={b3CopyRef} className={`font-sans font-light text-[15px] md:text-[16px] text-[#3A342C]/60 leading-[1.9] tracking-[0.02em] transition-all duration-[800ms] ease-out ${b3CopyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: b3CopyInView ? '120ms' : '0ms' }}>
+              Every couple is different. Every family carries its own history. Before a single frame is created, we invest time in discovering what makes your story uniquely yours.
+            </p>
+          </div>
         </div>
 
-        {/* Divider */}
-        <div className="w-px h-16 md:h-20 bg-[#3A342C]/15 mx-auto my-16 md:my-24" />
-
-        {/* Belief 4 */}
-        <div className="max-w-[680px] mx-auto px-6 md:px-0 text-center">
-          <p
-            ref={b4HeadlineRef}
-            className={`font-sans font-light uppercase tracking-[0.2em] text-[10px] md:text-[11px] text-[#3A342C]/35 mb-6 transition-all duration-[800ms] ease-out ${
-              b4HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        {/* Belief 4 — image right */}
+        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-16 flex flex-col md:flex-row-reverse items-center gap-12 md:gap-20 lg:gap-28 mt-24 md:mt-36 lg:mt-48">
+          <div
+            ref={b4ImgRef}
+            className={`w-full md:w-[380px] lg:w-[420px] shrink-0 aspect-[3/4] overflow-hidden transition-all duration-[1100ms] ease-out ${
+              b4ImgInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            IV
-          </p>
-          <h3
-            className={`font-serif font-light text-[38px] md:text-[52px] lg:text-[58px] text-[#3A342C] leading-[1.12] tracking-[0.005em] mb-7 md:mb-9 transition-all duration-[800ms] ease-out ${
-              b4HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-            style={{ transitionDelay: b4HeadlineInView ? '80ms' : '0ms' }}
-          >
-            Craft with purpose.
-          </h3>
-          <p
-            ref={b4CopyRef}
-            className={`font-sans font-light text-[15px] md:text-[16px] text-[#3A342C]/60 leading-[1.9] tracking-[0.02em] transition-all duration-[800ms] ease-out ${
-              b4CopyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-            style={{ transitionDelay: b4CopyInView ? '100ms' : '0ms' }}
-          >
-            Every photograph, every film, every edit is made intentionally. We believe craftsmanship is measured not by complexity, but by emotional honesty.
-          </p>
+            <img src="/belief4.jpg" alt="Craft with purpose" className="w-full h-full object-cover object-center" loading="lazy" />
+          </div>
+          <div ref={b4HeadlineRef} className={`flex-1 transition-all duration-[1000ms] ease-out ${b4HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <p className="font-sans font-light uppercase tracking-[0.22em] text-[10px] text-[#3A342C]/35 mb-6">IV</p>
+            <h3 className="font-serif font-light text-[34px] md:text-[44px] lg:text-[52px] text-[#3A342C] leading-[1.15] tracking-[0.005em] mb-6">
+              Craft with purpose.
+            </h3>
+            <p ref={b4CopyRef} className={`font-sans font-light text-[15px] md:text-[16px] text-[#3A342C]/60 leading-[1.9] tracking-[0.02em] transition-all duration-[800ms] ease-out ${b4CopyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: b4CopyInView ? '120ms' : '0ms' }}>
+              Every photograph, every film, every edit is made intentionally. We believe craftsmanship is measured not by complexity, but by emotional honesty.
+            </p>
+          </div>
         </div>
 
-        {/* Divider */}
-        <div className="w-px h-16 md:h-20 bg-[#3A342C]/15 mx-auto my-16 md:my-24" />
-
-        {/* Belief 5 */}
-        <div className="max-w-[680px] mx-auto px-6 md:px-0 text-center">
-          <p
-            ref={b5HeadlineRef}
-            className={`font-sans font-light uppercase tracking-[0.2em] text-[10px] md:text-[11px] text-[#3A342C]/35 mb-6 transition-all duration-[800ms] ease-out ${
-              b5HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+        {/* Belief 5 — image left */}
+        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-16 flex flex-col md:flex-row items-center gap-12 md:gap-20 lg:gap-28 mt-24 md:mt-36 lg:mt-48">
+          <div
+            ref={b5ImgRef}
+            className={`w-full md:w-[380px] lg:w-[420px] shrink-0 aspect-[3/4] overflow-hidden transition-all duration-[1100ms] ease-out ${
+              b5ImgInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            V
-          </p>
-          <h3
-            className={`font-serif font-light text-[38px] md:text-[52px] lg:text-[58px] text-[#3A342C] leading-[1.12] tracking-[0.005em] mb-7 md:mb-9 transition-all duration-[800ms] ease-out ${
-              b5HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-            style={{ transitionDelay: b5HeadlineInView ? '80ms' : '0ms' }}
-          >
-            Trust before everything.
-          </h3>
-          <p
-            ref={b5CopyRef}
-            className={`font-sans font-light text-[15px] md:text-[16px] text-[#3A342C]/60 leading-[1.9] tracking-[0.02em] transition-all duration-[800ms] ease-out ${
-              b5CopyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-            style={{ transitionDelay: b5CopyInView ? '100ms' : '0ms' }}
-          >
-            Being invited into one of life's most meaningful moments is a privilege. We carry that responsibility with care, respect, and gratitude throughout the entire journey.
-          </p>
+            <img src="/belief5.jpg" alt="Trust before everything" className="w-full h-full object-cover object-center" loading="lazy" />
+          </div>
+          <div ref={b5HeadlineRef} className={`flex-1 transition-all duration-[1000ms] ease-out ${b5HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
+            <p className="font-sans font-light uppercase tracking-[0.22em] text-[10px] text-[#3A342C]/35 mb-6">V</p>
+            <h3 className="font-serif font-light text-[34px] md:text-[44px] lg:text-[52px] text-[#3A342C] leading-[1.15] tracking-[0.005em] mb-6">
+              Trust before everything.
+            </h3>
+            <p ref={b5CopyRef} className={`font-sans font-light text-[15px] md:text-[16px] text-[#3A342C]/60 leading-[1.9] tracking-[0.02em] transition-all duration-[800ms] ease-out ${b5CopyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: b5CopyInView ? '120ms' : '0ms' }}>
+              Being invited into one of life's most meaningful moments is a privilege. We carry that responsibility with care, respect, and gratitude throughout the entire journey.
+            </p>
+          </div>
         </div>
 
         {/* Closing */}
