@@ -570,15 +570,6 @@ export default function Home() {
                 s2ImgInView ? "opacity-100" : "opacity-0"
               }`}
             />
-            <img
-              ref={s3ImgRef}
-              src="/s3.jpg"
-              alt="Vertical portrait right"
-              className={`w-full flex-1 h-[320px] md:h-[640px] lg:h-[740px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
-                s3ImgInView ? "opacity-100" : "opacity-0"
-              }`}
-              style={{ transitionDelay: s3ImgInView ? '100ms' : '0ms' }}
-            />
           </div>
           <p
             ref={pair1CapRef}
