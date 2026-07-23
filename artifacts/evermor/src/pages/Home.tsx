@@ -476,46 +476,26 @@ export default function Home() {
                 aboutT2InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
-              <p className="font-serif font-light text-[#3A342C] leading-[1.8] mb-4" style={{ fontSize: 'clamp(17px, 1.4vw, 20px)' }}>
-                We are Shashikanth &amp; Deepika.
+              <p className="font-serif font-light text-[#3A342C] leading-[1.85] mb-6" style={{ fontSize: 'clamp(17px, 1.4vw, 20px)' }}>
+                We are Shashikanth &amp; Deepika — not photographers first, but people
+                deeply fascinated by people.
               </p>
-              <p className="font-serif font-light text-[#3A342C] leading-[1.8] mb-4" style={{ fontSize: 'clamp(17px, 1.4vw, 20px)' }}>
-                We didn't begin this journey because we wanted to become wedding photographers.
-                We began because we were fascinated by people.
-              </p>
-              <div className="h-5" />
-              <p className="font-serif font-light text-[#3A342C] leading-[1.8] mb-4" style={{ fontSize: 'clamp(17px, 1.4vw, 20px)' }}>
-                When we got married ourselves, something changed.
-              </p>
-              <p className="font-serif font-light text-[#3A342C] leading-[1.8]" style={{ fontSize: 'clamp(17px, 1.4vw, 20px)' }}>
-                We realised the memories we treasured most weren't the perfectly posed photographs.
-                They were the moments we almost forgot.
-              </p>
-            </div>
-
-            <div
-              ref={aboutT3Ref}
-              className={`mt-8 transition-all duration-[1000ms] ease-out ${
-                aboutT3InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-              }`}
-            >
-              <p className="font-serif font-light text-[#3A342C] leading-[1.8] mb-4" style={{ fontSize: 'clamp(17px, 1.4vw, 20px)' }}>
-                Today, we don't arrive with the intention of simply documenting a celebration.
-              </p>
-              <p className="font-serif font-light text-[#3A342C] leading-[1.8]" style={{ fontSize: 'clamp(17px, 1.4vw, 20px)' }}>
-                We arrive with the responsibility of preserving the beginning of a family's story.
+              <p className="font-serif font-light text-[#3A342C] leading-[1.85]" style={{ fontSize: 'clamp(17px, 1.4vw, 20px)' }}>
+                Our own wedding taught us something. The memories we returned to most
+                weren't the perfectly posed frames. They were the quiet ones.
+                The unguarded ones. The ones we almost forgot.
               </p>
             </div>
 
             <div
               ref={aboutT4Ref}
-              className={`mt-6 transition-all duration-[1000ms] ease-out ${
+              className={`mt-8 transition-all duration-[1000ms] ease-out ${
                 aboutT4InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
-              <p className="font-serif font-light italic text-[#3A342C]/55 leading-[1.8]" style={{ fontSize: 'clamp(16px, 1.3vw, 19px)' }}>
-                For us, this has never been just about photography.
-                It has always been about people.
+              <p className="font-serif font-light italic text-[#3A342C]/50 leading-[1.85]" style={{ fontSize: 'clamp(16px, 1.3vw, 19px)' }}>
+                We don't arrive to document a celebration.
+                We arrive to preserve the beginning of a family.
               </p>
             </div>
 
