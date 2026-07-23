@@ -516,7 +516,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* Chapter 5 - Stories */}
       <section className="bg-[#FAFAF8] pt-20 md:pt-32 lg:pt-48 pb-20 md:pb-32 lg:pb-48">
         {/* Header */}
@@ -544,7 +543,7 @@ export default function Home() {
             ref={s1ImgRef}
             src="/s1.jpg"
             alt="The beginning of Aditi & Karthik"
-            className={`h-[360px] md:h-[520px] lg:h-[820px] w-full object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
+            className={`h-[360px] md:h-[520px] lg:h-[820px] w-full object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 border-t-[90px] border-r-[90px] border-b-[90px] border-l-[90px] mt-[0px] mb-[0px] ${
               s1ImgInView ? "opacity-100" : "opacity-0"
             }`}
           />
@@ -566,7 +565,7 @@ export default function Home() {
               ref={s2ImgRef}
               src="/s2.jpg"
               alt="Vertical portrait left"
-              className={`w-full flex-1 h-[320px] md:h-[640px] lg:h-[740px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
+              className={`w-full flex-1 h-[320px] md:h-[640px] lg:h-[740px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 border-t-[60px] border-r-[60px] border-b-[60px] border-l-[60px] ${
                 s2ImgInView ? "opacity-100" : "opacity-0"
               }`}
             />
@@ -588,9 +587,7 @@ export default function Home() {
             ref={s4ImgRef}
             src="/s4.jpg"
             alt="Cinematic landscape"
-            className={`h-[340px] md:h-[460px] lg:h-[520px] w-full object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
-              s4ImgInView ? "opacity-100" : "opacity-0"
-            }`}
+            className="h-[340px] md:h-[460px] lg:h-[520px] w-full object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 opacity-100 border-t-[80px] border-r-[80px] border-b-[80px] border-l-[80px]"
           />
           <p
             ref={s4CapRef}
