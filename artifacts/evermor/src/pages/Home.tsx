@@ -538,12 +538,12 @@ export default function Home() {
         </div>
 
         {/* Layout Block 1 */}
-        <Link href="/beginnings/shaun-sowmya" className="block w-full group cursor-pointer">
+        <Link href="/beginnings/shaun-sowmya" className="block mt-12 md:mt-16 group cursor-pointer px-4 md:px-8 lg:px-16">
           <img
             ref={s1ImgRef}
             src="/s1.jpg"
             alt="The beginning of Aditi & Karthik"
-            className={`h-[360px] md:h-[520px] lg:h-[820px] w-full object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 border-t-[90px] border-r-[90px] border-b-[90px] border-l-[90px] mt-[0px] mb-[0px] ${
+            className={`w-full h-[420px] md:h-[580px] lg:h-[700px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
               s1ImgInView ? "opacity-100" : "opacity-0"
             }`}
           />
@@ -559,20 +559,18 @@ export default function Home() {
         </Link>
 
         {/* Layout Block 2 */}
-        <Link href="/beginnings/shaun-sowmya" className="block mt-12 md:mt-20 group cursor-pointer">
-          <div className="flex flex-col md:flex-row gap-3 md:gap-5 px-4 md:px-8 lg:px-16">
-            <img
-              ref={s2ImgRef}
-              src="/s2.jpg"
-              alt="Vertical portrait left"
-              className={`w-full flex-1 h-[320px] md:h-[640px] lg:h-[740px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 border-t-[60px] border-r-[60px] border-b-[60px] border-l-[60px] ${
-                s2ImgInView ? "opacity-100" : "opacity-0"
-              }`}
-            />
-          </div>
+        <Link href="/beginnings/shaun-sowmya" className="block mt-12 md:mt-16 group cursor-pointer px-4 md:px-8 lg:px-16">
+          <img
+            ref={s2ImgRef}
+            src="/s2.jpg"
+            alt="Before promises became memories"
+            className={`w-full h-[420px] md:h-[580px] lg:h-[700px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
+              s2ImgInView ? "opacity-100" : "opacity-0"
+            }`}
+          />
           <p
             ref={pair1CapRef}
-            className={`font-sans font-light italic text-[11px] md:text-[12px] text-[#3A342C]/45 tracking-[0.04em] text-center mt-4 md:mt-5 px-4 md:px-8 lg:px-16 transition-all duration-[800ms] ease-out ${
+            className={`font-sans font-light italic text-[11px] md:text-[12px] text-[#3A342C]/45 tracking-[0.04em] text-center mt-4 md:mt-5 transition-all duration-[800ms] ease-out ${
               pair1CapInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
             style={{ transitionDelay: pair1CapInView ? '100ms' : '0ms' }}
@@ -582,12 +580,14 @@ export default function Home() {
         </Link>
 
         {/* Layout Block 3 */}
-        <Link href="/beginnings/shaun-sowmya" className="block mt-12 md:mt-20 group cursor-pointer">
+        <Link href="/beginnings/shaun-sowmya" className="block mt-12 md:mt-16 group cursor-pointer px-4 md:px-8 lg:px-16">
           <img
             ref={s4ImgRef}
             src="/s4.jpg"
-            alt="Cinematic landscape"
-            className="h-[340px] md:h-[460px] lg:h-[520px] w-full object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 opacity-100 border-t-[80px] border-r-[80px] border-b-[80px] border-l-[80px]"
+            alt="Where the evening held still"
+            className={`w-full h-[420px] md:h-[580px] lg:h-[700px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
+              s4ImgInView ? "opacity-100" : "opacity-0"
+            }`}
           />
           <p
             ref={s4CapRef}
@@ -601,44 +601,42 @@ export default function Home() {
         </Link>
 
         {/* Layout Block 4 */}
-        <Link href="/beginnings/shaun-sowmya" className="block mt-12 md:mt-20 group cursor-pointer">
-          <div className="w-full px-4 md:px-8 lg:px-16">
-            <img
-              ref={s5ImgRef}
-              src="/s5.jpg"
-              alt="Intimate close-up"
-              className={`w-full h-[420px] md:h-[520px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
-                s5ImgInView ? "opacity-100" : "opacity-0"
-              }`}
-            />
-            <p
-              ref={s5CapRef}
-              className={`font-sans font-light italic text-[11px] md:text-[12px] text-[#3A342C]/45 tracking-[0.04em] text-center mt-4 md:mt-5 transition-all duration-[800ms] ease-out ${
-                s5CapInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-              }`}
-              style={{ transitionDelay: s5CapInView ? '100ms' : '0ms' }}
-            >
-              The people who made this day unforgettable.
-            </p>
-          </div>
+        <Link href="/beginnings/shaun-sowmya" className="block mt-12 md:mt-16 group cursor-pointer px-4 md:px-8 lg:px-16">
+          <img
+            ref={s5ImgRef}
+            src="/s5.jpg"
+            alt="The people who made this day unforgettable"
+            className={`w-full h-[420px] md:h-[580px] lg:h-[700px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
+              s5ImgInView ? "opacity-100" : "opacity-0"
+            }`}
+          />
+          <p
+            ref={s5CapRef}
+            className={`font-sans font-light italic text-[11px] md:text-[12px] text-[#3A342C]/45 tracking-[0.04em] text-center mt-4 md:mt-5 transition-all duration-[800ms] ease-out ${
+              s5CapInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            style={{ transitionDelay: s5CapInView ? '100ms' : '0ms' }}
+          >
+            The people who made this day unforgettable.
+          </p>
         </Link>
 
         {/* Layout Block 5 */}
-        <Link href="/beginnings/shaun-sowmya" className="block mt-12 md:mt-20 group cursor-pointer">
-          <div className="flex flex-col md:flex-row gap-3 md:gap-5 px-4 md:px-8 lg:px-16">
+        <Link href="/beginnings/shaun-sowmya" className="block mt-12 md:mt-16 group cursor-pointer px-4 md:px-8 lg:px-16">
+          <div className="flex flex-col md:flex-row gap-3 md:gap-4">
             <img
               ref={s6ImgRef}
               src="/s6.jpg"
-              alt="Vertical portrait left"
-              className={`w-full flex-1 h-[320px] md:h-[640px] lg:h-[740px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
+              alt="Every family begins with a moment like this"
+              className={`w-full md:flex-1 h-[420px] md:h-[580px] lg:h-[700px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
                 s6ImgInView ? "opacity-100" : "opacity-0"
               }`}
             />
             <img
               ref={s7ImgRef}
               src="/s7.jpg"
-              alt="Vertical portrait right"
-              className={`w-full flex-1 h-[320px] md:h-[640px] lg:h-[740px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
+              alt="Every family begins with a moment like this"
+              className={`w-full md:flex-1 h-[420px] md:h-[580px] lg:h-[700px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
                 s7ImgInView ? "opacity-100" : "opacity-0"
               }`}
               style={{ transitionDelay: s7ImgInView ? '100ms' : '0ms' }}
@@ -646,7 +644,7 @@ export default function Home() {
           </div>
           <p
             ref={pair2CapRef}
-            className={`font-sans font-light italic text-[11px] md:text-[12px] text-[#3A342C]/45 tracking-[0.04em] text-center mt-4 md:mt-5 px-4 md:px-8 lg:px-16 transition-all duration-[800ms] ease-out ${
+            className={`font-sans font-light italic text-[11px] md:text-[12px] text-[#3A342C]/45 tracking-[0.04em] text-center mt-4 md:mt-5 transition-all duration-[800ms] ease-out ${
               pair2CapInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
             style={{ transitionDelay: pair2CapInView ? '100ms' : '0ms' }}
