@@ -454,7 +454,7 @@ export default function Home() {
               src="/about-hero.jpg"
               alt="Shashikanth and Deepika"
               loading="lazy"
-              className="w-full h-full object-cover object-center"
+              className="w-full h-full object-cover object-center ml-[0px] mr-[0px] mt-[56px] mb-[56px] pt-[40px] pb-[40px] pl-[24px] pr-[24px]"
             />
           </div>
 
