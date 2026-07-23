@@ -602,7 +602,7 @@ export default function Home() {
 
         {/* Layout Block 4 */}
         <Link href="/beginnings/shaun-sowmya" className="block mt-12 md:mt-20 group cursor-pointer">
-          <div className="max-w-[560px] md:max-w-[680px] mx-auto px-6 md:px-0">
+          <div className="w-full px-4 md:px-8 lg:px-16">
             <img
               ref={s5ImgRef}
               src="/s5.jpg"
