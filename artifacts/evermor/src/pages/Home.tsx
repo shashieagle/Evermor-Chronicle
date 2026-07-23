@@ -632,15 +632,6 @@ export default function Home() {
                 s6ImgInView ? "opacity-100" : "opacity-0"
               }`}
             />
-            <img
-              ref={s7ImgRef}
-              src="/s7.jpg"
-              alt="Every family begins with a moment like this"
-              className={`w-full md:flex-1 h-[420px] md:h-[580px] lg:h-[700px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
-                s7ImgInView ? "opacity-100" : "opacity-0"
-              }`}
-              style={{ transitionDelay: s7ImgInView ? '100ms' : '0ms' }}
-            />
           </div>
           <p
             ref={pair2CapRef}
