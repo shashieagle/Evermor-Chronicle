@@ -11,6 +11,7 @@
   
   --font-sans: var(--app-font-sans);
   --font-serif: var(--app-font-serif);
+  --font-hand: var(--app-font-hand);
 }
 
 :root {
@@ -20,6 +21,7 @@
 
   --app-font-sans: 'Inter', sans-serif;
   --app-font-serif: 'Cormorant Garamond', serif;
+  --app-font-hand: 'Caveat', cursive;
 }
 
 @layer base {
