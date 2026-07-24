@@ -702,40 +702,174 @@ export default function Home() {
         </div>
       </section>
       {/* Chapter 6 — Memory */}
-      <div className="w-full bg-[#F8F6F2] py-28 md:py-40 flex flex-col items-center justify-center gap-14 md:gap-18 px-8">
-        <p ref={ch6s1Ref} className={`font-serif font-light text-[26px] md:text-[40px] lg:text-[48px] text-[#3A342C] leading-[1.2] tracking-[0.005em] text-center max-w-[680px] transition-all duration-[900ms] ease-out ${ch6s1InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          Every family remembers differently.
-        </p>
-        <p ref={ch6s2Ref} className={`font-serif font-light text-[20px] md:text-[30px] lg:text-[36px] text-[#3A342C] leading-[1.9] tracking-[0.01em] text-center max-w-[560px] transition-all duration-[900ms] ease-out ${ch6s2InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          Some remember voices.<br />
-          Some remember photographs.<br />
-          Some remember places.<br />
-          Some remember silence.
-        </p>
-        <div className="w-px h-10 bg-[#3A342C]/12" />
-        <p ref={ch6s3Ref} className={`font-serif font-light text-[22px] md:text-[34px] lg:text-[42px] text-[#3A342C] leading-[1.3] tracking-[0.005em] text-center max-w-[620px] transition-all duration-[900ms] ease-out ${ch6s3InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          But every family deserves something that brings them back.
-        </p>
-        <div className="w-px h-10 bg-[#3A342C]/12" />
-        <p ref={ch6s4Ref} className={`font-serif font-light text-[22px] md:text-[34px] lg:text-[40px] text-[#3A342C] leading-[1.3] tracking-[0.005em] text-center max-w-[600px] transition-all duration-[900ms] ease-out ${ch6s4InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          We don't simply preserve what happened.
-        </p>
-        <p ref={ch6s5Ref} className={`font-serif font-light text-[32px] md:text-[52px] lg:text-[62px] text-[#3A342C] leading-[1.1] tracking-[0.005em] text-center max-w-[600px] transition-all duration-[1100ms] ease-out ${ch6s5InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          We preserve what it meant.
-        </p>
-      </div>
-      {/* Chapter 6 — Closing (below sticky scroll) */}
-      <section className="bg-[#F8F6F2] pt-32 md:pt-48 pb-40 md:pb-60">
-        <div className="max-w-[640px] mx-auto px-6 md:px-0 text-center">
+      <section className="bg-[#F0EBE0] overflow-hidden">
+
+        {/* ── Top label rule ── */}
+        <div className="border-b border-[#3A342C]/12 px-5 md:px-10 py-3 flex items-center justify-between">
+          <span className="font-sans uppercase tracking-[0.22em] text-[8px] md:text-[9px] text-[#3A342C]/35">Chapter VI</span>
+          <span className="font-sans uppercase tracking-[0.22em] text-[8px] md:text-[9px] text-[#3A342C]/35">Memory</span>
+        </div>
+
+        {/* ── Opening line — large ── */}
+        <div className="px-5 md:px-10 lg:px-16 pt-14 md:pt-20 pb-10 md:pb-14">
           <p
-            ref={ch6ClosingRef}
-            className={`font-serif font-light text-[18px] md:text-[22px] lg:text-[24px] text-[#3A342C]/65 leading-[1.7] tracking-[0.015em] mb-14 md:mb-20 transition-all duration-[1000ms] ease-out ${
-              ch6ClosingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            ref={ch6s1Ref}
+            className={`font-serif font-light text-[36px] md:text-[58px] lg:text-[72px] text-[#3A342C] leading-[1.05] tracking-[-0.005em] max-w-[700px] transition-all duration-[1000ms] ease-out ${
+              ch6s1InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            Every Evermor story begins with understanding what is worth remembering.
+            Every family<br />remembers<br />differently.
           </p>
         </div>
+
+        {/* ── Collage centrepiece + scattered notes ── */}
+        <div className="relative px-5 md:px-10 lg:px-16 pb-14 md:pb-20">
+
+          {/* Desktop: image in center, notes scattered around */}
+          <div className="hidden md:grid grid-cols-[1fr_auto_1fr] gap-x-8 lg:gap-x-12 items-center">
+
+            {/* Left column — voices + photographs */}
+            <div
+              ref={ch6s2Ref}
+              className={`flex flex-col gap-10 transition-all duration-[900ms] ease-out ${
+                ch6s2InView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
+              }`}
+            >
+              <div>
+                <p className="font-sans uppercase tracking-[0.18em] text-[7px] text-[#8C6D4F]/70 mb-2">∿ &nbsp; Gramophone</p>
+                <p className="font-serif font-light text-[22px] lg:text-[28px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
+                  Some remember<br />voices.
+                </p>
+              </div>
+              <div>
+                <p className="font-sans uppercase tracking-[0.18em] text-[7px] text-[#8C6D4F]/70 mb-2">◻ &nbsp; The oval frame</p>
+                <p className="font-serif font-light text-[22px] lg:text-[28px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
+                  Some remember<br />photographs.
+                </p>
+              </div>
+            </div>
+
+            {/* Centre — the collage */}
+            <div
+              ref={ch6s3Ref}
+              className={`relative transition-all duration-[1100ms] ease-out ${
+                ch6s3InView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+              }`}
+            >
+              <div
+                className="shadow-[0_12px_60px_rgba(58,52,44,0.22)]"
+                style={{ transform: "rotate(-1.5deg)", width: "min(440px, 40vw)" }}
+              >
+                <img
+                  src="/memory-collage.jpg"
+                  alt="A collage of memory objects — a gramophone, wedding rings, an open book, an oval frame, postcards"
+                  className="w-full h-auto block"
+                  loading="lazy"
+                />
+              </div>
+              {/* Small pin dot at top */}
+              <div
+                className="absolute top-[-8px] left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-[#8C6D4F]/50 shadow-sm"
+                style={{ transform: "translateX(-50%) rotate(-1.5deg)" }}
+              />
+            </div>
+
+            {/* Right column — places + silence */}
+            <div
+              className={`flex flex-col gap-10 items-end text-right transition-all duration-[900ms] ease-out ${
+                ch6s2InView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-6'
+              }`}
+            >
+              <div>
+                <p className="font-sans uppercase tracking-[0.18em] text-[7px] text-[#8C6D4F]/70 mb-2">✉ &nbsp; The postcards</p>
+                <p className="font-serif font-light text-[22px] lg:text-[28px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
+                  Some remember<br />places.
+                </p>
+              </div>
+              <div>
+                <p className="font-sans uppercase tracking-[0.18em] text-[7px] text-[#8C6D4F]/70 mb-2">📖 &nbsp; The open book</p>
+                <p className="font-serif font-light text-[22px] lg:text-[28px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
+                  Some remember<br />silence.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Mobile: stacked */}
+          <div className="md:hidden flex flex-col items-center gap-10">
+            <div
+              ref={ch6s2Ref}
+              className={`shadow-[0_8px_40px_rgba(58,52,44,0.2)] transition-all duration-[1000ms] ease-out ${
+                ch6s2InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              }`}
+              style={{ transform: "rotate(-1deg)", width: "min(340px, 85vw)" }}
+            >
+              <img src="/memory-collage.jpg" alt="Memory objects" className="w-full h-auto block" loading="lazy" />
+            </div>
+            <div
+              ref={ch6s3Ref}
+              className={`grid grid-cols-2 gap-x-8 gap-y-7 text-center transition-all duration-[900ms] ease-out ${
+                ch6s3InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+              }`}
+            >
+              {[
+                { icon: "∿", label: "Gramophone", text: "Some remember voices." },
+                { icon: "◻", label: "The oval frame", text: "Some remember photographs." },
+                { icon: "✉", label: "The postcards", text: "Some remember places." },
+                { icon: "📖", label: "The open book", text: "Some remember silence." },
+              ].map((item, i) => (
+                <div key={i}>
+                  <p className="font-sans uppercase tracking-[0.15em] text-[7px] text-[#8C6D4F]/65 mb-1.5">{item.icon} &nbsp; {item.label}</p>
+                  <p className="font-serif font-light text-[17px] text-[#3A342C] leading-[1.3]">{item.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* ── Divider ── */}
+        <div className="mx-5 md:mx-10 lg:mx-16 border-t border-[#3A342C]/12" />
+
+        {/* ── "But every family deserves..." ── */}
+        <div className="px-5 md:px-10 lg:px-16 py-12 md:py-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <p
+            ref={ch6s4Ref}
+            className={`font-serif font-light text-[24px] md:text-[38px] lg:text-[48px] text-[#3A342C] leading-[1.15] tracking-[0.005em] max-w-[560px] transition-all duration-[1000ms] ease-out ${
+              ch6s4InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            }`}
+          >
+            But every family deserves something<br className="hidden md:block" /> that brings them back.
+          </p>
+          <p className="font-sans font-light italic text-[12px] text-[#3A342C]/38 tracking-[0.02em] md:text-right max-w-[200px] leading-[1.7] shrink-0">
+            The rings. The songs.<br />The handwritten notes.<br />The quiet in between.
+          </p>
+        </div>
+
+        {/* ── Final statement — full-width dark bar ── */}
+        <div className="bg-[#3A342C] px-5 md:px-10 lg:px-16 py-16 md:py-24 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+          <div>
+            <p
+              ref={ch6s5Ref}
+              className={`font-sans uppercase tracking-[0.18em] text-[8px] text-[#F5F0E8]/35 mb-5 transition-all duration-[800ms] ease-out ${
+                ch6s5InView ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              We don't simply preserve what happened.
+            </p>
+            <p
+              ref={ch6ClosingRef}
+              className={`font-serif font-light text-[42px] md:text-[68px] lg:text-[84px] text-[#F5F0E8] leading-[1.0] tracking-[-0.01em] transition-all duration-[1100ms] ease-out ${
+                ch6ClosingInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+            >
+              We preserve<br />what it meant.
+            </p>
+          </div>
+          <p className="font-sans font-light text-[11px] md:text-[12px] text-[#F5F0E8]/38 tracking-[0.04em] leading-[1.8] md:text-right max-w-[260px] shrink-0">
+            Every Evermor story begins with<br />understanding what is worth remembering.
+          </p>
+        </div>
+
       </section>
       {/* Chapter 7 — Final Invitation */}
       <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
