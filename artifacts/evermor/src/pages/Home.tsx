@@ -185,17 +185,61 @@ export default function Home() {
           </p>
         </div>
 
+        {/* Vintage framed photograph */}
         <div
           ref={imageRef}
-          className={`w-full mt-20 md:mt-28 transition-all duration-[800ms] ease-out delay-300 ${
+          className={`mt-20 md:mt-28 mx-auto transition-all duration-[800ms] ease-out delay-300 ${
             imageInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
+          style={{ maxWidth: "min(720px, 94vw)" }}
         >
-          <img
-            src="/chapter2.jpg"
-            alt="Editorial photograph"
-            className="w-full h-[320px] md:h-[480px] lg:h-[640px] object-cover object-center"
-          />
+          {/* Outer frame shadow + body */}
+          <div style={{ boxShadow: "0 24px 64px rgba(20,14,8,0.5), 0 6px 20px rgba(20,14,8,0.35), inset 0 1px 0 rgba(255,255,255,0.06)" }}>
+            <div className="bg-[#261E14] p-[18px] md:p-[26px]">
+
+              {/* Outer gold bead */}
+              <div style={{ outline: "1px solid #7A5C38", outlineOffset: "-1px" }}>
+                <div className="bg-[#261E14] p-[7px] md:p-[9px]">
+
+                  {/* Inner gold bead */}
+                  <div style={{ outline: "1px solid #8C6D4F", outlineOffset: "-1px" }}>
+
+                    {/* Cream mat board */}
+                    <div className="bg-[#EFE6D4] p-[22px] md:p-[32px] relative">
+
+                      {/* Corner ornaments — L-brackets in gold */}
+                      {[
+                        "top-[8px] left-[8px] border-t border-l",
+                        "top-[8px] right-[8px] border-t border-r",
+                        "bottom-[8px] left-[8px] border-b border-l",
+                        "bottom-[8px] right-[8px] border-b border-r",
+                      ].map((cls, i) => (
+                        <div
+                          key={i}
+                          className={`absolute ${cls} w-5 h-5 md:w-6 md:h-6 border-[#8C6D4F]/70`}
+                        />
+                      ))}
+
+                      {/* Inner rule around photo */}
+                      <div style={{ outline: "1px solid rgba(140,109,79,0.35)", outlineOffset: "-1px" }}>
+                        <img
+                          src="/chapter2.jpg"
+                          alt="Editorial photograph"
+                          className="w-full h-[240px] md:h-[380px] lg:h-[500px] object-cover object-center block"
+                          style={{ filter: "sepia(0.18) contrast(1.04) saturate(0.88) brightness(0.97)" }}
+                        />
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          {/* Frame base shadow line */}
+          <div className="h-[3px] mx-3 bg-[#1A1208]/30 blur-sm" />
         </div>
 
         <p
