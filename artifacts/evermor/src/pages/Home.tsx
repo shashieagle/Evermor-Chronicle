@@ -736,19 +736,13 @@ export default function Home() {
               }`}
             >
               <div>
-                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
-                  Some remember<br />voices.
-                </p>
+                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">voices.</p>
               </div>
               <div>
-                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
-                  Some remember<br />photographs.
-                </p>
+                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">photographs.</p>
               </div>
               <div>
-                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
-                  Some remember<br />moments.
-                </p>
+                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">moments.</p>
               </div>
             </div>
 
@@ -784,14 +778,13 @@ export default function Home() {
               }`}
             >
               <div>
-                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
-                  Some remember<br />places.
-                </p>
+                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">places.</p>
               </div>
               <div>
-                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
-                  Some remember<br />silence.
-                </p>
+                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">silence.</p>
+              </div>
+              <div>
+                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">story.</p>
               </div>
             </div>
           </div>
@@ -813,13 +806,7 @@ export default function Home() {
                 b3CopyInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
-              {[
-                "Some remember voices.",
-                "Some remember photographs.",
-                "Some remember moments.",
-                "Some remember places.",
-                "Some remember silence.",
-              ].map((text, i) => (
+              {["voices.", "photographs.", "moments.", "places.", "silence.", "story."].map((text, i) => (
                 <div key={i}>
                   <p className="font-serif font-light text-[17px] text-[#3A342C] leading-[1.3]">{text}</p>
                 </div>
