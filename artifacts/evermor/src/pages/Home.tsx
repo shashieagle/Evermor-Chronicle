@@ -728,23 +728,29 @@ export default function Home() {
           {/* Desktop: image in center, notes scattered around */}
           <div className="hidden md:grid grid-cols-[1fr_auto_1fr] gap-x-8 lg:gap-x-12 items-center">
 
-            {/* Left column — voices + photographs */}
+            {/* Left column — voices + photographs + moments */}
             <div
               ref={ch6s2Ref}
-              className={`flex flex-col gap-10 transition-all duration-[900ms] ease-out ${
+              className={`flex flex-col gap-8 transition-all duration-[900ms] ease-out ${
                 ch6s2InView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
               }`}
             >
               <div>
                 <p className="font-sans uppercase tracking-[0.18em] text-[7px] text-[#8C6D4F]/70 mb-2">∿ &nbsp; Gramophone</p>
-                <p className="font-serif font-light text-[22px] lg:text-[28px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
+                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
                   Some remember<br />voices.
                 </p>
               </div>
               <div>
                 <p className="font-sans uppercase tracking-[0.18em] text-[7px] text-[#8C6D4F]/70 mb-2">◻ &nbsp; The oval frame</p>
-                <p className="font-serif font-light text-[22px] lg:text-[28px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
+                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
                   Some remember<br />photographs.
+                </p>
+              </div>
+              <div>
+                <p className="font-sans uppercase tracking-[0.18em] text-[7px] text-[#8C6D4F]/70 mb-2">◎ &nbsp; The camera</p>
+                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
+                  Some remember<br />moments.
                 </p>
               </div>
             </div>
@@ -758,37 +764,37 @@ export default function Home() {
             >
               <div
                 className="shadow-[0_12px_60px_rgba(58,52,44,0.22)]"
-                style={{ transform: "rotate(-1.5deg)", width: "min(440px, 40vw)" }}
+                style={{ transform: "rotate(-1.5deg)", width: "min(420px, 38vw)" }}
               >
                 <img
                   src="/memory-collage.jpg"
-                  alt="A collage of memory objects — a gramophone, wedding rings, an open book, an oval frame, postcards"
+                  alt="A collage of memory objects — a gramophone, vintage camera, wedding rings, an open book, an oval frame, postcards"
                   className="w-full h-auto block"
                   loading="lazy"
                 />
               </div>
               {/* Small pin dot at top */}
               <div
-                className="absolute top-[-8px] left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-[#8C6D4F]/50 shadow-sm"
+                className="absolute top-[-8px] left-1/2 w-3 h-3 rounded-full bg-[#8C6D4F]/50 shadow-sm"
                 style={{ transform: "translateX(-50%) rotate(-1.5deg)" }}
               />
             </div>
 
             {/* Right column — places + silence */}
             <div
-              className={`flex flex-col gap-10 items-end text-right transition-all duration-[900ms] ease-out ${
+              className={`flex flex-col gap-8 items-end text-right justify-center transition-all duration-[900ms] ease-out ${
                 ch6s2InView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-6'
               }`}
             >
               <div>
                 <p className="font-sans uppercase tracking-[0.18em] text-[7px] text-[#8C6D4F]/70 mb-2">✉ &nbsp; The postcards</p>
-                <p className="font-serif font-light text-[22px] lg:text-[28px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
+                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
                   Some remember<br />places.
                 </p>
               </div>
               <div>
                 <p className="font-sans uppercase tracking-[0.18em] text-[7px] text-[#8C6D4F]/70 mb-2">📖 &nbsp; The open book</p>
-                <p className="font-serif font-light text-[22px] lg:text-[28px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
+                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
                   Some remember<br />silence.
                 </p>
               </div>
@@ -815,6 +821,7 @@ export default function Home() {
               {[
                 { icon: "∿", label: "Gramophone", text: "Some remember voices." },
                 { icon: "◻", label: "The oval frame", text: "Some remember photographs." },
+                { icon: "◎", label: "The camera", text: "Some remember moments." },
                 { icon: "✉", label: "The postcards", text: "Some remember places." },
                 { icon: "📖", label: "The open book", text: "Some remember silence." },
               ].map((item, i) => (
