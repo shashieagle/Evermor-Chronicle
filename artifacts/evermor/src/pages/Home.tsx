@@ -459,154 +459,246 @@ export default function Home() {
           </div>
         </div>
       </section>
-      {/* Chapter 5 - Stories */}
-      <section className="bg-[#FAFAF8] pt-20 md:pt-32 lg:pt-48 pb-20 md:pb-32 lg:pb-48">
-        {/* Header */}
-        <div className="max-w-[680px] mx-auto px-6 md:px-0 mb-20 md:mb-32">
+      {/* Chapter 5 - Beginnings — Postcard Collection */}
+      <section className="bg-[#EDE8DC] pt-20 md:pt-32 pb-24 md:pb-36 overflow-hidden">
+
+        {/* Section header */}
+        <div className="text-center mb-14 md:mb-20 px-6">
+          <p className="font-sans uppercase tracking-[0.3em] text-[9px] text-[#3A342C]/35 mb-4">✦ &nbsp; A Collection of Stories &nbsp; ✦</p>
           <h2
             ref={headingRef}
-            className={`font-serif font-light text-[38px] md:text-[52px] lg:text-[84px] text-[#3A342C] leading-[1.1] tracking-[0.005em] text-center mb-8 md:mb-10 transition-all duration-[800ms] ease-out ${
+            className={`font-serif font-bold text-[56px] md:text-[88px] lg:text-[108px] text-[#3A342C] leading-[0.9] tracking-[-0.01em] transition-all duration-[800ms] ease-out ${
               headingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
-          >Beginnings</h2>
+          >
+            Beginnings
+          </h2>
           <p
             ref={introRef}
-            className={`font-sans font-light text-[15px] md:text-[17px] text-[#3A342C]/60 leading-[1.9] tracking-[0.02em] text-center transition-all duration-[800ms] ease-out ${
+            className={`font-sans font-light text-[13px] md:text-[14px] text-[#3A342C]/50 leading-[1.85] tracking-[0.02em] mt-5 transition-all duration-[800ms] ease-out ${
               introInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
             style={{ transitionDelay: introInView ? '150ms' : '0ms' }}
           >
-            Every beginning is different. Every emotion is real. Every story deserves to be remembered.
+            Every beginning is different. Every emotion is real.
           </p>
         </div>
 
-        {/* Layout Block 1 */}
-        <Link href="/beginnings/shaun-sowmya" className="block mt-12 md:mt-16 group cursor-pointer px-4 md:px-8 lg:px-16">
-          <img
-            ref={s1ImgRef}
-            src="/s1.jpg"
-            alt="The beginning of Aditi & Karthik"
-            className={`w-full h-[420px] md:h-[580px] lg:h-[700px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
-              s1ImgInView ? "opacity-100" : "opacity-0"
-            }`}
-          />
-          <p
-            ref={s1CapRef}
-            className={`font-sans font-light italic text-[11px] md:text-[12px] text-[#3A342C]/45 tracking-[0.04em] text-center mt-4 md:mt-5 transition-all duration-[800ms] ease-out ${
-              s1CapInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-            style={{ transitionDelay: s1CapInView ? '100ms' : '0ms' }}
-          >
-            The beginning of Aditi & Karthik.
-          </p>
-        </Link>
+        {/* ── Featured postcard spread — front + back ── */}
+        <div className="px-4 md:px-10 lg:px-20 mb-6 md:mb-8">
+          <div className="flex flex-col md:flex-row gap-4 md:gap-5 max-w-[1040px] mx-auto items-stretch">
 
-        {/* Layout Block 2 */}
-        <Link href="/beginnings/shaun-sowmya" className="block mt-12 md:mt-16 group cursor-pointer px-4 md:px-8 lg:px-16">
-          <img
-            ref={s2ImgRef}
-            src="/s2.jpg"
-            alt="Before promises became memories"
-            className={`w-full h-[420px] md:h-[580px] lg:h-[700px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
-              s2ImgInView ? "opacity-100" : "opacity-0"
-            }`}
-          />
-          <p
-            ref={pair1CapRef}
-            className={`font-sans font-light italic text-[11px] md:text-[12px] text-[#3A342C]/45 tracking-[0.04em] text-center mt-4 md:mt-5 transition-all duration-[800ms] ease-out ${
-              pair1CapInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-            style={{ transitionDelay: pair1CapInView ? '100ms' : '0ms' }}
-          >
-            Before promises became memories.
-          </p>
-        </Link>
-
-        {/* Layout Block 3 */}
-        <Link href="/beginnings/shaun-sowmya" className="block mt-12 md:mt-16 group cursor-pointer px-4 md:px-8 lg:px-16">
-          <img
-            ref={s4ImgRef}
-            src="/s4.jpg"
-            alt="Where the evening held still"
-            className={`w-full h-[420px] md:h-[580px] lg:h-[700px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
-              s4ImgInView ? "opacity-100" : "opacity-0"
-            }`}
-          />
-          <p
-            ref={s4CapRef}
-            className={`font-sans font-light italic text-[11px] md:text-[12px] text-[#3A342C]/45 tracking-[0.04em] text-center mt-4 md:mt-5 transition-all duration-[800ms] ease-out ${
-              s4CapInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-            style={{ transitionDelay: s4CapInView ? '100ms' : '0ms' }}
-          >
-            Where the evening held still.
-          </p>
-        </Link>
-
-        {/* Layout Block 4 */}
-        <Link href="/beginnings/shaun-sowmya" className="block mt-12 md:mt-16 group cursor-pointer px-4 md:px-8 lg:px-16">
-          <img
-            ref={s5ImgRef}
-            src="/s5.jpg"
-            alt="The people who made this day unforgettable"
-            className={`w-full h-[420px] md:h-[580px] lg:h-[700px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
-              s5ImgInView ? "opacity-100" : "opacity-0"
-            }`}
-          />
-          <p
-            ref={s5CapRef}
-            className={`font-sans font-light italic text-[11px] md:text-[12px] text-[#3A342C]/45 tracking-[0.04em] text-center mt-4 md:mt-5 transition-all duration-[800ms] ease-out ${
-              s5CapInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-            style={{ transitionDelay: s5CapInView ? '100ms' : '0ms' }}
-          >
-            The people who made this day unforgettable.
-          </p>
-        </Link>
-
-        {/* Layout Block 5 */}
-        <Link href="/beginnings/shaun-sowmya" className="block mt-12 md:mt-16 group cursor-pointer px-4 md:px-8 lg:px-16">
-          <div className="flex flex-col md:flex-row gap-3 md:gap-4">
-            <img
-              ref={s6ImgRef}
-              src="/s6.jpg"
-              alt="Every family begins with a moment like this"
-              className={`w-full md:flex-1 h-[420px] md:h-[580px] lg:h-[700px] object-cover object-center transition-all duration-[1000ms] ease-out group-hover:opacity-90 ${
-                s6ImgInView ? "opacity-100" : "opacity-0"
+            {/* Postcard FRONT */}
+            <Link
+              href="/beginnings/shaun-sowmya"
+              ref={s1ImgRef}
+              className={`flex-1 block group cursor-pointer bg-white shadow-[0_6px_36px_rgba(58,52,44,0.18)] transition-all duration-[1000ms] ease-out md:-rotate-[0.6deg] hover:rotate-0 hover:shadow-[0_12px_48px_rgba(58,52,44,0.25)] ${
+                s1ImgInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               }`}
-            />
-          </div>
-          <p
-            ref={pair2CapRef}
-            className={`font-sans font-light italic text-[11px] md:text-[12px] text-[#3A342C]/45 tracking-[0.04em] text-center mt-4 md:mt-5 transition-all duration-[800ms] ease-out ${
-              pair2CapInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-            style={{ transitionDelay: pair2CapInView ? '100ms' : '0ms' }}
-          >
-            Every family begins with a moment like this.
-          </p>
-        </Link>
+            >
+              {/* white mat border */}
+              <div className="p-[10px] md:p-[13px]">
+                <div className="relative overflow-hidden" style={{ aspectRatio: "3/2" }}>
+                  <img
+                    src="/beginnings-shaun-sowmya.jpg"
+                    alt="Shaun & Sowmya"
+                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
+                    loading="lazy"
+                  />
+                  {/* Gradient base for text */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/25" />
+                  {/* Couple name — top left */}
+                  <div className="absolute top-3 md:top-4 left-3 md:left-4">
+                    <p className="font-sans font-bold text-[14px] md:text-[18px] lg:text-[20px] text-white tracking-[0.05em] uppercase drop-shadow-sm leading-tight">
+                      Shaun &<br />Sowmya
+                    </p>
+                  </div>
+                  {/* Location — top right */}
+                  <div className="absolute top-4 md:top-5 right-3 md:right-4 flex items-center gap-1.5">
+                    <span className="font-sans text-[7px] md:text-[8px] text-white/75 uppercase tracking-[0.12em]">Chennai</span>
+                    <div className="w-4 md:w-5 h-px bg-white/50" />
+                    <span className="font-sans text-[7px] md:text-[8px] text-white/75 uppercase tracking-[0.12em]">India</span>
+                  </div>
+                  {/* Brand — bottom right */}
+                  <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4">
+                    <p className="font-serif italic text-[9px] md:text-[10px] text-white/60 tracking-[0.06em]">Evermor Tales</p>
+                  </div>
+                </div>
+              </div>
+            </Link>
 
-        {/* Closing Block */}
-        <div className="mt-16 md:mt-24 lg:mt-36 text-center max-w-[680px] mx-auto px-6 md:px-0">
+            {/* Postcard BACK */}
+            <div
+              ref={s2ImgRef}
+              className={`flex-1 bg-white shadow-[0_6px_36px_rgba(58,52,44,0.15)] transition-all duration-[1000ms] ease-out md:rotate-[0.6deg] hover:rotate-0 ${
+                s2ImgInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              }`}
+              style={{ transitionDelay: s2ImgInView ? '180ms' : '0ms' }}
+            >
+              <div className="p-5 md:p-7 h-full flex flex-col" style={{ minHeight: "280px" }}>
+                {/* Card header */}
+                <div className="flex items-start justify-between pb-3 border-b border-[#3A342C]/10 mb-3">
+                  <div className="flex-1 text-center pr-2">
+                    <p className="font-serif font-bold text-[11px] md:text-[13px] text-[#3A342C] tracking-[0.14em] uppercase">Evermor Tales</p>
+                    <p className="font-sans text-[7px] md:text-[8px] text-[#3A342C]/35 tracking-[0.18em] uppercase mt-0.5">Wedding Photography</p>
+                  </div>
+                  {/* Perforated stamp box */}
+                  <div
+                    className="shrink-0 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center"
+                    style={{ border: "1.5px dashed rgba(58,52,44,0.22)" }}
+                  >
+                    <div className="font-sans text-[5px] text-[#3A342C]/22 tracking-[0.08em] text-center uppercase leading-[1.5]">Post<br/>age</div>
+                  </div>
+                </div>
+
+                {/* Main body — split with vertical rule */}
+                <div className="flex-1 flex gap-0 min-h-0">
+                  {/* Left column */}
+                  <div className="flex-[5] pr-4 border-r border-[#3A342C]/10 flex flex-col justify-between">
+                    <div>
+                      <p className="font-sans uppercase text-[7px] md:text-[8px] tracking-[0.22em] text-[#8C6D4F] mb-2">Photography & Film</p>
+                      <p className="font-serif font-bold text-[15px] md:text-[18px] text-[#3A342C] leading-[1.15] mb-2.5">Shaun &amp; Sowmya</p>
+                      <div className="w-7 h-px bg-[#3A342C]/15 mb-2.5" />
+                      <p className="font-sans text-[10px] md:text-[11px] text-[#3A342C]/52 leading-[1.75] tracking-[0.005em]">
+                        Held in the golden light of Chennai across two days of ceremony, laughter, and the quiet moments only families share.
+                      </p>
+                    </div>
+                    <p className="font-sans text-[7px] md:text-[8px] text-[#3A342C]/30 tracking-[0.1em] uppercase mt-4">
+                      For enquiries · evermortales.com
+                    </p>
+                  </div>
+
+                  {/* Right column */}
+                  <div className="flex-[4] pl-4 flex flex-col justify-center relative overflow-hidden">
+                    <p className="font-serif italic text-[11px] md:text-[13px] text-[#3A342C]/60 leading-[1.85] tracking-[0.01em]">
+                      "There is always a moment when the world falls quiet and they see only each other."
+                    </p>
+                    {/* Circular postmark */}
+                    <div
+                      className="absolute bottom-0 right-0 w-14 h-14 md:w-[60px] md:h-[60px] rounded-full flex items-center justify-center text-center"
+                      style={{ border: "1px solid rgba(58,52,44,0.18)" }}
+                    >
+                      <p className="font-sans text-[5px] md:text-[6px] text-[#3A342C]/28 tracking-[0.06em] uppercase leading-[1.6]">
+                        Evermor<br/>Tales<br/>Made with<br/>Love
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Postcard grid — three fronts ── */}
+        <div className="px-4 md:px-10 lg:px-20 mb-16 md:mb-24">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 max-w-[1040px] mx-auto">
+
+            {/* Card 1 */}
+            <Link
+              href="/beginnings/abhigna-sagar"
+              ref={s4ImgRef}
+              className={`block group cursor-pointer bg-white shadow-[0_4px_24px_rgba(58,52,44,0.13)] hover:shadow-[0_8px_36px_rgba(58,52,44,0.2)] transition-all duration-[900ms] ease-out md:rotate-[0.4deg] hover:rotate-0 ${
+                s4ImgInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              }`}
+            >
+              <div className="p-[8px] md:p-[10px]">
+                <div className="relative overflow-hidden" style={{ aspectRatio: "3/2" }}>
+                  <img src="/beginnings-abhigna-sagar.jpg" alt="Abhigna & Sagar" className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/38 via-transparent to-black/22" />
+                  <div className="absolute top-2.5 left-2.5 md:top-3 md:left-3">
+                    <p className="font-sans font-bold text-[11px] md:text-[13px] text-white tracking-[0.05em] uppercase drop-shadow-sm leading-tight">Abhigna<br />&amp; Sagar</p>
+                  </div>
+                  <div className="absolute top-2.5 right-2.5 md:top-3 md:right-3 flex items-center gap-1">
+                    <span className="font-sans text-[6px] text-white/70 uppercase tracking-[0.1em]">Hyd</span>
+                    <div className="w-3 h-px bg-white/45" />
+                    <span className="font-sans text-[6px] text-white/70 uppercase tracking-[0.1em]">India</span>
+                  </div>
+                  <div className="absolute bottom-2 right-2.5 md:bottom-3 md:right-3">
+                    <p className="font-serif italic text-[8px] text-white/55">Evermor Tales</p>
+                  </div>
+                </div>
+              </div>
+            </Link>
+
+            {/* Card 2 */}
+            <Link
+              href="/beginnings/yamini-chris"
+              ref={s5ImgRef}
+              className={`block group cursor-pointer bg-white shadow-[0_4px_24px_rgba(58,52,44,0.13)] hover:shadow-[0_8px_36px_rgba(58,52,44,0.2)] transition-all duration-[900ms] ease-out md:-rotate-[0.3deg] hover:rotate-0 ${
+                s5ImgInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              }`}
+              style={{ transitionDelay: s5ImgInView ? '120ms' : '0ms' }}
+            >
+              <div className="p-[8px] md:p-[10px]">
+                <div className="relative overflow-hidden" style={{ aspectRatio: "3/2" }}>
+                  <img src="/beginnings-yamini-chris.jpg" alt="Yamini & Chris" className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/38 via-transparent to-black/22" />
+                  <div className="absolute top-2.5 left-2.5 md:top-3 md:left-3">
+                    <p className="font-sans font-bold text-[11px] md:text-[13px] text-white tracking-[0.05em] uppercase drop-shadow-sm leading-tight">Yamini<br />&amp; Chris</p>
+                  </div>
+                  <div className="absolute top-2.5 right-2.5 md:top-3 md:right-3 flex items-center gap-1">
+                    <span className="font-sans text-[6px] text-white/70 uppercase tracking-[0.1em]">Goa</span>
+                    <div className="w-3 h-px bg-white/45" />
+                    <span className="font-sans text-[6px] text-white/70 uppercase tracking-[0.1em]">India</span>
+                  </div>
+                  <div className="absolute bottom-2 right-2.5 md:bottom-3 md:right-3">
+                    <p className="font-serif italic text-[8px] text-white/55">Evermor Tales</p>
+                  </div>
+                </div>
+              </div>
+            </Link>
+
+            {/* Card 3 */}
+            <Link
+              href="/beginnings/sakshi-rajat"
+              ref={s6ImgRef}
+              className={`block group cursor-pointer bg-white shadow-[0_4px_24px_rgba(58,52,44,0.13)] hover:shadow-[0_8px_36px_rgba(58,52,44,0.2)] transition-all duration-[900ms] ease-out md:rotate-[0.5deg] hover:rotate-0 ${
+                s6ImgInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              }`}
+              style={{ transitionDelay: s6ImgInView ? '240ms' : '0ms' }}
+            >
+              <div className="p-[8px] md:p-[10px]">
+                <div className="relative overflow-hidden" style={{ aspectRatio: "3/2" }}>
+                  <img src="/beginnings-sakshi-rajat.jpg" alt="Sakshi & Rajat" className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-black/38 via-transparent to-black/22" />
+                  <div className="absolute top-2.5 left-2.5 md:top-3 md:left-3">
+                    <p className="font-sans font-bold text-[11px] md:text-[13px] text-white tracking-[0.05em] uppercase drop-shadow-sm leading-tight">Sakshi<br />&amp; Rajat</p>
+                  </div>
+                  <div className="absolute top-2.5 right-2.5 md:top-3 md:right-3 flex items-center gap-1">
+                    <span className="font-sans text-[6px] text-white/70 uppercase tracking-[0.1em]">Mumbai</span>
+                    <div className="w-3 h-px bg-white/45" />
+                    <span className="font-sans text-[6px] text-white/70 uppercase tracking-[0.1em]">India</span>
+                  </div>
+                  <div className="absolute bottom-2 right-2.5 md:bottom-3 md:right-3">
+                    <p className="font-serif italic text-[8px] text-white/55">Evermor Tales</p>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </div>
+        </div>
+
+        {/* Closing CTA */}
+        <div className="text-center px-6">
           <p
             ref={closingRef}
-            className={`font-serif font-light italic text-[22px] md:text-[28px] text-[#3A342C]/60 tracking-[0.015em] leading-[1.5] mb-10 md:mb-14 transition-all duration-[800ms] ease-out ${
+            className={`font-serif font-light italic text-[20px] md:text-[26px] text-[#3A342C]/55 tracking-[0.01em] leading-[1.5] mb-8 md:mb-10 transition-all duration-[800ms] ease-out ${
               closingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
             No two beginnings are ever the same.
           </p>
-          <span
+          <Link
+            href="/beginnings"
             ref={ctaRef}
-            className={`flex flex-col items-center gap-2 font-sans font-light text-[13px] md:text-[14px] text-[#3A342C]/50 tracking-[0.05em] hover:text-[#3A342C]/85 transition-all duration-[800ms] ease-out cursor-pointer ${
+            className={`inline-flex items-center gap-3 font-sans font-light text-[12px] md:text-[13px] text-[#3A342C]/50 tracking-[0.12em] uppercase hover:text-[#3A342C]/80 transition-all duration-[800ms] ease-out ${
               ctaInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
             style={{ transitionDelay: ctaInView ? '150ms' : '0ms' }}
           >
-            <span>Discover Your Story</span>
+            <span>View All Beginnings</span>
             <span>→</span>
-          </span>
+          </Link>
         </div>
       </section>
       {/* Chapter 6 — Memory */}
