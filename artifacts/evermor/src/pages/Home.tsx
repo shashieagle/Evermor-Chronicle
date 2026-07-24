@@ -804,18 +804,18 @@ export default function Home() {
           {/* Mobile: stacked */}
           <div className="md:hidden flex flex-col items-center gap-10">
             <div
-              ref={ch6s2Ref}
+              ref={b2CopyRef}
               className={`shadow-[0_8px_40px_rgba(58,52,44,0.2)] transition-all duration-[1000ms] ease-out ${
-                ch6s2InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                b2CopyInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
               style={{ transform: "rotate(-1deg)", width: "min(340px, 85vw)" }}
             >
               <img src="/memory-collage.jpg" alt="Memory objects" className="w-full h-auto block" loading="lazy" />
             </div>
             <div
-              ref={ch6s3Ref}
+              ref={b3CopyRef}
               className={`grid grid-cols-2 gap-x-8 gap-y-7 text-center transition-all duration-[900ms] ease-out ${
-                ch6s3InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+                b3CopyInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
               {[
