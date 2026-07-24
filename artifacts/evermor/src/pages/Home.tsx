@@ -488,11 +488,11 @@ export default function Home() {
                 aboutT2InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
-              <p className="text-[#3A342C] leading-[1.75] mb-6" style={{ fontFamily: 'var(--app-font-hand)', fontSize: 'clamp(20px, 1.7vw, 26px)' }}>
+              <p className="font-serif font-light text-[#3A342C] leading-[1.85] mb-6" style={{ fontSize: 'clamp(17px, 1.4vw, 20px)' }}>
                 We are Shashikanth &amp; Deepika — not photographers first, but people
                 deeply fascinated by people.
               </p>
-              <p className="text-[#3A342C] leading-[1.75]" style={{ fontFamily: 'var(--app-font-hand)', fontSize: 'clamp(20px, 1.7vw, 26px)' }}>
+              <p className="font-serif font-light text-[#3A342C] leading-[1.85]" style={{ fontSize: 'clamp(17px, 1.4vw, 20px)' }}>
                 Our own wedding taught us something. The memories we returned to most
                 weren't the perfectly posed frames. They were the quiet ones.
                 The unguarded ones. The ones we almost forgot.
@@ -505,7 +505,7 @@ export default function Home() {
                 aboutT4InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
               }`}
             >
-              <p className="text-[#3A342C]/50 leading-[1.75]" style={{ fontFamily: 'var(--app-font-hand)', fontSize: 'clamp(19px, 1.55vw, 24px)' }}>
+              <p className="font-serif font-light italic text-[#3A342C]/50 leading-[1.85]" style={{ fontSize: 'clamp(16px, 1.3vw, 19px)' }}>
                 We don't arrive to document a celebration.
                 We arrive to preserve the beginning of a family.
               </p>
