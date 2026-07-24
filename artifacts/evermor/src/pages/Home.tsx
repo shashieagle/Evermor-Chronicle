@@ -430,19 +430,44 @@ export default function Home() {
       <section className="bg-[#FAFAF8] py-24 md:py-40 lg:py-56">
         <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-16 flex flex-col md:flex-row gap-14 md:gap-20 lg:gap-28 items-start">
 
-          {/* Portrait */}
+          {/* Portrait — Polaroid */}
           <div
             ref={aboutImgRef}
-            className={`w-full md:w-[340px] lg:w-[400px] shrink-0 aspect-[3/4] overflow-hidden transition-all duration-[1200ms] ease-out ${
+            className={`shrink-0 transition-all duration-[1200ms] ease-out ${
               aboutImgInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
+            style={{ width: "min(300px, 88vw)" }}
           >
-            <img
-              src="/about-hero.jpg"
-              alt="Shashikanth and Deepika"
-              loading="lazy"
-              className="w-full h-full object-cover object-center ml-[0px] mr-[0px] mt-[56px] mb-[56px] pt-[40px] pb-[40px] pl-[24px] pr-[24px]"
-            />
+            {/* Polaroid card */}
+            <div
+              className="bg-[#F8F2E6] relative"
+              style={{
+                padding: "12px 12px 56px 12px",
+                boxShadow: "0 8px 30px rgba(20,14,8,0.28), 0 2px 8px rgba(20,14,8,0.18), 2px 4px 0 rgba(20,14,8,0.06)",
+                transform: "rotate(-2.5deg)",
+              }}
+            >
+              {/* Photo */}
+              <div className="overflow-hidden" style={{ aspectRatio: "1/1.08" }}>
+                <img
+                  src="/about-hero.jpg"
+                  alt="Shashikanth and Deepika"
+                  loading="lazy"
+                  className="w-full h-full object-cover object-center"
+                  style={{ filter: "sepia(0.25) contrast(1.06) saturate(0.75) brightness(0.95)" }}
+                />
+                {/* grain overlay */}
+                <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E\")", opacity: 0.1, mixBlendMode: "overlay" as const }} />
+              </div>
+
+              {/* Caption area */}
+              <div className="absolute bottom-0 left-0 right-0 h-[56px] flex items-center justify-center">
+                <p className="font-serif italic text-[12px] text-[#3A342C]/35 tracking-[0.03em]">Shashikanth &amp; Deepika</p>
+              </div>
+            </div>
+
+            {/* Faint base shadow strip */}
+            <div className="h-[4px] mx-4 mt-0.5 bg-[#1A1208]/12 blur-sm" style={{ transform: "rotate(-2.5deg)" }} />
           </div>
 
           {/* Text */}
