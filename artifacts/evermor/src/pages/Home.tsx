@@ -841,9 +841,6 @@ export default function Home() {
           >
             But every family deserves something<br className="hidden md:block" /> that brings them back.
           </p>
-          <p className="font-sans font-light italic text-[12px] text-[#3A342C]/38 tracking-[0.02em] md:text-right max-w-[200px] leading-[1.7] shrink-0">
-            The rings. The songs.<br />The handwritten notes.<br />The quiet in between.
-          </p>
         </div>
 
         {/* ── Final statement — full-width dark bar ── */}
