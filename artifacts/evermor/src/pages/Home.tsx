@@ -1,7 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "wouter";
 import Nav from "../components/Nav";
-import HorizontalScrollSection from "../components/HorizontalScroll";
 
 function useInView() {
   const [isInView, setIsInView] = useState(false);
@@ -37,6 +36,19 @@ export default function Home() {
   const [imageRef, imageInView] = useInView();
   const [transitionLineRef, transitionLineInView] = useInView();
 
+
+  // Chapter 3 panels
+  const [ch3s1Ref, ch3s1InView] = useInView();
+  const [ch3s2Ref, ch3s2InView] = useInView();
+  const [ch3s3Ref, ch3s3InView] = useInView();
+  const [ch3imgRef, ch3imgInView] = useInView();
+
+  // Chapter 6 panels
+  const [ch6s1Ref, ch6s1InView] = useInView();
+  const [ch6s2Ref, ch6s2InView] = useInView();
+  const [ch6s3Ref, ch6s3InView] = useInView();
+  const [ch6s4Ref, ch6s4InView] = useInView();
+  const [ch6s5Ref, ch6s5InView] = useInView();
 
   const [ch6ClosingRef, ch6ClosingInView] = useInView();
   const [ch6CtaRef, ch6CtaInView] = useInView();
@@ -195,33 +207,28 @@ export default function Home() {
           Every family begins with a story.
         </p>
       </section>
-      {/* Chapter 3 - Horizontal Scroll Narrative */}
-      <HorizontalScrollSection
-        bg="bg-[#EAE3D3]"
-        panels={[
-          <p className="font-serif font-light text-[32px] md:text-[52px] lg:text-[60px] text-[#3A342C] tracking-[0.01em] leading-[1.25] text-center max-w-[720px]">
-            A wedding marks a moment.
-          </p>,
-          <p className="font-serif font-light text-[32px] md:text-[52px] lg:text-[60px] text-[#3A342C] tracking-[0.01em] leading-[1.25] text-center max-w-[720px]">
-            A marriage shapes a lifetime.
-          </p>,
-          <p className="font-serif font-light text-[32px] md:text-[52px] lg:text-[60px] text-[#3A342C] tracking-[0.01em] leading-[1.25] text-center max-w-[720px]">
-            The beginning deserves to be remembered.
-          </p>,
-          <div className="relative w-screen h-screen overflow-hidden -mx-8">
-            <img
-              src="/chapter3.jpg"
-              alt="Editorial wedding photography"
-              className="w-full h-full object-cover object-center"
-              loading="lazy"
-            />
-            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/35 to-transparent" />
-            <p className="absolute bottom-12 md:bottom-16 left-0 right-0 text-center font-serif font-light italic text-[16px] md:text-[20px] text-[#F5F0E8]/85 tracking-[0.02em]">
-              How we preserve that beginning matters.
-            </p>
-          </div>,
-        ]}
-      />
+      {/* Chapter 3 - Narrative */}
+      <div className="w-full bg-[#EAE3D3] py-28 md:py-40 flex flex-col items-center justify-center gap-16 md:gap-20 px-8">
+        <p ref={ch3s1Ref} className={`font-serif font-light text-[28px] md:text-[44px] lg:text-[52px] text-[#3A342C] tracking-[0.01em] leading-[1.3] text-center max-w-[680px] transition-all duration-[900ms] ease-out ${ch3s1InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          A wedding marks a moment.
+        </p>
+        <div className="w-px h-10 bg-[#3A342C]/15" />
+        <p ref={ch3s2Ref} className={`font-serif font-light text-[28px] md:text-[44px] lg:text-[52px] text-[#3A342C] tracking-[0.01em] leading-[1.3] text-center max-w-[680px] transition-all duration-[900ms] ease-out ${ch3s2InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          A marriage shapes a lifetime.
+        </p>
+        <div className="w-px h-10 bg-[#3A342C]/15" />
+        <p ref={ch3s3Ref} className={`font-serif font-light text-[28px] md:text-[44px] lg:text-[52px] text-[#3A342C] tracking-[0.01em] leading-[1.3] text-center max-w-[680px] transition-all duration-[900ms] ease-out ${ch3s3InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          The beginning deserves to be remembered.
+        </p>
+      </div>
+      {/* Chapter 3 — image */}
+      <div ref={ch3imgRef} className={`relative h-[70vh] md:h-[85vh] overflow-hidden transition-opacity duration-[1200ms] ease-out ${ch3imgInView ? 'opacity-100' : 'opacity-0'}`}>
+        <img src="/chapter3.jpg" alt="Editorial wedding photography" className="w-full h-full object-cover object-center" loading="lazy" />
+        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/35 to-transparent" />
+        <p className="absolute bottom-10 md:bottom-14 left-0 right-0 text-center font-serif font-light italic text-[15px] md:text-[18px] text-[#F5F0E8]/85 tracking-[0.02em]">
+          How we preserve that beginning matters.
+        </p>
+      </div>
       {/* Chapter 4 - Beliefs */}
       <section className="bg-[#F8F6F2] py-20 md:py-32 lg:py-48">
 
@@ -619,30 +626,29 @@ export default function Home() {
           </span>
         </div>
       </section>
-      {/* Chapter 6 — Memory, Horizontal Scroll */}
-      <HorizontalScrollSection
-        bg="bg-[#F8F6F2]"
-        panels={[
-          <p className="font-serif font-light text-[32px] md:text-[50px] lg:text-[58px] text-[#3A342C] leading-[1.2] tracking-[0.005em] text-center max-w-[720px]">
-            Every family remembers differently.
-          </p>,
-          <p className="font-serif font-light text-[24px] md:text-[36px] lg:text-[42px] text-[#3A342C] leading-[1.8] tracking-[0.01em] text-center max-w-[600px]">
-            Some remember voices.<br />
-            Some remember photographs.<br />
-            Some remember places.<br />
-            Some remember silence.
-          </p>,
-          <p className="font-serif font-light text-[28px] md:text-[44px] lg:text-[52px] text-[#3A342C] leading-[1.25] tracking-[0.005em] text-center max-w-[700px]">
-            But every family deserves something that brings them back.
-          </p>,
-          <p className="font-serif font-light text-[30px] md:text-[48px] lg:text-[56px] text-[#3A342C] leading-[1.2] tracking-[0.005em] text-center max-w-[680px]">
-            We don't simply preserve what happened.
-          </p>,
-          <p className="font-serif font-light text-[40px] md:text-[62px] lg:text-[72px] text-[#3A342C] leading-[1.1] tracking-[0.005em] text-center max-w-[680px]">
-            We preserve what it meant.
-          </p>,
-        ]}
-      />
+      {/* Chapter 6 — Memory */}
+      <div className="w-full bg-[#F8F6F2] py-28 md:py-40 flex flex-col items-center justify-center gap-14 md:gap-18 px-8">
+        <p ref={ch6s1Ref} className={`font-serif font-light text-[26px] md:text-[40px] lg:text-[48px] text-[#3A342C] leading-[1.2] tracking-[0.005em] text-center max-w-[680px] transition-all duration-[900ms] ease-out ${ch6s1InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          Every family remembers differently.
+        </p>
+        <p ref={ch6s2Ref} className={`font-serif font-light text-[20px] md:text-[30px] lg:text-[36px] text-[#3A342C] leading-[1.9] tracking-[0.01em] text-center max-w-[560px] transition-all duration-[900ms] ease-out ${ch6s2InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          Some remember voices.<br />
+          Some remember photographs.<br />
+          Some remember places.<br />
+          Some remember silence.
+        </p>
+        <div className="w-px h-10 bg-[#3A342C]/12" />
+        <p ref={ch6s3Ref} className={`font-serif font-light text-[22px] md:text-[34px] lg:text-[42px] text-[#3A342C] leading-[1.3] tracking-[0.005em] text-center max-w-[620px] transition-all duration-[900ms] ease-out ${ch6s3InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          But every family deserves something that brings them back.
+        </p>
+        <div className="w-px h-10 bg-[#3A342C]/12" />
+        <p ref={ch6s4Ref} className={`font-serif font-light text-[22px] md:text-[34px] lg:text-[40px] text-[#3A342C] leading-[1.3] tracking-[0.005em] text-center max-w-[600px] transition-all duration-[900ms] ease-out ${ch6s4InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          We don't simply preserve what happened.
+        </p>
+        <p ref={ch6s5Ref} className={`font-serif font-light text-[32px] md:text-[52px] lg:text-[62px] text-[#3A342C] leading-[1.1] tracking-[0.005em] text-center max-w-[600px] transition-all duration-[1100ms] ease-out ${ch6s5InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          We preserve what it meant.
+        </p>
+      </div>
       {/* Chapter 6 — Closing (below sticky scroll) */}
       <section className="bg-[#F8F6F2] pt-32 md:pt-48 pb-40 md:pb-60">
         <div className="max-w-[640px] mx-auto px-6 md:px-0 text-center">
