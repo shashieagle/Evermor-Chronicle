@@ -411,7 +411,7 @@ export default function Home() {
 
             {/* Col C — Image 1 */}
             <div className="w-full md:w-[32%] shrink-0 h-[260px] md:h-auto overflow-hidden">
-              <img src="/belief1.jpg" alt="Connection" className="w-full h-full object-cover object-center" loading="lazy" />
+              <img src="/belief1-new.jpg" alt="Connection" className="w-full h-full object-cover object-center" loading="lazy" />
             </div>
           </div>
 
@@ -429,7 +429,7 @@ export default function Home() {
 
             {/* Image 2 */}
             <div className="w-full md:w-[36%] shrink-0 h-[280px] md:h-auto overflow-hidden">
-              <img src="/belief2.jpg" alt="Stories" className="w-full h-full object-cover object-center" loading="lazy" />
+              <img src="/belief2-new.jpg" alt="Stories" className="w-full h-full object-cover object-center" loading="lazy" />
             </div>
 
             {/* Beliefs III + IV stacked */}
@@ -461,7 +461,7 @@ export default function Home() {
         {/* ── Bottom photo strip ── */}
         <div className="flex flex-col md:flex-row border-b border-[#3A342C]/20 divide-y md:divide-y-0 md:divide-x divide-[#3A342C]/15">
           <div className="flex-1 h-[200px] md:h-[260px] overflow-hidden">
-            <img src="/belief3.jpg" alt="Craft" className="w-full h-full object-cover object-center" loading="lazy" />
+            <img src="/belief3-new.jpg" alt="Craft" className="w-full h-full object-cover object-center" loading="lazy" />
           </div>
           {/* Belief V over center */}
           <div
@@ -480,7 +480,7 @@ export default function Home() {
             </p>
           </div>
           <div className="flex-1 h-[200px] md:h-[260px] overflow-hidden">
-            <img src="/belief4.jpg" alt="Trust" className="w-full h-full object-cover object-center" loading="lazy" />
+            <img src="/belief4-new.jpg" alt="Trust" className="w-full h-full object-cover object-center" loading="lazy" />
           </div>
         </div>
 
