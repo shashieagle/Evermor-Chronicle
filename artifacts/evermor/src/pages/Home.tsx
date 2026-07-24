@@ -492,19 +492,22 @@ export default function Home() {
             <Link
               href="/beginnings/shaun-sowmya"
               ref={s1ImgRef}
-              className={`flex-1 block group cursor-pointer bg-white shadow-[0_6px_36px_rgba(58,52,44,0.18)] transition-all duration-[1000ms] ease-out md:-rotate-[0.6deg] hover:rotate-0 hover:shadow-[0_12px_48px_rgba(58,52,44,0.25)] ${
+              className={`flex-1 block group cursor-pointer bg-[#EFE4D0] shadow-[0_6px_36px_rgba(58,52,44,0.18)] transition-all duration-[1000ms] ease-out md:-rotate-[0.6deg] hover:rotate-0 hover:shadow-[0_12px_48px_rgba(58,52,44,0.25)] ${
                 s1ImgInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               }`}
             >
-              {/* white mat border */}
+              {/* aged mat border */}
               <div className="p-[10px] md:p-[13px]">
                 <div className="relative overflow-hidden" style={{ aspectRatio: "3/2" }}>
                   <img
                     src="/beginnings-shaun-sowmya.jpg"
                     alt="Shaun & Sowmya"
                     className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
+                    style={{ filter: "sepia(0.35) contrast(1.08) saturate(0.68) brightness(0.94)" }}
                     loading="lazy"
                   />
+                  {/* grain overlay */}
+                  <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E\")", opacity: 0.13, mixBlendMode: "overlay" as const }} />
                   {/* Gradient base for text */}
                   <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/25" />
                   {/* Couple name — top left */}
@@ -530,7 +533,7 @@ export default function Home() {
             {/* Postcard BACK */}
             <div
               ref={s2ImgRef}
-              className={`flex-1 bg-white shadow-[0_6px_36px_rgba(58,52,44,0.15)] transition-all duration-[1000ms] ease-out md:rotate-[0.6deg] hover:rotate-0 ${
+              className={`flex-1 bg-[#F5EDE0] shadow-[0_6px_36px_rgba(58,52,44,0.15)] transition-all duration-[1000ms] ease-out md:rotate-[0.6deg] hover:rotate-0 ${
                 s2ImgInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               }`}
               style={{ transitionDelay: s2ImgInView ? '180ms' : '0ms' }}
@@ -597,13 +600,14 @@ export default function Home() {
             <Link
               href="/beginnings/abhigna-sagar"
               ref={s4ImgRef}
-              className={`block group cursor-pointer bg-white shadow-[0_4px_24px_rgba(58,52,44,0.13)] hover:shadow-[0_8px_36px_rgba(58,52,44,0.2)] transition-all duration-[900ms] ease-out md:rotate-[0.4deg] hover:rotate-0 ${
+              className={`block group cursor-pointer bg-[#EFE4D0] shadow-[0_4px_24px_rgba(58,52,44,0.13)] hover:shadow-[0_8px_36px_rgba(58,52,44,0.2)] transition-all duration-[900ms] ease-out md:rotate-[0.4deg] hover:rotate-0 ${
                 s4ImgInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               }`}
             >
               <div className="p-[8px] md:p-[10px]">
                 <div className="relative overflow-hidden" style={{ aspectRatio: "3/2" }}>
-                  <img src="/beginnings-abhigna-sagar.jpg" alt="Abhigna & Sagar" className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" />
+                  <img src="/beginnings-abhigna-sagar.jpg" alt="Abhigna & Sagar" className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]" style={{ filter: "sepia(0.35) contrast(1.08) saturate(0.68) brightness(0.94)" }} loading="lazy" />
+                  <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E\")", opacity: 0.13, mixBlendMode: "overlay" as const }} />
                   <div className="absolute inset-0 bg-gradient-to-b from-black/38 via-transparent to-black/22" />
                   <div className="absolute top-2.5 left-2.5 md:top-3 md:left-3">
                     <p className="font-sans font-bold text-[11px] md:text-[13px] text-white tracking-[0.05em] uppercase drop-shadow-sm leading-tight">Abhigna<br />&amp; Sagar</p>
@@ -624,14 +628,15 @@ export default function Home() {
             <Link
               href="/beginnings/yamini-chris"
               ref={s5ImgRef}
-              className={`block group cursor-pointer bg-white shadow-[0_4px_24px_rgba(58,52,44,0.13)] hover:shadow-[0_8px_36px_rgba(58,52,44,0.2)] transition-all duration-[900ms] ease-out md:-rotate-[0.3deg] hover:rotate-0 ${
+              className={`block group cursor-pointer bg-[#EFE4D0] shadow-[0_4px_24px_rgba(58,52,44,0.13)] hover:shadow-[0_8px_36px_rgba(58,52,44,0.2)] transition-all duration-[900ms] ease-out md:-rotate-[0.3deg] hover:rotate-0 ${
                 s5ImgInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               }`}
               style={{ transitionDelay: s5ImgInView ? '120ms' : '0ms' }}
             >
               <div className="p-[8px] md:p-[10px]">
                 <div className="relative overflow-hidden" style={{ aspectRatio: "3/2" }}>
-                  <img src="/beginnings-yamini-chris.jpg" alt="Yamini & Chris" className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" />
+                  <img src="/beginnings-yamini-chris.jpg" alt="Yamini & Chris" className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]" style={{ filter: "sepia(0.35) contrast(1.08) saturate(0.68) brightness(0.94)" }} loading="lazy" />
+                  <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E\")", opacity: 0.13, mixBlendMode: "overlay" as const }} />
                   <div className="absolute inset-0 bg-gradient-to-b from-black/38 via-transparent to-black/22" />
                   <div className="absolute top-2.5 left-2.5 md:top-3 md:left-3">
                     <p className="font-sans font-bold text-[11px] md:text-[13px] text-white tracking-[0.05em] uppercase drop-shadow-sm leading-tight">Yamini<br />&amp; Chris</p>
@@ -652,14 +657,15 @@ export default function Home() {
             <Link
               href="/beginnings/sakshi-rajat"
               ref={s6ImgRef}
-              className={`block group cursor-pointer bg-white shadow-[0_4px_24px_rgba(58,52,44,0.13)] hover:shadow-[0_8px_36px_rgba(58,52,44,0.2)] transition-all duration-[900ms] ease-out md:rotate-[0.5deg] hover:rotate-0 ${
+              className={`block group cursor-pointer bg-[#EFE4D0] shadow-[0_4px_24px_rgba(58,52,44,0.13)] hover:shadow-[0_8px_36px_rgba(58,52,44,0.2)] transition-all duration-[900ms] ease-out md:rotate-[0.5deg] hover:rotate-0 ${
                 s6ImgInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               }`}
               style={{ transitionDelay: s6ImgInView ? '240ms' : '0ms' }}
             >
               <div className="p-[8px] md:p-[10px]">
                 <div className="relative overflow-hidden" style={{ aspectRatio: "3/2" }}>
-                  <img src="/beginnings-sakshi-rajat.jpg" alt="Sakshi & Rajat" className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" />
+                  <img src="/beginnings-sakshi-rajat.jpg" alt="Sakshi & Rajat" className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]" style={{ filter: "sepia(0.35) contrast(1.08) saturate(0.68) brightness(0.94)" }} loading="lazy" />
+                  <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E\")", opacity: 0.13, mixBlendMode: "overlay" as const }} />
                   <div className="absolute inset-0 bg-gradient-to-b from-black/38 via-transparent to-black/22" />
                   <div className="absolute top-2.5 left-2.5 md:top-3 md:left-3">
                     <p className="font-sans font-bold text-[11px] md:text-[13px] text-white tracking-[0.05em] uppercase drop-shadow-sm leading-tight">Sakshi<br />&amp; Rajat</p>
