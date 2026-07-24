@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "wouter";
 import Nav from "../components/Nav";
+import HorizontalScrollSection from "../components/HorizontalScroll";
 
 function useInView() {
   const [isInView, setIsInView] = useState(false);
@@ -36,18 +37,6 @@ export default function Home() {
   const [imageRef, imageInView] = useInView();
   const [transitionLineRef, transitionLineInView] = useInView();
 
-  // Chapter 3 — per-panel IntersectionObserver
-  const [ch3s1Ref, ch3s1InView] = useInView();
-  const [ch3s2Ref, ch3s2InView] = useInView();
-  const [ch3s3Ref, ch3s3InView] = useInView();
-  const [ch3imgRef, ch3imgInView] = useInView();
-
-  // Chapter 6 — per-panel IntersectionObserver
-  const [ch6s1Ref, ch6s1InView] = useInView();
-  const [ch6s2Ref, ch6s2InView] = useInView();
-  const [ch6s3Ref, ch6s3InView] = useInView();
-  const [ch6s4Ref, ch6s4InView] = useInView();
-  const [ch6s5Ref, ch6s5InView] = useInView();
 
   const [ch6ClosingRef, ch6ClosingInView] = useInView();
   const [ch6CtaRef, ch6CtaInView] = useInView();
@@ -206,69 +195,33 @@ export default function Home() {
           Every family begins with a story.
         </p>
       </section>
-      {/* Chapter 3 - Scroll Narrative (per-panel, IntersectionObserver) */}
-      <div className="w-full bg-[#EAE3D3]">
-        {/* Panel 1 */}
-        <div
-          ref={ch3s1Ref}
-          className="flex items-center justify-center min-h-screen px-8"
-        >
-          <p
-            className={`font-serif font-light text-[32px] md:text-[52px] lg:text-[60px] text-[#3A342C] tracking-[0.01em] leading-[1.25] text-center max-w-[720px] transition-all duration-[1100ms] ease-out ${
-              ch3s1InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
-          >
+      {/* Chapter 3 - Horizontal Scroll Narrative */}
+      <HorizontalScrollSection
+        bg="bg-[#EAE3D3]"
+        panels={[
+          <p className="font-serif font-light text-[32px] md:text-[52px] lg:text-[60px] text-[#3A342C] tracking-[0.01em] leading-[1.25] text-center max-w-[720px]">
             A wedding marks a moment.
-          </p>
-        </div>
-
-        {/* Panel 2 */}
-        <div
-          ref={ch3s2Ref}
-          className="flex items-center justify-center min-h-screen px-8"
-        >
-          <p
-            className={`font-serif font-light text-[32px] md:text-[52px] lg:text-[60px] text-[#3A342C] tracking-[0.01em] leading-[1.25] text-center max-w-[720px] transition-all duration-[1100ms] ease-out ${
-              ch3s2InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
-          >
+          </p>,
+          <p className="font-serif font-light text-[32px] md:text-[52px] lg:text-[60px] text-[#3A342C] tracking-[0.01em] leading-[1.25] text-center max-w-[720px]">
             A marriage shapes a lifetime.
-          </p>
-        </div>
-
-        {/* Panel 3 */}
-        <div
-          ref={ch3s3Ref}
-          className="flex items-center justify-center min-h-screen px-8"
-        >
-          <p
-            className={`font-serif font-light text-[32px] md:text-[52px] lg:text-[60px] text-[#3A342C] tracking-[0.01em] leading-[1.25] text-center max-w-[720px] transition-all duration-[1100ms] ease-out ${
-              ch3s3InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
-          >
+          </p>,
+          <p className="font-serif font-light text-[32px] md:text-[52px] lg:text-[60px] text-[#3A342C] tracking-[0.01em] leading-[1.25] text-center max-w-[720px]">
             The beginning deserves to be remembered.
-          </p>
-        </div>
-
-        {/* Panel 4 — Image */}
-        <div
-          ref={ch3imgRef}
-          className={`relative h-[80vh] md:h-screen overflow-hidden transition-opacity duration-[1400ms] ease-out ${
-            ch3imgInView ? 'opacity-100' : 'opacity-0'
-          }`}
-        >
-          <img
-            src="/chapter3.jpg"
-            alt="Editorial wedding photography"
-            className="w-full h-full object-cover object-center"
-            loading="lazy"
-          />
-          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/35 to-transparent" />
-          <p className="absolute bottom-12 md:bottom-16 left-0 right-0 text-center font-serif font-light italic text-[16px] md:text-[20px] text-[#F5F0E8]/85 tracking-[0.02em]">
-            How we preserve that beginning matters.
-          </p>
-        </div>
-      </div>
+          </p>,
+          <div className="relative w-screen h-screen overflow-hidden -mx-8">
+            <img
+              src="/chapter3.jpg"
+              alt="Editorial wedding photography"
+              className="w-full h-full object-cover object-center"
+              loading="lazy"
+            />
+            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/35 to-transparent" />
+            <p className="absolute bottom-12 md:bottom-16 left-0 right-0 text-center font-serif font-light italic text-[16px] md:text-[20px] text-[#F5F0E8]/85 tracking-[0.02em]">
+              How we preserve that beginning matters.
+            </p>
+          </div>,
+        ]}
+      />
       {/* Chapter 4 - Beliefs */}
       <section className="bg-[#F8F6F2] py-20 md:py-32 lg:py-48">
 
@@ -666,83 +619,30 @@ export default function Home() {
           </span>
         </div>
       </section>
-      {/* Chapter 6 — Memory (per-panel, IntersectionObserver) */}
-      <div className="w-full bg-[#F8F6F2]">
-        {/* Panel 1 */}
-        <div
-          ref={ch6s1Ref}
-          className="flex items-center justify-center min-h-screen px-8"
-        >
-          <p
-            className={`font-serif font-light text-[32px] md:text-[50px] lg:text-[58px] text-[#3A342C] leading-[1.2] tracking-[0.005em] text-center max-w-[720px] transition-all duration-[1100ms] ease-out ${
-              ch6s1InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
-          >
+      {/* Chapter 6 — Memory, Horizontal Scroll */}
+      <HorizontalScrollSection
+        bg="bg-[#F8F6F2]"
+        panels={[
+          <p className="font-serif font-light text-[32px] md:text-[50px] lg:text-[58px] text-[#3A342C] leading-[1.2] tracking-[0.005em] text-center max-w-[720px]">
             Every family remembers differently.
-          </p>
-        </div>
-
-        {/* Panel 2 — four lines */}
-        <div
-          ref={ch6s2Ref}
-          className="flex items-center justify-center min-h-screen px-8"
-        >
-          <div
-            className={`text-center max-w-[600px] transition-all duration-[1100ms] ease-out ${
-              ch6s2InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
-          >
-            <p className="font-serif font-light text-[24px] md:text-[36px] lg:text-[42px] text-[#3A342C] leading-[1.8] tracking-[0.01em]">
-              Some remember voices.<br />
-              Some remember photographs.<br />
-              Some remember places.<br />
-              Some remember silence.
-            </p>
-          </div>
-        </div>
-
-        {/* Panel 3 */}
-        <div
-          ref={ch6s3Ref}
-          className="flex items-center justify-center min-h-screen px-8"
-        >
-          <p
-            className={`font-serif font-light text-[28px] md:text-[44px] lg:text-[52px] text-[#3A342C] leading-[1.25] tracking-[0.005em] text-center max-w-[700px] transition-all duration-[1100ms] ease-out ${
-              ch6s3InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
-          >
+          </p>,
+          <p className="font-serif font-light text-[24px] md:text-[36px] lg:text-[42px] text-[#3A342C] leading-[1.8] tracking-[0.01em] text-center max-w-[600px]">
+            Some remember voices.<br />
+            Some remember photographs.<br />
+            Some remember places.<br />
+            Some remember silence.
+          </p>,
+          <p className="font-serif font-light text-[28px] md:text-[44px] lg:text-[52px] text-[#3A342C] leading-[1.25] tracking-[0.005em] text-center max-w-[700px]">
             But every family deserves something that brings them back.
-          </p>
-        </div>
-
-        {/* Panel 4 */}
-        <div
-          ref={ch6s4Ref}
-          className="flex items-center justify-center min-h-screen px-8"
-        >
-          <p
-            className={`font-serif font-light text-[30px] md:text-[48px] lg:text-[56px] text-[#3A342C] leading-[1.2] tracking-[0.005em] text-center max-w-[680px] transition-all duration-[1100ms] ease-out ${
-              ch6s4InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
-          >
+          </p>,
+          <p className="font-serif font-light text-[30px] md:text-[48px] lg:text-[56px] text-[#3A342C] leading-[1.2] tracking-[0.005em] text-center max-w-[680px]">
             We don't simply preserve what happened.
-          </p>
-        </div>
-
-        {/* Panel 5 — closing statement, larger */}
-        <div
-          ref={ch6s5Ref}
-          className="flex items-center justify-center min-h-screen px-8"
-        >
-          <p
-            className={`font-serif font-light text-[40px] md:text-[62px] lg:text-[72px] text-[#3A342C] leading-[1.1] tracking-[0.005em] text-center max-w-[680px] transition-all duration-[1400ms] ease-out ${
-              ch6s5InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-            }`}
-          >
+          </p>,
+          <p className="font-serif font-light text-[40px] md:text-[62px] lg:text-[72px] text-[#3A342C] leading-[1.1] tracking-[0.005em] text-center max-w-[680px]">
             We preserve what it meant.
-          </p>
-        </div>
-      </div>
+          </p>,
+        ]}
+      />
       {/* Chapter 6 — Closing (below sticky scroll) */}
       <section className="bg-[#F8F6F2] pt-32 md:pt-48 pb-40 md:pb-60">
         <div className="max-w-[640px] mx-auto px-6 md:px-0 text-center">
