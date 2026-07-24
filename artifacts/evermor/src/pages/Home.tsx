@@ -736,19 +736,16 @@ export default function Home() {
               }`}
             >
               <div>
-                <p className="font-sans uppercase tracking-[0.18em] text-[7px] text-[#8C6D4F]/70 mb-2">∿ &nbsp; Gramophone</p>
                 <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
                   Some remember<br />voices.
                 </p>
               </div>
               <div>
-                <p className="font-sans uppercase tracking-[0.18em] text-[7px] text-[#8C6D4F]/70 mb-2">◻ &nbsp; The oval frame</p>
                 <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
                   Some remember<br />photographs.
                 </p>
               </div>
               <div>
-                <p className="font-sans uppercase tracking-[0.18em] text-[7px] text-[#8C6D4F]/70 mb-2">◎ &nbsp; The camera</p>
                 <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
                   Some remember<br />moments.
                 </p>
@@ -787,13 +784,11 @@ export default function Home() {
               }`}
             >
               <div>
-                <p className="font-sans uppercase tracking-[0.18em] text-[7px] text-[#8C6D4F]/70 mb-2">✉ &nbsp; The postcards</p>
                 <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
                   Some remember<br />places.
                 </p>
               </div>
               <div>
-                <p className="font-sans uppercase tracking-[0.18em] text-[7px] text-[#8C6D4F]/70 mb-2">📖 &nbsp; The open book</p>
                 <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">
                   Some remember<br />silence.
                 </p>
@@ -819,15 +814,14 @@ export default function Home() {
               }`}
             >
               {[
-                { icon: "∿", label: "Gramophone", text: "Some remember voices." },
-                { icon: "◻", label: "The oval frame", text: "Some remember photographs." },
-                { icon: "◎", label: "The camera", text: "Some remember moments." },
-                { icon: "✉", label: "The postcards", text: "Some remember places." },
-                { icon: "📖", label: "The open book", text: "Some remember silence." },
-              ].map((item, i) => (
+                "Some remember voices.",
+                "Some remember photographs.",
+                "Some remember moments.",
+                "Some remember places.",
+                "Some remember silence.",
+              ].map((text, i) => (
                 <div key={i}>
-                  <p className="font-sans uppercase tracking-[0.15em] text-[7px] text-[#8C6D4F]/65 mb-1.5">{item.icon} &nbsp; {item.label}</p>
-                  <p className="font-serif font-light text-[17px] text-[#3A342C] leading-[1.3]">{item.text}</p>
+                  <p className="font-serif font-light text-[17px] text-[#3A342C] leading-[1.3]">{text}</p>
                 </div>
               ))}
             </div>
