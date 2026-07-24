@@ -265,13 +265,84 @@ export default function Home() {
           The beginning deserves to be remembered.
         </p>
       </div>
-      {/* Chapter 3 — image */}
-      <div ref={ch3imgRef} className={`relative h-[70vh] md:h-[85vh] overflow-hidden transition-opacity duration-[1200ms] ease-out ${ch3imgInView ? 'opacity-100' : 'opacity-0'}`}>
-        <img src="/chapter3.jpg" alt="Editorial wedding photography" className="w-full h-full object-cover object-center" loading="lazy" />
-        <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/35 to-transparent" />
-        <p className="absolute bottom-10 md:bottom-14 left-0 right-0 text-center font-serif font-light italic text-[15px] md:text-[18px] text-[#F5F0E8]/85 tracking-[0.02em]">
-          How we preserve that beginning matters.
-        </p>
+      {/* Chapter 3 — Film strip */}
+      <div
+        ref={ch3imgRef}
+        className={`relative overflow-hidden transition-opacity duration-[1200ms] ease-out ${ch3imgInView ? 'opacity-100' : 'opacity-0'}`}
+        style={{ background: "#0C0906" }}
+      >
+        {/* ── Top sprocket strip ── */}
+        <div className="relative z-20 flex items-center justify-around px-2 bg-[#0C0906]" style={{ height: "32px" }}>
+          {Array.from({ length: 28 }).map((_, i) => (
+            <div
+              key={i}
+              style={{
+                width: "14px", height: "9px",
+                borderRadius: "1.5px",
+                background: "rgba(234,227,211,0.07)",
+                boxShadow: "inset 0 1px 2px rgba(0,0,0,0.9), 0 0 0 0.5px rgba(234,227,211,0.06)",
+              }}
+            />
+          ))}
+        </div>
+
+        {/* ── Image frame ── */}
+        <div className="relative" style={{ height: "calc(70vh - 64px)" }}>
+          {/* Photo */}
+          <img
+            src="/chapter3.jpg"
+            alt="Editorial wedding photography"
+            className="w-full h-full object-cover object-center"
+            style={{ filter: "sepia(0.45) contrast(1.14) saturate(0.55) brightness(0.84)" }}
+            loading="lazy"
+          />
+
+          {/* Grain */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E\")",
+              opacity: 0.18,
+              mixBlendMode: "overlay" as const,
+            }}
+          />
+
+          {/* Left / right film-edge darkening */}
+          <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(to right, rgba(12,9,6,0.55) 0%, transparent 12%, transparent 88%, rgba(12,9,6,0.55) 100%)" }} />
+
+          {/* Top / bottom fade into sprocket strips */}
+          <div className="absolute inset-x-0 top-0 h-8 pointer-events-none" style={{ background: "linear-gradient(to bottom, rgba(12,9,6,0.7), transparent)" }} />
+          <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(12,9,6,0.55), transparent)" }} />
+
+          {/* Caption */}
+          <p className="absolute bottom-8 md:bottom-10 left-0 right-0 text-center font-serif font-light italic text-[15px] md:text-[18px] text-[#F5F0E8]/75 tracking-[0.02em] z-10">
+            How we preserve that beginning matters.
+          </p>
+        </div>
+
+        {/* ── Bottom sprocket strip + frame numbers ── */}
+        <div className="relative z-20 bg-[#0C0906]" style={{ height: "32px" }}>
+          {/* Frame numbers */}
+          <div className="absolute inset-x-0 top-0 flex justify-around items-center px-6" style={{ height: "14px" }}>
+            {["04", "05", "06", "07", "08", "09", "10", "11", "12"].map((n) => (
+              <span key={n} className="font-mono text-[7px] md:text-[8px] tracking-[0.08em]" style={{ color: "rgba(234,227,211,0.18)" }}>{n}▲</span>
+            ))}
+          </div>
+          {/* Holes */}
+          <div className="absolute inset-x-0 bottom-0 flex items-center justify-around px-2" style={{ height: "18px" }}>
+            {Array.from({ length: 28 }).map((_, i) => (
+              <div
+                key={i}
+                style={{
+                  width: "14px", height: "9px",
+                  borderRadius: "1.5px",
+                  background: "rgba(234,227,211,0.07)",
+                  boxShadow: "inset 0 1px 2px rgba(0,0,0,0.9), 0 0 0 0.5px rgba(234,227,211,0.06)",
+                }}
+              />
+            ))}
+          </div>
+        </div>
       </div>
       {/* Chapter 4 - Beliefs — Newspaper Editorial Layout */}
       <section
