@@ -344,8 +344,34 @@ export default function Home() {
           </div>
         </div>
       </div>
-      {/* Chapter 4 - Beliefs — Magazine Editorial Layout */}
-      <section className="bg-[#F2EDE3] overflow-hidden">
+      {/* Chapter 4 - Beliefs — Magazine on Surface */}
+      <div className="py-16 md:py-24" style={{ background: '#CBC7C0' }}>
+
+        {/* Hidden SVG — deckled paper edge filter */}
+        <svg aria-hidden="true" style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}>
+          <defs>
+            <filter id="deckle-beliefs" x="-4%" y="-4%" width="108%" height="108%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.038" numOctaves="4" seed="9" result="noise" />
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G" />
+            </filter>
+          </defs>
+        </svg>
+
+      <section
+        className="bg-[#F2EDE3] overflow-hidden mx-auto"
+        style={{
+          maxWidth: '1000px',
+          transform: 'rotate(-0.4deg)',
+          transformOrigin: 'center top',
+          filter: 'url(#deckle-beliefs)',
+          boxShadow: [
+            '-3px 3px 8px rgba(0,0,0,0.07)',
+            '-5px 12px 28px rgba(0,0,0,0.11)',
+            '-7px 28px 65px rgba(0,0,0,0.12)',
+            '-8px 50px 100px rgba(0,0,0,0.08)',
+          ].join(', '),
+        }}
+      >
 
         {/* ── Section header ── */}
         <div
@@ -484,6 +510,7 @@ export default function Home() {
         </div>
 
       </section>
+      </div>{/* end beliefs surface wrapper */}
       {/* About — inline landing section */}
       <section className="bg-[#FAFAF8] py-24 md:py-40 lg:py-56">
         <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-16 flex flex-col md:flex-row gap-14 md:gap-20 lg:gap-28 items-start">
