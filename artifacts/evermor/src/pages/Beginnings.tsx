@@ -144,7 +144,7 @@ function EditorialGallery({ photos, alt }: { photos: string[]; alt: string }) {
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 48, padding: "48px 0" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: 48, padding: "48px 5%" }}>
       {rows.map((row, i) => (
         <GalleryRow key={i} type={row.type} imgs={row.imgs} alt={alt} delay={Math.min(i * 60, 300)} />
       ))}
