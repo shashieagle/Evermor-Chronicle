@@ -176,9 +176,11 @@ export default function Home() {
           <p className="font-serif italic text-[13px] md:text-[14px] text-[#3A342C]/45 tracking-[0.04em] mb-8 md:mb-10">
             "Long after the flowers fade and the music ends, what remains are the moments we return to."
           </p>
-          <p className="font-serif text-[22px] md:text-[28px] lg:text-[32px] font-light text-[#3A342C] leading-[1.75] md:leading-loose tracking-[0.01em]">
-            Most photographs don't last. They end up on phones that get replaced, in albums that never get opened, in shared folders nobody comes back to. We started Evermor because we believe the early chapters of a family's life — the first glance, the first held hand — deserve more than a storage folder. They deserve a real home.
-          </p>
+          <p className="font-serif text-[22px] md:text-[28px] lg:text-[32px] font-light text-[#3A342C] leading-[1.75] md:leading-loose tracking-[0.01em]">Every celebration marks the beginning of something far greater than a single event.
+
+          It is the day two lives become one, two families come together, and a new chapter quietly begins.
+
+          At Evermor, we exist to preserve that beginning with honesty, care, and intention—so that years from now, it still feels as meaningful as the day it was lived.</p>
         </div>
 
         {/* Vintage framed photograph */}
