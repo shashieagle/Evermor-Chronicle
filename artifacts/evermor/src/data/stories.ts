@@ -32,8 +32,8 @@ export const stories: Story[] = [
     title: "The Beginning of Everything",
     couple: "Saksham & Chitkala",
     location: "Jaipur, India",
-    heroImage: "/beginnings-saksham-chitkala.jpg",
-    photo2: "/b-saksham-chitkala-2.jpg",
+    heroImage: "/saksham-chitkala-1.jpg",
+    photo2: "/saksham-chitkala-2.jpg",
     hasFilm: true,
     narrative:
       "Jaipur holds its celebrations differently to other cities. There is a grandeur in its stones, a memory in its arches that makes every moment feel older than it is — as if the walls themselves have been waiting. Saksham and Chitkala married in that weight, and carried it lightly.",
