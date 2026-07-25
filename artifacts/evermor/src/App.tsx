@@ -26,7 +26,20 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}>
-        <Router />
+        <div
+          className="relative mx-auto bg-background overflow-hidden"
+          style={{
+            maxWidth: '1100px',
+            boxShadow: [
+              '0 0 0 0.5px rgba(245,225,190,0.07)',   /* hairline warm edge */
+              '0 2px 10px rgba(0,0,0,0.22)',           /* tight contact shadow */
+              '0 18px 55px rgba(0,0,0,0.48)',          /* mid lift */
+              '0 55px 130px rgba(0,0,0,0.36)',         /* broad ambient */
+            ].join(', '),
+          }}
+        >
+          <Router />
+        </div>
       </WouterRouter>
     </QueryClientProvider>
   );
