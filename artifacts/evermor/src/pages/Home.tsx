@@ -108,9 +108,9 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="bg-[#EAE3D3] text-[#F5F0E8]">
+    <div className="bg-[#EFEFED] text-[#F5F0E8]">
       {/* Chapter 1 - Hero */}
-      <section className="relative h-[100vh] w-full overflow-hidden bg-[#FAFAF8] text-[#F5F0E8]">
+      <section className="relative h-[100vh] w-full overflow-hidden bg-[#FAFAFA] text-[#F5F0E8]">
         {/* Hero Image Background */}
         <div 
           className={`absolute inset-0 z-0 transition-opacity duration-[1200ms] ease-in-out ${
@@ -123,7 +123,7 @@ export default function Home() {
             className="w-full h-full object-cover"
           />
           {/* Warm Overlay */}
-          <div className="absolute inset-0 bg-[#FAFAF8]/15 mix-blend-overlay" />
+          <div className="absolute inset-0 bg-[#FAFAFA]/15 mix-blend-overlay" />
           {/* Top gradient for nav legibility */}
           <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-black/45 to-transparent" />
           {/* Bottom gradient for hero text legibility */}
@@ -173,7 +173,7 @@ export default function Home() {
         </div>
       </section>
       {/* Chapter 2 - Why Evermor Exists */}
-      <section className="bg-[#EAE3D3] py-20 md:py-32 lg:py-48 flex flex-col items-center">
+      <section className="bg-[#EFEFED] py-20 md:py-32 lg:py-48 flex flex-col items-center">
         <div
           ref={copyRef}
           className={`max-w-[680px] mx-auto px-6 md:px-0 text-center transition-all duration-[800ms] ease-out delay-150 ${
@@ -205,7 +205,7 @@ export default function Home() {
                   <div style={{ outline: "1px solid #8C6D4F", outlineOffset: "-1px" }}>
 
                     {/* Cream mat board */}
-                    <div className="bg-[#EFE6D4] p-[22px] md:p-[32px] relative">
+                    <div className="bg-[#EAEAE8] p-[22px] md:p-[32px] relative">
 
                       {/* Corner ornaments — L-brackets in gold */}
                       {[
@@ -252,7 +252,7 @@ export default function Home() {
         </p>
       </section>
       {/* Chapter 3 - Narrative */}
-      <div className="w-full bg-[#EAE3D3] py-28 md:py-40 flex flex-col items-center justify-center gap-16 md:gap-20 px-8">
+      <div className="w-full bg-[#EFEFED] py-28 md:py-40 flex flex-col items-center justify-center gap-16 md:gap-20 px-8">
         <p ref={ch3s1Ref} className={`font-serif font-light text-[28px] md:text-[44px] lg:text-[52px] text-[#3A342C] tracking-[0.01em] leading-[1.3] text-center max-w-[680px] transition-all duration-[900ms] ease-out ${ch3s1InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           A wedding marks a moment.
         </p>
@@ -358,7 +358,7 @@ export default function Home() {
         </svg>
 
       <section
-        className="bg-[#F2EDE3] overflow-hidden mx-auto"
+        className="bg-[#F3F2F0] overflow-hidden mx-auto"
         style={{
           maxWidth: '1000px',
           filter: 'url(#deckle-beliefs)',
@@ -526,7 +526,7 @@ export default function Home() {
       </section>
       </div>{/* end beliefs surface wrapper */}
       {/* About — inline landing section */}
-      <section className="bg-[#FAFAF8] py-24 md:py-40 lg:py-56">
+      <section className="bg-[#FAFAFA] py-24 md:py-40 lg:py-56">
         <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-16 flex flex-col md:flex-row gap-14 md:gap-20 lg:gap-28 items-start">
 
           {/* Portrait — Polaroid */}
@@ -539,7 +539,7 @@ export default function Home() {
           >
             {/* Polaroid card */}
             <div
-              className="bg-[#F8F2E6] relative"
+              className="bg-[#F3F2F0] relative"
               style={{
                 padding: "12px 12px 56px 12px",
                 boxShadow: "0 8px 30px rgba(20,14,8,0.28), 0 2px 8px rgba(20,14,8,0.18), 2px 4px 0 rgba(20,14,8,0.06)",
@@ -628,7 +628,7 @@ export default function Home() {
         </div>
       </section>
       {/* Chapter 5 - Beginnings — Postcard Collection */}
-      <section className="bg-[#EDE8DC] pt-20 md:pt-32 pb-24 md:pb-36 overflow-hidden">
+      <section className="bg-[#EFEFED] pt-20 md:pt-32 pb-24 md:pb-36 overflow-hidden">
 
         {/* Section header */}
         <div className="text-center mb-14 md:mb-20 px-6">
@@ -876,7 +876,7 @@ export default function Home() {
         </div>
       </section>
       {/* Chapter 6 — Memory */}
-      <section className="bg-[#F0EBE0] overflow-hidden">
+      <section className="bg-[#EFEFED] overflow-hidden">
 
         {/* ── Top label rule ── */}
         <div className="border-b border-[#3A342C]/12 px-5 md:px-10 py-3 flex items-center justify-between">
