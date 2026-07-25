@@ -114,6 +114,7 @@ export default function About() {
           links={[
             { href: "/", label: "Home" },
             { href: "/beginnings", label: "Beginnings" },
+            { href: "/journal", label: "Journal" },
             { href: "/about", label: "About", active: true },
             { href: "/begin-your-story", label: "Begin Your Story" },
           ]}

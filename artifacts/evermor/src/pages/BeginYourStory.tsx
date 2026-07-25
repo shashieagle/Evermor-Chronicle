@@ -210,6 +210,7 @@ export default function BeginYourStory() {
             links={[
               { href: "/", label: "Home" },
               { href: "/beginnings", label: "Beginnings" },
+              { href: "/journal", label: "Journal" },
               { href: "/about", label: "About" },
               { href: "/begin-your-story", label: "Begin Your Story", active: true },
             ]}

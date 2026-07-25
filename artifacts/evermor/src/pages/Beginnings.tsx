@@ -257,6 +257,7 @@ export default function Beginnings() {
           links={[
             { href: "/", label: "Home" },
             { href: "/beginnings", label: "Beginnings", active: true },
+            { href: "/journal", label: "Journal" },
             { href: "/about", label: "About" },
             { href: "/begin-your-story", label: "Begin Your Story" },
           ]}

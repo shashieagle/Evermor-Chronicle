@@ -3,6 +3,7 @@ import { Route, Switch, Router as WouterRouter } from 'wouter';
 import Home from './pages/Home';
 import Beginnings from './pages/Beginnings';
 import BeginningsIndex from './pages/BeginningsIndex';
+import Journal from './pages/Journal';
 import About from './pages/About';
 import BeginYourStory from './pages/BeginYourStory';
 import Admin from './pages/Admin';
@@ -15,6 +16,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/beginnings" component={BeginningsIndex} />
       <Route path="/beginnings/:slug" component={Beginnings} />
+      <Route path="/journal" component={Journal} />
       <Route path="/about" component={About} />
       <Route path="/begin-your-story" component={BeginYourStory} />
       <Route path="/admin" component={Admin} />
