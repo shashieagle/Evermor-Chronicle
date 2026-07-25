@@ -1085,6 +1085,20 @@ export default function Home() {
 
         </div>
       </section>
+
+      {/* Faint admin lock — bottom centre */}
+      <div className="flex justify-center py-8" style={{ background: "#0c0906" }}>
+        <a
+          href="/admin"
+          aria-label="Admin"
+          className="opacity-[0.12] hover:opacity-30 transition-opacity duration-500"
+        >
+          <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1" y="7" width="12" height="9" rx="1" stroke="#F5F0E8" strokeWidth="1"/>
+            <path d="M4 7V4.5a3 3 0 0 1 6 0V7" stroke="#F5F0E8" strokeWidth="1" fill="none"/>
+          </svg>
+        </a>
+      </div>
     </div>
   );
 }
