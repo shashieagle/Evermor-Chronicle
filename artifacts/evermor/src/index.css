@@ -39,8 +39,7 @@
     background: #0F0B07;
     overflow-x: hidden;
     position: relative;
-    padding-top: 3rem;
-    padding-bottom: 5rem;
+    padding: 2rem 1.25rem 6rem;
   }
 }
 
