@@ -1,7 +1,7 @@
 import { Router, type IRouter, type Request, type Response, type NextFunction } from "express";
 import { db } from "@workspace/db";
-import { storiesTable, storyPhotosTable } from "@workspace/db";
-import { eq, asc } from "drizzle-orm";
+import { storiesTable, storyPhotosTable, journalPostsTable } from "@workspace/db";
+import { eq, asc, desc } from "drizzle-orm";
 import { ObjectStorageService } from "../lib/objectStorage";
 
 const router: IRouter = Router();
@@ -150,6 +150,80 @@ router.delete("/admin/photos/:id", async (req: Request, res: Response) => {
   } catch {
     res.status(500).json({ error: "Failed to delete photo" });
   }
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Journal admin routes
+// ─────────────────────────────────────────────────────────────────────────────
+
+// List all posts
+router.get("/admin/journal", async (_req: Request, res: Response) => {
+  try {
+    const posts = await db.select().from(journalPostsTable).orderBy(desc(journalPostsTable.updatedAt));
+    res.json({ posts });
+  } catch { res.status(500).json({ error: "Failed to fetch posts" }); }
+});
+
+// Get single post
+router.get("/admin/journal/:slug", async (req: Request, res: Response) => {
+  try {
+    const [post] = await db.select().from(journalPostsTable).where(eq(journalPostsTable.slug, req.params.slug));
+    if (!post) return res.status(404).json({ error: "Not found" });
+    res.json({ post });
+  } catch { res.status(500).json({ error: "Failed to fetch post" }); }
+});
+
+// Create post
+router.post("/admin/journal", async (req: Request, res: Response) => {
+  const { slug, title } = req.body;
+  if (!slug || !title) return res.status(400).json({ error: "slug and title are required" });
+  try {
+    const [post] = await db.insert(journalPostsTable).values({
+      slug: (slug as string).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
+      title,
+      published: false,
+      updatedAt: new Date(),
+    }).returning();
+    res.json({ post });
+  } catch (err: any) {
+    if (err?.code === "23505") return res.status(409).json({ error: "An article with this slug already exists" });
+    res.status(500).json({ error: "Failed to create post" });
+  }
+});
+
+// Update post
+router.put("/admin/journal/:slug", async (req: Request, res: Response) => {
+  const { title, category, excerpt, body, coverImage, published } = req.body;
+  try {
+    const publishedAt = published
+      ? (await db.select({ publishedAt: journalPostsTable.publishedAt }).from(journalPostsTable).where(eq(journalPostsTable.slug, req.params.slug)))[0]?.publishedAt ?? new Date()
+      : null;
+    await db.update(journalPostsTable)
+      .set({ title, category, excerpt, body, coverImage, published, publishedAt, updatedAt: new Date() })
+      .where(eq(journalPostsTable.slug, req.params.slug));
+    res.json({ ok: true });
+  } catch { res.status(500).json({ error: "Failed to update post" }); }
+});
+
+// Delete post
+router.delete("/admin/journal/:slug", async (req: Request, res: Response) => {
+  try {
+    await db.delete(journalPostsTable).where(eq(journalPostsTable.slug, req.params.slug));
+    res.json({ ok: true });
+  } catch { res.status(500).json({ error: "Failed to delete post" }); }
+});
+
+// Upload cover image
+router.post("/admin/journal/:slug/cover", async (req: Request, res: Response) => {
+  const { objectPath } = req.body;
+  if (!objectPath) return res.status(400).json({ error: "objectPath required" });
+  try {
+    const coverImage = `/api/storage/objects${objectPath}`;
+    await db.update(journalPostsTable)
+      .set({ coverImage, updatedAt: new Date() })
+      .where(eq(journalPostsTable.slug, req.params.slug));
+    res.json({ coverImage });
+  } catch { res.status(500).json({ error: "Failed to save cover image" }); }
 });
 
 export default router;

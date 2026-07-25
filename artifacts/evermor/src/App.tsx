@@ -4,6 +4,8 @@ import Home from './pages/Home';
 import Beginnings from './pages/Beginnings';
 import BeginningsIndex from './pages/BeginningsIndex';
 import Journal from './pages/Journal';
+import JournalPost from './pages/JournalPost';
+import AdminJournal from './pages/AdminJournal';
 import About from './pages/About';
 import BeginYourStory from './pages/BeginYourStory';
 import Admin from './pages/Admin';
@@ -17,6 +19,8 @@ function Router() {
       <Route path="/beginnings" component={BeginningsIndex} />
       <Route path="/beginnings/:slug" component={Beginnings} />
       <Route path="/journal" component={Journal} />
+      <Route path="/journal/:slug" component={JournalPost} />
+      <Route path="/admin/journal" component={AdminJournal} />
       <Route path="/about" component={About} />
       <Route path="/begin-your-story" component={BeginYourStory} />
       <Route path="/admin" component={Admin} />
