@@ -112,8 +112,8 @@ router.post("/admin/stories/:slug/photos", async (req: Request, res: Response) =
   const { objectPath, position } = req.body;
   if (!objectPath) return res.status(400).json({ error: "objectPath required" });
   try {
-    // url that the front-end uses to display = /api/storage/objects/<path>
-    const url = `/api/storage/objects${objectPath}`;
+    // url that the front-end uses to display — objectPath already starts with /objects/
+    const url = `/api/storage${objectPath}`;
     const [photo] = await db.insert(storyPhotosTable).values({
       storySlug: req.params.slug,
       url,
