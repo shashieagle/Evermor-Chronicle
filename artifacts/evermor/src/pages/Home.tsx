@@ -173,14 +173,11 @@ export default function Home() {
             copyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
         >
-          <p className="font-serif italic text-[13px] md:text-[14px] text-[#3A342C]/45 tracking-[0.04em] mb-8 md:mb-10">
+          <p className="font-serif italic text-[30px] md:text-[44px] lg:text-[52px] text-[#3A342C] leading-[1.2] tracking-[-0.01em] mb-8 md:mb-10">
             "Long after the flowers fade and the music ends, what remains are the moments we return to."
           </p>
-          <p className="font-serif text-[22px] md:text-[28px] lg:text-[32px] font-light text-[#3A342C] leading-[1.75] md:leading-loose tracking-[0.01em]">Every celebration marks the beginning of something far greater than a single event.
-
-          It is the day two lives become one, two families come together, and a new chapter quietly begins.
-
-          At Evermor, we exist to preserve that beginning with honesty, care, and intention—so that years from now, it still feels as meaningful as the day it was lived.</p>
+          <div className="w-10 h-px bg-[#3A342C]/20 mx-auto mb-8 md:mb-10" />
+          <p className="font-serif text-[15px] md:text-[16px] font-light text-[#3A342C]/65 leading-[1.9] tracking-[0.01em]">Every celebration marks the beginning of something far greater than a single event. It is the day two lives become one, two families come together, and a new chapter quietly begins. At Evermor, we exist to preserve that beginning with honesty, care, and intention — so that years from now, it still feels as meaningful as the day it was lived.</p>
         </div>
 
         {/* Vintage framed photograph */}
