@@ -177,7 +177,7 @@ export default function Home() {
             "Long after the flowers fade and the music ends, what remains are the moments we return to."
           </p>
           <p className="font-serif text-[22px] md:text-[28px] lg:text-[32px] font-light text-[#3A342C] leading-[1.75] md:leading-loose tracking-[0.01em]">
-            Most photographs disappear. They live on phones that break, in albums that close, in folders that go unshared. We started Evermor because we believe the first chapter of a family's life — the first glance, the first held hand, the first breath — deserves more than a file. It deserves a home.
+            Most photographs don't last. They end up on phones that get replaced, in albums that never get opened, in shared folders nobody comes back to. We started Evermor because we believe the early chapters of a family's life — the first glance, the first held hand — deserve more than a storage folder. They deserve a real home.
           </p>
         </div>
 
