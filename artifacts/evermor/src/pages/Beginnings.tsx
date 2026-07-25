@@ -56,30 +56,97 @@ function Fade({ children, delay = 0, className = "", style: extraStyle = {} }: {
   );
 }
 
-// ── Masonry gallery — photos at their natural aspect ratio ────────────────────
-const GAP = 4;
+// ── Editorial gallery — row-pattern system, natural aspect ratios ─────────────
 
-function MasonryGallery({ photos, alt }: { photos: string[]; alt: string }) {
-  if (!photos.length) return null;
+// Pattern cycles: full-bleed → pair → inset → pair → repeat
+const ROW_PATTERN = ["full", "pair", "inset", "pair"] as const;
+type RowType = (typeof ROW_PATTERN)[number];
+
+function useIsMobile() {
+  const [mobile, setMobile] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth < 768 : false
+  );
+  useEffect(() => {
+    const h = () => setMobile(window.innerWidth < 768);
+    window.addEventListener("resize", h, { passive: true });
+    return () => window.removeEventListener("resize", h);
+  }, []);
+  return mobile;
+}
+
+interface GalleryRowProps { type: RowType; imgs: string[]; alt: string; delay: number; }
+
+function GalleryRow({ type, imgs, alt, delay }: GalleryRowProps) {
+  const [ref, inView] = useInView(0.05);
+  const mobile = useIsMobile();
+  const fade: React.CSSProperties = {
+    opacity:    inView ? 1 : 0,
+    transform:  inView ? "translateY(0)" : "translateY(24px)",
+    transition: `opacity 900ms ease-out ${delay}ms, transform 900ms ease-out ${delay}ms`,
+  };
+
+  // Full-bleed — edge to edge, natural ratio
+  if (type === "full" || imgs.length === 1 && type !== "inset") {
+    return (
+      <div ref={ref} style={fade}>
+        <img src={imgs[0]} alt={alt} loading="lazy"
+          style={{ width: "100%", height: "auto", display: "block" }} />
+      </div>
+    );
+  }
+
+  // Inset — generous breathing room on both sides
+  if (type === "inset") {
+    return (
+      <div ref={ref} style={{ ...fade, padding: mobile ? "0 6%" : "0 15%" }}>
+        <img src={imgs[0]} alt={alt} loading="lazy"
+          style={{ width: "100%", height: "auto", display: "block" }} />
+      </div>
+    );
+  }
+
+  // Pair — side by side, each at natural height, stack on mobile
+  if (mobile) {
+    return (
+      <div ref={ref} style={fade}>
+        {imgs.map((src, i) => (
+          <img key={i} src={src} alt={alt} loading="lazy"
+            style={{ width: "100%", height: "auto", display: "block", marginBottom: i < imgs.length - 1 ? 20 : 0 }} />
+        ))}
+      </div>
+    );
+  }
   return (
-    <div style={{
-      columns: photos.length === 1 ? "1" : "2",
-      columnGap: GAP,
-      padding: GAP,
-    }}>
-      {photos.map((src, i) => (
-        <Fade
-          key={i}
-          delay={i * 50}
-          style={{ breakInside: "avoid", marginBottom: GAP, display: "block" }}
-        >
-          <img
-            src={src}
-            alt={alt}
-            loading="lazy"
-            style={{ width: "100%", height: "auto", display: "block" }}
-          />
-        </Fade>
+    <div ref={ref} style={{ ...fade, padding: "0 40px", display: "flex", gap: 24, alignItems: "flex-start" }}>
+      {imgs.map((src, i) => (
+        <img key={i} src={src} alt={alt} loading="lazy"
+          style={{ flex: 1, width: 0, height: "auto", display: "block" }} />
+      ))}
+    </div>
+  );
+}
+
+function EditorialGallery({ photos, alt }: { photos: string[]; alt: string }) {
+  if (!photos.length) return null;
+
+  // Consume photos in order, assigning row types from pattern
+  const rows: { type: RowType; imgs: string[] }[] = [];
+  let cursor = 0;
+  let pi = 0;
+  while (cursor < photos.length) {
+    const type = ROW_PATTERN[pi % ROW_PATTERN.length];
+    const take = type === "pair" ? 2 : 1;
+    const imgs = photos.slice(cursor, cursor + take);
+    if (!imgs.length) break;
+    rows.push({ type: imgs.length < take ? "full" : type, imgs });
+    cursor += imgs.length;
+    pi++;
+  }
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 48, padding: "48px 0" }}>
+      {rows.map((row, i) => (
+        <GalleryRow key={i} type={row.type} imgs={row.imgs} alt={alt} delay={Math.min(i * 60, 300)} />
       ))}
     </div>
   );
@@ -212,8 +279,8 @@ export default function Beginnings() {
       </section>
 
       {/* ── 3. Gallery — part one ─────────────────────────────────── */}
-      <section className="bg-[#EAE3D3] py-1">
-        <MasonryGallery photos={gallery1} alt={alt} />
+      <section className="bg-[#EAE3D3]">
+        <EditorialGallery photos={gallery1} alt={alt} />
       </section>
 
       {/* ── 4. Pause ─────────────────────────────────────────────── */}
@@ -229,8 +296,8 @@ export default function Beginnings() {
       </section>
 
       {/* ── 5. Gallery — part two ─────────────────────────────────── */}
-      <section className="bg-[#EAE3D3] py-1">
-        <MasonryGallery photos={gallery2} alt={alt} />
+      <section className="bg-[#EAE3D3]">
+        <EditorialGallery photos={gallery2} alt={alt} />
       </section>
 
       {/* ── 6. Film (conditional) ────────────────────────────────── */}
