@@ -35,24 +35,6 @@ function useInView(threshold = 0.08) {
   return [ref, isInView] as const;
 }
 
-// Consistent D-layout constants
-const OFFSET        = "15%";
-const OFFSET_NARROW = "30%";
-const GAP = 5;
-
-// Mobile breakpoint hook
-function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(() =>
-    typeof window !== "undefined" ? window.innerWidth < 768 : false
-  );
-  useEffect(() => {
-    const handler = () => setIsMobile(window.innerWidth < 768);
-    window.addEventListener("resize", handler, { passive: true });
-    return () => window.removeEventListener("resize", handler);
-  }, []);
-  return isMobile;
-}
-
 // Fade wrapper for scroll-in
 function Fade({ children, delay = 0, className = "", style: extraStyle = {} }: {
   children: React.ReactNode; delay?: number; className?: string; style?: React.CSSProperties;
@@ -74,108 +56,31 @@ function Fade({ children, delay = 0, className = "", style: extraStyle = {} }: {
   );
 }
 
-// ── Gallery blocks ────────────────────────────────────────────────────────────
+// ── Masonry gallery — photos at their natural aspect ratio ────────────────────
+const GAP = 4;
 
-function Horizontal({ src, alt, height = 460 }: { src: string; alt: string; height?: number }) {
-  const m = useIsMobile();
+function MasonryGallery({ photos, alt }: { photos: string[]; alt: string }) {
+  if (!photos.length) return null;
   return (
-    <Fade>
-      <div style={{ padding: m ? 0 : `0 ${OFFSET}`, marginBottom: GAP }}>
-        <img src={src} alt={alt} style={{ width: "100%", height: m ? 260 : height, objectFit: "cover", display: "block" }} />
-      </div>
-    </Fade>
-  );
-}
-
-function VerticalPair({ a, b, altA, altB }: { a: string; b: string; altA: string; altB: string }) {
-  const m = useIsMobile();
-  if (m) {
-    return (
-      <div style={{ marginBottom: GAP }}>
-        <Fade delay={0}>
-          <img src={a} alt={altA} style={{ width: "100%", height: 340, objectFit: "cover", objectPosition: "top", display: "block", marginBottom: GAP }} />
+    <div style={{
+      columns: photos.length === 1 ? "1" : "2",
+      columnGap: GAP,
+      padding: GAP,
+    }}>
+      {photos.map((src, i) => (
+        <Fade
+          key={i}
+          delay={i * 50}
+          style={{ breakInside: "avoid", marginBottom: GAP, display: "block" }}
+        >
+          <img
+            src={src}
+            alt={alt}
+            loading="lazy"
+            style={{ width: "100%", height: "auto", display: "block" }}
+          />
         </Fade>
-        <Fade delay={80}>
-          <img src={b} alt={altB} style={{ width: "100%", height: 340, objectFit: "cover", objectPosition: "top", display: "block" }} />
-        </Fade>
-      </div>
-    );
-  }
-  return (
-    <div style={{ display: "flex", gap: GAP, padding: `0 ${OFFSET}`, marginBottom: GAP }}>
-      <Fade className="flex-1" delay={0}>
-        <img src={a} alt={altA} style={{ width: "100%", height: 720, objectFit: "cover", objectPosition: "top", display: "block" }} />
-      </Fade>
-      <Fade className="flex-1" delay={120}>
-        <img src={b} alt={altB} style={{ width: "100%", height: 720, objectFit: "cover", objectPosition: "top", display: "block" }} />
-      </Fade>
-    </div>
-  );
-}
-
-function NarrowPortrait({ src, alt }: { src: string; alt: string }) {
-  const m = useIsMobile();
-  return (
-    <Fade>
-      <div style={{ padding: m ? "0 5%" : `0 ${OFFSET_NARROW}`, marginBottom: GAP }}>
-        <img src={src} alt={alt} style={{ width: "100%", height: m ? 420 : 760, objectFit: "cover", objectPosition: "top", display: "block" }} />
-      </div>
-    </Fade>
-  );
-}
-
-// Tall vertical left (40%) + two horizontal strips stacked right
-function MixedLeft({ tall, top, bot, altTall, altTop, altBot }: {
-  tall: string; top: string; bot: string;
-  altTall: string; altTop: string; altBot: string;
-}) {
-  const m = useIsMobile();
-  if (m) {
-    return (
-      <div style={{ marginBottom: GAP }}>
-        <Fade delay={0}><img src={tall} alt={altTall} style={{ width: "100%", height: 360, objectFit: "cover", objectPosition: "top", display: "block", marginBottom: GAP }} /></Fade>
-        <Fade delay={80}><img src={top} alt={altTop} style={{ width: "100%", height: 240, objectFit: "cover", display: "block", marginBottom: GAP }} /></Fade>
-        <Fade delay={160}><img src={bot} alt={altBot} style={{ width: "100%", height: 240, objectFit: "cover", display: "block" }} /></Fade>
-      </div>
-    );
-  }
-  return (
-    <div style={{ display: "flex", gap: GAP, padding: `0 ${OFFSET}`, marginBottom: GAP }}>
-      <Fade delay={0} style={{ width: "40%" }}>
-        <img src={tall} alt={altTall} style={{ width: "100%", height: 740, objectFit: "cover", objectPosition: "top", display: "block" }} />
-      </Fade>
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: GAP }}>
-        <Fade delay={80}><img src={top} alt={altTop} style={{ width: "100%", height: 366, objectFit: "cover", display: "block" }} /></Fade>
-        <Fade delay={160}><img src={bot} alt={altBot} style={{ width: "100%", height: 366, objectFit: "cover", display: "block" }} /></Fade>
-      </div>
-    </div>
-  );
-}
-
-// Two horizontal strips stacked left + tall vertical right (40%)
-function MixedRight({ top, bot, tall, altTop, altBot, altTall }: {
-  top: string; bot: string; tall: string;
-  altTop: string; altBot: string; altTall: string;
-}) {
-  const m = useIsMobile();
-  if (m) {
-    return (
-      <div style={{ marginBottom: GAP }}>
-        <Fade delay={0}><img src={top} alt={altTop} style={{ width: "100%", height: 240, objectFit: "cover", display: "block", marginBottom: GAP }} /></Fade>
-        <Fade delay={80}><img src={bot} alt={altBot} style={{ width: "100%", height: 240, objectFit: "cover", display: "block", marginBottom: GAP }} /></Fade>
-        <Fade delay={120}><img src={tall} alt={altTall} style={{ width: "100%", height: 360, objectFit: "cover", objectPosition: "top", display: "block" }} /></Fade>
-      </div>
-    );
-  }
-  return (
-    <div style={{ display: "flex", gap: GAP, padding: `0 ${OFFSET}`, marginBottom: GAP }}>
-      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: GAP }}>
-        <Fade delay={0}><img src={top} alt={altTop} style={{ width: "100%", height: 356, objectFit: "cover", display: "block" }} /></Fade>
-        <Fade delay={80}><img src={bot} alt={altBot} style={{ width: "100%", height: 356, objectFit: "cover", display: "block" }} /></Fade>
-      </div>
-      <Fade delay={120} style={{ width: "40%" }}>
-        <img src={tall} alt={altTall} style={{ width: "100%", height: 716, objectFit: "cover", objectPosition: "top", display: "block" }} />
-      </Fade>
+      ))}
     </div>
   );
 }
@@ -226,11 +131,15 @@ export default function Beginnings() {
   // Merge static + DB — DB fields win when present
   const story = { ...staticStory, ...dbOverlay };
 
-  // Build photo pool — DB uploaded photos take priority, else cycle hero + photo2
-  const base = [staticStory.heroImage, staticStory.photo2];
+  // Build photo pool — DB uploaded photos take priority, else use hero + photo2
+  const base = [staticStory.heroImage, staticStory.photo2].filter(Boolean) as string[];
   const pool = dbPhotos.length > 0 ? dbPhotos.map(p => p.url) : base;
-  const p = (i: number) => pool[i % pool.length];
   const alt = story.couple;
+
+  // Split pool across two gallery sections
+  const split = Math.ceil(pool.length / 2);
+  const gallery1 = pool.slice(0, split).length ? pool.slice(0, split) : pool;
+  const gallery2 = pool.slice(split).length ? pool.slice(split) : pool;
   const videoEmbed = story.videoUrl ? embedUrl(story.videoUrl) : null;
 
   return (
@@ -302,25 +211,9 @@ export default function Beginnings() {
         </div>
       </section>
 
-      {/* ── 3–5. Gallery — part one ───────────────────────────────── */}
-      <section className="bg-[#EAE3D3] pt-2 pb-1">
-        {/* Horizontal */}
-        <Horizontal src={p(0)} alt={alt} height={460} />
-
-        {/* Vertical pair */}
-        <VerticalPair a={p(1)} b={p(0)} altA={alt} altB={alt} />
-
-        {/* Horizontal */}
-        <Horizontal src={p(1)} alt={alt} height={460} />
-
-        {/* Narrow centred portrait */}
-        <NarrowPortrait src={p(0)} alt={alt} />
-
-        {/* Mixed: vertical left + stacked right */}
-        <MixedLeft
-          tall={p(1)} top={p(0)} bot={p(1)}
-          altTall={alt} altTop={alt} altBot={alt}
-        />
+      {/* ── 3. Gallery — part one ─────────────────────────────────── */}
+      <section className="bg-[#EAE3D3] py-1">
+        <MasonryGallery photos={gallery1} alt={alt} />
       </section>
 
       {/* ── 4. Pause ─────────────────────────────────────────────── */}
@@ -336,21 +229,8 @@ export default function Beginnings() {
       </section>
 
       {/* ── 5. Gallery — part two ─────────────────────────────────── */}
-      <section className="bg-[#EAE3D3] pt-2 pb-1">
-        {/* Horizontal */}
-        <Horizontal src={p(0)} alt={alt} height={460} />
-
-        {/* Vertical pair */}
-        <VerticalPair a={p(1)} b={p(0)} altA={alt} altB={alt} />
-
-        {/* Horizontal */}
-        <Horizontal src={p(1)} alt={alt} height={460} />
-
-        {/* Mixed: stacked left + vertical right */}
-        <MixedRight
-          top={p(0)} bot={p(1)} tall={p(0)}
-          altTop={alt} altBot={alt} altTall={alt}
-        />
+      <section className="bg-[#EAE3D3] py-1">
+        <MasonryGallery photos={gallery2} alt={alt} />
       </section>
 
       {/* ── 6. Film (conditional) ────────────────────────────────── */}
@@ -393,17 +273,6 @@ export default function Beginnings() {
         </section>
       )}
 
-      {/* ── 7. Gallery — closing ──────────────────────────────────── */}
-      <section className="bg-[#EAE3D3] pt-2 pb-2">
-        {/* Horizontal */}
-        <Horizontal src={p(1)} alt={alt} height={460} />
-
-        {/* Vertical pair */}
-        <VerticalPair a={p(0)} b={p(1)} altA={alt} altB={alt} />
-
-        {/* Closing horizontal */}
-        <Horizontal src={p(0)} alt={alt} height={460} />
-      </section>
 
       {/* ── 8. Reflection ────────────────────────────────────────── */}
       <section className="bg-[#FAFAF8] py-20 md:py-40 lg:py-64">
