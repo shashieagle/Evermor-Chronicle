@@ -177,7 +177,7 @@ export default function Home() {
             "Long after the flowers fade and the music ends, what remains are the moments we return to."
           </p>
           <div className="w-10 h-px bg-[#3A342C]/20 mx-auto mb-8 md:mb-10" />
-          <p className="font-serif text-[15px] md:text-[16px] font-light text-[#3A342C]/65 leading-[1.9] tracking-[0.01em]"> At Evermor, we exist to preserve that beginning with honesty, care, and intention — so that years from now, it still feels as meaningful as the day it was lived.</p>
+          <p className="font-serif text-[15px] md:text-[16px] font-light text-[#3A342C]/65 leading-[1.9] tracking-[0.01em]">We created Evermor to hold that beginning the way it deserves to be held — carefully, honestly, and with the full weight of what it meant. Not just preserved, but kept alive.</p>
         </div>
 
         {/* Vintage framed photograph */}
