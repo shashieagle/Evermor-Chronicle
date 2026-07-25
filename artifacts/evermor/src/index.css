@@ -30,16 +30,16 @@
 
   html {
     overflow-x: hidden;
-    background: #0F0B07;
+    background: #CBC7C0;
     min-height: 100vh;
   }
 
   body {
     @apply font-sans antialiased text-foreground;
-    background: #0F0B07;
+    background: #CBC7C0;
     overflow-x: hidden;
     position: relative;
-    padding: 2rem 1.25rem 6rem;
+    padding: 3rem 2rem 8rem;
   }
 }
 
