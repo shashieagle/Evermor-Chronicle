@@ -625,8 +625,8 @@ export default function Home() {
         </div>
 
         {/* ── Featured postcard spread — front + back ── */}
-        <div className="px-4 md:px-10 lg:px-20 mb-6 md:mb-8">
-          <div className="flex flex-col md:flex-row gap-4 md:gap-5 max-w-[1040px] mx-auto items-stretch">
+        <div className="px-[15%] mb-6 md:mb-8">
+          <div className="flex flex-col md:flex-row gap-4 md:gap-5 items-stretch">
 
             {/* Postcard FRONT */}
             <Link
@@ -733,8 +733,8 @@ export default function Home() {
         </div>
 
         {/* ── Postcard grid — three fronts ── */}
-        <div className="px-4 md:px-10 lg:px-20 mb-16 md:mb-24">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 max-w-[1040px] mx-auto">
+        <div className="px-[15%] mb-16 md:mb-24">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
 
             {/* Card 1 */}
             <Link
