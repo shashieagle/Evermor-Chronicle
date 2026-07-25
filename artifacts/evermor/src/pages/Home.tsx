@@ -380,6 +380,7 @@ export default function Home() {
         </div>
 
         {/* ── Main grid ── */}
+        <div className="px-[15%]">
         <div className="border-b border-[#3A342C]/20">
 
           {/* Row 1: Beliefs I + II (2 col text) | Image 1 */}
@@ -495,6 +496,7 @@ export default function Home() {
           <span className="font-serif italic text-[11px] text-[#3A342C]/40">Every belief shapes the way we preserve your beginning.</span>
           <span className="font-sans text-[9px] uppercase tracking-[0.18em] text-[#3A342C]/40">Vol. I · The Beliefs</span>
         </div>
+        </div>{/* end px-[15%] wrapper */}
 
       </section>
       {/* About — inline landing section */}
