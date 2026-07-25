@@ -177,7 +177,7 @@ export default function Home() {
             "Long after the flowers fade and the music ends, what remains are the moments we return to."
           </p>
           <div className="w-10 h-px bg-[#3A342C]/20 mx-auto mb-8 md:mb-10" />
-          <p className="font-serif text-[15px] md:text-[16px] font-light text-[#3A342C]/65 leading-[1.9] tracking-[0.01em]">Every celebration marks the beginning of something far greater than a single event. It is the day two lives become one, two families come together, and a new chapter quietly begins. At Evermor, we exist to preserve that beginning with honesty, care, and intention — so that years from now, it still feels as meaningful as the day it was lived.</p>
+          <p className="font-serif text-[15px] md:text-[16px] font-light text-[#3A342C]/65 leading-[1.9] tracking-[0.01em]">A wedding is one day. But what begins on that day — two people choosing each other, two families joining, a story that didn't exist before — that lasts a lifetime. We built Evermor to make sure the beginning of that story is kept the way it deserves to be. Not just stored. Remembered.</p>
         </div>
 
         {/* Vintage framed photograph */}
