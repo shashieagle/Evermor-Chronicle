@@ -361,8 +361,6 @@ export default function Home() {
         className="bg-[#F2EDE3] overflow-hidden mx-auto"
         style={{
           maxWidth: '1000px',
-          transform: 'rotate(-0.4deg)',
-          transformOrigin: 'center top',
           filter: 'url(#deckle-beliefs)',
           boxShadow: [
             '-3px 3px 8px rgba(0,0,0,0.07)',
