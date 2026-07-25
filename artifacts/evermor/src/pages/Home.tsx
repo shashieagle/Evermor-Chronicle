@@ -1030,7 +1030,7 @@ export default function Home() {
 
         {/* Full-screen photograph */}
         <img
-          src="/chapter7.jpg"
+          src="/chapter7-new.jpg"
           alt="A couple walking away at golden hour"
           className="absolute inset-0 w-full h-full object-cover object-center"
         />
