@@ -153,13 +153,6 @@ export default function Home() {
           the beginning
           of your family.</h1>
           
-          <p 
-            className={`mt-4 md:mt-6 text-[14px] md:text-[16px] font-sans font-light text-[#F5F0E8]/80 tracking-[0.03em] max-w-[480px] leading-relaxed transition-opacity duration-800 ease-in-out delay-[600ms] ${
-              mounted ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            We work with families to create a single, enduring archive — a book of firsts, written in light, to be passed down.
-          </p>
 
           <Link 
             href="/discover"
