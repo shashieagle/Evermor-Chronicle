@@ -173,7 +173,7 @@ export default function Home() {
             copyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           }`}
         >
-          <p className="font-serif italic text-[30px] md:text-[44px] lg:text-[52px] text-[#3A342C] leading-[1.2] tracking-[-0.01em] mb-8 md:mb-10">
+          <p className="font-serif font-light text-[30px] md:text-[44px] lg:text-[52px] text-[#3A342C] leading-[1.2] tracking-[0.01em] mb-8 md:mb-10">
             "Long after the flowers fade and the music ends, what remains are the moments we return to."
           </p>
           <div className="w-10 h-px bg-[#3A342C]/20 mx-auto mb-8 md:mb-10" />
