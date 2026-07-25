@@ -210,7 +210,7 @@ export default function Beginnings() {
   const videoEmbed = story.videoUrl ? embedUrl(story.videoUrl) : null;
 
   return (
-    <div className="bg-[#FAFAF8] text-[#3A342C]">
+    <div className="bg-white text-[#3A342C]">
 
       {/* ── 1. Hero ───────────────────────────────────────────────── */}
       <section className="relative h-[100vh] w-full overflow-hidden bg-[#1A1612]">
@@ -264,7 +264,7 @@ export default function Beginnings() {
       </section>
 
       {/* ── 2. Narrative ─────────────────────────────────────────── */}
-      <section className="bg-[#FAFAF8] py-20 md:py-32 lg:py-48">
+      <section className="bg-white py-20 md:py-32 lg:py-48">
         <div
           ref={narrativeRef}
           className={`max-w-[620px] mx-auto px-6 md:px-0 transition-all duration-[1000ms] ease-out ${narrativeInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
@@ -279,12 +279,12 @@ export default function Beginnings() {
       </section>
 
       {/* ── 3. Gallery — part one ─────────────────────────────────── */}
-      <section className="bg-[#EAE3D3]">
+      <section className="bg-white">
         <EditorialGallery photos={gallery1} alt={alt} />
       </section>
 
       {/* ── 4. Pause ─────────────────────────────────────────────── */}
-      <section className="bg-[#F8F6F2] py-20 md:py-40 lg:py-64">
+      <section className="bg-white py-20 md:py-40 lg:py-64">
         <div
           ref={pauseRef}
           className={`max-w-[560px] mx-auto px-6 md:px-0 text-center transition-all duration-[1100ms] ease-out ${pauseInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
@@ -296,7 +296,7 @@ export default function Beginnings() {
       </section>
 
       {/* ── 5. Gallery — part two ─────────────────────────────────── */}
-      <section className="bg-[#EAE3D3]">
+      <section className="bg-white">
         <EditorialGallery photos={gallery2} alt={alt} />
       </section>
 
@@ -342,7 +342,7 @@ export default function Beginnings() {
 
 
       {/* ── 8. Reflection ────────────────────────────────────────── */}
-      <section className="bg-[#FAFAF8] py-20 md:py-40 lg:py-64">
+      <section className="bg-white py-20 md:py-40 lg:py-64">
         <div
           ref={reflectionRef}
           className={`max-w-[580px] mx-auto px-6 md:px-0 transition-all duration-[1000ms] ease-out ${reflectionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
@@ -355,7 +355,7 @@ export default function Beginnings() {
       </section>
 
       {/* ── 9. Invitation ────────────────────────────────────────── */}
-      <section className="bg-[#EAE3D3] py-20 md:py-32 lg:py-48">
+      <section className="bg-white py-20 md:py-32 lg:py-48">
         <div
           ref={inviteRef}
           className={`max-w-[640px] mx-auto px-6 md:px-0 text-center transition-all duration-[1000ms] ease-out ${inviteInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
