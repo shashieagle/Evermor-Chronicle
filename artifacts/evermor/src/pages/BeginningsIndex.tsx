@@ -121,7 +121,7 @@ function StoryRow({ story, index }: { story: ApiStory; index: number }) {
         style={{ transitionDelay: inView ? `${index * 80}ms` : "0ms" }}
       >
         {/* Image */}
-        <div className="w-full md:w-[300px] lg:w-[340px] shrink-0 overflow-hidden bg-[#EAE3D3] aspect-[3/4]">
+        <div className="w-full md:w-[380px] lg:w-[440px] shrink-0 overflow-hidden bg-[#EAE3D3] aspect-[3/2]">
           {story.heroImage ? (
             <img
               ref={imgRef}
