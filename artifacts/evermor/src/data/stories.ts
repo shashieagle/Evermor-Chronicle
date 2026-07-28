@@ -72,13 +72,13 @@ export const stories: Story[] = [
   {
     slug: "kaushik-sandhya",
     title: "Where the Light Was Softest",
-    couple: "Kaushik & Sandhya",
+    couple: "Meghna & Vijay",
     location: "Mysore, India",
     heroImage: "/beginnings-kaushik-sandhya.jpg",
     photo2: "/b-kaushik-sandhya-2.jpg",
     hasFilm: false,
     narrative:
-      "Mysore in the late afternoon holds a particular quality of light — amber and unhurried, the kind that makes everything it touches look like it has always been there. Kaushik and Sandhya chose this light for their beginning, and the light, in return, was generous with them.",
+      "Mysore in the late afternoon holds a particular quality of light — amber and unhurried, the kind that makes everything it touches look like it has always been there. Meghna and Vijay chose this light for their beginning, and the light, in return, was generous with them.",
     pause: "The softest light reveals the most. It asks nothing of the face — only that it be present.",
     reflection:
       "There will be other evenings in Mysore. Other amber light falling on other courtyards. But this one belonged entirely to them — and now, forever, it still does.",
