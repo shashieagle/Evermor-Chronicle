@@ -769,7 +769,7 @@ export default function Home() {
             >
               <div className="p-[8px] md:p-[10px]">
                 <div className="relative overflow-hidden" style={{ aspectRatio: "3/2" }}>
-                  <img src="/beginnings-sakshi-rajat.jpg" alt="Sakshi & Rajat" className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]" style={{ filter: "sepia(0.35) contrast(1.08) saturate(0.68) brightness(0.94)" }} loading="lazy" />
+                  <img src="/beginnings-sakshi-rajat.jpg" alt="Sakshi & Rajat" className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" />
                   <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E\")", opacity: 0.13, mixBlendMode: "overlay" as const }} />
                   <div className="absolute inset-0 bg-gradient-to-b from-black/38 via-transparent to-black/22" />
                   <div className="absolute top-2.5 left-2.5 md:top-3 md:left-3">
