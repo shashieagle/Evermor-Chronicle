@@ -289,7 +289,7 @@ export default function Home() {
             src="/chapter3.jpg"
             alt="Editorial wedding photography"
             className="w-full h-full object-cover object-center"
-            style={{ filter: "sepia(0.45) contrast(1.14) saturate(0.55) brightness(0.84)" }}
+            style={{  }}
             loading="lazy"
           />
 
