@@ -549,7 +549,7 @@ export default function Home() {
                   alt="Shashikanth and Deepika"
                   loading="lazy"
                   className="w-full h-full object-cover object-center"
-                  style={{ filter: "sepia(0.25) contrast(1.06) saturate(0.75) brightness(0.95)" }}
+                  style={{  }}
                 />
                 {/* grain overlay */}
                 <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E\")", opacity: 0.1, mixBlendMode: "overlay" as const }} />
