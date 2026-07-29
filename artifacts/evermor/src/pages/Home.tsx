@@ -756,9 +756,9 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ── Postcard grid — three fronts ── */}
+        {/* ── Postcard grid — one front ── */}
         <div className="px-[15%] mb-16 md:mb-24">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+          <div className="flex justify-center">
 
             {/* Card 1 */}
             <Link
@@ -788,63 +788,6 @@ export default function Home() {
               </div>
             </Link>
 
-            {/* Card 2 */}
-            <Link
-              href="/beginnings/yamini-chris"
-              ref={s5ImgRef}
-              className={`block group cursor-pointer bg-[#EFE4D0] shadow-[0_4px_24px_rgba(58,52,44,0.13)] hover:shadow-[0_8px_36px_rgba(58,52,44,0.2)] transition-all duration-[900ms] ease-out md:-rotate-[0.3deg] hover:rotate-0 ${
-                s5ImgInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-              }`}
-              style={{ transitionDelay: s5ImgInView ? '120ms' : '0ms' }}
-            >
-              <div className="p-[8px] md:p-[10px]">
-                <div className="relative overflow-hidden" style={{ aspectRatio: "3/2" }}>
-                  <img src="/beginnings-yamini-chris.jpg" alt="Yamini & Chris" className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]" style={{ filter: "sepia(0.35) contrast(1.08) saturate(0.68) brightness(0.94)" }} loading="lazy" />
-                  <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E\")", opacity: 0.13, mixBlendMode: "overlay" as const }} />
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/38 via-transparent to-black/22" />
-                  <div className="absolute top-2.5 left-2.5 md:top-3 md:left-3">
-                    <p className="font-sans font-bold text-[11px] md:text-[13px] text-white tracking-[0.05em] uppercase drop-shadow-sm leading-tight">Yamini<br />&amp; Chris</p>
-                  </div>
-                  <div className="absolute top-2.5 right-2.5 md:top-3 md:right-3 flex items-center gap-1">
-                    <span className="font-sans text-[6px] text-white/70 uppercase tracking-[0.1em]">Goa</span>
-                    <div className="w-3 h-px bg-white/45" />
-                    <span className="font-sans text-[6px] text-white/70 uppercase tracking-[0.1em]">India</span>
-                  </div>
-                  <div className="absolute bottom-2 right-2.5 md:bottom-3 md:right-3">
-                    <p className="font-serif italic text-[8px] text-white/55">Evermor Tales</p>
-                  </div>
-                </div>
-              </div>
-            </Link>
-
-            {/* Card 3 */}
-            <Link
-              href="/beginnings/sakshi-rajat"
-              ref={s6ImgRef}
-              className={`block group cursor-pointer bg-[#EFE4D0] shadow-[0_4px_24px_rgba(58,52,44,0.13)] hover:shadow-[0_8px_36px_rgba(58,52,44,0.2)] transition-all duration-[900ms] ease-out md:rotate-[0.5deg] hover:rotate-0 ${
-                s6ImgInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-              }`}
-              style={{ transitionDelay: s6ImgInView ? '240ms' : '0ms' }}
-            >
-              <div className="p-[8px] md:p-[10px]">
-                <div className="relative overflow-hidden" style={{ aspectRatio: "3/2" }}>
-                  <img src="/beginnings-sakshi-rajat.jpg" alt="Sakshi & Rajat" className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]" style={{ filter: "sepia(0.35) contrast(1.08) saturate(0.68) brightness(0.94)" }} loading="lazy" />
-                  <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E\")", opacity: 0.13, mixBlendMode: "overlay" as const }} />
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/38 via-transparent to-black/22" />
-                  <div className="absolute top-2.5 left-2.5 md:top-3 md:left-3">
-                    <p className="font-sans font-bold text-[11px] md:text-[13px] text-white tracking-[0.05em] uppercase drop-shadow-sm leading-tight">Sakshi<br />&amp; Rajat</p>
-                  </div>
-                  <div className="absolute top-2.5 right-2.5 md:top-3 md:right-3 flex items-center gap-1">
-                    <span className="font-sans text-[6px] text-white/70 uppercase tracking-[0.1em]">Mumbai</span>
-                    <div className="w-3 h-px bg-white/45" />
-                    <span className="font-sans text-[6px] text-white/70 uppercase tracking-[0.1em]">India</span>
-                  </div>
-                  <div className="absolute bottom-2 right-2.5 md:bottom-3 md:right-3">
-                    <p className="font-serif italic text-[8px] text-white/55">Evermor Tales</p>
-                  </div>
-                </div>
-              </div>
-            </Link>
           </div>
         </div>
 
