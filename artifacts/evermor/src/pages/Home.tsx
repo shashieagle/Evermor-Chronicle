@@ -396,9 +396,7 @@ export default function Home() {
           </div>
           <div className="flex-1">
             <p className="font-serif font-bold text-[60px] md:text-[120px] text-[#3A342C]/[0.055] leading-none select-none -mb-2 md:-mb-4 -ml-1">I</p>
-            <h3 className="font-serif font-bold text-[24px] md:text-[32px] lg:text-[38px] text-[#3A342C] leading-[1.05] tracking-[-0.01em] mb-4 md:mb-5">
-              Connection over composition.
-            </h3>
+            <h3 className="font-serif font-bold text-[24px] md:text-[32px] lg:text-[38px] text-[#3A342C] leading-[1.05] tracking-[-0.01em] mb-4 md:mb-5">Connection.</h3>
             <div className="w-10 h-px bg-[#3A342C]/22 mb-4 md:mb-5" />
             <p className="font-sans text-[13px] md:text-[14px] text-[#3A342C]/58 leading-[1.9] tracking-[0.01em]">
               Every wedding is remembered through the people who lived it. Before we create photographs, we take the time to understand the relationships, emotions, and moments that matter most to each family.
@@ -411,7 +409,7 @@ export default function Home() {
           <div className="flex-1">
             <p className="font-serif font-bold text-[60px] md:text-[120px] text-[#3A342C]/[0.055] leading-none select-none -mb-2 md:-mb-4 -ml-1">II</p>
             <h3 className="font-serif font-bold text-[24px] md:text-[32px] lg:text-[38px] text-[#3A342C] leading-[1.05] tracking-[-0.01em] mb-4 md:mb-5">
-              Stories before trends.
+              Stories that matter.
             </h3>
             <div className="w-10 h-px bg-[#3A342C]/22 mb-4 md:mb-5" />
             <p className="font-sans text-[13px] md:text-[14px] text-[#3A342C]/58 leading-[1.9] tracking-[0.01em]">
@@ -1027,7 +1025,6 @@ export default function Home() {
 
         </div>
       </section>
-
       {/* Faint admin lock — bottom centre */}
       <div className="flex justify-center py-8" style={{ background: "#0c0906" }}>
         <a
