@@ -667,7 +667,6 @@ export default function Home() {
                     src="/beginnings-shaun-sowmya.jpg"
                     alt="Shaun & Sowmya"
                     className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
-                    style={{ filter: "sepia(0.35) contrast(1.08) saturate(0.68) brightness(0.94)" }}
                     loading="lazy"
                   />
                   {/* grain overlay */}
