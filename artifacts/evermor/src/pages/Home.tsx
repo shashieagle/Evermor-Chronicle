@@ -254,9 +254,7 @@ export default function Home() {
           className={`max-w-[680px] w-full text-center transition-all duration-[1000ms] ease-out ${ch3s1InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
         >
           <p className="font-sans uppercase tracking-[0.32em] text-[8px] md:text-[9px] text-[#8C6D4F] mb-8">✦ &nbsp; Our Approach &nbsp; ✦</p>
-          <p className="font-serif font-light text-[22px] md:text-[32px] lg:text-[38px] text-[#3A342C] leading-[1.45] tracking-[0.005em] mb-10 md:mb-12">
-            Wedding storytelling, to us, has never been about the grandeur — the flowers, the décor, the carefully curated details. It's about the people. Two families choosing to become one.
-          </p>
+          <p className="font-serif font-light text-[22px] md:text-[32px] lg:text-[38px] text-[#3A342C] leading-[1.45] tracking-[0.005em] mb-10 md:mb-12">Wedding storytelling, to us, has never been just about the grandeur — the venue, the décor, the food or the carefully curated details. It's about the people. Two families choosing to become one.</p>
           <div className="w-10 h-px bg-[#3A342C]/20 mx-auto mb-10 md:mb-12" />
           <p className="font-sans text-[13px] md:text-[15px] text-[#3A342C]/60 leading-[2] tracking-[0.01em] mb-8">
             We're not here to document what happened. We're here to preserve what it <em>felt</em> like — the moments and stories that will continue to resonate long after the trends have faded.
