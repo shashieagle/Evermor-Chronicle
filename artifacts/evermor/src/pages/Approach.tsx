@@ -41,20 +41,6 @@ export default function Approach() {
       {/* Page wrapper */}
       <div className="min-h-screen flex flex-col items-center justify-center px-4 py-32 md:py-40">
 
-        {/* Eyebrow */}
-        <div
-          style={{
-            transition: "opacity 700ms ease-out 200ms, transform 700ms ease-out 200ms",
-            opacity: mounted ? 1 : 0,
-            transform: mounted ? "translateY(0)" : "translateY(10px)",
-          }}
-          className="mb-10 text-center"
-        >
-          <p className="font-sans uppercase tracking-[0.36em] text-[8px] md:text-[9px] text-[#3A342C]/40">
-            ✦ &nbsp; How We Work &nbsp; ✦
-          </p>
-        </div>
-
         {/* Letter card */}
         <div
           style={{
