@@ -37,10 +37,6 @@ export default function Home() {
   const [transitionLineRef, transitionLineInView] = useInView();
 
 
-  // Chapter 3 panels
-  const [ch3s1Ref, ch3s1InView] = useInView();
-  const [ch3s2Ref, ch3s2InView] = useInView();
-  const [ch3s3Ref, ch3s3InView] = useInView();
   const [ch3imgRef, ch3imgInView] = useInView();
 
   // Chapter 6 panels
@@ -233,26 +229,6 @@ export default function Home() {
           Every family begins with a story.
         </p>
       </section>
-      {/* Chapter 3 - Narrative */}
-      <div className="w-full bg-[#EFEFED] py-24 md:py-40 flex flex-col items-center justify-center px-8">
-        <div
-          ref={ch3s1Ref}
-          className={`max-w-[680px] w-full text-center transition-all duration-[1000ms] ease-out ${ch3s1InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-        >
-          <p className="font-sans uppercase tracking-[0.32em] text-[8px] md:text-[9px] text-[#8C6D4F] mb-8">✦ &nbsp; Our Approach &nbsp; ✦</p>
-          <p className="font-serif font-light text-[22px] md:text-[32px] lg:text-[38px] text-[#3A342C] leading-[1.45] tracking-[0.005em] mb-10 md:mb-12">Wedding storytelling, to us, has never been just about the grandeur — the venue, the décor, the food or the carefully curated details. It's about the people. Two families choosing to become one.</p>
-          <div className="w-10 h-px bg-[#3A342C]/20 mx-auto mb-10 md:mb-12" />
-          <p className="font-sans text-[13px] md:text-[15px] text-[#3A342C]/60 leading-[2] tracking-[0.01em] mb-8">
-            We're not here to document what happened. We're here to preserve what it <em>felt</em> like — the moments and stories that will continue to resonate long after the trends have faded.
-          </p>
-          <p className="font-sans text-[13px] md:text-[15px] text-[#3A342C]/60 leading-[2] tracking-[0.01em] mb-8">
-            What drives us is simple: every family is different. Every union is unrepeatable. That uniqueness is what we've spent years learning to honour — with patience, with craft, and with the full weight of knowing we've been trusted with your biggest day.
-          </p>
-          <p className="font-serif italic text-[15px] md:text-[17px] text-[#3A342C]/50 leading-[1.8] tracking-[0.01em]">
-            We don't take that lightly. We never have.
-          </p>
-        </div>
-      </div>
       {/* Chapter 3 — Film strip */}
       <div
         ref={ch3imgRef}
