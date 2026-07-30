@@ -13,7 +13,9 @@ export default function Approach() {
   }, []);
 
   return (
-    <div className="min-h-screen" style={{ background: "#E8E2D9" }}>
+    <div className="min-h-screen relative" style={{ background: "#E8E2D9" }}>
+      {/* Dark gradient behind nav so links are legible */}
+      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-black/30 to-transparent z-10 pointer-events-none" />
       <Nav
         theme="dark"
         mounted={mounted}
