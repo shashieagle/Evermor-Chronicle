@@ -283,10 +283,6 @@ export default function Home() {
           <div className="absolute inset-x-0 top-0 h-8 pointer-events-none" style={{ background: "linear-gradient(to bottom, rgba(12,9,6,0.7), transparent)" }} />
           <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none" style={{ background: "linear-gradient(to top, rgba(12,9,6,0.55), transparent)" }} />
 
-          {/* Caption */}
-          <p className="absolute bottom-8 md:bottom-10 left-0 right-0 text-center font-serif font-light italic text-[15px] md:text-[18px] text-[#F5F0E8]/75 tracking-[0.02em] z-10">
-            How we preserve that beginning matters.
-          </p>
         </div>
 
         {/* ── Bottom sprocket strip + frame numbers ── */}
