@@ -51,30 +51,15 @@ function Fade({
 
 // ─── Copy ─────────────────────────────────────────────────────────────────────
 const paragraphs: (string | null)[] = [
-  "We didn't begin this journey because we wanted to become wedding photographers.",
+  "We didn't begin this because we wanted to be wedding photographers.",
   "We began because we were fascinated by people.",
   null,
-  "The relationships they build.",
-  "The families they belong to.",
-  "The stories they carry.",
+  "When we got married ourselves, something changed. The memories we treasured most weren't the posed photographs — they were the moments we almost forgot.",
   null,
-  "When we got married ourselves, something changed.",
+  "A quiet glance. Parents trying to hide their emotions. Small conversations no one planned.",
   null,
-  "We realised the memories we treasured most weren't the perfectly posed photographs.",
-  "They were the moments we almost forgot.",
-  null,
-  "A quiet glance.",
-  "Parents trying to hide their emotions.",
-  "Friends laughing between ceremonies.",
-  "Small conversations that no one planned.",
-  null,
-  "That experience changed the way we approached every wedding that followed.",
-  null,
-  "Today, we don't arrive with the intention of simply documenting a celebration.",
-  "We arrive with the responsibility of preserving the beginning of a family's story.",
-  null,
-  "For us, this has never been just about photography.",
-  "It has always been about people.",
+  "Today, we don't arrive to document a celebration.",
+  "We arrive to preserve the beginning of a family's story.",
 ];
 
 export default function About() {
