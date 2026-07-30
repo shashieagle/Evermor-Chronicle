@@ -341,9 +341,10 @@ export default function Home() {
           <p className="font-sans uppercase tracking-[0.32em] text-[8px] text-[#8C6D4F] mb-7">✦ &nbsp; You'll love working with us if &nbsp; ✦</p>
           <div className="flex flex-col gap-4">
             {[
-              "You'd rather feel something in a photograph than just look good in one.",
-              "You're okay with us disappearing into a corner for twenty minutes.",
-              "You believe the best moment of your wedding hasn't been planned yet.",
+              "Let us move through your wedding like family — quietly, naturally, without announcement.",
+              "Let us sneak in a laugh between rituals, because joy is always the best light.",
+              "Let us disappear from the stage every now and then — we promise we're in a better corner.",
+              "Let us gently direct you, not into a pose, but into discovering how you actually look when you're just yourself.",
             ].map((line, i) => (
               <p key={i} className="font-serif font-light italic text-[17px] md:text-[20px] text-[#3A342C]/70 leading-[1.55] tracking-[0.005em]">
                 {line}
