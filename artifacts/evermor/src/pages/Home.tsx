@@ -54,23 +54,6 @@ export default function Home() {
   const [ch6CtaRef, ch6CtaInView] = useInView();
 
   const [c4LabelRef, c4LabelInView] = useInView();
-  
-  const [b1HeadlineRef, b1HeadlineInView] = useInView();
-  const [b1CopyRef, b1CopyInView] = useInView();
-
-  const [b2HeadlineRef, b2HeadlineInView] = useInView();
-  const [b2CopyRef, b2CopyInView] = useInView();
-
-  const [b3HeadlineRef, b3HeadlineInView] = useInView();
-  const [b3CopyRef, b3CopyInView] = useInView();
-
-  const [b4HeadlineRef, b4HeadlineInView] = useInView();
-  const [b4CopyRef, b4CopyInView] = useInView();
-
-  const [b5HeadlineRef, b5HeadlineInView] = useInView();
-  const [b5CopyRef, b5CopyInView] = useInView();
-
-  const [c4ClosingRef, c4ClosingInView] = useInView();
 
   const [headingRef, headingInView] = useInView();
   const [introRef, introInView] = useInView();
@@ -346,185 +329,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-      {/* Chapter 4 - Beliefs — Magazine on Surface */}
-      <div className="px-3 md:px-6 py-12 md:py-24" style={{ background: '#CBC7C0' }}>
-
-        {/* Hidden SVG — deckled paper edge filter */}
-        <svg aria-hidden="true" style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}>
-          <defs>
-            <filter id="deckle-beliefs" x="-4%" y="-4%" width="108%" height="108%">
-              <feTurbulence type="fractalNoise" baseFrequency="0.038" numOctaves="4" seed="9" result="noise" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.5" xChannelSelector="R" yChannelSelector="G" />
-            </filter>
-          </defs>
-        </svg>
-
-      <section
-        className="bg-[#F3F2F0] overflow-hidden mx-auto"
-        style={{
-          maxWidth: '1000px',
-          filter: 'url(#deckle-beliefs)',
-          boxShadow: [
-            '-3px 3px 8px rgba(0,0,0,0.07)',
-            '-5px 12px 28px rgba(0,0,0,0.11)',
-            '-7px 28px 65px rgba(0,0,0,0.12)',
-            '-8px 50px 100px rgba(0,0,0,0.08)',
-          ].join(', '),
-        }}
-      >
-
-        {/* ── Section header ── */}
-        <div
-          ref={b1HeadlineRef}
-          className={`px-[8%] md:px-[15%] pt-12 md:pt-36 pb-12 md:pb-28 text-center transition-all duration-[1000ms] ease-out ${
-            b1HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-          }`}
-        >
-          <p className="font-sans uppercase tracking-[0.38em] text-[8px] md:text-[9px] text-[#3A342C]/35 mb-5">
-            ✦ &nbsp; What We Believe &nbsp; ✦
-          </p>
-          <h2 className="font-serif font-bold text-[46px] md:text-[96px] lg:text-[118px] text-[#3A342C] leading-[0.88] tracking-[-0.02em]">
-            The Beliefs
-          </h2>
-          <div className="w-10 h-px bg-[#3A342C]/20 mx-auto mt-7 md:mt-9" />
-        </div>
-
-        {/* ── Belief I — photo left, text right ── */}
-        <div className="px-[8%] md:px-[15%] flex flex-col md:flex-row items-center gap-8 md:gap-16 lg:gap-20 mb-14 md:mb-32">
-          <div className="w-full md:w-[54%] shrink-0 overflow-hidden">
-            <img
-              src="/belief1-new.jpg"
-              alt="Connection"
-              className="w-full object-cover object-center"
-              style={{ aspectRatio: "4/5", filter: "sepia(0.06) contrast(1.06) brightness(0.97)" }}
-              loading="lazy"
-            />
-          </div>
-          <div className="flex-1">
-            <p className="font-serif font-bold text-[60px] md:text-[120px] text-[#3A342C]/[0.055] leading-none select-none -mb-2 md:-mb-4 -ml-1">I</p>
-            <h3 className="font-serif font-bold text-[24px] md:text-[32px] lg:text-[38px] text-[#3A342C] leading-[1.05] tracking-[-0.01em] mb-4 md:mb-5">Connection.</h3>
-            <div className="w-10 h-px bg-[#3A342C]/22 mb-4 md:mb-5" />
-            <p className="font-sans text-[13px] md:text-[14px] text-[#3A342C]/58 leading-[1.9] tracking-[0.01em]">
-              Every wedding is remembered through the people who lived it. Before we create photographs, we take the time to understand the relationships, emotions, and moments that matter most to each family.
-            </p>
-          </div>
-        </div>
-
-        {/* ── Belief II — text left, photo right ── */}
-        <div className="px-[8%] md:px-[15%] flex flex-col-reverse md:flex-row items-center gap-8 md:gap-16 lg:gap-20 mb-14 md:mb-32">
-          <div className="flex-1">
-            <p className="font-serif font-bold text-[60px] md:text-[120px] text-[#3A342C]/[0.055] leading-none select-none -mb-2 md:-mb-4 -ml-1">II</p>
-            <h3 className="font-serif font-bold text-[24px] md:text-[32px] lg:text-[38px] text-[#3A342C] leading-[1.05] tracking-[-0.01em] mb-4 md:mb-5">
-              Stories that matter.
-            </h3>
-            <div className="w-10 h-px bg-[#3A342C]/22 mb-4 md:mb-5" />
-            <p className="font-sans text-[13px] md:text-[14px] text-[#3A342C]/58 leading-[1.9] tracking-[0.01em]">
-              Beautiful imagery may capture attention today, but meaningful stories continue to resonate for generations. We create work that remains timeless long after trends have faded.
-            </p>
-          </div>
-          <div className="w-full md:w-[54%] shrink-0 overflow-hidden">
-            <img
-              src="/belief2-new.jpg"
-              alt="Stories"
-              className="w-full object-cover object-center"
-              style={{ aspectRatio: "4/5", filter: "sepia(0.06) contrast(1.06) brightness(0.97)" }}
-              loading="lazy"
-            />
-          </div>
-        </div>
-
-        {/* ── Pull quote ── */}
-        <div className="px-[8%] md:px-[15%] mb-14 md:mb-32 flex items-center gap-4 md:gap-10">
-          <div className="hidden md:block flex-1 h-px bg-[#3A342C]/12" />
-          <p className="font-serif italic text-[13px] md:text-[17px] text-[#3A342C]/42 tracking-[0.01em] text-center md:shrink-0 md:max-w-[420px]">
-            "Before a single frame is created, we discover what makes your story uniquely yours."
-          </p>
-          <div className="hidden md:block flex-1 h-px bg-[#3A342C]/12" />
-        </div>
-
-        {/* ── Beliefs III + IV — two text columns ── */}
-        <div className="px-[8%] md:px-[15%] grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 lg:gap-20 mb-14 md:mb-32">
-          <div>
-            <p className="font-serif font-bold text-[60px] md:text-[120px] text-[#3A342C]/[0.055] leading-none select-none -mb-2 md:-mb-4 -ml-1">III</p>
-            <h3 className="font-serif font-bold text-[24px] md:text-[32px] lg:text-[38px] text-[#3A342C] leading-[1.05] tracking-[-0.01em] mb-4 md:mb-5">
-              Discovery before documentation.
-            </h3>
-            <div className="w-10 h-px bg-[#3A342C]/22 mb-4 md:mb-5" />
-            <p className="font-sans text-[13px] md:text-[14px] text-[#3A342C]/58 leading-[1.9] tracking-[0.01em]">
-              Every couple is different. Every family carries its own history. We invest time in discovering what makes your story uniquely yours before a single frame is created.
-            </p>
-          </div>
-          <div>
-            <p className="font-serif font-bold text-[60px] md:text-[120px] text-[#3A342C]/[0.055] leading-none select-none -mb-2 md:-mb-4 -ml-1">IV</p>
-            <h3 className="font-serif font-bold text-[24px] md:text-[32px] lg:text-[38px] text-[#3A342C] leading-[1.05] tracking-[-0.01em] mb-4 md:mb-5">
-              Craft with purpose.
-            </h3>
-            <div className="w-10 h-px bg-[#3A342C]/22 mb-4 md:mb-5" />
-            <p className="font-sans text-[13px] md:text-[14px] text-[#3A342C]/58 leading-[1.9] tracking-[0.01em]">
-              Every photograph, every film, every edit is made intentionally. Craftsmanship is measured not by complexity, but by emotional honesty.
-            </p>
-          </div>
-        </div>
-
-        {/* ── Belief V — cinematic photo, portrait on mobile / wide on desktop ── */}
-        <div className="px-[8%] md:px-[15%] mb-12 md:mb-20">
-          <div className="relative overflow-hidden aspect-[3/4] md:aspect-[16/7]">
-            <img
-              src="/belief3-new.jpg"
-              alt="Trust"
-              className="w-full h-full object-cover object-center"
-              style={{ filter: "sepia(0.18) contrast(1.1) brightness(0.68)" }}
-              loading="lazy"
-            />
-            {/* Mobile: gradient from bottom */}
-            <div className="absolute inset-0 md:hidden" style={{ background: "linear-gradient(to top, rgba(20,14,8,0.92) 0%, rgba(20,14,8,0.55) 45%, transparent 70%)" }} />
-            {/* Desktop: gradient from left */}
-            <div className="absolute inset-0 hidden md:block" style={{ background: "linear-gradient(to right, rgba(20,14,8,0.88) 0%, rgba(20,14,8,0.52) 42%, transparent 72%)" }} />
-            <div
-              ref={b5HeadlineRef}
-              className={`absolute inset-0 flex transition-all duration-[1000ms] ease-out ${b5HeadlineInView ? "opacity-100" : "opacity-0"}
-                items-end md:items-center`}
-            >
-              {/* Mobile: text at bottom */}
-              <div className="w-full px-6 pb-8 md:hidden">
-                <p className="font-serif font-bold text-[48px] text-[#F5F0E8]/[0.07] leading-none select-none -mb-1">V</p>
-                <h3 className="font-serif font-bold text-[22px] text-[#F5F0E8] leading-[1.05] tracking-[-0.01em] mb-3">
-                  Trust before everything.
-                </h3>
-                <div className="w-8 h-px bg-[#F5F0E8]/28 mb-3" />
-                <p className="font-sans text-[12px] text-[#F5F0E8]/58 leading-[1.8] tracking-[0.01em]">
-                  Being invited into one of life's most meaningful moments is a privilege. We carry that with care throughout the entire journey.
-                </p>
-              </div>
-              {/* Desktop: text on left */}
-              <div className="hidden md:block pl-14 lg:pl-18 max-w-[500px]">
-                <p className="font-serif font-bold text-[100px] text-[#F5F0E8]/[0.06] leading-none select-none -mb-3">V</p>
-                <h3 className="font-serif font-bold text-[32px] lg:text-[40px] text-[#F5F0E8] leading-[1.05] tracking-[-0.01em] mb-4">
-                  Trust before everything.
-                </h3>
-                <div className="w-10 h-px bg-[#F5F0E8]/28 mb-4" />
-                <p className="font-sans text-[13px] text-[#F5F0E8]/58 leading-[1.9] tracking-[0.01em]">
-                  Being invited into one of life's most meaningful moments is a privilege. We carry that responsibility with care, respect, and gratitude throughout the entire journey.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* ── Closing editorial line ── */}
-        <div
-          ref={c4ClosingRef}
-          className={`px-[8%] md:px-[15%] pb-14 md:pb-36 flex items-center justify-between transition-all duration-[800ms] ease-out ${
-            c4ClosingInView ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <span className="font-sans text-[8px] uppercase tracking-[0.22em] text-[#3A342C]/30">Evermor Tales</span>
-          <span className="hidden md:block font-serif italic text-[11px] md:text-[12px] text-[#3A342C]/30">Five principles that guide every story we preserve.</span>
-          <span className="font-sans text-[8px] uppercase tracking-[0.22em] text-[#3A342C]/30">Vol. I</span>
-        </div>
-
-      </section>
-      </div>{/* end beliefs surface wrapper */}
       {/* About — inline landing section */}
       <section className="bg-[#FAFAFA] py-24 md:py-40 lg:py-56">
         <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-16 flex flex-col md:flex-row gap-14 md:gap-20 lg:gap-28 items-start">
@@ -908,19 +712,13 @@ export default function Home() {
           {/* Mobile: stacked */}
           <div className="md:hidden flex flex-col items-center gap-10">
             <div
-              ref={b2CopyRef}
-              className={`shadow-[0_8px_40px_rgba(58,52,44,0.2)] transition-all duration-[1000ms] ease-out ${
-                b2CopyInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-              }`}
+              className="shadow-[0_8px_40px_rgba(58,52,44,0.2)]"
               style={{ transform: "rotate(-1deg)", width: "min(340px, 85vw)" }}
             >
               <img src="/memory-collage.jpg" alt="Memory objects" className="w-full h-auto block" loading="lazy" />
             </div>
             <div
-              ref={b3CopyRef}
-              className={`grid grid-cols-2 gap-x-8 gap-y-7 text-center transition-all duration-[900ms] ease-out ${
-                b3CopyInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-              }`}
+              className="grid grid-cols-2 gap-x-8 gap-y-7 text-center"
             >
               {["voices.", "photographs.", "moments.", "places.", "silence.", "story."].map((text, i) => (
                 <div key={i}>
