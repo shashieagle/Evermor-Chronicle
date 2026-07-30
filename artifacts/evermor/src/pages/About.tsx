@@ -116,6 +116,7 @@ export default function About() {
             { href: "/beginnings", label: "Beginnings" },
             { href: "/journal", label: "Journal" },
             { href: "/about", label: "About", active: true },
+            { href: "/approach", label: "Approach" },
             { href: "/begin-your-story", label: "Begin Your Story" },
           ]}
         />

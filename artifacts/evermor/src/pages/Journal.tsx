@@ -112,6 +112,7 @@ export default function Journal() {
           { href: "/beginnings", label: "Beginnings" },
           { href: "/journal", label: "Journal", active: true },
           { href: "/about", label: "About" },
+          { href: "/approach", label: "Approach" },
           { href: "/begin-your-story", label: "Begin Your Story" },
         ]}
       />

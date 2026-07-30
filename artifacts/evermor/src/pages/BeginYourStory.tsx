@@ -212,6 +212,7 @@ export default function BeginYourStory() {
               { href: "/beginnings", label: "Beginnings" },
               { href: "/journal", label: "Journal" },
               { href: "/about", label: "About" },
+              { href: "/approach", label: "Approach" },
               { href: "/begin-your-story", label: "Begin Your Story", active: true },
             ]}
           />
@@ -252,6 +253,7 @@ export default function BeginYourStory() {
             { href: "/", label: "Home" },
             { href: "/beginnings", label: "Beginnings" },
             { href: "/about", label: "About" },
+            { href: "/approach", label: "Approach" },
             { href: "/begin-your-story", label: "Begin Your Story", active: true },
           ]}
         />

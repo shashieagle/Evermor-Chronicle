@@ -7,6 +7,7 @@ import Journal from './pages/Journal';
 import JournalPost from './pages/JournalPost';
 import AdminJournal from './pages/AdminJournal';
 import About from './pages/About';
+import Approach from './pages/Approach';
 import BeginYourStory from './pages/BeginYourStory';
 import Admin from './pages/Admin';
 
@@ -22,6 +23,7 @@ function Router() {
       <Route path="/journal/:slug" component={JournalPost} />
       <Route path="/admin/journal" component={AdminJournal} />
       <Route path="/about" component={About} />
+      <Route path="/approach" component={Approach} />
       <Route path="/begin-your-story" component={BeginYourStory} />
       <Route path="/admin" component={Admin} />
     </Switch>

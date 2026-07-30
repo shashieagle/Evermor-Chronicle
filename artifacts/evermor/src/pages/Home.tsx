@@ -123,6 +123,7 @@ export default function Home() {
             { href: "/beginnings", label: "Beginnings" },
             { href: "/journal", label: "Journal" },
             { href: "/about", label: "About" },
+            { href: "/approach", label: "Approach" },
             { href: "/begin-your-story", label: "Begin Your Story" },
           ]}
         />
