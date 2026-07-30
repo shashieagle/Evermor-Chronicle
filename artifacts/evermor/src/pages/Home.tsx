@@ -248,18 +248,26 @@ export default function Home() {
         </p>
       </section>
       {/* Chapter 3 - Narrative */}
-      <div className="w-full bg-[#EFEFED] py-28 md:py-40 flex flex-col items-center justify-center gap-16 md:gap-20 px-8">
-        <p ref={ch3s1Ref} className={`font-serif font-light text-[28px] md:text-[44px] lg:text-[52px] text-[#3A342C] tracking-[0.01em] leading-[1.3] text-center max-w-[680px] transition-all duration-[900ms] ease-out ${ch3s1InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          A wedding marks a moment.
-        </p>
-        <div className="w-px h-10 bg-[#3A342C]/15" />
-        <p ref={ch3s2Ref} className={`font-serif font-light text-[28px] md:text-[44px] lg:text-[52px] text-[#3A342C] tracking-[0.01em] leading-[1.3] text-center max-w-[680px] transition-all duration-[900ms] ease-out ${ch3s2InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          A marriage shapes a lifetime.
-        </p>
-        <div className="w-px h-10 bg-[#3A342C]/15" />
-        <p ref={ch3s3Ref} className={`font-serif font-light text-[28px] md:text-[44px] lg:text-[52px] text-[#3A342C] tracking-[0.01em] leading-[1.3] text-center max-w-[680px] transition-all duration-[900ms] ease-out ${ch3s3InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          The beginning deserves to be remembered.
-        </p>
+      <div className="w-full bg-[#EFEFED] py-24 md:py-40 flex flex-col items-center justify-center px-8">
+        <div
+          ref={ch3s1Ref}
+          className={`max-w-[680px] w-full text-center transition-all duration-[1000ms] ease-out ${ch3s1InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+        >
+          <p className="font-sans uppercase tracking-[0.32em] text-[8px] md:text-[9px] text-[#8C6D4F] mb-8">✦ &nbsp; Our Approach &nbsp; ✦</p>
+          <p className="font-serif font-light text-[22px] md:text-[32px] lg:text-[38px] text-[#3A342C] leading-[1.45] tracking-[0.005em] mb-10 md:mb-12">
+            Wedding storytelling, to us, has never been about the grandeur — the flowers, the décor, the carefully curated details. It's about the people. Two families choosing to become one.
+          </p>
+          <div className="w-10 h-px bg-[#3A342C]/20 mx-auto mb-10 md:mb-12" />
+          <p className="font-sans text-[13px] md:text-[15px] text-[#3A342C]/60 leading-[2] tracking-[0.01em] mb-8">
+            We're not here to document what happened. We're here to preserve what it <em>felt</em> like — the moments and stories that will continue to resonate long after the trends have faded.
+          </p>
+          <p className="font-sans text-[13px] md:text-[15px] text-[#3A342C]/60 leading-[2] tracking-[0.01em] mb-8">
+            What drives us is simple: every family is different. Every union is unrepeatable. That uniqueness is what we've spent years learning to honour — with patience, with craft, and with the full weight of knowing we've been trusted with your biggest day.
+          </p>
+          <p className="font-serif italic text-[15px] md:text-[17px] text-[#3A342C]/50 leading-[1.8] tracking-[0.01em]">
+            We don't take that lightly. We never have.
+          </p>
+        </div>
       </div>
       {/* Chapter 3 — Film strip */}
       <div
