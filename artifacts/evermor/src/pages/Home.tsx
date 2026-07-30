@@ -75,13 +75,6 @@ export default function Home() {
 
   const [fitRef, fitInView] = useInView();
 
-  // About section (inline on home)
-  const [aboutImgRef, aboutImgInView] = useInView();
-  const [aboutT1Ref, aboutT1InView] = useInView();
-  const [aboutT2Ref, aboutT2InView] = useInView();
-  const [aboutT3Ref, aboutT3InView] = useInView();
-  const [aboutT4Ref, aboutT4InView] = useInView();
-  const [aboutLinkRef, aboutLinkInView] = useInView();
 
 
   useEffect(() => {
@@ -309,108 +302,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-      {/* About — inline landing section */}
-      <section className="bg-[#FAFAFA] py-24 md:py-40 lg:py-56">
-        <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-16 flex flex-col md:flex-row gap-14 md:gap-20 lg:gap-28 items-start">
-
-          {/* Portrait — Polaroid */}
-          <div
-            ref={aboutImgRef}
-            className={`shrink-0 transition-all duration-[1200ms] ease-out ${
-              aboutImgInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-            style={{ width: "min(300px, 88vw)" }}
-          >
-            {/* Polaroid card */}
-            <div
-              className="bg-[#F3F2F0] relative"
-              style={{
-                padding: "12px 12px 56px 12px",
-                boxShadow: "0 8px 30px rgba(20,14,8,0.28), 0 2px 8px rgba(20,14,8,0.18), 2px 4px 0 rgba(20,14,8,0.06)",
-                transform: "rotate(-2.5deg)",
-              }}
-            >
-              {/* Photo */}
-              <div className="overflow-hidden" style={{ aspectRatio: "1/1.08" }}>
-                <img
-                  src="/about-hero.jpg"
-                  alt="Shashikanth and Deepika"
-                  loading="lazy"
-                  className="w-full h-full object-cover object-center"
-                  style={{  }}
-                />
-                {/* grain overlay */}
-                <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E\")", opacity: 0.1, mixBlendMode: "overlay" as const }} />
-              </div>
-
-              {/* Caption area */}
-              <div className="absolute bottom-0 left-0 right-0 h-[56px] flex items-center justify-center">
-                <p className="font-serif italic text-[12px] text-[#3A342C]/35 tracking-[0.03em]">Shashikanth &amp; Deepika</p>
-              </div>
-            </div>
-
-            {/* Faint base shadow strip */}
-            <div className="h-[4px] mx-4 mt-0.5 bg-[#1A1208]/12 blur-sm" style={{ transform: "rotate(-2.5deg)" }} />
-          </div>
-
-          {/* Text */}
-          <div className="flex-1 flex flex-col justify-center pt-2 md:pt-10">
-
-            <p
-              ref={aboutT1Ref}
-              className={`font-sans font-light uppercase tracking-[0.22em] text-[10px] text-[#3A342C]/35 mb-8 transition-all duration-[800ms] ease-out ${
-                aboutT1InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              }`}
-            >
-              Who we are
-            </p>
-
-            <div
-              ref={aboutT2Ref}
-              className={`transition-all duration-[1000ms] ease-out ${
-                aboutT2InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-              }`}
-            >
-              <p className="font-serif font-light text-[#3A342C] leading-[1.85] mb-6" style={{ fontSize: 'clamp(17px, 1.4vw, 20px)' }}>
-                We are Shashikanth &amp; Deepika — not photographers first, but people
-                deeply fascinated by people.
-              </p>
-              <p className="font-serif font-light text-[#3A342C] leading-[1.85]" style={{ fontSize: 'clamp(17px, 1.4vw, 20px)' }}>
-                Our own wedding taught us something. The memories we returned to most
-                weren't the perfectly posed frames. They were the quiet ones.
-                The unguarded ones. The ones we almost forgot.
-              </p>
-            </div>
-
-            <div
-              ref={aboutT4Ref}
-              className={`mt-8 transition-all duration-[1000ms] ease-out ${
-                aboutT4InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-              }`}
-            >
-              <p className="font-serif font-light italic text-[#3A342C]/50 leading-[1.85]" style={{ fontSize: 'clamp(16px, 1.3vw, 19px)' }}>
-                We don't arrive to document a celebration.
-                We arrive to preserve the beginning of a family.
-              </p>
-            </div>
-
-            <div
-              ref={aboutLinkRef}
-              className={`mt-10 md:mt-14 transition-all duration-[800ms] ease-out ${
-                aboutLinkInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              }`}
-            >
-              <Link
-                href="/about"
-                className="font-sans font-light text-[#3A342C]/60 tracking-[0.14em] uppercase text-[11px] hover:text-[#3A342C] transition-colors duration-300"
-              >
-                Read our full story&nbsp;&nbsp;→
-              </Link>
-            </div>
-
-          </div>
-        </div>
-      </section>
       {/* Chapter 5 - Beginnings — Postcard Collection */}
       <section className="bg-[#EFEFED] pt-20 md:pt-32 pb-24 md:pb-36 overflow-hidden">
 
