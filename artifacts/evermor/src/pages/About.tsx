@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { Link } from "wouter";
 import Nav from "../components/Nav";
 
-// ─── Scroll-fade — identical to the rest of the site ─────────────────────────
+// ─── Scroll-fade ──────────────────────────────────────────────────────────────
 function useInView(threshold = 0.08) {
   const [isInView, setIsInView] = useState(false);
   const ref = useRef<HTMLElement | HTMLDivElement | null>(null);
@@ -49,7 +49,7 @@ function Fade({
   );
 }
 
-// ─── Copy — each entry is a line of prose; null = breathing gap ───────────────
+// ─── Copy ─────────────────────────────────────────────────────────────────────
 const paragraphs: (string | null)[] = [
   "We didn't begin this journey because we wanted to become wedding photographers.",
   "We began because we were fascinated by people.",
@@ -84,158 +84,149 @@ export default function About() {
   return (
     <div className="bg-[#FAFAF8] text-[#3A342C]">
 
-      {/* ── 1. Hero ──────────────────────────────────────────────────── */}
-      <section className="relative h-[85vh] w-full overflow-hidden bg-[#1A1612]">
+      {/* Nav — absolute over the image */}
+      <Nav
+        theme="dark"
+        mounted={mounted}
+        position="fixed"
+        links={[
+          { href: "/", label: "Home" },
+          { href: "/beginnings", label: "Beginnings" },
+          { href: "/journal", label: "Journal" },
+          { href: "/about", label: "About", active: true },
+          { href: "/approach", label: "Approach" },
+          { href: "/begin-your-story", label: "Begin Your Story" },
+        ]}
+      />
 
-        {/* Image */}
-        <div
-          className="absolute inset-0 z-0"
-          style={{
-            transition: "opacity 1200ms ease-in-out",
-            opacity: mounted ? 1 : 0,
-          }}
-        >
-          <img
-            src="/about-hero.jpg"
-            alt="Shashikanth and Deepika"
-            className="w-full h-full object-cover object-center"
-            loading="eager"
-          />
-          {/* Subtle scrim — keeps image dominant, lifts text without crushing the photo */}
-          <div className="absolute inset-0 bg-[#1A1612]/18" />
-          <div className="absolute inset-x-0 bottom-0 h-[45%] bg-gradient-to-t from-black/45 to-transparent" />
-        </div>
+      {/* ── Split layout ────────────────────────────────────────────────── */}
+      <div className="flex flex-col lg:flex-row min-h-screen">
 
-        {/* Nav */}
-        <Nav
-          theme="dark"
-          mounted={mounted}
-          position="absolute"
-          links={[
-            { href: "/", label: "Home" },
-            { href: "/beginnings", label: "Beginnings" },
-            { href: "/journal", label: "Journal" },
-            { href: "/about", label: "About", active: true },
-            { href: "/approach", label: "Approach" },
-            { href: "/begin-your-story", label: "Begin Your Story" },
-          ]}
-        />
-
-        {/* Headline — bottom-left, same anchor as story hero pages */}
-        <div className="absolute bottom-[80px] left-6 right-6 md:left-[100px] md:right-auto z-10 flex flex-col items-start gap-[14px]">
-          <h1
-            className="font-serif font-light text-[#F5F0E8] tracking-[0.01em] leading-[1.1]"
+        {/* ── LEFT: sticky image panel ──────────────────────────────────── */}
+        <div className="lg:w-[48%] xl:w-[45%] lg:sticky lg:top-0 lg:h-screen flex-shrink-0 overflow-hidden bg-[#1A1612]">
+          <div
+            className="w-full h-[60vh] lg:h-full relative"
             style={{
-              fontSize: "clamp(34px, 5vw, 68px)",
-              transition: "opacity 800ms ease-out 200ms, transform 800ms ease-out 200ms",
+              transition: "opacity 1200ms ease-in-out",
               opacity: mounted ? 1 : 0,
-              transform: mounted ? "translateY(0)" : "translateY(18px)",
             }}
           >
-            We are Shashikanth &amp; Deepika.
-          </h1>
-          <p
-            className="font-sans font-light text-[#F5F0E8]/65 tracking-[0.14em] uppercase"
+            <img
+              src="/about-hero.jpg"
+              alt="Shashikanth and Deepika"
+              className="w-full h-full object-cover object-center"
+              loading="eager"
+            />
+            {/* Gradient scrim — lifts caption without crushing photo */}
+            <div className="absolute inset-x-0 bottom-0 h-[50%] bg-gradient-to-t from-black/55 to-transparent" />
+
+            {/* Name + tagline — pinned to bottom-left */}
+            <div
+              className="absolute bottom-10 left-8 right-8 flex flex-col gap-3 z-10"
+              style={{
+                transition: "opacity 800ms ease-out 300ms, transform 800ms ease-out 300ms",
+                opacity: mounted ? 1 : 0,
+                transform: mounted ? "translateY(0)" : "translateY(16px)",
+              }}
+            >
+              <h1
+                className="font-serif font-light text-[#F5F0E8] leading-[1.1] tracking-[0.01em]"
+                style={{ fontSize: "clamp(26px, 3.2vw, 46px)" }}
+              >
+                We are Shashikanth &amp; Deepika.
+              </h1>
+              <p
+                className="font-sans font-light text-[#F5F0E8]/60 uppercase tracking-[0.14em]"
+                style={{ fontSize: "clamp(9px, 0.9vw, 11px)", lineHeight: 2 }}
+              >
+                Partners in life.&nbsp;&nbsp;&nbsp;Partners in storytelling.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ── RIGHT: scrollable story ───────────────────────────────────── */}
+        <div className="lg:w-[52%] xl:w-[55%] flex flex-col">
+
+          {/* Story text */}
+          <section
+            aria-label="Our story"
             style={{
-              fontSize: "clamp(10px, 1vw, 12px)",
-              lineHeight: 2,
-              transition: "opacity 800ms ease-out 400ms, transform 800ms ease-out 400ms",
-              opacity: mounted ? 1 : 0,
-              transform: mounted ? "translateY(0)" : "translateY(12px)",
+              paddingTop: "clamp(72px, 12vw, 160px)",
+              paddingBottom: "clamp(56px, 8vw, 120px)",
+              paddingLeft: "clamp(28px, 6vw, 96px)",
+              paddingRight: "clamp(28px, 6vw, 96px)",
             }}
           >
-            Partners in life.&nbsp;&nbsp;&nbsp;Partners in storytelling.
-          </p>
-        </div>
-      </section>
+            <div style={{ maxWidth: 600 }}>
+              {paragraphs.map((line, i) =>
+                line === null ? (
+                  <div key={i} style={{ height: "clamp(20px, 3vw, 40px)" }} />
+                ) : (
+                  <Fade key={i}>
+                    <p
+                      className="font-serif font-light text-[#3A342C]"
+                      style={{
+                        fontSize: "clamp(17px, 1.5vw, 21px)",
+                        lineHeight: 1.85,
+                        margin: 0,
+                      }}
+                    >
+                      {line}
+                    </p>
+                  </Fade>
+                )
+              )}
+            </div>
+          </section>
 
-      {/* ── 2. Editorial Story ───────────────────────────────────────── */}
-      {/*
-        Container is centred on the page (mx-auto), max 760px.
-        Text is left-aligned — editorial essays read left, not centred.
-        Whitespace between thought-clusters acts as the rhythm.
-      */}
-      <section
-        aria-label="Our story"
-        style={{
-          paddingTop: "clamp(56px, 13vw, 168px)",
-          paddingBottom: "clamp(56px, 10vw, 140px)",
-          paddingLeft: "clamp(24px, 8vw, 100px)",
-          paddingRight: "clamp(24px, 8vw, 100px)",
-        }}
-      >
-        <div style={{ maxWidth: 760, margin: "0 auto" }}>
-          {paragraphs.map((line, i) =>
-            line === null ? (
-              // Breathing gap — whitespace as rhythm
-              <div key={i} style={{ height: "clamp(22px, 3.5vw, 44px)" }} />
-            ) : (
-              <Fade key={i}>
+          {/* Quiet invitation */}
+          <section
+            aria-label="Invitation"
+            style={{
+              paddingTop: "clamp(60px, 10vw, 140px)",
+              paddingBottom: "clamp(80px, 14vw, 180px)",
+              paddingLeft: "clamp(28px, 6vw, 96px)",
+              paddingRight: "clamp(28px, 6vw, 96px)",
+            }}
+          >
+            <div style={{ maxWidth: 600 }}>
+
+              <Fade delay={0}>
                 <p
                   className="font-serif font-light text-[#3A342C]"
-                  style={{
-                    fontSize: "clamp(17px, 1.55vw, 21px)",
-                    lineHeight: 1.8,
-                    margin: 0,
-                  }}
+                  style={{ fontSize: "clamp(17px, 1.5vw, 21px)", lineHeight: 1.85, margin: 0 }}
                 >
-                  {line}
+                  If our story resonates with you,
                 </p>
               </Fade>
-            )
-          )}
-        </div>
-      </section>
 
-      {/* ── 3. Quiet Invitation ──────────────────────────────────────── */}
-      {/*
-        180–220px of vertical whitespace separates this from the editorial,
-        then one final statement — no heading, no divider — followed by
-        a bare text link. Nothing more.
-      */}
-      <section
-        aria-label="Invitation"
-        style={{
-          paddingTop: "clamp(80px, 18vw, 220px)",
-          paddingBottom: "clamp(80px, 14vw, 180px)",
-          paddingLeft: "clamp(24px, 8vw, 100px)",
-          paddingRight: "clamp(24px, 8vw, 100px)",
-        }}
-      >
-        <div style={{ maxWidth: 760, margin: "0 auto" }}>
+              <Fade delay={80}>
+                <p
+                  className="font-serif font-light text-[#3A342C]"
+                  style={{ fontSize: "clamp(17px, 1.5vw, 21px)", lineHeight: 1.85, margin: 0 }}
+                >
+                  perhaps it's time to begin yours.
+                </p>
+              </Fade>
 
-          <Fade delay={0}>
-            <p
-              className="font-serif font-light text-[#3A342C]"
-              style={{ fontSize: "clamp(17px, 1.55vw, 21px)", lineHeight: 1.8, margin: 0 }}
-            >
-              If our story resonates with you,
-            </p>
-          </Fade>
+              <Fade delay={240}>
+                <div style={{ marginTop: "clamp(36px, 4vw, 56px)" }}>
+                  <Link
+                    href="/begin-your-story"
+                    className="font-sans font-light text-[#3A342C]/80 tracking-[0.1em] uppercase transition-opacity duration-400 hover:opacity-50"
+                    style={{ fontSize: "clamp(11px, 1vw, 13px)" }}
+                  >
+                    Begin Your Story&nbsp;&nbsp;→
+                  </Link>
+                </div>
+              </Fade>
 
-          <Fade delay={80}>
-            <p
-              className="font-serif font-light text-[#3A342C]"
-              style={{ fontSize: "clamp(17px, 1.55vw, 21px)", lineHeight: 1.8, margin: 0 }}
-            >
-              perhaps it's time to begin yours.
-            </p>
-          </Fade>
-
-          <Fade delay={240}>
-            <div style={{ marginTop: "clamp(36px, 4vw, 56px)" }}>
-              <Link
-                href="/begin-your-story"
-                className="font-sans font-light text-[#3A342C]/80 tracking-[0.1em] uppercase transition-opacity duration-400 hover:opacity-50"
-                style={{ fontSize: "clamp(11px, 1vw, 13px)" }}
-              >
-                Begin Your Story&nbsp;&nbsp;→
-              </Link>
             </div>
-          </Fade>
+          </section>
 
         </div>
-      </section>
+      </div>
 
     </div>
   );
