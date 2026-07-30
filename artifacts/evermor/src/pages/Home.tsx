@@ -220,14 +220,6 @@ export default function Home() {
           <div className="h-[3px] mx-3 bg-[#1A1208]/30 blur-sm" />
         </div>
 
-        <p
-          ref={transitionLineRef}
-          className={`mt-20 md:mt-28 mb-0 text-center font-serif font-light italic text-[16px] md:text-[18px] text-[#3A342C]/60 tracking-[0.02em] transition-all duration-[800ms] ease-out ${
-            transitionLineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-          }`}
-        >
-          Every family begins with a story.
-        </p>
       </section>
       {/* Good Fit — short qualifier */}
       <div className="bg-[#EFEFED] py-16 md:py-24 px-6 flex justify-center">
