@@ -333,7 +333,7 @@ export default function Home() {
 
             {/* Postcard FRONT */}
             <Link
-              href="/beginnings/shaun-sowmya"
+              href="/beginnings"
               ref={s1ImgRef}
               className={`flex-1 block group cursor-pointer bg-[#EFE4D0] shadow-[0_6px_36px_rgba(58,52,44,0.18)] transition-all duration-[1000ms] ease-out md:-rotate-[0.6deg] hover:rotate-0 hover:shadow-[0_12px_48px_rgba(58,52,44,0.25)] ${
                 s1ImgInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
@@ -448,7 +448,7 @@ export default function Home() {
 
             {/* Card 1 */}
             <Link
-              href="/beginnings/sakshi-rajat"
+              href="/beginnings"
               ref={s4ImgRef}
               className={`block group cursor-pointer bg-[#EFE4D0] shadow-[0_4px_24px_rgba(58,52,44,0.13)] hover:shadow-[0_8px_36px_rgba(58,52,44,0.2)] transition-all duration-[900ms] ease-out md:rotate-[0.4deg] hover:rotate-0 ${
                 s4ImgInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
