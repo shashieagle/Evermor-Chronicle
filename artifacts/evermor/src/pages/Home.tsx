@@ -77,6 +77,8 @@ export default function Home() {
   const [ch7BtnRef, ch7BtnInView] = useInView();
   const [ch7NoteRef, ch7NoteInView] = useInView();
 
+  const [fitRef, fitInView] = useInView();
+
   // About section (inline on home)
   const [aboutImgRef, aboutImgInView] = useInView();
   const [aboutT1Ref, aboutT1InView] = useInView();
@@ -330,6 +332,27 @@ export default function Home() {
           </div>
         </div>
       </div>
+      {/* Good Fit — short qualifier */}
+      <div className="bg-[#EFEFED] py-16 md:py-24 px-6 flex justify-center">
+        <div
+          ref={fitRef}
+          className={`max-w-[560px] w-full text-center transition-all duration-[900ms] ease-out ${fitInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+        >
+          <p className="font-sans uppercase tracking-[0.32em] text-[8px] text-[#8C6D4F] mb-7">✦ &nbsp; You'll love working with us if &nbsp; ✦</p>
+          <div className="flex flex-col gap-4">
+            {[
+              "You'd rather feel something in a photograph than just look good in one.",
+              "You're okay with us disappearing into a corner for twenty minutes.",
+              "You believe the best moment of your wedding hasn't been planned yet.",
+            ].map((line, i) => (
+              <p key={i} className="font-serif font-light italic text-[17px] md:text-[20px] text-[#3A342C]/70 leading-[1.55] tracking-[0.005em]">
+                {line}
+              </p>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* About — inline landing section */}
       <section className="bg-[#FAFAFA] py-24 md:py-40 lg:py-56">
         <div className="max-w-[1100px] mx-auto px-6 md:px-12 lg:px-16 flex flex-col md:flex-row gap-14 md:gap-20 lg:gap-28 items-start">
