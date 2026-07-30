@@ -27,7 +27,6 @@ export default function Approach() {
           { href: "/begin-your-story", label: "Begin Your Story" },
         ]}
       />
-
       {/* Hidden SVG filters */}
       <svg aria-hidden="true" style={{ position: "absolute", width: 0, height: 0, overflow: "hidden" }}>
         <defs>
@@ -37,7 +36,6 @@ export default function Approach() {
           </filter>
         </defs>
       </svg>
-
       {/* Page wrapper */}
       <div className="min-h-screen flex flex-col items-center justify-center px-4 py-32 md:py-40">
 
@@ -97,9 +95,7 @@ export default function Approach() {
               <p
                 className="text-right mb-8 md:mb-10"
                 style={{ fontSize: "clamp(15px, 3vw, 18px)", color: "rgba(58,52,44,0.45)", lineHeight: 1.4 }}
-              >
-                Hyderabad, India
-              </p>
+              >Bangalore, India</p>
 
               {/* Salutation */}
               <p
