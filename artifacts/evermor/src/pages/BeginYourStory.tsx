@@ -147,7 +147,7 @@ export default function BeginYourStory() {
             {/* Row 3 — Wedding Dates | Venue */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-10 mb-14">
               <FormField label="Wedding Dates" htmlFor="wedding-date">
-                <LineInput id="wedding-date" type="date" required />
+                <LineInput id="wedding-date" type="text" placeholder="DD / MM / YYYY" required />
               </FormField>
               <FormField label={<>Wedding Venue <span className="font-normal opacity-50 tracking-normal normal-case text-[0.9em]">— optional</span></>} htmlFor="venue">
                 <LineInput id="venue" placeholder="If you've chosen one already." />
