@@ -340,7 +340,7 @@ export default function Home() {
               }`}
             >
               {/* aged mat border */}
-              <div className="p-[10px] md:p-[13px]">
+              <div className="p-[10px] md:p-[13px] pb-0">
                 <div className="relative overflow-hidden" style={{ aspectRatio: "3/2" }}>
                   <img
                     src="/beginnings-shaun-sowmya.jpg"
@@ -368,6 +368,14 @@ export default function Home() {
                   <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4">
                     <p className="font-serif italic text-[9px] md:text-[10px] text-white/60 tracking-[0.06em]">Evermor Tales</p>
                   </div>
+                </div>
+
+                {/* Testimonial — below the photo, inside the mat */}
+                <div className="px-2 pt-4 pb-4 md:px-3 md:pt-5 md:pb-5">
+                  <p className="font-serif italic text-[11px] md:text-[13px] text-[#3A342C]/65 leading-[1.8] tracking-[0.01em]">
+                    "What we're most grateful for isn't just the photographs. It's that you noticed the moments we didn't even realise were happening. Years later, those are the memories we return to most."
+                  </p>
+                  <p className="font-sans text-[7px] md:text-[8px] text-[#3A342C]/35 tracking-[0.12em] uppercase mt-2.5">— Shaun &amp; Sowmya</p>
                 </div>
               </div>
             </Link>
@@ -414,11 +422,10 @@ export default function Home() {
                   </div>
 
                   {/* Right column */}
-                  <div className="flex-[4] pl-4 flex flex-col justify-between relative overflow-hidden">
+                  <div className="flex-[4] pl-4 flex flex-col justify-center relative overflow-hidden">
                     <p className="font-serif italic text-[11px] md:text-[13px] text-[#3A342C]/60 leading-[1.85] tracking-[0.01em]">
-                      "What we're most grateful for isn't just the photographs. It's that you noticed the moments we didn't even realise were happening. Years later, those are the memories we return to most."
+                      "There is always a moment when the world falls quiet and they see only each other."
                     </p>
-                    <p className="font-sans text-[7px] md:text-[8px] text-[#3A342C]/35 tracking-[0.1em] uppercase mt-3">— Shaun &amp; Sowmya</p>
                     {/* Circular postmark */}
                     <div
                       className="absolute bottom-0 right-0 w-14 h-14 md:w-[60px] md:h-[60px] rounded-full flex items-center justify-center text-center"
