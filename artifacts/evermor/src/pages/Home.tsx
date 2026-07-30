@@ -339,18 +339,9 @@ export default function Home() {
           className={`max-w-[560px] w-full text-center transition-all duration-[900ms] ease-out ${fitInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
         >
           <p className="font-sans uppercase tracking-[0.32em] text-[8px] text-[#8C6D4F] mb-7">✦ &nbsp; You'll love working with us if &nbsp; ✦</p>
-          <div className="flex flex-col gap-4">
-            {[
-              "Let us move through your wedding like family — quietly, naturally, without announcement.",
-              "Let us sneak in a laugh between rituals, because joy is always the best light.",
-              "Let us disappear from the stage every now and then — we promise we're in a better corner.",
-              "Let us gently direct you, not into a pose, but into discovering how you actually look when you're just yourself.",
-            ].map((line, i) => (
-              <p key={i} className="font-serif font-light italic text-[17px] md:text-[20px] text-[#3A342C]/70 leading-[1.55] tracking-[0.005em]">
-                {line}
-              </p>
-            ))}
-          </div>
+          <p className="font-serif font-light italic text-[17px] md:text-[20px] text-[#3A342C]/70 leading-[1.75] tracking-[0.005em]">
+            Let us move through your wedding like family — quietly, without announcement. Let us sneak a laugh in between rituals, because joy is always the best light. Let us disappear from the stage every now and then; we promise we're somewhere better. And let us gently guide you — not into a pose, but into discovering how you actually look when you forget we're there.
+          </p>
         </div>
       </div>
 
