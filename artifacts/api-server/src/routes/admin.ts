@@ -20,6 +20,14 @@ function adminAuth(req: Request, res: Response, next: NextFunction) {
   res.status(401).json({ error: "Unauthorized" });
 }
 
+// ── Public: slideshow photos (no auth required) ───────────────────────────────
+router.get("/slideshow", async (_req: Request, res: Response) => {
+  try {
+    const photos = await db.select().from(slideshowPhotosTable).orderBy(asc(slideshowPhotosTable.position));
+    res.json({ photos });
+  } catch { res.status(500).json({ error: "Failed to fetch slideshow photos" }); }
+});
+
 router.use(adminAuth);
 
 // ── Verify ────────────────────────────────────────────────────────────────────

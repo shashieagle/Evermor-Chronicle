@@ -55,7 +55,7 @@ export default function Home() {
   const touchStartX = useRef(0);
 
   useEffect(() => {
-    fetch(`${API}/admin/slideshow`)
+    fetch(`${API}/slideshow`)
       .then(r => r.json())
       .then(d => { if (d.photos?.length) setSlideshowImages(d.photos.map((p: any) => p.url)); })
       .catch(() => {});
