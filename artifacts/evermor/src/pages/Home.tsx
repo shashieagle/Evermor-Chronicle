@@ -608,6 +608,18 @@ export default function Home() {
           </div>
         </div>
 
+        {/* ── Closing prose ── */}
+        <div className="px-5 md:px-10 lg:px-16 py-14 md:py-20 flex justify-center">
+          <p
+            ref={ch7CopyRef}
+            className={`font-serif font-light text-[18px] md:text-[24px] lg:text-[28px] text-[#3A342C]/65 leading-[1.75] tracking-[0.005em] text-center max-w-[640px] transition-all duration-[1000ms] ease-out ${
+              ch7CopyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+          >
+            Some beginnings last a day. The memories they create can last forever. If our way of seeing the world feels like yours, we'd be honoured to preserve the beginning of your family's story.
+          </p>
+        </div>
+
         {/* ── Final Invitation — full-width photo closing ── */}
         <div className="relative w-full overflow-hidden flex items-center justify-center" style={{ minHeight: "85vh" }}>
           <img
