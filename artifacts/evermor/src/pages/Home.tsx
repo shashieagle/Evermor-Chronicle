@@ -239,8 +239,7 @@ export default function Home() {
       {/* ── Image Slideshow ─────────────────────────────────────────────── */}
       {slideshowImages.length > 0 && (
       <section
-        ref={ch3imgRef}
-        className={`relative overflow-hidden bg-[#0C0906] transition-opacity duration-[1200ms] ease-out ${ch3imgInView ? "opacity-100" : "opacity-0"}`}
+        className="relative overflow-hidden bg-[#0C0906]"
         style={{ height: "75vh" }}
         onTouchStart={e => { touchStartX.current = e.touches[0].clientX; }}
         onTouchEnd={e => {
