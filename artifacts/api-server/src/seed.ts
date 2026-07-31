@@ -364,11 +364,18 @@ const SEED_SLIDESHOW: { url: string; objectPath: string; position: number }[] = 
 
 export async function seedIfEmpty() {
   try {
-    const existing = await db.select().from(storiesTable).limit(1);
-    if (existing.length > 0) {
-      logger.info("Seed: DB already has data, skipping.");
+    const [existingStories, existingSlideshow] = await Promise.all([
+      db.select().from(storiesTable),
+      db.select().from(slideshowPhotosTable),
+    ]);
+    if (existingStories.length >= SEED_STORIES.length && existingSlideshow.length >= SEED_SLIDESHOW.length) {
+      logger.info("Seed: DB already fully seeded, skipping.");
       return;
     }
+    logger.info(
+      { stories: existingStories.length, slideshow: existingSlideshow.length },
+      "Seed: filling in missing data...",
+    );
     logger.info("Seed: DB is empty — seeding stories, photos, and slideshow...");
     for (const s of SEED_STORIES) {
       await db.insert(storiesTable).values({
