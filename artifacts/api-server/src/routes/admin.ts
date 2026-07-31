@@ -1,6 +1,6 @@
 import { Router, type IRouter, type Request, type Response, type NextFunction } from "express";
 import { db } from "@workspace/db";
-import { storiesTable, storyPhotosTable, journalPostsTable } from "@workspace/db";
+import { storiesTable, storyPhotosTable, journalPostsTable, slideshowPhotosTable } from "@workspace/db";
 import { eq, asc, desc } from "drizzle-orm";
 import { ObjectStorageService } from "../lib/objectStorage";
 
@@ -150,6 +150,49 @@ router.delete("/admin/photos/:id", async (req: Request, res: Response) => {
   } catch {
     res.status(500).json({ error: "Failed to delete photo" });
   }
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Slideshow admin routes
+// ─────────────────────────────────────────────────────────────────────────────
+
+// List slideshow photos
+router.get("/admin/slideshow", async (_req: Request, res: Response) => {
+  try {
+    const photos = await db.select().from(slideshowPhotosTable).orderBy(asc(slideshowPhotosTable.position));
+    res.json({ photos });
+  } catch { res.status(500).json({ error: "Failed to fetch slideshow photos" }); }
+});
+
+// Add slideshow photo
+router.post("/admin/slideshow", async (req: Request, res: Response) => {
+  const { objectPath, position } = req.body;
+  if (!objectPath) return res.status(400).json({ error: "objectPath required" });
+  try {
+    const url = `/api/storage${objectPath}`;
+    const [photo] = await db.insert(slideshowPhotosTable).values({ url, objectPath, position: position ?? 0 }).returning();
+    res.json({ photo });
+  } catch { res.status(500).json({ error: "Failed to save slideshow photo" }); }
+});
+
+// Reorder slideshow photos
+router.put("/admin/slideshow/reorder", async (req: Request, res: Response) => {
+  const { ids } = req.body as { ids: number[] };
+  if (!Array.isArray(ids)) return res.status(400).json({ error: "ids array required" });
+  try {
+    await Promise.all(ids.map((id, index) =>
+      db.update(slideshowPhotosTable).set({ position: index }).where(eq(slideshowPhotosTable.id, id))
+    ));
+    res.json({ ok: true });
+  } catch { res.status(500).json({ error: "Failed to reorder" }); }
+});
+
+// Delete slideshow photo
+router.delete("/admin/slideshow/:id", async (req: Request, res: Response) => {
+  try {
+    await db.delete(slideshowPhotosTable).where(eq(slideshowPhotosTable.id, Number(req.params.id)));
+    res.json({ ok: true });
+  } catch { res.status(500).json({ error: "Failed to delete slideshow photo" }); }
 });
 
 // ─────────────────────────────────────────────────────────────────────────────

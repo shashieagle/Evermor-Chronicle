@@ -2,17 +2,8 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { Link } from "wouter";
 import Nav from "../components/Nav";
 
-// ── Slideshow images — replace with your final 20 photos ─────────────────
-const SLIDESHOW_IMAGES = [
-  "/s1.jpg", "/s2.jpg", "/s3.jpg", "/s4.jpg", "/s5.jpg",
-  "/s6.jpg", "/s7.jpg", "/hero.jpg", "/chapter3.jpg",
-  "/beginnings-shaun-sowmya.jpg", "/beginnings-sakshi-rajat.jpg",
-  "/beginnings-abhigna-sagar.jpg", "/beginnings-kaushik-sandhya.jpg",
-  "/beginnings-saksham-chitkala.jpg", "/beginnings-yamini-chris.jpg",
-  "/b-shaun-sowmya-2.jpg", "/b-sakshi-rajat-2.jpg",
-  "/b-abhigna-sagar-2.jpg", "/b-kaushik-sandhya-2.jpg",
-  "/b-yamini-chris-2.jpg",
-];
+const BASE = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
+const API  = `${BASE}/api`;
 const SLIDE_DURATION = 5000;
 
 function useInView(threshold = 0.12) {
@@ -57,34 +48,43 @@ export default function Home() {
   const [ch6BtnRef, ch6BtnInView] = useInView();
 
   // Slideshow
+  const [slideshowImages, setSlideshowImages] = useState<string[]>([]);
   const [slideIndex, setSlideIndex] = useState(0);
   const [progressKey, setProgressKey] = useState(0);
   const slideTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const touchStartX = useRef(0);
+
+  useEffect(() => {
+    fetch(`${API}/admin/slideshow`)
+      .then(r => r.json())
+      .then(d => { if (d.photos?.length) setSlideshowImages(d.photos.map((p: any) => p.url)); })
+      .catch(() => {});
+  }, []);
 
   const advanceTo = useCallback((idx: number) => {
     setSlideIndex(idx);
     setProgressKey(k => k + 1);
   }, []);
 
-  const startTimer = useCallback(() => {
+  const startTimer = useCallback((total: number) => {
     if (slideTimerRef.current) clearInterval(slideTimerRef.current);
+    if (total < 2) return;
     slideTimerRef.current = setInterval(() => {
       setSlideIndex(prev => {
-        const next = (prev + 1) % SLIDESHOW_IMAGES.length;
         setProgressKey(k => k + 1);
-        return next;
+        return (prev + 1) % total;
       });
     }, SLIDE_DURATION);
   }, []);
 
   useEffect(() => {
-    startTimer();
+    if (slideshowImages.length < 2) return;
+    startTimer(slideshowImages.length);
     return () => { if (slideTimerRef.current) clearInterval(slideTimerRef.current); };
-  }, [startTimer]);
+  }, [slideshowImages.length, startTimer]);
 
-  const goNext = useCallback(() => { advanceTo((slideIndex + 1) % SLIDESHOW_IMAGES.length); startTimer(); }, [slideIndex, advanceTo, startTimer]);
-  const goPrev = useCallback(() => { advanceTo((slideIndex - 1 + SLIDESHOW_IMAGES.length) % SLIDESHOW_IMAGES.length); startTimer(); }, [slideIndex, advanceTo, startTimer]);
+  const goNext = useCallback(() => { advanceTo((slideIndex + 1) % slideshowImages.length); startTimer(slideshowImages.length); }, [slideIndex, slideshowImages.length, advanceTo, startTimer]);
+  const goPrev = useCallback(() => { advanceTo((slideIndex - 1 + slideshowImages.length) % slideshowImages.length); startTimer(slideshowImages.length); }, [slideIndex, slideshowImages.length, advanceTo, startTimer]);
 
   useEffect(() => { setMounted(true); }, []);
 
@@ -237,7 +237,7 @@ export default function Home() {
       </section>
 
       {/* ── Image Slideshow ─────────────────────────────────────────────── */}
-      {/* Replace SLIDESHOW_IMAGES at the top of this file with your 20 landscape photos */}
+      {slideshowImages.length > 0 && (
       <section
         ref={ch3imgRef}
         className={`relative overflow-hidden bg-[#0C0906] transition-opacity duration-[1200ms] ease-out ${ch3imgInView ? "opacity-100" : "opacity-0"}`}
@@ -251,7 +251,7 @@ export default function Home() {
         <style>{`@keyframes slideProgress { from { transform: scaleX(0); } to { transform: scaleX(1); } }`}</style>
 
         {/* Stacked images — crossfade */}
-        {SLIDESHOW_IMAGES.map((src, i) => (
+        {slideshowImages.map((src, i) => (
           <div
             key={src}
             className="absolute inset-0 transition-opacity duration-[1400ms] ease-in-out"
@@ -295,7 +295,7 @@ export default function Home() {
         {/* Counter */}
         <div className="absolute bottom-7 right-7 md:right-10 z-20">
           <p className="font-sans text-[10px] tracking-[0.18em] text-[#F5F0E8]/35">
-            {String(slideIndex + 1).padStart(2, "0")} / {String(SLIDESHOW_IMAGES.length).padStart(2, "0")}
+            {String(slideIndex + 1).padStart(2, "0")} / {String(slideshowImages.length).padStart(2, "0")}
           </p>
         </div>
 
@@ -312,6 +312,7 @@ export default function Home() {
           />
         </div>
       </section>
+      )}
 
       {/* ── Chapter 5 — Beginnings ───────────────────────────────────────── */}
       <section

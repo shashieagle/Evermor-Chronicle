@@ -25,6 +25,16 @@ export const storyPhotosTable = pgTable("story_photos", {
   createdAt:   timestamp("created_at").defaultNow(),
 });
 
+export const slideshowPhotosTable = pgTable("slideshow_photos", {
+  id:         serial("id").primaryKey(),
+  url:        text("url").notNull(),
+  objectPath: text("object_path"),
+  position:   integer("position").notNull().default(0),
+  createdAt:  timestamp("created_at").defaultNow(),
+});
+
+export type SlideshowPhoto = typeof slideshowPhotosTable.$inferSelect;
+
 export const insertStorySchema = createInsertSchema(storiesTable);
 export const insertPhotoSchema = createInsertSchema(storyPhotosTable).omit({ id: true, createdAt: true });
 

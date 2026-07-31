@@ -19,6 +19,7 @@ interface StoryRow {
   narrative: string | null; pause: string | null; reflection: string | null;
 }
 interface Photo { id: number; url: string; objectPath: string | null; position: number; }
+interface SlideshowPhoto { id: number; url: string; objectPath: string | null; position: number; }
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function apiHeaders(token: string) {
@@ -109,6 +110,44 @@ function SortablePhoto({
   );
 }
 
+// ── Sortable slide tile ───────────────────────────────────────────────────────
+function SortableSlideTile({
+  photo, onDelete,
+}: {
+  photo: SlideshowPhoto;
+  onDelete: (id: number) => void;
+}) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+    useSortable({ id: photo.id });
+  return (
+    <div
+      ref={setNodeRef}
+      style={{
+        transform: CSS.Transform.toString(transform), transition,
+        opacity: isDragging ? 0.5 : 1, position: "relative", cursor: "grab",
+      }}
+      {...attributes} {...listeners}
+    >
+      <img
+        src={photo.url} alt=""
+        style={{ width: "100%", aspectRatio: "3/2", objectFit: "cover", display: "block", borderRadius: 2 }}
+      />
+      <button
+        onClick={() => onDelete(photo.id)}
+        onPointerDown={e => e.stopPropagation()}
+        style={{
+          position: "absolute", top: 6, right: 6,
+          width: 24, height: 24, borderRadius: "50%",
+          border: "none", background: "rgba(0,0,0,0.55)", color: "#fff",
+          fontSize: 14, lineHeight: 1, cursor: "pointer", display: "flex",
+          alignItems: "center", justifyContent: "center",
+        }}
+        title="Remove"
+      >×</button>
+    </div>
+  );
+}
+
 // ── Main admin page ───────────────────────────────────────────────────────────
 export default function Admin() {
   const [token, setToken]         = useState(() => localStorage.getItem("evermor_admin") || "");
@@ -132,6 +171,12 @@ export default function Admin() {
   const [saveMsg, setSaveMsg]     = useState("");
   const [uploading, setUploading] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+
+  // Slideshow state
+  const [activeTab, setActiveTab]             = useState<"stories" | "slideshow">("stories");
+  const [slidePhotos, setSlidePhotos]         = useState<SlideshowPhoto[]>([]);
+  const [slideUploading, setSlideUploading]   = useState(false);
+  const slideFileRef = useRef<HTMLInputElement>(null);
 
   // New story modal
   const [showNew, setShowNew]     = useState(false);
@@ -178,6 +223,58 @@ export default function Admin() {
   }, [authed, token]);
 
   useEffect(() => { loadStories(); }, [authed]);
+
+  // ── Load slideshow photos ──────────────────────────────────────────────────
+  const loadSlidePhotos = useCallback(async () => {
+    if (!authed) return;
+    const r = await fetch(`${API}/admin/slideshow`, { headers: { "X-Admin-Token": token } });
+    const d = await r.json();
+    setSlidePhotos(d.photos || []);
+  }, [authed, token]);
+
+  useEffect(() => { loadSlidePhotos(); }, [authed]);
+
+  // ── Upload slideshow photos ────────────────────────────────────────────────
+  const uploadSlideFiles = async (files: FileList) => {
+    if (files.length === 0) return;
+    setSlideUploading(true);
+    const nextPos = slidePhotos.length;
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      try {
+        const urlRes = await fetch(`${API}/admin/photos/request-url`, { method: "POST", headers: apiHeaders(token) });
+        const { uploadURL, objectPath } = await urlRes.json();
+        await fetch(uploadURL, { method: "PUT", body: file, headers: { "Content-Type": file.type } });
+        const saveRes = await fetch(`${API}/admin/slideshow`, {
+          method: "POST", headers: apiHeaders(token),
+          body: JSON.stringify({ objectPath, position: nextPos + i }),
+        });
+        const { photo } = await saveRes.json();
+        setSlidePhotos(prev => [...prev, photo]);
+      } catch (e) { console.error("Slide upload failed:", e); }
+    }
+    setSlideUploading(false);
+  };
+
+  // ── Delete slideshow photo ─────────────────────────────────────────────────
+  const deleteSlidePhoto = async (id: number) => {
+    await fetch(`${API}/admin/slideshow/${id}`, { method: "DELETE", headers: { "X-Admin-Token": token } });
+    setSlidePhotos(prev => prev.filter(p => p.id !== id));
+  };
+
+  // ── Reorder slideshow photos ───────────────────────────────────────────────
+  const handleSlideDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+    const oldIdx = slidePhotos.findIndex(p => p.id === active.id);
+    const newIdx = slidePhotos.findIndex(p => p.id === over.id);
+    const reordered = arrayMove(slidePhotos, oldIdx, newIdx);
+    setSlidePhotos(reordered);
+    await fetch(`${API}/admin/slideshow/reorder`, {
+      method: "PUT", headers: apiHeaders(token),
+      body: JSON.stringify({ ids: reordered.map(p => p.id) }),
+    }).catch(() => {});
+  };
 
   // ── Load selected story ────────────────────────────────────────────────────
   useEffect(() => {
@@ -454,34 +551,59 @@ export default function Admin() {
           <p style={{ fontSize: 11, color: `${ink}55`, letterSpacing: "0.18em", textTransform: "uppercase", margin: "4px 0 0" }}>Admin</p>
         </div>
         <div style={{ padding: "16px 0", flex: 1 }}>
-          <p style={{ ...label, padding: "0 24px", marginBottom: 8 }}>Stories</p>
-          {stories.map(s => (
+          {/* Tab: Stories */}
+          <button
+            onClick={() => setActiveTab("stories")}
+            style={{
+              display: "block", width: "100%", textAlign: "left",
+              padding: "8px 24px", border: "none", cursor: "pointer",
+              background: "transparent",
+              borderLeft: activeTab === "stories" ? `2px solid ${ink}` : "2px solid transparent",
+              color: activeTab === "stories" ? ink : `${ink}55`, fontSize: 11,
+              letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 2,
+            }}
+          >Stories</button>
+          {/* Tab: Slideshow */}
+          <button
+            onClick={() => setActiveTab("slideshow")}
+            style={{
+              display: "block", width: "100%", textAlign: "left",
+              padding: "8px 24px", border: "none", cursor: "pointer",
+              background: "transparent",
+              borderLeft: activeTab === "slideshow" ? `2px solid ${ink}` : "2px solid transparent",
+              color: activeTab === "slideshow" ? ink : `${ink}55`, fontSize: 11,
+              letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 12,
+            }}
+          >Slideshow</button>
+
+          {activeTab === "stories" && (<>
+            {stories.map(s => (
+              <button
+                key={s.slug}
+                onClick={() => setSelected(s.slug)}
+                style={{
+                  display: "block", width: "100%", textAlign: "left",
+                  padding: "10px 24px", border: "none", cursor: "pointer",
+                  background: selected === s.slug ? mid : "transparent",
+                  borderLeft: selected === s.slug ? `2px solid ${ink}` : "2px solid transparent",
+                  color: ink, fontSize: 13,
+                }}
+              >
+                <div style={{ fontWeight: selected === s.slug ? 500 : 400 }}>{s.couple}</div>
+                <div style={{ fontSize: 11, color: `${ink}55`, marginTop: 2 }}>{s.location}</div>
+              </button>
+            ))}
             <button
-              key={s.slug}
-              onClick={() => setSelected(s.slug)}
+              onClick={() => setShowNew(true)}
               style={{
                 display: "block", width: "100%", textAlign: "left",
                 padding: "10px 24px", border: "none", cursor: "pointer",
-                background: selected === s.slug ? mid : "transparent",
-                borderLeft: selected === s.slug ? `2px solid ${ink}` : "2px solid transparent",
-                color: ink, fontSize: 13,
+                background: "transparent", borderLeft: "2px solid transparent",
+                color: `${ink}50`, fontSize: 12, marginTop: 8,
+                letterSpacing: "0.1em", textTransform: "uppercase",
               }}
-            >
-              <div style={{ fontWeight: selected === s.slug ? 500 : 400 }}>{s.couple}</div>
-              <div style={{ fontSize: 11, color: `${ink}55`, marginTop: 2 }}>{s.location}</div>
-            </button>
-          ))}
-          {/* New story button */}
-          <button
-            onClick={() => setShowNew(true)}
-            style={{
-              display: "block", width: "100%", textAlign: "left",
-              padding: "10px 24px", border: "none", cursor: "pointer",
-              background: "transparent", borderLeft: "2px solid transparent",
-              color: `${ink}50`, fontSize: 12, marginTop: 8,
-              letterSpacing: "0.1em", textTransform: "uppercase",
-            }}
-          >+ New story</button>
+            >+ New story</button>
+          </>)}
         </div>
         <div style={{ padding: "16px 24px", borderTop: line }}>
           <button
@@ -493,7 +615,58 @@ export default function Admin() {
 
       {/* ── Main ──────────────────────────────────────────────────────────── */}
       <main style={{ flex: 1, overflowY: "auto", padding: "40px 56px" }}>
-        {!story ? (
+
+        {/* ── Slideshow tab ──────────────────────────────────────────────── */}
+        {activeTab === "slideshow" && (
+          <div>
+            <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 32 }}>
+              <div>
+                <h2 style={{ ...serif, fontSize: 28, fontWeight: 300, margin: "0 0 6px" }}>Home Slideshow</h2>
+                <p style={{ fontSize: 12, color: `${ink}55`, letterSpacing: "0.18em", textTransform: "uppercase", margin: 0 }}>
+                  {slidePhotos.length} / 20 photos · drag to reorder
+                </p>
+              </div>
+              <div>
+                <input
+                  ref={slideFileRef} type="file" accept="image/*" multiple
+                  style={{ display: "none" }}
+                  onChange={e => e.target.files && uploadSlideFiles(e.target.files)}
+                />
+                <button
+                  onClick={() => slideFileRef.current?.click()}
+                  disabled={slideUploading}
+                  style={{ ...sans, fontSize: 12, letterSpacing: "0.14em", textTransform: "uppercase", color: bg, background: ink, border: "none", padding: "10px 24px", cursor: "pointer", opacity: slideUploading ? 0.6 : 1 }}
+                >{slideUploading ? "Uploading…" : "+ Upload photos"}</button>
+              </div>
+            </div>
+
+            {slidePhotos.length === 0 ? (
+              <div
+                onClick={() => slideFileRef.current?.click()}
+                style={{ border: `1px dashed ${ink}30`, borderRadius: 4, padding: "56px 32px", textAlign: "center", cursor: "pointer", color: `${ink}45`, fontSize: 13 }}
+              >
+                Click to upload landscape photos for the home slideshow
+              </div>
+            ) : (
+              <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleSlideDragEnd}>
+                <SortableContext items={slidePhotos.map(p => p.id)} strategy={rectSortingStrategy}>
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(180px, 1fr))", gap: 8 }}>
+                    {slidePhotos.map(p => (
+                      <SortableSlideTile key={p.id} photo={p} onDelete={deleteSlidePhoto} />
+                    ))}
+                    {/* Upload tile */}
+                    <div
+                      onClick={() => slideFileRef.current?.click()}
+                      style={{ border: `1px dashed ${ink}25`, borderRadius: 2, aspectRatio: "3/2", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: `${ink}40`, fontSize: 22 }}
+                    >+</div>
+                  </div>
+                </SortableContext>
+              </DndContext>
+            )}
+          </div>
+        )}
+
+        {activeTab === "stories" && (!story ? (
           <div style={{ paddingTop: 40 }}>
             <p style={{ color: `${ink}40`, fontSize: 14, marginBottom: 24 }}>No story selected.</p>
             <button
@@ -645,7 +818,7 @@ export default function Admin() {
               )}
             </section>
           </>
-        )}
+        ))}
       </main>
     </div>
   );
