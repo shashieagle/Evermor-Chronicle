@@ -641,29 +641,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ── Final Invitation — full-width photo closing ── */}
-        <div className="relative w-full overflow-hidden flex items-center justify-center" style={{ minHeight: "85vh" }}>
-          <img
-            src="/chapter7-new.jpg"
-            alt="A couple walking away at golden hour"
-            className="absolute inset-0 w-full h-full object-cover object-center"
-          />
-
-          <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-[640px] mx-auto" style={{ paddingTop: "clamp(72px, 12vw, 120px)", paddingBottom: "clamp(72px, 12vw, 120px)" }}>
-
-            <p
-              ref={ch7CopyRef}
-              className={`font-serif font-light text-[16px] md:text-[19px] text-[#F5F0E8]/70 leading-[1.75] tracking-[0.01em] mb-14 md:mb-20 transition-all duration-[1200ms] ease-out ${
-                ch7CopyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-              style={{ transitionDelay: ch7CopyInView ? '200ms' : '0ms' }}
-            >
-              Some beginnings last a day. The memories they create can last forever. If our way of seeing the world feels like yours, we'd be honoured to preserve the beginning of your family's story.
-            </p>
-
-
-          </div>
-        </div>
 
       </section>
       {/* Faint admin lock — bottom centre */}
