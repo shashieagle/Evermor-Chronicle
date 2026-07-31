@@ -433,7 +433,6 @@ export default function Home() {
                 <div className="relative overflow-hidden" style={{ aspectRatio: "3/2" }}>
                   <img src="/beginnings-sakshi-rajat.jpg" alt="Sakshi & Rajat" className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" />
                   <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E\")", opacity: 0.12, mixBlendMode: "overlay" as const }} />
-                  <div className="absolute inset-0 bg-gradient-to-b from-black/36 via-transparent to-black/20" />
                   <div className="absolute top-2.5 left-2.5 md:top-3 md:left-3">
                     <p className="font-sans font-semibold text-[11px] md:text-[13px] text-white tracking-[0.04em] uppercase leading-tight drop-shadow-sm">Sakshi<br />&amp; Rajat</p>
                   </div>
