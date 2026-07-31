@@ -630,14 +630,6 @@ export default function Home() {
           <div className="absolute inset-0 bg-[#1A1612]/55" />
 
           <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-[640px] mx-auto" style={{ paddingTop: "clamp(72px, 12vw, 120px)", paddingBottom: "clamp(72px, 12vw, 120px)" }}>
-            <h2
-              ref={ch7HeadlineRef}
-              className={`font-serif font-light text-[36px] md:text-[52px] lg:text-[60px] text-[#F5F0E8] leading-[1.15] tracking-[0.01em] mb-10 md:mb-14 transition-all duration-[1200ms] ease-out ${
-                ch7HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-            >
-              Every family has a beginning.
-            </h2>
 
             <p
               ref={ch7CopyRef}
