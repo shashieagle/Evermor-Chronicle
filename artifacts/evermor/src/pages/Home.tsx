@@ -623,30 +623,6 @@ export default function Home() {
           </p>
         </div>
 
-        {/* ── Final statement — full-width dark bar ── */}
-        <div className="bg-[#3A342C] px-5 md:px-10 lg:px-16 py-16 md:py-24 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
-          <div>
-            <p
-              ref={ch6s5Ref}
-              className={`font-sans uppercase tracking-[0.18em] text-[8px] text-[#F5F0E8]/35 mb-5 transition-all duration-[800ms] ease-out ${
-                ch6s5InView ? 'opacity-100' : 'opacity-0'
-              }`}
-            >
-              We don't simply preserve what happened.
-            </p>
-            <p
-              ref={ch6ClosingRef}
-              className={`font-serif font-light text-[42px] md:text-[68px] lg:text-[84px] text-[#F5F0E8] leading-[1.0] tracking-[-0.01em] transition-all duration-[1100ms] ease-out ${
-                ch6ClosingInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-            >
-              We preserve<br />what it meant.
-            </p>
-          </div>
-          <p className="font-sans font-light text-[11px] md:text-[12px] text-[#F5F0E8]/38 tracking-[0.04em] leading-[1.8] md:text-right max-w-[260px] shrink-0">
-            Every Evermor story begins with<br />understanding what is worth remembering.
-          </p>
-        </div>
 
       </section>
       {/* Chapter 7 — Final Invitation */}
