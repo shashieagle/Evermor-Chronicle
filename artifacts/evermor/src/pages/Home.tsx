@@ -236,31 +236,82 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Video Reel ───────────────────────────────────────────────────── */}
-      {/* Upload your 30-second reel to /public/evermor-reel.mp4 (+ .webm optional) */}
-      <div
+      {/* ── Image Slideshow ─────────────────────────────────────────────── */}
+      {/* Replace SLIDESHOW_IMAGES at the top of this file with your 20 landscape photos */}
+      <section
         ref={ch3imgRef}
-        className={`relative overflow-hidden transition-opacity duration-[1200ms] ease-out ${ch3imgInView ? "opacity-100" : "opacity-0"}`}
-        style={{ background: "#0C0906", height: "70vh" }}
+        className={`relative overflow-hidden bg-[#0C0906] transition-opacity duration-[1200ms] ease-out ${ch3imgInView ? "opacity-100" : "opacity-0"}`}
+        style={{ height: "75vh" }}
+        onTouchStart={e => { touchStartX.current = e.touches[0].clientX; }}
+        onTouchEnd={e => {
+          const delta = touchStartX.current - e.changedTouches[0].clientX;
+          if (Math.abs(delta) > 48) delta > 0 ? goNext() : goPrev();
+        }}
       >
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ filter: "sepia(0.06) contrast(1.06) saturate(0.88) brightness(0.90)" }}
-        >
-          <source src="/evermor-reel.mp4" type="video/mp4" />
-          <source src="/evermor-reel.webm" type="video/webm" />
-        </video>
+        <style>{`@keyframes slideProgress { from { transform: scaleX(0); } to { transform: scaleX(1); } }`}</style>
+
+        {/* Stacked images — crossfade */}
+        {SLIDESHOW_IMAGES.map((src, i) => (
+          <div
+            key={src}
+            className="absolute inset-0 transition-opacity duration-[1400ms] ease-in-out"
+            style={{ opacity: i === slideIndex ? 1 : 0, zIndex: i === slideIndex ? 2 : 1 }}
+          >
+            <img
+              src={src}
+              alt={`Gallery ${i + 1}`}
+              className="w-full h-full object-cover object-center"
+              loading="lazy"
+              style={{ filter: "sepia(0.05) contrast(1.04) saturate(0.92) brightness(0.94)" }}
+            />
+          </div>
+        ))}
+
         {/* Grain */}
-        <div className="absolute inset-0 pointer-events-none z-10" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E\")", opacity: 0.15, mixBlendMode: "overlay" as const }} />
-        {/* Edge gradients */}
-        <div className="absolute inset-0 pointer-events-none z-10" style={{ background: "linear-gradient(to right, rgba(12,9,6,0.5) 0%, transparent 14%, transparent 86%, rgba(12,9,6,0.5) 100%)" }} />
-        <div className="absolute inset-x-0 top-0 h-28 pointer-events-none z-10" style={{ background: "linear-gradient(to bottom, rgba(12,9,6,0.75), transparent)" }} />
-        <div className="absolute inset-x-0 bottom-0 h-32 pointer-events-none z-10" style={{ background: "linear-gradient(to top, rgba(12,9,6,0.65), transparent)" }} />
-      </div>
+        <div className="absolute inset-0 pointer-events-none z-10" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E\")", opacity: 0.12, mixBlendMode: "overlay" as const }} />
+
+        {/* Top + bottom fade */}
+        <div className="absolute inset-x-0 top-0 h-20 pointer-events-none z-10" style={{ background: "linear-gradient(to bottom, rgba(12,9,6,0.6), transparent)" }} />
+        <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none z-10" style={{ background: "linear-gradient(to top, rgba(12,9,6,0.55), transparent)" }} />
+
+        {/* Prev / Next arrows */}
+        <button
+          onClick={goPrev}
+          aria-label="Previous"
+          className="absolute left-5 md:left-8 top-1/2 -translate-y-1/2 z-20 w-9 h-9 flex items-center justify-center opacity-0 hover:opacity-100 focus:opacity-100 transition-opacity duration-300 group"
+          style={{ border: "1px solid rgba(245,240,232,0.25)", borderRadius: "50%" }}
+        >
+          <span className="text-[#F5F0E8]/70 group-hover:text-[#F5F0E8] text-[14px] transition-colors duration-200">←</span>
+        </button>
+        <button
+          onClick={goNext}
+          aria-label="Next"
+          className="absolute right-5 md:right-8 top-1/2 -translate-y-1/2 z-20 w-9 h-9 flex items-center justify-center opacity-0 hover:opacity-100 focus:opacity-100 transition-opacity duration-300 group"
+          style={{ border: "1px solid rgba(245,240,232,0.25)", borderRadius: "50%" }}
+        >
+          <span className="text-[#F5F0E8]/70 group-hover:text-[#F5F0E8] text-[14px] transition-colors duration-200">→</span>
+        </button>
+
+        {/* Counter */}
+        <div className="absolute bottom-7 right-7 md:right-10 z-20">
+          <p className="font-sans text-[10px] tracking-[0.18em] text-[#F5F0E8]/35">
+            {String(slideIndex + 1).padStart(2, "0")} / {String(SLIDESHOW_IMAGES.length).padStart(2, "0")}
+          </p>
+        </div>
+
+        {/* Progress bar */}
+        <div className="absolute bottom-0 inset-x-0 z-20 h-[2px] bg-[#F5F0E8]/8">
+          <div
+            key={progressKey}
+            style={{
+              height: "100%",
+              background: "rgba(245,240,232,0.45)",
+              transformOrigin: "left center",
+              animation: `slideProgress ${SLIDE_DURATION}ms linear forwards`,
+            }}
+          />
+        </div>
+      </section>
 
       {/* ── Chapter 5 — Beginnings ───────────────────────────────────────── */}
       <section
@@ -418,82 +469,6 @@ export default function Home() {
             <span>View All Beginnings</span>
             <span>→</span>
           </Link>
-        </div>
-      </section>
-
-      {/* ── Image Slideshow ─────────────────────────────────────────────── */}
-      {/* Replace SLIDESHOW_IMAGES at the top of this file with your 20 landscape photos */}
-      <section
-        className="relative overflow-hidden bg-[#0C0906]"
-        style={{ height: "75vh" }}
-        onTouchStart={e => { touchStartX.current = e.touches[0].clientX; }}
-        onTouchEnd={e => {
-          const delta = touchStartX.current - e.changedTouches[0].clientX;
-          if (Math.abs(delta) > 48) delta > 0 ? goNext() : goPrev();
-        }}
-      >
-        <style>{`@keyframes slideProgress { from { transform: scaleX(0); } to { transform: scaleX(1); } }`}</style>
-
-        {/* Stacked images — crossfade */}
-        {SLIDESHOW_IMAGES.map((src, i) => (
-          <div
-            key={src}
-            className="absolute inset-0 transition-opacity duration-[1400ms] ease-in-out"
-            style={{ opacity: i === slideIndex ? 1 : 0, zIndex: i === slideIndex ? 2 : 1 }}
-          >
-            <img
-              src={src}
-              alt={`Gallery ${i + 1}`}
-              className="w-full h-full object-cover object-center"
-              loading="lazy"
-              style={{ filter: "sepia(0.05) contrast(1.04) saturate(0.92) brightness(0.94)" }}
-            />
-          </div>
-        ))}
-
-        {/* Grain */}
-        <div className="absolute inset-0 pointer-events-none z-10" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E\")", opacity: 0.12, mixBlendMode: "overlay" as const }} />
-
-        {/* Top + bottom fade */}
-        <div className="absolute inset-x-0 top-0 h-20 pointer-events-none z-10" style={{ background: "linear-gradient(to bottom, rgba(12,9,6,0.6), transparent)" }} />
-        <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none z-10" style={{ background: "linear-gradient(to top, rgba(12,9,6,0.55), transparent)" }} />
-
-        {/* Prev / Next arrows */}
-        <button
-          onClick={goPrev}
-          aria-label="Previous"
-          className="absolute left-5 md:left-8 top-1/2 -translate-y-1/2 z-20 w-9 h-9 flex items-center justify-center opacity-0 hover:opacity-100 focus:opacity-100 transition-opacity duration-300 group"
-          style={{ border: "1px solid rgba(245,240,232,0.25)", borderRadius: "50%" }}
-        >
-          <span className="text-[#F5F0E8]/70 group-hover:text-[#F5F0E8] text-[14px] transition-colors duration-200">←</span>
-        </button>
-        <button
-          onClick={goNext}
-          aria-label="Next"
-          className="absolute right-5 md:right-8 top-1/2 -translate-y-1/2 z-20 w-9 h-9 flex items-center justify-center opacity-0 hover:opacity-100 focus:opacity-100 transition-opacity duration-300 group"
-          style={{ border: "1px solid rgba(245,240,232,0.25)", borderRadius: "50%" }}
-        >
-          <span className="text-[#F5F0E8]/70 group-hover:text-[#F5F0E8] text-[14px] transition-colors duration-200">→</span>
-        </button>
-
-        {/* Counter */}
-        <div className="absolute bottom-7 right-7 md:right-10 z-20">
-          <p className="font-sans text-[10px] tracking-[0.18em] text-[#F5F0E8]/35">
-            {String(slideIndex + 1).padStart(2, "0")} / {String(SLIDESHOW_IMAGES.length).padStart(2, "0")}
-          </p>
-        </div>
-
-        {/* Progress bar */}
-        <div className="absolute bottom-0 inset-x-0 z-20 h-[2px] bg-[#F5F0E8]/8">
-          <div
-            key={progressKey}
-            style={{
-              height: "100%",
-              background: "rgba(245,240,232,0.45)",
-              transformOrigin: "left center",
-              animation: `slideProgress ${SLIDE_DURATION}ms linear forwards`,
-            }}
-          />
         </div>
       </section>
 
