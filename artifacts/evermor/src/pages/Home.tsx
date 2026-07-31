@@ -609,7 +609,7 @@ export default function Home() {
         </div>
 
         {/* ── Closing prose ── */}
-        <div className="px-5 md:px-10 lg:px-16 py-14 md:py-20 flex justify-center">
+        <div className="px-5 md:px-10 lg:px-16 py-14 md:py-20 flex flex-col items-center gap-8">
           <p
             ref={ch7CopyRef}
             className={`font-serif font-light text-[18px] md:text-[24px] lg:text-[28px] text-[#3A342C]/65 leading-[1.75] tracking-[0.005em] text-center max-w-[640px] transition-all duration-[1000ms] ease-out ${
@@ -617,6 +617,14 @@ export default function Home() {
             }`}
           >
             Some beginnings last a day. The memories they create can last forever. If our way of seeing the world feels like yours, we'd be honoured to preserve the beginning of your family's story.
+          </p>
+          <p
+            ref={ch7NoteRef}
+            className={`font-sans font-light text-[10px] md:text-[11px] text-[#3A342C]/40 tracking-[0.12em] leading-[1.8] text-center transition-all duration-[1000ms] ease-out ${
+              ch7NoteInView ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            Accepting a limited number of weddings each year so every story receives the care it deserves.
           </p>
         </div>
 
@@ -656,15 +664,6 @@ export default function Home() {
               </Link>
             </div>
 
-            <p
-              ref={ch7NoteRef}
-              className={`mt-10 font-sans font-light text-[10px] md:text-[11px] text-[#F5F0E8]/38 tracking-[0.12em] leading-[1.8] transition-all duration-[1200ms] ease-out ${
-                ch7NoteInView ? "opacity-100" : "opacity-0"
-              }`}
-              style={{ transitionDelay: ch7NoteInView ? '650ms' : '0ms' }}
-            >
-              Accepting a limited number of weddings each year so every story receives the care it deserves.
-            </p>
           </div>
         </div>
 
