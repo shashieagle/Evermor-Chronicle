@@ -429,7 +429,7 @@ export default function Home() {
           <Link
             href="/beginnings"
             ref={ctaRef}
-            className={`inline-flex items-center gap-3 font-sans font-light text-[#3A342C]/45 tracking-[0.16em] uppercase hover:text-[#3A342C]/75 transition-all duration-500 ease-out ${ctaInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+            className={`inline-flex items-center gap-3 font-sans text-[#3A342C] tracking-[0.16em] uppercase border border-[#3A342C]/30 px-7 py-3 hover:bg-[#3A342C] hover:text-[#F5F0E8] hover:border-[#3A342C] transition-all duration-500 ease-out ${ctaInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
             style={{ fontSize: "clamp(10px, 0.95vw, 12px)", transitionDelay: ctaInView ? "120ms" : "0ms" }}
           >
             <span>View All Beginnings</span>
