@@ -420,36 +420,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Second card */}
-        <div style={{ paddingLeft: "clamp(24px, 8vw, 120px)", paddingRight: "clamp(24px, 8vw, 120px)", marginBottom: "clamp(48px, 7vw, 88px)" }}>
-          <div className="flex justify-center">
-            <Link
-              href="/beginnings"
-              ref={s4ImgRef}
-              className={`block group cursor-pointer bg-[#EFE4D0] shadow-[0_6px_28px_rgba(58,52,44,0.12)] hover:shadow-[0_10px_40px_rgba(58,52,44,0.2)] transition-all duration-[900ms] ease-out md:rotate-[0.4deg] hover:rotate-0 ${s4ImgInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-              style={{ width: "min(480px, 100%)" }}
-            >
-              <div className="p-[8px] md:p-[10px]">
-                <div className="relative overflow-hidden" style={{ aspectRatio: "3/2" }}>
-                  <img src="/beginnings-sakshi-rajat.jpg" alt="Sakshi & Rajat" className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.03]" loading="lazy" />
-                  <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E\")", opacity: 0.12, mixBlendMode: "overlay" as const }} />
-                  <div className="absolute top-2.5 left-2.5 md:top-3 md:left-3">
-                    <p className="font-sans font-semibold text-[11px] md:text-[13px] text-white tracking-[0.04em] uppercase leading-tight drop-shadow-sm">Sakshi<br />&amp; Rajat</p>
-                  </div>
-                  <div className="absolute top-2.5 right-2.5 md:top-3 md:right-3 flex items-center gap-1">
-                    <span className="font-sans text-[6px] text-white/65 uppercase tracking-[0.1em]">Mumbai</span>
-                    <div className="w-3 h-px bg-white/40" />
-                    <span className="font-sans text-[6px] text-white/65 uppercase tracking-[0.1em]">India</span>
-                  </div>
-                  <div className="absolute bottom-2 right-2.5 md:bottom-3 md:right-3">
-                    <p className="font-serif italic text-[8px] text-white/50">Evermor Tales</p>
-                  </div>
-                </div>
-              </div>
-            </Link>
-          </div>
-        </div>
-
         {/* Closing CTA */}
         <div className="text-center px-6">
           <p
