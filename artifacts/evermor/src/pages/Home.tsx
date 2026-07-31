@@ -648,7 +648,6 @@ export default function Home() {
             alt="A couple walking away at golden hour"
             className="absolute inset-0 w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-[#1A1612]/55" />
 
           <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-[640px] mx-auto" style={{ paddingTop: "clamp(72px, 12vw, 120px)", paddingBottom: "clamp(72px, 12vw, 120px)" }}>
 
