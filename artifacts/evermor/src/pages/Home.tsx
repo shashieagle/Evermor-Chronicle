@@ -503,144 +503,99 @@ export default function Home() {
       {/* Chapter 6 — Memory */}
       <section className="bg-[#EFEFED] overflow-hidden">
 
-        {/* ── Top label rule ── */}
-        <div className="border-b border-[#3A342C]/12 px-5 md:px-10 py-3 flex items-center justify-between">
-          <span className="font-sans uppercase tracking-[0.22em] text-[8px] md:text-[9px] text-[#3A342C]/35">Chapter VI</span>
-          <span className="font-sans uppercase tracking-[0.22em] text-[8px] md:text-[9px] text-[#3A342C]/35">Memory</span>
-        </div>
-
-        {/* ── Opening line — large ── */}
-        <div className="px-5 md:px-10 lg:px-16 pt-14 md:pt-20 pb-10 md:pb-14">
+        {/* ── Headline ── */}
+        <div
+          className="flex flex-col items-center text-center"
+          style={{ paddingTop: "clamp(72px, 12vw, 140px)", paddingBottom: "clamp(48px, 8vw, 96px)", paddingLeft: "clamp(24px, 8vw, 100px)", paddingRight: "clamp(24px, 8vw, 100px)" }}
+        >
           <p
             ref={ch6s1Ref}
-            className={`font-serif font-light text-[36px] md:text-[58px] lg:text-[72px] text-[#3A342C] leading-[1.05] tracking-[-0.005em] max-w-[700px] transition-all duration-[1000ms] ease-out ${
-              ch6s1InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            className={`font-sans uppercase tracking-[0.28em] text-[#8C6D4F] mb-8 transition-all duration-[700ms] ease-out ${
+              ch6s1InView ? 'opacity-100' : 'opacity-0'
             }`}
+            style={{ fontSize: "clamp(8px, 0.8vw, 10px)" }}
           >
-            Every family<br />remembers<br />differently.
+            Memory
           </p>
-        </div>
-
-        {/* ── Collage centrepiece + scattered notes ── */}
-        <div className="relative px-5 md:px-10 lg:px-16 pb-14 md:pb-20">
-
-          {/* Desktop: image in center, notes scattered around */}
-          <div className="hidden md:grid grid-cols-[1fr_auto_1fr] gap-x-8 lg:gap-x-12 items-center">
-
-            {/* Left column — voices + photographs + moments */}
-            <div
-              ref={ch6s2Ref}
-              className={`flex flex-col gap-8 transition-all duration-[900ms] ease-out ${
-                ch6s2InView ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
-              }`}
-            >
-              <div>
-                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">voices.</p>
-              </div>
-              <div>
-                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">photographs.</p>
-              </div>
-              <div>
-                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">moments.</p>
-              </div>
-            </div>
-
-            {/* Centre — the collage */}
-            <div
-              ref={ch6s3Ref}
-              className={`relative transition-all duration-[1100ms] ease-out ${
-                ch6s3InView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-              }`}
-            >
-              <div
-                className="shadow-[0_12px_60px_rgba(58,52,44,0.22)]"
-                style={{ transform: "rotate(-1.5deg)", width: "min(420px, 38vw)" }}
-              >
-                <img
-                  src="/memory-collage.jpg"
-                  alt="A collage of memory objects — a gramophone, vintage camera, wedding rings, an open book, an oval frame, postcards"
-                  className="w-full h-auto block"
-                  loading="lazy"
-                />
-              </div>
-              {/* Small pin dot at top */}
-              <div
-                className="absolute top-[-8px] left-1/2 w-3 h-3 rounded-full bg-[#8C6D4F]/50 shadow-sm"
-                style={{ transform: "translateX(-50%) rotate(-1.5deg)" }}
-              />
-            </div>
-
-            {/* Right column — places + silence */}
-            <div
-              className={`flex flex-col gap-8 items-end text-right justify-center transition-all duration-[900ms] ease-out ${
-                ch6s2InView ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-6'
-              }`}
-            >
-              <div>
-                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">places.</p>
-              </div>
-              <div>
-                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">silence.</p>
-              </div>
-              <div>
-                <p className="font-serif font-light text-[20px] lg:text-[26px] text-[#3A342C] leading-[1.2] tracking-[0.005em]">story.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Mobile: stacked */}
-          <div className="md:hidden flex flex-col items-center gap-10">
-            <div
-              className="shadow-[0_8px_40px_rgba(58,52,44,0.2)]"
-              style={{ transform: "rotate(-1deg)", width: "min(340px, 85vw)" }}
-            >
-              <img src="/memory-collage.jpg" alt="Memory objects" className="w-full h-auto block" loading="lazy" />
-            </div>
-            <div
-              className="grid grid-cols-2 gap-x-8 gap-y-7 text-center"
-            >
-              {["voices.", "photographs.", "moments.", "places.", "silence.", "story."].map((text, i) => (
-                <div key={i}>
-                  <p className="font-serif font-light text-[17px] text-[#3A342C] leading-[1.3]">{text}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* ── Closing prose ── */}
-        <div className="px-5 md:px-10 lg:px-16 py-14 md:py-20 flex flex-col items-center gap-8">
-          <p
-            ref={ch7CopyRef}
-            className={`font-serif font-light text-[18px] md:text-[24px] lg:text-[28px] text-[#3A342C]/65 leading-[1.75] tracking-[0.005em] text-center max-w-[640px] transition-all duration-[1000ms] ease-out ${
-              ch7CopyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+          <h2
+            ref={ch6s2Ref}
+            className={`font-serif font-light text-[#3A342C] leading-[1.1] tracking-[-0.005em] transition-all duration-[1000ms] ease-out ${
+              ch6s2InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
+            style={{ fontSize: "clamp(36px, 5.5vw, 80px)" }}
+          >
+            Every family<br />remembers differently.
+          </h2>
+        </div>
+
+        {/* ── Collage image — full-width art print ── */}
+        <div
+          ref={ch6s3Ref}
+          className={`flex justify-center transition-all duration-[1200ms] ease-out ${
+            ch6s3InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+          style={{ paddingLeft: "clamp(24px, 6vw, 80px)", paddingRight: "clamp(24px, 6vw, 80px)" }}
+        >
+          <div
+            className="relative w-full overflow-hidden"
+            style={{ maxWidth: "900px", aspectRatio: "16/9", boxShadow: "0 20px 80px rgba(58,52,44,0.18)" }}
+          >
+            <img
+              src="/memory-collage.jpg"
+              alt="A collage of memory objects"
+              className="w-full h-full object-cover object-center"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        {/* ── Prose + CTA ── */}
+        <div
+          className="flex flex-col items-center text-center"
+          style={{ paddingTop: "clamp(56px, 9vw, 112px)", paddingBottom: "clamp(72px, 12vw, 140px)", paddingLeft: "clamp(24px, 8vw, 100px)", paddingRight: "clamp(24px, 8vw, 100px)" }}
+        >
+          {/* Thin rule */}
+          <div
+            ref={ch7CopyRef}
+            className={`w-[40px] h-px bg-[#3A342C]/20 mb-10 transition-all duration-[800ms] ease-out ${
+              ch7CopyInView ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+
+          <p
+            className={`font-serif font-light text-[#3A342C]/70 leading-[1.8] max-w-[580px] transition-all duration-[1000ms] ease-out ${
+              ch7CopyInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
+            }`}
+            style={{ fontSize: "clamp(17px, 1.5vw, 22px)" }}
           >
             Some beginnings last a day. The memories they create can last forever. If our way of seeing the world feels like yours, we'd be honoured to preserve the beginning of your family's story.
           </p>
+
           <p
             ref={ch7NoteRef}
-            className={`font-sans font-light text-[10px] md:text-[11px] text-[#3A342C]/40 tracking-[0.12em] leading-[1.8] text-center transition-all duration-[1000ms] ease-out ${
-              ch7NoteInView ? "opacity-100" : "opacity-0"
+            className={`font-sans font-light text-[#3A342C]/35 tracking-[0.1em] mt-8 transition-all duration-[800ms] ease-out ${
+              ch7NoteInView ? 'opacity-100' : 'opacity-0'
             }`}
+            style={{ fontSize: "clamp(9px, 0.85vw, 11px)" }}
           >
             Accepting a limited number of weddings each year so every story receives the care it deserves.
           </p>
+
           <div
             ref={ch7BtnRef}
-            className={`transition-all duration-[1000ms] ease-out ${
-              ch7BtnInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            className={`mt-12 transition-all duration-[1000ms] ease-out ${
+              ch7BtnInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >
             <Link
               href="/begin-your-story"
-              className="font-sans font-light text-[12px] md:text-[13px] text-[#3A342C]/70 tracking-[0.2em] uppercase border border-[#3A342C]/30 px-12 py-4 hover:border-[#3A342C]/70 hover:text-[#3A342C] transition-all duration-500 ease-out inline-block"
+              className="font-sans font-light tracking-[0.22em] uppercase text-[#3A342C]/65 border border-[#3A342C]/25 px-14 py-4 hover:border-[#3A342C]/60 hover:text-[#3A342C] transition-all duration-500 ease-out inline-block"
+              style={{ fontSize: "clamp(10px, 0.95vw, 12px)" }}
             >
               Begin Your Story
             </Link>
           </div>
         </div>
-
 
       </section>
       {/* Faint admin lock — bottom centre */}
