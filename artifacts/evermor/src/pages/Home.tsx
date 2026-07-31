@@ -608,20 +608,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* ── Divider ── */}
-        <div className="mx-5 md:mx-10 lg:mx-16 border-t border-[#3A342C]/12" />
-
-        {/* ── "But every family deserves..." ── */}
-        <div className="px-5 md:px-10 lg:px-16 py-12 md:py-16 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <p
-            ref={ch6s4Ref}
-            className={`font-serif font-light text-[24px] md:text-[38px] lg:text-[48px] text-[#3A342C] leading-[1.15] tracking-[0.005em] max-w-[560px] transition-all duration-[1000ms] ease-out ${
-              ch6s4InView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
-            }`}
-          >
-            But every family deserves something<br className="hidden md:block" /> that brings them back.
-          </p>
-        </div>
 
 
       </section>
