@@ -357,9 +357,6 @@ export default function Home() {
                   <img src="/beginnings-shaun-sowmya.jpg" alt="Shaun & Sowmya" className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]" loading="lazy" />
                   <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E\")", opacity: 0.12, mixBlendMode: "overlay" as const }} />
                   <div className="absolute inset-0 bg-gradient-to-b from-black/38 via-transparent to-black/22" />
-                  <div className="absolute top-3 md:top-4 left-3 md:left-4">
-                    <p className="font-sans font-semibold text-[13px] md:text-[17px] text-white tracking-[0.04em] uppercase leading-tight drop-shadow-sm">Shaun &<br />Sowmya</p>
-                  </div>
                   <div className="absolute top-3 md:top-4 right-3 md:right-4 flex items-center gap-1.5">
                     <span className="font-sans text-[7px] text-white/70 uppercase tracking-[0.12em]">Chennai</span>
                     <div className="w-3.5 h-px bg-white/45" />
