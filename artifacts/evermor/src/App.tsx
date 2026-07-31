@@ -11,6 +11,8 @@ import About from './pages/About';
 import Approach from './pages/Approach';
 import BeginYourStory from './pages/BeginYourStory';
 import Admin from './pages/Admin';
+import Footer from './components/Footer';
+import WhatsAppButton from './components/WhatsAppButton';
 
 const queryClient = new QueryClient();
 
@@ -23,6 +25,8 @@ function ScrollToTop() {
 }
 
 function Router() {
+  const [location] = useLocation();
+  const isAdmin = location.startsWith("/admin");
   return (
     <>
       <ScrollToTop />
@@ -38,6 +42,8 @@ function Router() {
         <Route path="/begin-your-story" component={BeginYourStory} />
         <Route path="/admin" component={Admin} />
       </Switch>
+      {!isAdmin && <Footer />}
+      {!isAdmin && <WhatsAppButton />}
     </>
   );
 }
