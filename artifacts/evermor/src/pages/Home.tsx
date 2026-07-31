@@ -455,8 +455,8 @@ export default function Home() {
           >
             <Link
               href="/begin-your-story"
-              className="font-sans font-light tracking-[0.22em] uppercase text-[#3A342C]/55 border border-[#3A342C]/20 hover:border-[#3A342C]/55 hover:text-[#3A342C] transition-all duration-500 ease-out inline-block"
-              style={{ fontSize: "clamp(10px, 0.95vw, 12px)", padding: "14px 52px" }}
+              className="font-sans font-light tracking-[0.22em] uppercase text-[#F5F0E8] bg-[#3A342C] hover:bg-[#2A2520] transition-all duration-500 ease-out inline-block"
+              style={{ fontSize: "clamp(10px, 0.95vw, 12px)", padding: "15px 52px" }}
             >
               Begin Your Story
             </Link>
