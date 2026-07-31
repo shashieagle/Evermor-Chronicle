@@ -608,67 +608,62 @@ export default function Home() {
           </div>
         </div>
 
+        {/* ── Final Invitation — full-width photo closing ── */}
+        <div className="relative w-full overflow-hidden flex items-center justify-center" style={{ minHeight: "85vh" }}>
+          <img
+            src="/chapter7-new.jpg"
+            alt="A couple walking away at golden hour"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-[#1A1612]/55" />
 
+          <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-[640px] mx-auto" style={{ paddingTop: "clamp(72px, 12vw, 120px)", paddingBottom: "clamp(72px, 12vw, 120px)" }}>
+            <h2
+              ref={ch7HeadlineRef}
+              className={`font-serif font-light text-[36px] md:text-[52px] lg:text-[60px] text-[#F5F0E8] leading-[1.15] tracking-[0.01em] mb-10 md:mb-14 transition-all duration-[1200ms] ease-out ${
+                ch7HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+            >
+              Every family has a beginning.
+            </h2>
 
-      </section>
-      {/* Chapter 7 — Final Invitation */}
-      <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
+            <p
+              ref={ch7CopyRef}
+              className={`font-serif font-light text-[16px] md:text-[19px] text-[#F5F0E8]/70 leading-[1.75] tracking-[0.01em] mb-14 md:mb-20 transition-all duration-[1200ms] ease-out ${
+                ch7CopyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+              style={{ transitionDelay: ch7CopyInView ? '200ms' : '0ms' }}
+            >
+              Some beginnings last a day. The memories they create can last forever. If our way of seeing the world feels like yours, we'd be honoured to preserve the beginning of your family's story.
+            </p>
 
-        {/* Full-screen photograph */}
-        <img
-          src="/chapter7-new.jpg"
-          alt="A couple walking away at golden hour"
-          className="absolute inset-0 w-full h-full object-cover object-center"
-        />
+            <div
+              ref={ch7BtnRef}
+              className={`transition-all duration-[1200ms] ease-out ${
+                ch7BtnInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              }`}
+              style={{ transitionDelay: ch7BtnInView ? '400ms' : '0ms' }}
+            >
+              <Link
+                href="/begin-your-story"
+                className="font-sans font-light text-[12px] md:text-[13px] text-[#F5F0E8]/80 tracking-[0.2em] uppercase border border-[#F5F0E8]/35 px-12 py-4 hover:border-[#F5F0E8]/80 hover:text-[#F5F0E8] transition-all duration-500 ease-out inline-block"
+              >
+                Begin Your Story
+              </Link>
+            </div>
 
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-[#1A1612]/55" />
-
-        {/* Content */}
-        <div className="relative z-10 flex flex-col items-center text-center px-6 max-w-[640px] mx-auto">
-
-          <h2
-            ref={ch7HeadlineRef}
-            className={`font-serif font-light text-[36px] md:text-[52px] lg:text-[60px] text-[#F5F0E8] leading-[1.15] tracking-[0.01em] mb-10 md:mb-14 transition-all duration-[1200ms] ease-out ${
-              ch7HeadlineInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-          >
-            Every family has a beginning.
-          </h2>
-
-          <p
-            ref={ch7CopyRef}
-            className={`font-serif font-light text-[16px] md:text-[19px] text-[#F5F0E8]/70 leading-[1.75] tracking-[0.01em] mb-14 md:mb-20 transition-all duration-[1200ms] ease-out ${
-              ch7CopyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-            style={{ transitionDelay: ch7CopyInView ? '200ms' : '0ms' }}
-          >
-            Some beginnings last a day. The memories they create can last forever. If our way of seeing the world feels like yours, we'd be honoured to preserve the beginning of your family's story.
-          </p>
-
-          <div
-            ref={ch7BtnRef}
-            className={`transition-all duration-[1200ms] ease-out ${
-              ch7BtnInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
-            style={{ transitionDelay: ch7BtnInView ? '400ms' : '0ms' }}
-          >
-            <button className="font-sans font-light text-[12px] md:text-[13px] text-[#F5F0E8]/80 tracking-[0.2em] uppercase border border-[#F5F0E8]/35 px-12 py-4 hover:border-[#F5F0E8]/80 hover:text-[#F5F0E8] transition-all duration-500 ease-out">
-              Begin Your Story
-            </button>
+            <p
+              ref={ch7NoteRef}
+              className={`mt-10 font-sans font-light text-[10px] md:text-[11px] text-[#F5F0E8]/38 tracking-[0.12em] leading-[1.8] transition-all duration-[1200ms] ease-out ${
+                ch7NoteInView ? "opacity-100" : "opacity-0"
+              }`}
+              style={{ transitionDelay: ch7NoteInView ? '650ms' : '0ms' }}
+            >
+              Accepting a limited number of weddings each year so every story receives the care it deserves.
+            </p>
           </div>
-
-          <p
-            ref={ch7NoteRef}
-            className={`mt-10 font-sans font-light text-[10px] md:text-[11px] text-[#F5F0E8]/38 tracking-[0.12em] leading-[1.8] transition-all duration-[1200ms] ease-out ${
-              ch7NoteInView ? "opacity-100" : "opacity-0"
-            }`}
-            style={{ transitionDelay: ch7NoteInView ? '650ms' : '0ms' }}
-          >
-            Accepting a limited number of weddings each year so every story receives the care it deserves.
-          </p>
-
         </div>
+
       </section>
       {/* Faint admin lock — bottom centre */}
       <div className="flex justify-center py-8" style={{ background: "#0c0906" }}>
