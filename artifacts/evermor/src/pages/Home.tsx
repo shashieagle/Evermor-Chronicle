@@ -134,7 +134,7 @@ export default function Home() {
             Preserving the beginning<br />of your family.
           </h1>
           <Link
-            href="/beginnings"
+            href="/begin-your-story"
             className="mt-7 md:mt-9 inline-flex items-center gap-3 font-sans font-light text-[#F5F0E8]/60 hover:text-[#F5F0E8] tracking-[0.14em] uppercase transition-all duration-500"
             style={{
               fontSize: "clamp(10px, 0.95vw, 12px)",
