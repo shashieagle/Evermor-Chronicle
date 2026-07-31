@@ -240,7 +240,7 @@ export default function Home() {
       {slideshowImages.length > 0 && (
       <section
         className="relative overflow-hidden bg-[#0C0906]"
-        style={{ height: "75vh" }}
+        style={{ height: "90vh" }}
         onTouchStart={e => { touchStartX.current = e.touches[0].clientX; }}
         onTouchEnd={e => {
           const delta = touchStartX.current - e.changedTouches[0].clientX;
