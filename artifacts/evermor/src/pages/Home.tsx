@@ -626,6 +626,19 @@ export default function Home() {
           >
             Accepting a limited number of weddings each year so every story receives the care it deserves.
           </p>
+          <div
+            ref={ch7BtnRef}
+            className={`transition-all duration-[1000ms] ease-out ${
+              ch7BtnInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+            }`}
+          >
+            <Link
+              href="/begin-your-story"
+              className="font-sans font-light text-[12px] md:text-[13px] text-[#3A342C]/70 tracking-[0.2em] uppercase border border-[#3A342C]/30 px-12 py-4 hover:border-[#3A342C]/70 hover:text-[#3A342C] transition-all duration-500 ease-out inline-block"
+            >
+              Begin Your Story
+            </Link>
+          </div>
         </div>
 
         {/* ── Final Invitation — full-width photo closing ── */}
@@ -649,20 +662,6 @@ export default function Home() {
               Some beginnings last a day. The memories they create can last forever. If our way of seeing the world feels like yours, we'd be honoured to preserve the beginning of your family's story.
             </p>
 
-            <div
-              ref={ch7BtnRef}
-              className={`transition-all duration-[1200ms] ease-out ${
-                ch7BtnInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              }`}
-              style={{ transitionDelay: ch7BtnInView ? '400ms' : '0ms' }}
-            >
-              <Link
-                href="/begin-your-story"
-                className="font-sans font-light text-[12px] md:text-[13px] text-[#F5F0E8]/80 tracking-[0.2em] uppercase border border-[#F5F0E8]/35 px-12 py-4 hover:border-[#F5F0E8]/80 hover:text-[#F5F0E8] transition-all duration-500 ease-out inline-block"
-              >
-                Begin Your Story
-              </Link>
-            </div>
 
           </div>
         </div>
