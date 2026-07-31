@@ -109,10 +109,10 @@ export default function Journal() {
         position="fixed"
         links={[
           { href: "/", label: "Home" },
-          { href: "/beginnings", label: "Beginnings" },
-          { href: "/journal", label: "Journal", active: true },
           { href: "/about", label: "About" },
+          { href: "/beginnings", label: "Beginnings" },
           { href: "/approach", label: "Approach" },
+          { href: "/journal", label: "Journal", active: true },
           { href: "/begin-your-story", label: "Begin Your Story" },
         ]}
       />

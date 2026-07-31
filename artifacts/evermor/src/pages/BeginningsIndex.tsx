@@ -57,10 +57,10 @@ export default function BeginningsIndex() {
         position="fixed"
         links={[
           { href: "/", label: "Home" },
-          { href: "/beginnings", label: "Beginnings", active: true },
-          { href: "/journal", label: "Journal" },
           { href: "/about", label: "About" },
+          { href: "/beginnings", label: "Beginnings", active: true },
           { href: "/approach", label: "Approach" },
+          { href: "/journal", label: "Journal" },
           { href: "/begin-your-story", label: "Begin Your Story" },
         ]}
       />

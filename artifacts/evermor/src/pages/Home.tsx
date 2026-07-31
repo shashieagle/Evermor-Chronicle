@@ -70,10 +70,10 @@ export default function Home() {
           position="absolute"
           brandName="Evermor Tales"
           links={[
-            { href: "/beginnings", label: "Beginnings" },
-            { href: "/journal", label: "Journal" },
             { href: "/about", label: "About" },
+            { href: "/beginnings", label: "Beginnings" },
             { href: "/approach", label: "Approach" },
+            { href: "/journal", label: "Journal" },
             { href: "/begin-your-story", label: "Begin Your Story" },
           ]}
         />

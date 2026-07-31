@@ -76,10 +76,10 @@ export default function About() {
         position="fixed"
         links={[
           { href: "/", label: "Home" },
-          { href: "/beginnings", label: "Beginnings" },
-          { href: "/journal", label: "Journal" },
           { href: "/about", label: "About", active: true },
+          { href: "/beginnings", label: "Beginnings" },
           { href: "/approach", label: "Approach" },
+          { href: "/journal", label: "Journal" },
           { href: "/begin-your-story", label: "Begin Your Story" },
         ]}
       />
