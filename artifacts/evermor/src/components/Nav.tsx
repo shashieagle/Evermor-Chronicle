@@ -36,10 +36,20 @@ export default function Nav({
         {/* Logo */}
         <Link
           href="/"
-          className="font-serif text-2xl tracking-[0.02em] font-light hover:opacity-70 transition-opacity duration-300"
-          style={{ color: fg }}
+          className="flex items-center gap-2.5 hover:opacity-70 transition-opacity duration-300"
         >
-          {brandName}
+          <img
+            src="/logo-icon.png"
+            alt="Evermor Tales"
+            className="h-9 w-auto"
+            style={{ filter: theme === "dark" ? "brightness(0) invert(1) sepia(1) saturate(2) hue-rotate(5deg)" : "none" }}
+          />
+          <span
+            className="font-serif text-xl tracking-[0.02em] font-light"
+            style={{ color: fg }}
+          >
+            {brandName}
+          </span>
         </Link>
 
         {/* Desktop links — hidden on mobile */}
@@ -75,9 +85,10 @@ export default function Nav({
       >
         {/* Top row */}
         <div className="flex justify-between items-start mb-auto">
-          <span className="font-serif text-2xl tracking-[0.02em] font-light text-[#F5F0E8]/90">
-            {brandName}
-          </span>
+          <div className="flex items-center gap-2.5">
+            <img src="/logo-icon.png" alt="Evermor Tales" className="h-8 w-auto" style={{ filter: "brightness(0) invert(1) sepia(1) saturate(2) hue-rotate(5deg)" }} />
+            <span className="font-serif text-2xl tracking-[0.02em] font-light text-[#F5F0E8]/90">{brandName}</span>
+          </div>
           <button
             onClick={() => setOpen(false)}
             aria-label="Close menu"
