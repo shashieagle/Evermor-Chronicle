@@ -20,9 +20,15 @@ function useInView(threshold = 0.15) {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    // If element is already above the viewport (page loaded mid-scroll), show it immediately
+    const rect = el.getBoundingClientRect();
+    if (rect.bottom < window.innerHeight * 0.5) {
+      setIsInView(true);
+      return;
+    }
     const observer = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) { setIsInView(true); observer.unobserve(el); } },
-      { threshold }
+      { threshold, rootMargin: "9999px 0px 0px 0px" }
     );
     observer.observe(el);
     return () => observer.disconnect();

@@ -1,6 +1,6 @@
 import app from "./app";
 import { logger } from "./lib/logger";
-import { seedIfEmpty } from "./seed";
+import { seedIfEmpty, deduplicatePhotos } from "./seed";
 
 const rawPort = process.env["PORT"];
 
@@ -22,5 +22,6 @@ app.listen(port, async (err) => {
     process.exit(1);
   }
   logger.info({ port }, "Server listening");
+  await deduplicatePhotos();
   await seedIfEmpty();
 });

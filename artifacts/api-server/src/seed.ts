@@ -362,6 +362,26 @@ const SEED_SLIDESHOW: { url: string; objectPath: string; position: number }[] = 
   { url: "/api/storage/objects/uploads/66fffa11-f199-4462-b9ab-9be1895d6a95", objectPath: "/objects/uploads/66fffa11-f199-4462-b9ab-9be1895d6a95", position: 19 },
 ];
 
+export async function deduplicatePhotos() {
+  try {
+    // Keep only the lowest-id row per (story_slug, url) pair
+    await db.execute(
+      `DELETE FROM story_photos WHERE id NOT IN (
+        SELECT MIN(id) FROM story_photos GROUP BY story_slug, url
+      )`
+    );
+    // Keep only the lowest-id row per url in slideshow
+    await db.execute(
+      `DELETE FROM slideshow_photos WHERE id NOT IN (
+        SELECT MIN(id) FROM slideshow_photos GROUP BY url
+      )`
+    );
+    logger.info("Dedup: duplicate photos removed.");
+  } catch (e) {
+    logger.error({ err: e }, "Dedup: failed");
+  }
+}
+
 export async function seedIfEmpty() {
   try {
     const [existingStories, existingSlideshow] = await Promise.all([
