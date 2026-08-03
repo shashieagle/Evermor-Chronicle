@@ -222,8 +222,8 @@ export default function Home() {
           className={`max-w-[740px] w-full transition-all duration-[900ms] ease-out ${fitInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
         >
           <p
-            className="font-sans uppercase tracking-[0.28em] text-[#8C6D4F]"
-            style={{ fontSize: "clamp(8px, 0.8vw, 10px)", marginBottom: "clamp(20px, 3vw, 32px)" }}
+            className="font-sans uppercase tracking-[0.18em] text-[#8C6D4F]"
+            style={{ fontSize: "clamp(12px, 1.1vw, 14px)", marginBottom: "clamp(16px, 2.5vw, 24px)" }}
           >
             You'll love working with us if
           </p>
