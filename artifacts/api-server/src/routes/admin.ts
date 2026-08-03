@@ -2,7 +2,7 @@ import { Router, type IRouter, type Request, type Response, type NextFunction } 
 import { db } from "@workspace/db";
 import { storiesTable, storyPhotosTable, journalPostsTable, slideshowPhotosTable } from "@workspace/db";
 import { eq, asc, desc } from "drizzle-orm";
-import { ObjectStorageService } from "../lib/objectStorage";
+import { ObjectStorageService, writeJsonToStorage } from "../lib/objectStorage";
 
 const router: IRouter = Router();
 const objectStorageService = new ObjectStorageService();
@@ -275,6 +275,51 @@ router.post("/admin/journal/:slug/cover", async (req: Request, res: Response) =>
       .where(eq(journalPostsTable.slug, req.params.slug));
     res.json({ coverImage });
   } catch { res.status(500).json({ error: "Failed to save cover image" }); }
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Sync to Production
+// ─────────────────────────────────────────────────────────────────────────────
+
+// POST /api/admin/sync — export current DB state to object storage as a
+// snapshot. On next production deploy the server reads this snapshot and upserts
+// all data, so changes made in the admin appear on the live site without any
+// code change.
+router.post("/admin/sync", async (_req: Request, res: Response) => {
+  try {
+    const [stories, storyPhotos, slideshow] = await Promise.all([
+      db.select().from(storiesTable).orderBy(asc(storiesTable.slug)),
+      db.select().from(storyPhotosTable).orderBy(asc(storyPhotosTable.storySlug), asc(storyPhotosTable.position)),
+      db.select().from(slideshowPhotosTable).orderBy(asc(slideshowPhotosTable.position)),
+    ]);
+
+    const snapshot = {
+      stories: stories.map(s => ({
+        slug: s.slug, title: s.title, couple: s.couple, location: s.location,
+        narrative: s.narrative, pause: s.pause, reflection: s.reflection,
+        videoUrl: s.videoUrl, hasFilm: s.hasFilm, heroImage: s.heroImage,
+      })),
+      storyPhotos: storyPhotos.map(p => ({
+        storySlug: p.storySlug, url: p.url, objectPath: p.objectPath, position: p.position,
+      })),
+      slideshow: slideshow.map(p => ({
+        url: p.url, objectPath: p.objectPath, position: p.position,
+      })),
+      syncedAt: new Date().toISOString(),
+    };
+
+    await writeJsonToStorage("sync/snapshot.json", snapshot);
+
+    res.json({
+      ok: true,
+      stories: stories.length,
+      photos: storyPhotos.length,
+      slideshow: slideshow.length,
+      syncedAt: snapshot.syncedAt,
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: err?.message || "Failed to sync to production" });
+  }
 });
 
 export default router;

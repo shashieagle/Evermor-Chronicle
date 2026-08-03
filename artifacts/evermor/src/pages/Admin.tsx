@@ -190,6 +190,10 @@ export default function Admin() {
   const [showDelete, setShowDelete] = useState(false);
   const [deleting, setDeleting]     = useState(false);
 
+  // Sync to production
+  const [syncing, setSyncing]   = useState(false);
+  const [syncMsg, setSyncMsg]   = useState("");
+
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
@@ -330,6 +334,26 @@ export default function Admin() {
       setShowNew(false); setNewCouple(""); setNewLocation(""); setNewSlug("");
     } catch { setCreateError("Could not connect to server"); }
     setCreating(false);
+  };
+
+  // ── Sync to production ─────────────────────────────────────────────────────
+  const syncToProduction = async () => {
+    setSyncing(true); setSyncMsg("");
+    try {
+      const r = await fetch(`${API}/admin/sync`, {
+        method: "POST", headers: { "X-Admin-Token": token },
+      });
+      const d = await r.json();
+      if (r.ok) {
+        setSyncMsg(`Synced ✓ — ${d.stories} stories, ${d.photos} photos. Re-deploy to go live.`);
+      } else {
+        setSyncMsg(`Error: ${d.error || "Sync failed"}`);
+      }
+    } catch {
+      setSyncMsg("Could not connect to server");
+    }
+    setSyncing(false);
+    setTimeout(() => setSyncMsg(""), 8000);
   };
 
   // ── Delete story ───────────────────────────────────────────────────────────
@@ -606,6 +630,23 @@ export default function Admin() {
           </>)}
         </div>
         <div style={{ padding: "16px 24px", borderTop: line }}>
+          {/* Sync to Production */}
+          <button
+            onClick={syncToProduction}
+            disabled={syncing}
+            style={{
+              ...sans, fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase",
+              color: bg, background: syncing ? `${ink}70` : ink,
+              border: "none", padding: "10px 16px", cursor: syncing ? "default" : "pointer",
+              width: "100%", marginBottom: 10, opacity: syncing ? 0.7 : 1,
+            }}
+          >{syncing ? "Syncing…" : "Sync to Production"}</button>
+          {syncMsg && (
+            <p style={{
+              ...sans, fontSize: 11, lineHeight: 1.5, margin: "0 0 10px",
+              color: syncMsg.startsWith("Error") || syncMsg.startsWith("Could") ? "#c0392b" : "#2e7d32",
+            }}>{syncMsg}</p>
+          )}
           <button
             onClick={() => { localStorage.removeItem("evermor_admin"); setAuthed(false); setToken(""); }}
             style={{ ...sans, fontSize: 11, color: `${ink}50`, background: "none", border: "none", cursor: "pointer", letterSpacing: "0.1em", textTransform: "uppercase" }}

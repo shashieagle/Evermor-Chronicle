@@ -232,6 +232,39 @@ function parseObjectPath(path: string): {
   };
 }
 
+/**
+ * Write a JSON value to a path within the private object storage dir.
+ * Path should be relative, e.g. "sync/snapshot.json".
+ */
+export async function writeJsonToStorage(relativePath: string, data: unknown): Promise<void> {
+  const privateDir = process.env.PRIVATE_OBJECT_DIR || '';
+  if (!privateDir) throw new Error('PRIVATE_OBJECT_DIR not set');
+  const dir = privateDir.endsWith('/') ? privateDir : `${privateDir}/`;
+  const fullPath = `${dir}${relativePath}`;
+  const { bucketName, objectName } = parseObjectPath(fullPath);
+  const bucket = objectStorageClient.bucket(bucketName);
+  const file = bucket.file(objectName);
+  await file.save(JSON.stringify(data), { contentType: 'application/json', resumable: false });
+}
+
+/**
+ * Read a JSON value from a path within the private object storage dir.
+ * Returns null if the file does not exist.
+ */
+export async function readJsonFromStorage(relativePath: string): Promise<unknown | null> {
+  const privateDir = process.env.PRIVATE_OBJECT_DIR || '';
+  if (!privateDir) return null;
+  const dir = privateDir.endsWith('/') ? privateDir : `${privateDir}/`;
+  const fullPath = `${dir}${relativePath}`;
+  const { bucketName, objectName } = parseObjectPath(fullPath);
+  const bucket = objectStorageClient.bucket(bucketName);
+  const file = bucket.file(objectName);
+  const [exists] = await file.exists();
+  if (!exists) return null;
+  const [contents] = await file.download();
+  return JSON.parse(contents.toString('utf-8'));
+}
+
 async function signObjectURL({
   bucketName,
   objectName,

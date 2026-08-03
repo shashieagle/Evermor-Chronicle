@@ -1,6 +1,23 @@
 import { db } from "@workspace/db";
 import { storiesTable, storyPhotosTable, slideshowPhotosTable } from "@workspace/db";
+import { eq } from "drizzle-orm";
 import { logger } from "./lib/logger";
+import { readJsonFromStorage } from "./lib/objectStorage";
+
+// ── Snapshot type ─────────────────────────────────────────────────────────────
+interface DbSnapshot {
+  stories: {
+    slug: string; title: string; couple: string; location: string;
+    narrative: string | null; pause: string | null; reflection: string | null;
+    videoUrl: string | null; hasFilm: boolean; heroImage: string | null;
+  }[];
+  storyPhotos: {
+    storySlug: string; url: string; objectPath: string | null; position: number;
+  }[];
+  slideshow: {
+    url: string; objectPath: string | null; position: number;
+  }[];
+}
 
 const SEED_STORIES = [
   {
@@ -384,6 +401,29 @@ export async function deduplicatePhotos() {
 
 export async function seedIfEmpty() {
   try {
+    // ── Try to load a production snapshot from object storage ────────────────
+    // This snapshot is written by the admin "Sync to Production" button and
+    // contains the full set of stories/photos/slideshow from the dev database.
+    // When present, we upsert its contents so the production DB stays in sync.
+    let snapshot: DbSnapshot | null = null;
+    try {
+      const raw = await readJsonFromStorage("sync/snapshot.json");
+      if (raw && typeof raw === "object") snapshot = raw as DbSnapshot;
+    } catch (e) {
+      logger.warn({ err: e }, "Seed: could not read snapshot from object storage (non-fatal)");
+    }
+
+    if (snapshot) {
+      logger.info(
+        { stories: snapshot.stories.length, photos: snapshot.storyPhotos.length, slideshow: snapshot.slideshow.length },
+        "Seed: found object-storage snapshot — syncing to DB...",
+      );
+      await applySeedSnapshot(snapshot);
+      logger.info("Seed: snapshot sync complete.");
+      return;
+    }
+
+    // ── Fall back to hardcoded seed data (first-run bootstrap) ───────────────
     const [existingStories, existingSlideshow] = await Promise.all([
       db.select().from(storiesTable),
       db.select().from(slideshowPhotosTable),
@@ -394,9 +434,8 @@ export async function seedIfEmpty() {
     }
     logger.info(
       { stories: existingStories.length, slideshow: existingSlideshow.length },
-      "Seed: filling in missing data...",
+      "Seed: filling in missing data from hardcoded seed...",
     );
-    logger.info("Seed: DB is empty — seeding stories, photos, and slideshow...");
     for (const s of SEED_STORIES) {
       await db.insert(storiesTable).values({
         slug: s.slug, title: s.title, couple: s.couple, location: s.location,
@@ -414,5 +453,49 @@ export async function seedIfEmpty() {
     logger.info("Seed: slideshow done. All seeding complete.");
   } catch (e) {
     logger.error({ err: e }, "Seed: failed");
+  }
+}
+
+/** Apply a snapshot by upserting all stories/photos/slideshow into the DB.
+ *  Stories/slideshow not in the snapshot are left untouched (additive sync). */
+export async function applySeedSnapshot(snapshot: DbSnapshot) {
+  // Upsert stories
+  for (const s of snapshot.stories) {
+    await db.insert(storiesTable).values({
+      slug: s.slug, title: s.title, couple: s.couple, location: s.location,
+      narrative: s.narrative, pause: s.pause, reflection: s.reflection,
+      videoUrl: s.videoUrl, hasFilm: s.hasFilm, heroImage: s.heroImage,
+      updatedAt: new Date(),
+    }).onConflictDoUpdate({
+      target: storiesTable.slug,
+      set: {
+        title: s.title, couple: s.couple, location: s.location,
+        narrative: s.narrative, pause: s.pause, reflection: s.reflection,
+        videoUrl: s.videoUrl, hasFilm: s.hasFilm, heroImage: s.heroImage,
+        updatedAt: new Date(),
+      },
+    });
+  }
+
+  // Replace story photos for each story in the snapshot
+  const slugsInSnapshot = new Set(snapshot.stories.map(s => s.slug));
+  for (const slug of slugsInSnapshot) {
+    const photosForStory = snapshot.storyPhotos.filter(p => p.storySlug === slug);
+    await db.delete(storyPhotosTable).where(eq(storyPhotosTable.storySlug, slug));
+    if (photosForStory.length) {
+      const BATCH = 50;
+      for (let i = 0; i < photosForStory.length; i += BATCH) {
+        await db.insert(storyPhotosTable).values(photosForStory.slice(i, i + BATCH));
+      }
+    }
+  }
+
+  // Replace slideshow entirely if snapshot has slideshow entries
+  if (snapshot.slideshow.length) {
+    await db.delete(slideshowPhotosTable);
+    const BATCH = 50;
+    for (let i = 0; i < snapshot.slideshow.length; i += BATCH) {
+      await db.insert(slideshowPhotosTable).values(snapshot.slideshow.slice(i, i + BATCH));
+    }
   }
 }
