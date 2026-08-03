@@ -30,7 +30,7 @@ export default function Nav({
   return (
     <>
       <nav
-        className={`${position} top-0 left-0 right-0 z-20 px-6 py-6 md:px-[100px] md:py-10 flex justify-between items-start`}
+        className={`${position} top-0 left-0 right-0 z-20 px-6 py-6 md:px-[100px] md:py-10 flex justify-between items-center`}
         style={{ transition: "opacity 800ms ease-in-out", opacity: mounted ? 1 : 0 }}
       >
         {/* Logo */}
