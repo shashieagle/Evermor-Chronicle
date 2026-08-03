@@ -19,7 +19,7 @@ export default function Nav({
   theme,
   mounted = true,
   position = "absolute",
-  brandName = "Evermor",
+  brandName = "Evermor Tales",
   links,
 }: NavProps) {
   const [open, setOpen] = useState(false);
