@@ -22,7 +22,7 @@ export const stories: Story[] = [
     photo2: "/b-shaun-sowmya-2.jpg",
     hasFilm: true,
     narrative:
-      "There are weddings that feel like performances, and there are weddings that feel like a breath held for a very long time — finally released. Shaun and Sowmya's was the latter. In the warmth of a Bangalore afternoon, surrounded by people who had watched them separately become who they were, they chose each other. Quietly. Completely.",
+      "Every beginning carries a story, but not all stories begin the same way. Some arrive in familiar ways, while others unfold only after life has already written a few chapters. When Shaun and Sowmya chose to marry, they weren't simply planning a wedding—they were bringing together two lives, two cultures, and a future that had already begun to take shape long before the first ritual was performed.\n\nThere was joy, there was tenderness, and there was the quiet understanding that this celebration wasn't just about two people finding one another. It was about a family finding its beginning. Some stories remind us that love doesn't always arrive first. Sometimes, it arrives again.",
     pause: "Some beginnings arrive without fanfare. They simply settle — like light through a window you forgot you'd left open.",
     reflection:
       "What stays, long after the flowers are pressed and the music has faded, is the weight of a hand held for the first time as husband and wife. The ceremony ends. The story begins.",
