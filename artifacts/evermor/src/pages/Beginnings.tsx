@@ -286,13 +286,7 @@ export default function Beginnings() {
         <EditorialGallery photos={gallery1} alt={alt} />
       </section>
 
-
-      {/* ── 5. Gallery — part two ─────────────────────────────────── */}
-      <section className="bg-white">
-        <EditorialGallery photos={gallery2} alt={alt} />
-      </section>
-
-      {/* ── 6. Film (conditional) ────────────────────────────────── */}
+      {/* ── 4. Film (conditional) ────────────────────────────────── */}
       {story.hasFilm && (
         <section
           ref={filmRef}
@@ -303,7 +297,10 @@ export default function Beginnings() {
             <div style={{ padding: "clamp(40px,8vw,80px) clamp(24px,8vw,15%) clamp(56px,10vw,112px)" }}>
               <p className="font-sans font-light text-[10px] uppercase tracking-[0.35em] text-[#F5F0E8]/35 mb-8 text-center">Film</p>
               <p className="font-serif font-light text-[22px] md:text-[28px] text-[#F5F0E8] leading-[1.3] tracking-[0.01em] mb-2 text-center">{story.couple}</p>
-              <p className="font-sans font-light text-[12px] text-[#F5F0E8]/40 tracking-[0.06em] uppercase mb-10 text-center">{story.location}</p>
+              <p className="font-sans font-light text-[12px] text-[#F5F0E8]/40 tracking-[0.06em] uppercase mb-6 text-center">{story.location}</p>
+              <p className="font-serif font-light italic text-[15px] md:text-[17px] text-[#F5F0E8]/45 leading-[1.7] tracking-[0.01em] text-center max-w-[480px] mx-auto mb-10">
+                Some moments are best felt in motion — the sound of a room filling with joy, a glance held a second longer than expected, the quiet in between.
+              </p>
               <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
                 <iframe
                   src={videoEmbed}
@@ -320,7 +317,10 @@ export default function Beginnings() {
             <div className="py-20 md:py-40 lg:py-56 flex flex-col items-center justify-center text-center px-6">
               <p className="font-sans font-light text-[10px] uppercase tracking-[0.35em] text-[#F5F0E8]/35 mb-10">Film</p>
               <p className="font-serif font-light text-[28px] md:text-[40px] text-[#F5F0E8] leading-[1.3] tracking-[0.01em] mb-6 max-w-[480px]">{story.couple}</p>
-              <p className="font-sans font-light text-[13px] text-[#F5F0E8]/40 tracking-[0.06em] uppercase mb-16">{story.location}</p>
+              <p className="font-sans font-light text-[13px] text-[#F5F0E8]/40 tracking-[0.06em] uppercase mb-6">{story.location}</p>
+              <p className="font-serif font-light italic text-[15px] md:text-[17px] text-[#F5F0E8]/35 leading-[1.7] tracking-[0.01em] max-w-[420px] mb-16">
+                Some moments are best felt in motion — the sound of a room filling with joy, a glance held a second longer than expected, the quiet in between.
+              </p>
               <div className="w-[72px] h-[72px] rounded-full border border-[#F5F0E8]/25 flex items-center justify-center hover:border-[#F5F0E8]/60 transition-colors duration-500 cursor-pointer">
                 <svg width="16" height="20" viewBox="0 0 16 20" fill="none">
                   <path d="M1 1.5L15 10L1 18.5V1.5Z" fill="rgba(245,240,232,0.6)" />
@@ -331,6 +331,11 @@ export default function Beginnings() {
           )}
         </section>
       )}
+
+      {/* ── 5. Gallery — part two ─────────────────────────────────── */}
+      <section className="bg-white">
+        <EditorialGallery photos={gallery2} alt={alt} />
+      </section>
 
 
       {/* ── 8. Reflection ────────────────────────────────────────── */}
