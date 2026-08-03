@@ -2,7 +2,8 @@ import { Router, type IRouter, type Request, type Response, type NextFunction } 
 import { db } from "@workspace/db";
 import { storiesTable, storyPhotosTable, journalPostsTable, slideshowPhotosTable } from "@workspace/db";
 import { eq, asc, desc } from "drizzle-orm";
-import { ObjectStorageService, writeJsonToStorage } from "../lib/objectStorage";
+import { ObjectStorageService, writeJsonToStorage, readJsonFromStorage } from "../lib/objectStorage";
+import { applySeedSnapshot } from "../seed";
 
 const router: IRouter = Router();
 const objectStorageService = new ObjectStorageService();
@@ -319,6 +320,37 @@ router.post("/admin/sync", async (_req: Request, res: Response) => {
     });
   } catch (err: any) {
     res.status(500).json({ error: err?.message || "Failed to sync to production" });
+  }
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Reload from snapshot (hot-reload production DB without a redeploy)
+// ─────────────────────────────────────────────────────────────────────────────
+
+// POST /api/admin/reload-from-snapshot — read the latest snapshot from object
+// storage and upsert its contents into the live DB immediately.
+router.post("/admin/reload-from-snapshot", async (_req: Request, res: Response) => {
+  try {
+    const raw = await readJsonFromStorage("sync/snapshot.json");
+    if (!raw || typeof raw !== "object") {
+      return res.status(404).json({ error: "No snapshot found in object storage" });
+    }
+    const snapshot = raw as {
+      stories: any[];
+      storyPhotos: any[];
+      slideshow: any[];
+      syncedAt?: string;
+    };
+    await applySeedSnapshot(snapshot);
+    res.json({
+      ok: true,
+      stories: snapshot.stories?.length ?? 0,
+      photos: snapshot.storyPhotos?.length ?? 0,
+      slideshow: snapshot.slideshow?.length ?? 0,
+      syncedAt: snapshot.syncedAt,
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: err?.message || "Failed to reload from snapshot" });
   }
 });
 

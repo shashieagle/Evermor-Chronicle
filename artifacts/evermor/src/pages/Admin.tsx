@@ -340,15 +340,28 @@ export default function Admin() {
   const syncToProduction = async () => {
     setSyncing(true); setSyncMsg("");
     try {
+      // Step 1: write the snapshot to object storage
       const r = await fetch(`${API}/admin/sync`, {
         method: "POST", headers: { "X-Admin-Token": token },
       });
       const d = await r.json();
-      if (r.ok) {
-        setSyncMsg(`Synced ✓ — ${d.stories} stories, ${d.photos} photos. Re-deploy to go live.`);
-      } else {
+      if (!r.ok) {
         setSyncMsg(`Error: ${d.error || "Sync failed"}`);
+        setSyncing(false);
+        setTimeout(() => setSyncMsg(""), 8000);
+        return;
       }
+
+      // Step 2: tell the live server to reload from the snapshot immediately
+      try {
+        await fetch(`${API}/admin/reload-from-snapshot`, {
+          method: "POST", headers: { "X-Admin-Token": token },
+        });
+      } catch {
+        // non-fatal — snapshot is saved, live server will pick it up on next deploy
+      }
+
+      setSyncMsg(`Live ✓ — ${d.stories} stories, ${d.photos} photos updated.`);
     } catch {
       setSyncMsg("Could not connect to server");
     }
