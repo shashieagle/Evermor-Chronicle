@@ -1,14 +1,16 @@
 import { Router, type IRouter, type Request, type Response } from "express";
 import { db } from "@workspace/db";
 import { storiesTable, storyPhotosTable } from "@workspace/db";
-import { eq, asc } from "drizzle-orm";
+import { eq, asc, isNull, and } from "drizzle-orm";
 
 const router: IRouter = Router();
 
-// ── List all stories ──────────────────────────────────────────────────────────
+// ── List all stories (active only) ───────────────────────────────────────────
 router.get("/stories", async (_req: Request, res: Response) => {
   try {
-    const rows = await db.select().from(storiesTable).orderBy(asc(storiesTable.slug));
+    const rows = await db.select().from(storiesTable)
+      .where(isNull(storiesTable.deletedAt))
+      .orderBy(asc(storiesTable.slug));
     res.json({ stories: rows });
   } catch {
     res.status(500).json({ error: "Failed to fetch stories" });
@@ -18,7 +20,8 @@ router.get("/stories", async (_req: Request, res: Response) => {
 // ── Single story with photos ──────────────────────────────────────────────────
 router.get("/stories/:slug", async (req: Request, res: Response) => {
   try {
-    const [story] = await db.select().from(storiesTable).where(eq(storiesTable.slug, req.params.slug));
+    const [story] = await db.select().from(storiesTable)
+      .where(and(eq(storiesTable.slug, req.params.slug), isNull(storiesTable.deletedAt)));
     if (!story) return res.status(404).json({ error: "Not found" });
     const photos = await db.select().from(storyPhotosTable)
       .where(eq(storyPhotosTable.storySlug, req.params.slug))

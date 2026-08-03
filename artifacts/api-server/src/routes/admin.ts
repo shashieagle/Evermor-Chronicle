@@ -1,7 +1,7 @@
 import { Router, type IRouter, type Request, type Response, type NextFunction } from "express";
 import { db } from "@workspace/db";
 import { storiesTable, storyPhotosTable, journalPostsTable, slideshowPhotosTable } from "@workspace/db";
-import { eq, asc, desc } from "drizzle-orm";
+import { eq, asc, desc, isNull, isNotNull } from "drizzle-orm";
 import { ObjectStorageService, writeJsonToStorage, readJsonFromStorage } from "../lib/objectStorage";
 import { applySeedSnapshot } from "../seed";
 
@@ -36,13 +36,27 @@ router.post("/admin/verify", (_req: Request, res: Response) => {
   res.json({ ok: true });
 });
 
-// ── List stories ──────────────────────────────────────────────────────────────
+// ── List stories (active only) ────────────────────────────────────────────────
 router.get("/admin/stories", async (_req: Request, res: Response) => {
   try {
-    const rows = await db.select().from(storiesTable).orderBy(asc(storiesTable.slug));
+    const rows = await db.select().from(storiesTable)
+      .where(isNull(storiesTable.deletedAt))
+      .orderBy(asc(storiesTable.slug));
     res.json({ stories: rows });
   } catch (err) {
     res.status(500).json({ error: "Failed to fetch stories" });
+  }
+});
+
+// ── List archived (soft-deleted) stories ──────────────────────────────────────
+router.get("/admin/stories-archived", async (_req: Request, res: Response) => {
+  try {
+    const rows = await db.select().from(storiesTable)
+      .where(isNotNull(storiesTable.deletedAt))
+      .orderBy(desc(storiesTable.deletedAt));
+    res.json({ stories: rows });
+  } catch {
+    res.status(500).json({ error: "Failed to fetch archived stories" });
   }
 });
 
@@ -82,10 +96,10 @@ router.post("/admin/stories", async (req: Request, res: Response) => {
 
 // ── Update story fields ───────────────────────────────────────────────────────
 router.put("/admin/stories/:slug", async (req: Request, res: Response) => {
-  const { title, couple, location, narrative, pause, reflection, videoUrl, hasFilm, heroImage } = req.body;
+  const { title, couple, location, narrative, pause, reflection, videoUrl, filmRuntime, hasFilm, heroImage } = req.body;
   try {
     await db.update(storiesTable)
-      .set({ title, couple, location, narrative, pause, reflection, videoUrl, hasFilm, heroImage,
+      .set({ title, couple, location, narrative, pause, reflection, videoUrl, filmRuntime, hasFilm, heroImage,
              updatedAt: new Date() })
       .where(eq(storiesTable.slug, req.params.slug));
     res.json({ ok: true });
@@ -94,14 +108,28 @@ router.put("/admin/stories/:slug", async (req: Request, res: Response) => {
   }
 });
 
-// ── Delete story ──────────────────────────────────────────────────────────────
+// ── Archive story (soft-delete) ───────────────────────────────────────────────
 router.delete("/admin/stories/:slug", async (req: Request, res: Response) => {
   try {
-    await db.delete(storyPhotosTable).where(eq(storyPhotosTable.storySlug, req.params.slug));
-    await db.delete(storiesTable).where(eq(storiesTable.slug, req.params.slug));
+    await db.update(storiesTable)
+      .set({ deletedAt: new Date() })
+      .where(eq(storiesTable.slug, req.params.slug));
     res.json({ ok: true });
   } catch {
-    res.status(500).json({ error: "Failed to delete story" });
+    res.status(500).json({ error: "Failed to archive story" });
+  }
+});
+
+// ── Restore archived story ────────────────────────────────────────────────────
+router.post("/admin/stories/:slug/restore", async (req: Request, res: Response) => {
+  try {
+    await db.update(storiesTable)
+      .set({ deletedAt: null })
+      .where(eq(storiesTable.slug, req.params.slug));
+    const [story] = await db.select().from(storiesTable).where(eq(storiesTable.slug, req.params.slug));
+    res.json({ story });
+  } catch {
+    res.status(500).json({ error: "Failed to restore story" });
   }
 });
 

@@ -16,6 +16,7 @@ const API  = `${BASE}/api`;
 interface StoryRow {
   slug: string; title: string; couple: string; location: string;
   heroImage: string | null; hasFilm: boolean; videoUrl: string | null;
+  filmRuntime: string | null;
   narrative: string | null; pause: string | null; reflection: string | null;
 }
 interface Photo { id: number; url: string; objectPath: string | null; position: number; }
@@ -164,7 +165,7 @@ export default function Admin() {
   const [form, setForm] = useState({
     title: "", couple: "", location: "",
     narrative: "", pause: "", reflection: "",
-    videoUrl: "", hasFilm: false,
+    videoUrl: "", filmRuntime: "", hasFilm: false,
   });
 
   const [saving, setSaving]       = useState(false);
@@ -185,6 +186,10 @@ export default function Admin() {
   const [newSlug, setNewSlug]     = useState("");
   const [creating, setCreating]   = useState(false);
   const [createError, setCreateError] = useState("");
+
+  // Archived stories
+  const [archivedStories, setArchivedStories] = useState<StoryRow[]>([]);
+  const [showArchived, setShowArchived]       = useState(false);
 
   // Delete confirmation
   const [showDelete, setShowDelete] = useState(false);
@@ -237,6 +242,16 @@ export default function Admin() {
   }, [authed, token]);
 
   useEffect(() => { loadSlidePhotos(); }, [authed]);
+
+  // ── Load archived stories ──────────────────────────────────────────────────
+  const loadArchivedStories = useCallback(async () => {
+    if (!authed) return;
+    const r = await fetch(`${API}/admin/stories-archived`, { headers: { "X-Admin-Token": token } });
+    const d = await r.json();
+    setArchivedStories(d.stories || []);
+  }, [authed, token]);
+
+  useEffect(() => { loadArchivedStories(); }, [authed]);
 
   // ── Upload slideshow photos ────────────────────────────────────────────────
   const uploadSlideFiles = async (files: FileList) => {
@@ -295,8 +310,9 @@ export default function Admin() {
           narrative:  d.story.narrative  || "",
           pause:      d.story.pause      || "",
           reflection: d.story.reflection || "",
-          videoUrl:   d.story.videoUrl   || "",
-          hasFilm:    d.story.hasFilm    ?? false,
+          videoUrl:    d.story.videoUrl    || "",
+          filmRuntime: d.story.filmRuntime || "",
+          hasFilm:     d.story.hasFilm    ?? false,
         });
       })
       .catch(() => {});
@@ -369,21 +385,39 @@ export default function Admin() {
     setTimeout(() => setSyncMsg(""), 8000);
   };
 
-  // ── Delete story ───────────────────────────────────────────────────────────
+  // ── Archive story (soft-delete) ────────────────────────────────────────────
   const deleteStory = async () => {
     if (!selected) return;
     setDeleting(true);
     try {
-      await fetch(`${API}/admin/stories/${selected}`, {
+      const r = await fetch(`${API}/admin/stories/${selected}`, {
         method: "DELETE", headers: { "X-Admin-Token": token },
       });
-      const remaining = stories.filter(s => s.slug !== selected);
-      setStories(remaining);
-      setSelected(remaining[0]?.slug ?? null);
-      if (!remaining.length) setStory(null);
-      setShowDelete(false);
+      if (r.ok) {
+        const archived = stories.find(s => s.slug === selected);
+        if (archived) setArchivedStories(prev => [archived, ...prev]);
+        const remaining = stories.filter(s => s.slug !== selected);
+        setStories(remaining);
+        setSelected(remaining[0]?.slug ?? null);
+        if (!remaining.length) setStory(null);
+        setShowDelete(false);
+      }
     } catch {}
     setDeleting(false);
+  };
+
+  // ── Restore archived story ─────────────────────────────────────────────────
+  const restoreStory = async (slug: string) => {
+    try {
+      const r = await fetch(`${API}/admin/stories/${slug}/restore`, {
+        method: "POST", headers: { "X-Admin-Token": token },
+      });
+      const d = await r.json();
+      if (r.ok && d.story) {
+        setArchivedStories(prev => prev.filter(s => s.slug !== slug));
+        setStories(prev => [...prev, d.story].sort((a, b) => a.slug.localeCompare(b.slug)));
+      }
+    } catch {}
   };
 
   // ── Upload photos ──────────────────────────────────────────────────────────
@@ -552,7 +586,7 @@ export default function Admin() {
         </div>
       )}
 
-      {/* ── Delete Confirmation Modal ─────────────────────────────────────── */}
+      {/* ── Archive Confirmation Modal ────────────────────────────────────── */}
       {showDelete && (
         <div
           onClick={() => setShowDelete(false)}
@@ -562,16 +596,16 @@ export default function Admin() {
             onClick={e => e.stopPropagation()}
             style={{ background: bg, width: 400, padding: 40, borderRadius: 2 }}
           >
-            <h2 style={{ ...serif, fontSize: 22, fontWeight: 300, margin: "0 0 12px", color: ink }}>Delete story?</h2>
+            <h2 style={{ ...serif, fontSize: 22, fontWeight: 300, margin: "0 0 12px", color: ink }}>Archive story?</h2>
             <p style={{ ...sans, fontSize: 13, color: `${ink}65`, lineHeight: 1.6, marginBottom: 28 }}>
-              This will permanently delete <strong>{story?.couple}</strong> and all their photos. This cannot be undone.
+              <strong>{story?.couple}</strong> will be moved to the archive. You can restore it at any time from the Archived Stories section.
             </p>
             <div style={{ display: "flex", gap: 12 }}>
               <button
                 onClick={deleteStory}
                 disabled={deleting}
                 style={{ ...sans, fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", color: "#fff", background: "#c0392b", border: "none", padding: "12px 24px", cursor: "pointer", opacity: deleting ? 0.6 : 1 }}
-              >{deleting ? "Deleting…" : "Delete"}</button>
+              >{deleting ? "Archiving…" : "Archive"}</button>
               <button
                 onClick={() => setShowDelete(false)}
                 style={{ ...sans, fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", color: `${ink}60`, background: "transparent", border: line, padding: "12px 20px", cursor: "pointer" }}
@@ -640,6 +674,39 @@ export default function Admin() {
                 letterSpacing: "0.1em", textTransform: "uppercase",
               }}
             >+ New story</button>
+
+            {/* Archived stories disclosure */}
+            {archivedStories.length > 0 && (
+              <div style={{ marginTop: 16, borderTop: line, paddingTop: 12 }}>
+                <button
+                  onClick={() => setShowArchived(v => !v)}
+                  style={{
+                    display: "block", width: "100%", textAlign: "left",
+                    padding: "6px 24px", border: "none", cursor: "pointer",
+                    background: "transparent", color: `${ink}45`, fontSize: 11,
+                    letterSpacing: "0.14em", textTransform: "uppercase",
+                  }}
+                >
+                  {showArchived ? "▾" : "▸"} Archived ({archivedStories.length})
+                </button>
+                {showArchived && archivedStories.map(s => (
+                  <div
+                    key={s.slug}
+                    style={{ padding: "8px 24px", display: "flex", flexDirection: "column", gap: 4 }}
+                  >
+                    <span style={{ fontSize: 12, color: `${ink}50` }}>{s.couple}</span>
+                    <button
+                      onClick={() => restoreStory(s.slug)}
+                      style={{
+                        alignSelf: "flex-start", fontSize: 10, letterSpacing: "0.12em",
+                        textTransform: "uppercase", color: "#2e7d32", background: "transparent",
+                        border: "none", cursor: "pointer", padding: 0,
+                      }}
+                    >Restore</button>
+                  </div>
+                ))}
+              </div>
+            )}
           </>)}
         </div>
         <div style={{ padding: "16px 24px", borderTop: line }}>
@@ -741,7 +808,7 @@ export default function Admin() {
                 <button
                   onClick={() => setShowDelete(true)}
                   style={{ ...sans, fontSize: 12, letterSpacing: "0.14em", textTransform: "uppercase", color: `${ink}50`, background: "transparent", border: line, padding: "10px 18px", cursor: "pointer" }}
-                >Delete</button>
+                >Archive</button>
                 <button
                   onClick={save} disabled={saving}
                   style={{ ...sans, fontSize: 12, letterSpacing: "0.18em", textTransform: "uppercase", color: bg, background: ink, border: "none", padding: "10px 28px", cursor: saving ? "default" : "pointer", opacity: saving ? 0.6 : 1 }}
@@ -855,10 +922,17 @@ export default function Admin() {
               <p style={label}>Film / video embed</p>
               <p style={{ fontSize: 12, color: `${ink}55`, marginBottom: 16, lineHeight: 1.6 }}>Paste a YouTube or Vimeo URL. The film section will show an embedded player instead of "available soon".</p>
               <input
-                style={{ ...input, marginBottom: embed ? 20 : 0 }}
+                style={{ ...input, marginBottom: 16 }}
                 placeholder="https://www.youtube.com/watch?v=..."
                 value={form.videoUrl}
                 onChange={e => setForm(f => ({ ...f, videoUrl: e.target.value }))}
+              />
+              <label style={label}>Film runtime</label>
+              <input
+                style={{ ...input, marginBottom: embed ? 20 : 0 }}
+                placeholder="e.g. 16 min"
+                value={form.filmRuntime}
+                onChange={e => setForm(f => ({ ...f, filmRuntime: e.target.value }))}
               />
               {embed && (
                 <div style={{ position: "relative", paddingBottom: "56.25%", height: 0, overflow: "hidden", borderRadius: 2 }}>

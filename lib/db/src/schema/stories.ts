@@ -10,10 +10,12 @@ export const storiesTable = pgTable("stories", {
   heroImage:   text("hero_image").notNull(),
   hasFilm:     boolean("has_film").notNull().default(false),
   videoUrl:    text("video_url"),
+  filmRuntime: text("film_runtime"),
   narrative:   text("narrative"),
   pause:       text("pause"),
   reflection:  text("reflection"),
   updatedAt:   timestamp("updated_at").defaultNow(),
+  deletedAt:   timestamp("deleted_at"),
 });
 
 export const storyPhotosTable = pgTable("story_photos", {

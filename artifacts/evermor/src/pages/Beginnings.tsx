@@ -274,7 +274,7 @@ export default function Beginnings() {
             {story.location}
           </p>
           <div className="font-serif font-light text-[20px] md:text-[24px] lg:text-[26px] text-[#3A342C] leading-[1.75] tracking-[0.01em] space-y-6">
-            {(story.narrative ?? "").split("\n\n").map((para, i) => (
+            {(story.narrative ?? "").split("\n\n").map((para: string, i: number) => (
               <p key={i}>{para}</p>
             ))}
           </div>
@@ -286,7 +286,19 @@ export default function Beginnings() {
         <EditorialGallery photos={gallery1} alt={alt} />
       </section>
 
-      {/* ── 4. Film (conditional) ────────────────────────────────── */}
+      {/* ── 4. Pause ─────────────────────────────────────────────── */}
+      <section className="bg-white py-20 md:py-40 lg:py-64">
+        <div
+          ref={pauseRef}
+          className={`max-w-[560px] mx-auto px-6 md:px-0 text-center transition-all duration-[1100ms] ease-out ${pauseInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+        >
+          <p className="font-serif font-light italic text-[22px] md:text-[28px] lg:text-[32px] text-[#3A342C]/65 leading-[1.6] tracking-[0.01em]">
+            {story.pause}
+          </p>
+        </div>
+      </section>
+
+      {/* ── 5. Film (conditional) — middle of the story ──────────── */}
       {story.hasFilm && (
         <section
           ref={filmRef}
@@ -298,9 +310,15 @@ export default function Beginnings() {
               <p className="font-sans font-light text-[10px] uppercase tracking-[0.35em] text-[#F5F0E8]/35 mb-8 text-center">Film</p>
               <p className="font-serif font-light text-[22px] md:text-[28px] text-[#F5F0E8] leading-[1.3] tracking-[0.01em] mb-2 text-center">{story.couple}</p>
               <p className="font-sans font-light text-[12px] text-[#F5F0E8]/40 tracking-[0.06em] uppercase mb-6 text-center">{story.location}</p>
-              <p className="font-serif font-light italic text-[15px] md:text-[17px] text-[#F5F0E8]/45 leading-[1.7] tracking-[0.01em] text-center max-w-[480px] mx-auto mb-10">
-                Some moments are best felt in motion — the sound of a room filling with joy, a glance held a second longer than expected, the quiet in between.
+              <p className="font-serif font-light italic text-[15px] md:text-[17px] text-[#F5F0E8]/50 leading-[1.7] tracking-[0.01em] text-center max-w-[480px] mx-auto mb-4">
+                Every wedding film we make is an attempt to hold onto what photographs cannot — the sound of laughter, the weight of a moment in motion.
               </p>
+              {story.filmRuntime && (
+                <p className="font-sans font-light text-[11px] uppercase tracking-[0.28em] text-[#F5F0E8]/30 text-center mb-10">
+                  {story.filmRuntime}
+                </p>
+              )}
+              {!story.filmRuntime && <div className="mb-10" />}
               <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
                 <iframe
                   src={videoEmbed}
@@ -318,8 +336,8 @@ export default function Beginnings() {
               <p className="font-sans font-light text-[10px] uppercase tracking-[0.35em] text-[#F5F0E8]/35 mb-10">Film</p>
               <p className="font-serif font-light text-[28px] md:text-[40px] text-[#F5F0E8] leading-[1.3] tracking-[0.01em] mb-6 max-w-[480px]">{story.couple}</p>
               <p className="font-sans font-light text-[13px] text-[#F5F0E8]/40 tracking-[0.06em] uppercase mb-6">{story.location}</p>
-              <p className="font-serif font-light italic text-[15px] md:text-[17px] text-[#F5F0E8]/35 leading-[1.7] tracking-[0.01em] max-w-[420px] mb-16">
-                Some moments are best felt in motion — the sound of a room filling with joy, a glance held a second longer than expected, the quiet in between.
+              <p className="font-serif font-light italic text-[15px] md:text-[17px] text-[#F5F0E8]/50 leading-[1.7] tracking-[0.01em] max-w-[420px] mb-16">
+                Every wedding film we make is an attempt to hold onto what photographs cannot — the sound of laughter, the weight of a moment in motion.
               </p>
               <div className="w-[72px] h-[72px] rounded-full border border-[#F5F0E8]/25 flex items-center justify-center hover:border-[#F5F0E8]/60 transition-colors duration-500 cursor-pointer">
                 <svg width="16" height="20" viewBox="0 0 16 20" fill="none">
@@ -332,13 +350,12 @@ export default function Beginnings() {
         </section>
       )}
 
-      {/* ── 5. Gallery — part two ─────────────────────────────────── */}
+      {/* ── 6. Gallery — part two ─────────────────────────────────── */}
       <section className="bg-white">
         <EditorialGallery photos={gallery2} alt={alt} />
       </section>
 
-
-      {/* ── 8. Reflection ────────────────────────────────────────── */}
+      {/* ── 7. Reflection ────────────────────────────────────────── */}
       <section className="bg-white py-20 md:py-40 lg:py-64">
         <div
           ref={reflectionRef}
@@ -351,7 +368,7 @@ export default function Beginnings() {
         </div>
       </section>
 
-      {/* ── 9. Invitation ────────────────────────────────────────── */}
+      {/* ── 8. Invitation ────────────────────────────────────────── */}
       <section className="bg-white py-20 md:py-32 lg:py-48">
         <div
           ref={inviteRef}
