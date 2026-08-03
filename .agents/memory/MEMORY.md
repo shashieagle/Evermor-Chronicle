@@ -1,0 +1,2 @@
+- [Snapshot sync flow](snapshot-sync-flow.md) — admin PUT only updates DB; must POST /api/admin/sync after or changes are lost on restart
+- [Logo files](logo-files.md) — transparent PNGs saved to artifacts/evermor/public; background removed via ImageMagick
