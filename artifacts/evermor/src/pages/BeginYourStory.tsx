@@ -1,16 +1,47 @@
 import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 
+const BASE = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
+const API  = `${BASE}/api`;
+
 export default function BeginYourStory() {
   const [mounted, setMounted] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => { setMounted(true); }, []);
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setSubmitted(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setError(null);
+    setSending(true);
+    const fd = new FormData(e.currentTarget);
+    const body = {
+      names:       fd.get("your-names") as string,
+      email:       fd.get("email") as string,
+      phone:       fd.get("phone") as string,
+      location:    fd.get("location") as string,
+      weddingDate: fd.get("wedding-date") as string,
+      venue:       fd.get("venue") as string,
+    };
+    try {
+      const res = await fetch(`${API}/contact`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      if (!res.ok) {
+        const d = await res.json().catch(() => ({})) as { error?: string };
+        throw new Error(d.error || "Something went wrong. Please try again.");
+      }
+      setSubmitted(true);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong.");
+    } finally {
+      setSending(false);
+    }
   }
 
   const navLinks = [
@@ -154,13 +185,21 @@ export default function BeginYourStory() {
               </FormField>
             </div>
 
+            {/* Error */}
+            {error && (
+              <p className="mb-6 font-sans font-light text-[13px] text-red-500">
+                {error}
+              </p>
+            )}
+
             {/* Submit */}
             <button
               type="submit"
-              className="font-sans font-light tracking-[0.18em] uppercase text-[#3A342C]/70 hover:opacity-40 transition-opacity duration-300 cursor-pointer bg-transparent border-none outline-none"
+              disabled={sending}
+              className="font-sans font-light tracking-[0.18em] uppercase text-[#3A342C]/70 hover:opacity-40 transition-opacity duration-300 cursor-pointer bg-transparent border-none outline-none disabled:opacity-30"
               style={{ fontSize: "clamp(10px, 0.95vw, 12px)" }}
             >
-              Send Enquiry&nbsp;&nbsp;→
+              {sending ? "Sending…" : "Send Enquiry\u00a0\u00a0→"}
             </button>
 
           </form>
