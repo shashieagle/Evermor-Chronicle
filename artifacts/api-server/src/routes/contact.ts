@@ -47,20 +47,22 @@ router.post("/contact", async (req: Request, res: Response) => {
     </div>
   `;
 
-  try {
-    await resend.emails.send({
-      from: "Evermor Tales <enquiries@evermortales.com>",
-      to: "hello@evermortales.com",
-      replyTo: email,
-      subject: `New enquiry — ${names}`,
-      html,
-    });
-    logger.info({ names, email }, "Contact enquiry emailed.");
-    res.json({ ok: true });
-  } catch (err) {
-    logger.error({ err }, "Failed to send contact email.");
+  const { error: sendError } = await resend.emails.send({
+    from: "Evermor Tales <enquiries@evermortales.com>",
+    to: "hello@evermortales.com",
+    replyTo: email,
+    subject: `New enquiry — ${names}`,
+    html,
+  });
+
+  if (sendError) {
+    logger.error({ err: sendError }, "Failed to send contact email.");
     res.status(500).json({ error: "Failed to send email. Please try again." });
+    return;
   }
+
+  logger.info({ names, email }, "Contact enquiry emailed.");
+  res.json({ ok: true });
 });
 
 export default router;

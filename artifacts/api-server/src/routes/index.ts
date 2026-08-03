@@ -12,7 +12,7 @@ router.use(healthRouter);
 router.use(storageRouter);
 router.use(storiesRouter);
 router.use(journalRouter);
-router.use(adminRouter);
 router.use(contactRouter);
+router.use(adminRouter);
 
 export default router;
