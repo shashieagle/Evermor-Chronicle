@@ -446,13 +446,6 @@ export default function Home() {
           className="flex flex-col items-center text-center"
           style={{ paddingTop: "clamp(72px, 12vw, 140px)", paddingBottom: "clamp(48px, 7vw, 88px)", paddingLeft: "clamp(24px, 8vw, 100px)", paddingRight: "clamp(24px, 8vw, 100px)" }}
         >
-          <p
-            ref={ch6LabelRef}
-            className={`font-sans uppercase tracking-[0.28em] text-[#8C6D4F] transition-all duration-[700ms] ease-out ${ch6LabelInView ? "opacity-100" : "opacity-0"}`}
-            style={{ fontSize: "clamp(8px, 0.8vw, 10px)", marginBottom: "clamp(16px, 2.5vw, 28px)" }}
-          >
-            Memory
-          </p>
           <h2
             ref={ch6HeadRef}
             className={`font-serif font-light text-[#3A342C] leading-[1.08] tracking-[-0.01em] transition-all duration-[1000ms] ease-out ${ch6HeadInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
