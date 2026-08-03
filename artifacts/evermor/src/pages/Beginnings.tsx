@@ -273,9 +273,11 @@ export default function Beginnings() {
           <p className="font-sans font-light text-[11px] uppercase tracking-[0.3em] text-[#3A342C]/40 mb-10">
             {story.location}
           </p>
-          <p className="font-serif font-light text-[20px] md:text-[24px] lg:text-[26px] text-[#3A342C] leading-[1.75] tracking-[0.01em]">
-            {story.narrative}
-          </p>
+          <div className="font-serif font-light text-[20px] md:text-[24px] lg:text-[26px] text-[#3A342C] leading-[1.75] tracking-[0.01em] space-y-6">
+            {(story.narrative ?? "").split("\n\n").map((para, i) => (
+              <p key={i}>{para}</p>
+            ))}
+          </div>
         </div>
       </section>
 

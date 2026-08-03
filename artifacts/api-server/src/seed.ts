@@ -23,7 +23,7 @@ const SEED_STORIES = [
   {
     slug: "shaun-sowmya", title: "A Second Beginning", couple: "Shaun & Sowmya",
     location: "Bangalore, India",
-    narrative: "There are weddings that feel like performances, and there are weddings that feel like a breath held for a very long time — finally released. Shaun and Sowmya’s was the latter. In the warmth of a Bangalore afternoon, surrounded by people who had watched them separately become who they were, they chose each other. Quietly. Completely.",
+    narrative: "Every beginning carries a story.\n\nSome begin in familiar ways.\n\nOthers arrive after life has already written a few chapters.\n\nWhen Shaun and Sowmya decided to marry, they weren't simply planning a wedding. They were bringing together two cultures, two families, and an eight-year-old son whose presence quietly shaped every moment of the day.\n\nThere was joy.\n\nThere was tenderness.\n\nAnd there was the quiet understanding that this celebration wasn't just about two people finding one another—it was about a family finding its beginning.\n\nSome stories remind us that love doesn't always arrive first.\n\nSometimes, it arrives again.",
     pause: "Some beginnings arrive without fanfare. They simply settle — like light through a window you forgot you’d left open.",
     reflection: "What stays, long after the flowers are pressed and the music has faded, is the weight of a hand held for the first time as husband and wife. The ceremony ends. The story begins.",
     videoUrl: "https://youtu.be/tot_P7Tikio?si=83cFBMwt9k1xnqca", hasFilm: true,
