@@ -286,17 +286,6 @@ export default function Beginnings() {
         <EditorialGallery photos={gallery1} alt={alt} />
       </section>
 
-      {/* ── 4. Pause ─────────────────────────────────────────────── */}
-      <section className="bg-white py-20 md:py-40 lg:py-64">
-        <div
-          ref={pauseRef}
-          className={`max-w-[560px] mx-auto px-6 md:px-0 text-center transition-all duration-[1100ms] ease-out ${pauseInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-        >
-          <p className="font-serif font-light italic text-[22px] md:text-[28px] lg:text-[32px] text-[#3A342C]/65 leading-[1.6] tracking-[0.01em]">
-            {story.pause}
-          </p>
-        </div>
-      </section>
 
       {/* ── 5. Gallery — part two ─────────────────────────────────── */}
       <section className="bg-white">
