@@ -14,9 +14,15 @@ localPort = 19470
 run = "pnpm --filter @workspace/evermor run dev"
 
 [services.production]
-build = [ "pnpm", "--filter", "@workspace/evermor", "run", "build" ]
 serve = "static"
 publicDir = "artifacts/evermor/dist/public"
+
+[services.production.build]
+args = [ "pnpm", "--filter", "@workspace/evermor", "run", "build" ]
+
+[services.production.build.env]
+PORT = "19470"
+BASE_PATH = "/"
 
 [[services.production.rewrites]]
 from = "/*"
