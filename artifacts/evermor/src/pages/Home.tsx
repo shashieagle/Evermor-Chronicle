@@ -246,6 +246,7 @@ export default function Home() {
       </section>
       {/* ── Image Slideshow ─────────────────────────────────────────────── */}
       {slideshowImages.length > 0 && (
+      <>
       <section
         className="relative overflow-hidden bg-[#0C0906]"
         style={{ height: "90vh" }}
@@ -306,10 +307,27 @@ export default function Home() {
           </p>
         </div>
 
-        {/* Preview rail — keeps the nearby story visible */}
+        {/* Progress bar */}
+        <div className="absolute bottom-0 inset-x-0 z-20 h-[2px] bg-[#F5F0E8]/8">
+          <div
+            key={progressKey}
+            style={{
+              height: "100%",
+              background: "rgba(245,240,232,0.45)",
+              transformOrigin: "left center",
+              animation: `slideProgress ${SLIDE_DURATION}ms linear forwards`,
+            }}
+          />
+        </div>
+      </section>
+      {/* Preview rail — entirely on the light space below the slideshow */}
+      <div
+        className="relative bg-[#EFEFED]"
+        style={{ height: "clamp(64px, 8vw, 96px)" }}
+      >
         <div
           ref={thumbnailRailRef}
-          className="absolute bottom-1 left-0 right-0 z-20 flex items-end justify-center gap-2 overflow-x-auto px-5 pb-1 md:bottom-2 md:gap-3 md:px-16"
+          className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex items-center justify-center gap-2 overflow-x-auto px-5 md:gap-3 md:px-16"
           style={{
             scrollbarWidth: "none",
             maskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
@@ -331,15 +349,15 @@ export default function Home() {
                   onClick={() => selectSlide(idx)}
                   aria-label={`${isCurrent ? "Current" : isPast ? "Previous" : "Next"} image, ${idx + 1} of ${slideshowImages.length}`}
                   aria-current={isCurrent ? "true" : undefined}
-                  className="group relative shrink-0 overflow-hidden transition-all duration-500 focus:outline-none focus-visible:ring-1 focus-visible:ring-[#F5F0E8]/80"
+                  className="group relative shrink-0 overflow-hidden transition-all duration-500 focus:outline-none focus-visible:ring-1 focus-visible:ring-[#3A342C]/70"
                   style={{
                     width: "clamp(48px, 7vw, 98px)",
                     aspectRatio: "1.45",
                     opacity: isCurrent ? 1 : isPast ? 0.48 : 0.72,
                     border: isCurrent
-                      ? "1px solid rgba(245,240,232,0.95)"
-                      : "1px solid rgba(245,240,232,0.22)",
-                    boxShadow: isCurrent ? "0 0 0 3px rgba(12,9,6,0.4)" : "none",
+                      ? "1px solid rgba(58,52,44,0.85)"
+                      : "1px solid rgba(58,52,44,0.22)",
+                    boxShadow: isCurrent ? "0 0 0 3px rgba(239,239,237,0.92), 0 5px 18px rgba(58,52,44,0.16)" : "none",
                   }}
                 >
                   <img
@@ -353,20 +371,8 @@ export default function Home() {
               );
             })}
         </div>
-
-        {/* Progress bar */}
-        <div className="absolute bottom-0 inset-x-0 z-20 h-[2px] bg-[#F5F0E8]/8">
-          <div
-            key={progressKey}
-            style={{
-              height: "100%",
-              background: "rgba(245,240,232,0.45)",
-              transformOrigin: "left center",
-              animation: `slideProgress ${SLIDE_DURATION}ms linear forwards`,
-            }}
-          />
-        </div>
-      </section>
+      </div>
+      </>
       )}
       {/* ── Chapter 5 — Beginnings ───────────────────────────────────────── */}
       <section
