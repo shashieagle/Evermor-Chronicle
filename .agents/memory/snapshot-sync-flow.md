@@ -20,6 +20,14 @@ This writes the current DB state back to `sync/snapshot.json` in object storage,
 
 **Also:** `artifacts/evermor/src/data/stories.ts` is a static fallback used for initial render before the API fetch completes. Keep it in sync with DB changes to avoid flash of stale content.
 
+## Live admin edits before publishing
+
+The production admin database can contain newer story titles and copy than the workspace database and static fallback. A deployment based only on the workspace can therefore overwrite or mask edits the user already made live.
+
+**Why:** Admin changes are persisted in the running environment, while the workspace's seed and fallback data do not update automatically.
+
+**How to apply:** Before publishing after live admin work, compare the production admin story records with the workspace. Treat the live records as the source of truth, bring changed title/copy fields into the workspace seed and fallback data, then create a fresh active-story snapshot before deployment.
+
 ## Archived stories
 
 Archived stories must be excluded from snapshots. Otherwise a later server restart can upsert them back as active because the snapshot format does not carry an archive date.
