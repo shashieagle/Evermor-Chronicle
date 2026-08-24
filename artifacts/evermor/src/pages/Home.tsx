@@ -90,7 +90,6 @@ export default function Home() {
 
   return (
     <div className="bg-[#EFEFED] text-[#F5F0E8]">
-
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
       <section className="relative h-[100vh] w-full overflow-hidden bg-[#1A1612]">
         <div
@@ -143,12 +142,11 @@ export default function Home() {
               transform: mounted ? "translateY(0)" : "translateY(10px)",
             }}
           >
-            <span>Discover Your Story</span>
+            <span>Discover Your Story DNA</span>
             <span>→</span>
           </Link>
         </div>
       </section>
-
       {/* ── Chapter 2 — Why Evermor Exists ──────────────────────────────── */}
       <section
         className="bg-[#EFEFED] flex flex-col items-center"
@@ -211,7 +209,6 @@ export default function Home() {
           <div className="h-[3px] mx-3 mt-0 bg-[#1A1208]/28 blur-sm" />
         </div>
       </section>
-
       {/* ── Good Fit ─────────────────────────────────────────────────────── */}
       <section
         className="bg-[#EFEFED] flex flex-col items-center text-center"
@@ -235,7 +232,6 @@ export default function Home() {
           </p>
         </div>
       </section>
-
       {/* ── Image Slideshow ─────────────────────────────────────────────── */}
       {slideshowImages.length > 0 && (
       <section
@@ -312,7 +308,6 @@ export default function Home() {
         </div>
       </section>
       )}
-
       {/* ── Chapter 5 — Beginnings ───────────────────────────────────────── */}
       <section
         className="bg-[#EFEFED] overflow-hidden"
@@ -437,7 +432,6 @@ export default function Home() {
           </Link>
         </div>
       </section>
-
       {/* ── Chapter 6 — Memory ──────────────────────────────────────────── */}
       <section className="bg-[#EFEFED] overflow-hidden" style={{ borderTop: "1px solid rgba(58,52,44,0.08)" }}>
 
@@ -508,7 +502,6 @@ export default function Home() {
         </div>
 
       </section>
-
       {/* Admin lock */}
       <div className="flex justify-center py-8" style={{ background: "#0c0906" }}>
         <a href="/admin" aria-label="Admin" className="opacity-[0.1] hover:opacity-25 transition-opacity duration-500">
@@ -518,7 +511,6 @@ export default function Home() {
           </svg>
         </a>
       </div>
-
     </div>
   );
 }
