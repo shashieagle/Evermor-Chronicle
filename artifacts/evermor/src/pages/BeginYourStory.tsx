@@ -219,7 +219,7 @@ export default function BeginYourStory() {
               } disabled:opacity-40`}
               style={{ fontSize: "clamp(10px, 0.95vw, 12px)", padding: "15px 24px" }}
             >
-              {sending ? "Sending…" : "Discover Your Story for Free\u00a0\u00a0→"}
+              {sending ? "Sending…" : "Discover Your Story DNA\u00a0\u00a0→"}
             </button>
 
           </form>
