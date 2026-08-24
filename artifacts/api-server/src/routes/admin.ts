@@ -316,11 +316,15 @@ router.post("/admin/journal/:slug/cover", async (req: Request, res: Response) =>
 // code change.
 router.post("/admin/sync", async (_req: Request, res: Response) => {
   try {
-    const [stories, storyPhotos, slideshow] = await Promise.all([
-      db.select().from(storiesTable).orderBy(asc(storiesTable.slug)),
+    const [stories, allStoryPhotos, slideshow] = await Promise.all([
+      db.select().from(storiesTable)
+        .where(isNull(storiesTable.deletedAt))
+        .orderBy(asc(storiesTable.slug)),
       db.select().from(storyPhotosTable).orderBy(asc(storyPhotosTable.storySlug), asc(storyPhotosTable.position)),
       db.select().from(slideshowPhotosTable).orderBy(asc(slideshowPhotosTable.position)),
     ]);
+    const activeSlugs = new Set(stories.map(s => s.slug));
+    const storyPhotos = allStoryPhotos.filter(p => activeSlugs.has(p.storySlug));
 
     const snapshot = {
       stories: stories.map(s => ({
