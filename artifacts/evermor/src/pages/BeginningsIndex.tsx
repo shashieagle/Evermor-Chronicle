@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "wouter";
+import { Clapperboard } from "lucide-react";
 import Nav from "../components/Nav";
 
 const BASE = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
@@ -154,9 +155,13 @@ function StoryRow({ story, index }: { story: ApiStory; index: number }) {
             {story.couple}
           </p>
           {story.hasFilm && (
-            <p className="font-sans font-light text-[11px] uppercase tracking-[0.2em] text-[#3A342C]/35">
-              Film included
-            </p>
+            <span
+              className="inline-flex w-fit items-center text-[#3A342C]/40"
+              title="Film included"
+              aria-label="Film included"
+            >
+              <Clapperboard size={17} strokeWidth={1.25} aria-hidden="true" />
+            </span>
           )}
           <span className="mt-8 font-sans font-light text-[12px] tracking-[0.12em] text-[#3A342C]/40 group-hover:text-[#3A342C]/80 transition-colors duration-300 uppercase">
             View story →
