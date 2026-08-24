@@ -5,11 +5,11 @@ import { logger } from "./lib/logger";
 import { readJsonFromStorage } from "./lib/objectStorage";
 
 // ── Snapshot type ─────────────────────────────────────────────────────────────
-interface DbSnapshot {
+export interface DbSnapshot {
   stories: {
     slug: string; title: string; couple: string; location: string;
     narrative: string | null; pause: string | null; reflection: string | null;
-    videoUrl: string | null; hasFilm: boolean; heroImage: string | null;
+    videoUrl: string | null; hasFilm: boolean; heroImage: string;
   }[];
   storyPhotos: {
     storySlug: string; url: string; objectPath: string | null; position: number;
@@ -399,7 +399,55 @@ export async function deduplicatePhotos() {
   }
 }
 
-export async function seedIfEmpty() {
+type SnapshotReader = (relativePath: string) => Promise<unknown | null>;
+
+interface SeedIfEmptyOptions {
+  database?: typeof db;
+  readSnapshot?: SnapshotReader;
+  seedFallback?: () => Promise<void>;
+}
+
+function isDbSnapshot(value: unknown): value is DbSnapshot {
+  if (!value || typeof value !== "object") return false;
+  const candidate = value as Partial<DbSnapshot>;
+  return Array.isArray(candidate.stories)
+    && Array.isArray(candidate.storyPhotos)
+    && Array.isArray(candidate.slideshow);
+}
+
+async function seedHardcodedData(database: typeof db) {
+  const [existingStories, existingSlideshow] = await Promise.all([
+    database.select().from(storiesTable),
+    database.select().from(slideshowPhotosTable),
+  ]);
+  if (existingStories.length >= SEED_STORIES.length && existingSlideshow.length >= SEED_SLIDESHOW.length) {
+    logger.info("Seed: DB already fully seeded, skipping.");
+    return;
+  }
+  logger.info(
+    { stories: existingStories.length, slideshow: existingSlideshow.length },
+    "Seed: filling in missing data from hardcoded seed...",
+  );
+  for (const s of SEED_STORIES) {
+    await database.insert(storiesTable).values({
+      slug: s.slug, title: s.title, couple: s.couple, location: s.location,
+      narrative: s.narrative, pause: s.pause, reflection: s.reflection,
+      videoUrl: s.videoUrl, hasFilm: s.hasFilm, heroImage: s.heroImage,
+    }).onConflictDoNothing();
+  }
+  logger.info("Seed: stories done.");
+  const BATCH = 50;
+  for (let i = 0; i < SEED_STORY_PHOTOS.length; i += BATCH) {
+    await database.insert(storyPhotosTable).values(SEED_STORY_PHOTOS.slice(i, i + BATCH)).onConflictDoNothing();
+  }
+  logger.info("Seed: story photos done.");
+  await database.insert(slideshowPhotosTable).values(SEED_SLIDESHOW).onConflictDoNothing();
+  logger.info("Seed: slideshow done. All seeding complete.");
+}
+
+export async function seedIfEmpty(options: SeedIfEmptyOptions = {}) {
+  const database = options.database ?? db;
+  const readSnapshot = options.readSnapshot ?? readJsonFromStorage;
   try {
     // ── Try to load a production snapshot from object storage ────────────────
     // This snapshot is written by the admin "Sync to Production" button and
@@ -407,8 +455,8 @@ export async function seedIfEmpty() {
     // When present, we upsert its contents so the production DB stays in sync.
     let snapshot: DbSnapshot | null = null;
     try {
-      const raw = await readJsonFromStorage("sync/snapshot.json");
-      if (raw && typeof raw === "object") snapshot = raw as DbSnapshot;
+      const raw = await readSnapshot("sync/snapshot.json");
+      if (isDbSnapshot(raw)) snapshot = raw;
     } catch (e) {
       logger.warn({ err: e }, "Seed: could not read snapshot from object storage (non-fatal)");
     }
@@ -418,39 +466,13 @@ export async function seedIfEmpty() {
         { stories: snapshot.stories.length, photos: snapshot.storyPhotos.length, slideshow: snapshot.slideshow.length },
         "Seed: found object-storage snapshot — syncing to DB...",
       );
-      await applySeedSnapshot(snapshot);
+      await applySeedSnapshot(snapshot, database);
       logger.info("Seed: snapshot sync complete.");
       return;
     }
 
     // ── Fall back to hardcoded seed data (first-run bootstrap) ───────────────
-    const [existingStories, existingSlideshow] = await Promise.all([
-      db.select().from(storiesTable),
-      db.select().from(slideshowPhotosTable),
-    ]);
-    if (existingStories.length >= SEED_STORIES.length && existingSlideshow.length >= SEED_SLIDESHOW.length) {
-      logger.info("Seed: DB already fully seeded, skipping.");
-      return;
-    }
-    logger.info(
-      { stories: existingStories.length, slideshow: existingSlideshow.length },
-      "Seed: filling in missing data from hardcoded seed...",
-    );
-    for (const s of SEED_STORIES) {
-      await db.insert(storiesTable).values({
-        slug: s.slug, title: s.title, couple: s.couple, location: s.location,
-        narrative: s.narrative, pause: s.pause, reflection: s.reflection,
-        videoUrl: s.videoUrl, hasFilm: s.hasFilm, heroImage: s.heroImage,
-      }).onConflictDoNothing();
-    }
-    logger.info("Seed: stories done.");
-    const BATCH = 50;
-    for (let i = 0; i < SEED_STORY_PHOTOS.length; i += BATCH) {
-      await db.insert(storyPhotosTable).values(SEED_STORY_PHOTOS.slice(i, i + BATCH)).onConflictDoNothing();
-    }
-    logger.info("Seed: story photos done.");
-    await db.insert(slideshowPhotosTable).values(SEED_SLIDESHOW).onConflictDoNothing();
-    logger.info("Seed: slideshow done. All seeding complete.");
+    await (options.seedFallback ?? (() => seedHardcodedData(database)))();
   } catch (e) {
     logger.error({ err: e }, "Seed: failed");
   }
@@ -458,10 +480,10 @@ export async function seedIfEmpty() {
 
 /** Apply a snapshot by upserting all stories/photos/slideshow into the DB.
  *  Stories/slideshow not in the snapshot are left untouched (additive sync). */
-export async function applySeedSnapshot(snapshot: DbSnapshot) {
+export async function applySeedSnapshot(snapshot: DbSnapshot, database: typeof db = db) {
   // Upsert stories
   for (const s of snapshot.stories) {
-    await db.insert(storiesTable).values({
+    await database.insert(storiesTable).values({
       slug: s.slug, title: s.title, couple: s.couple, location: s.location,
       narrative: s.narrative, pause: s.pause, reflection: s.reflection,
       videoUrl: s.videoUrl, hasFilm: s.hasFilm, heroImage: s.heroImage,
@@ -481,21 +503,21 @@ export async function applySeedSnapshot(snapshot: DbSnapshot) {
   const slugsInSnapshot = new Set(snapshot.stories.map(s => s.slug));
   for (const slug of slugsInSnapshot) {
     const photosForStory = snapshot.storyPhotos.filter(p => p.storySlug === slug);
-    await db.delete(storyPhotosTable).where(eq(storyPhotosTable.storySlug, slug));
+    await database.delete(storyPhotosTable).where(eq(storyPhotosTable.storySlug, slug));
     if (photosForStory.length) {
       const BATCH = 50;
       for (let i = 0; i < photosForStory.length; i += BATCH) {
-        await db.insert(storyPhotosTable).values(photosForStory.slice(i, i + BATCH));
+        await database.insert(storyPhotosTable).values(photosForStory.slice(i, i + BATCH));
       }
     }
   }
 
   // Replace slideshow entirely if snapshot has slideshow entries
   if (snapshot.slideshow.length) {
-    await db.delete(slideshowPhotosTable);
+    await database.delete(slideshowPhotosTable);
     const BATCH = 50;
     for (let i = 0; i < snapshot.slideshow.length; i += BATCH) {
-      await db.insert(slideshowPhotosTable).values(snapshot.slideshow.slice(i, i + BATCH));
+      await database.insert(slideshowPhotosTable).values(snapshot.slideshow.slice(i, i + BATCH));
     }
   }
 }
