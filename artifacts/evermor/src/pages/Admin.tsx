@@ -196,8 +196,9 @@ export default function Admin() {
   const [deleting, setDeleting]     = useState(false);
 
   // Sync to production
-  const [syncing, setSyncing]   = useState(false);
-  const [syncMsg, setSyncMsg]   = useState("");
+  const [syncing, setSyncing]     = useState(false);
+  const [syncMsg, setSyncMsg]     = useState("");
+  const [syncStatus, setSyncStatus] = useState<"success" | "warning" | "error" | "">("");
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -354,7 +355,7 @@ export default function Admin() {
 
   // ── Sync to production ─────────────────────────────────────────────────────
   const syncToProduction = async () => {
-    setSyncing(true); setSyncMsg("");
+    setSyncing(true); setSyncMsg(""); setSyncStatus("");
     try {
       // Step 1: write the snapshot to object storage
       const r = await fetch(`${API}/admin/sync`, {
@@ -363,26 +364,36 @@ export default function Admin() {
       const d = await r.json();
       if (!r.ok) {
         setSyncMsg(`Error: ${d.error || "Sync failed"}`);
+        setSyncStatus("error");
         setSyncing(false);
-        setTimeout(() => setSyncMsg(""), 8000);
+        setTimeout(() => { setSyncMsg(""); setSyncStatus(""); }, 8000);
         return;
       }
 
       // Step 2: tell the live server to reload from the snapshot immediately
+      let reloadOk = false;
       try {
-        await fetch(`${API}/admin/reload-from-snapshot`, {
+        const rr = await fetch(`${API}/admin/reload-from-snapshot`, {
           method: "POST", headers: { "X-Admin-Token": token },
         });
+        reloadOk = rr.ok;
       } catch {
-        // non-fatal — snapshot is saved, live server will pick it up on next deploy
+        reloadOk = false;
       }
 
-      setSyncMsg(`Live ✓ — ${d.stories} stories, ${d.photos} photos updated.`);
+      if (reloadOk) {
+        setSyncMsg(`Live ✓ — ${d.stories} stories, ${d.photos} photos updated.`);
+        setSyncStatus("success");
+      } else {
+        setSyncMsg("Snapshot saved, but live reload failed — changes will appear on next deploy");
+        setSyncStatus("warning");
+      }
     } catch {
       setSyncMsg("Could not connect to server");
+      setSyncStatus("error");
     }
     setSyncing(false);
-    setTimeout(() => setSyncMsg(""), 8000);
+    setTimeout(() => { setSyncMsg(""); setSyncStatus(""); }, 8000);
   };
 
   // ── Archive story (soft-delete) ────────────────────────────────────────────
@@ -724,7 +735,11 @@ export default function Admin() {
           {syncMsg && (
             <p style={{
               ...sans, fontSize: 11, lineHeight: 1.5, margin: "0 0 10px",
-              color: syncMsg.startsWith("Error") || syncMsg.startsWith("Could") ? "#c0392b" : "#2e7d32",
+              color: syncStatus === "error" ? "#c0392b" : syncStatus === "warning" ? "#b45309" : "#2e7d32",
+              background: syncStatus === "warning" ? "#fffbeb" : "transparent",
+              border: syncStatus === "warning" ? "1px solid #fcd34d" : "none",
+              borderRadius: syncStatus === "warning" ? 3 : 0,
+              padding: syncStatus === "warning" ? "6px 8px" : 0,
             }}>{syncMsg}</p>
           )}
           <button
