@@ -4,6 +4,13 @@ import { storiesTable, storyPhotosTable } from "@workspace/db";
 import { eq, asc, isNull, and } from "drizzle-orm";
 
 const router: IRouter = Router();
+const PUBLIC_STORY_ORDER = [
+  "saksham-chitkala",
+  "yamini-chris",
+  "sakshi-rajat",
+  "kaushik-sandhya",
+  "shaun-sowmya",
+];
 
 // ── List all stories (active only) ───────────────────────────────────────────
 router.get("/stories", async (_req: Request, res: Response) => {
@@ -11,6 +18,11 @@ router.get("/stories", async (_req: Request, res: Response) => {
     const rows = await db.select().from(storiesTable)
       .where(isNull(storiesTable.deletedAt))
       .orderBy(asc(storiesTable.slug));
+    const order = new Map(PUBLIC_STORY_ORDER.map((slug, index) => [slug, index]));
+    rows.sort((a, b) =>
+      (order.get(a.slug) ?? Number.MAX_SAFE_INTEGER) -
+      (order.get(b.slug) ?? Number.MAX_SAFE_INTEGER)
+    );
     res.json({ stories: rows });
   } catch {
     res.status(500).json({ error: "Failed to fetch stories" });

@@ -12,6 +12,14 @@ export interface Story {
   reflection: string;
 }
 
+const PUBLIC_STORY_ORDER = [
+  "saksham-chitkala",
+  "yamini-chris",
+  "sakshi-rajat",
+  "kaushik-sandhya",
+  "shaun-sowmya",
+];
+
 export const stories: Story[] = [
   {
     slug: "shaun-sowmya",
@@ -97,7 +105,10 @@ export const stories: Story[] = [
     reflection:
       "Their wedding felt less like the beginning of something entirely new and more like two already-full lives making room for one another.",
   },
-];
+].filter((story) => story.slug !== "abhigna-sagar")
+  .sort((a, b) =>
+    PUBLIC_STORY_ORDER.indexOf(a.slug) - PUBLIC_STORY_ORDER.indexOf(b.slug)
+  );
 
 export const storiesBySlug = Object.fromEntries(
   stories.map((s) => [s.slug, s])
