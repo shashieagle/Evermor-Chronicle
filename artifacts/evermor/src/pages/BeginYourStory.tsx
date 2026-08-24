@@ -199,7 +199,7 @@ export default function BeginYourStory() {
               className="font-sans font-light tracking-[0.18em] uppercase text-[#3A342C]/70 hover:opacity-40 transition-opacity duration-300 cursor-pointer bg-transparent border-none outline-none disabled:opacity-30"
               style={{ fontSize: "clamp(10px, 0.95vw, 12px)" }}
             >
-              {sending ? "Sending…" : "Send Enquiry\u00a0\u00a0→"}
+              {sending ? "Sending…" : "Discover Your Story for Free\u00a0\u00a0→"}
             </button>
 
           </form>
