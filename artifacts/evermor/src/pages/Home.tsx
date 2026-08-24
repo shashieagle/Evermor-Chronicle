@@ -262,7 +262,7 @@ export default function Home() {
         {slideshowImages.map((src, i) => (
           <div
             key={src}
-            className="absolute inset-0 transition-opacity duration-[1400ms] ease-in-out"
+            className="absolute inset-y-0 left-[5%] right-[5%] transition-opacity duration-[1400ms] ease-in-out"
             style={{ opacity: i === slideIndex ? 1 : 0, zIndex: i === slideIndex ? 2 : 1 }}
           >
             <img
