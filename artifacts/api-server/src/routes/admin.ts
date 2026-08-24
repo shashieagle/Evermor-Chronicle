@@ -1,6 +1,6 @@
 import { Router, type IRouter, type Request, type Response, type NextFunction } from "express";
 import { db } from "@workspace/db";
-import { storiesTable, storyPhotosTable, journalPostsTable, slideshowPhotosTable } from "@workspace/db";
+import { storiesTable, storyPhotosTable, journalPostsTable, slideshowPhotosTable, enquiriesTable } from "@workspace/db";
 import { eq, asc, desc, isNull, isNotNull } from "drizzle-orm";
 import { ObjectStorageService, writeJsonToStorage, readJsonFromStorage } from "../lib/objectStorage";
 import { applySeedSnapshot } from "../seed";
@@ -13,7 +13,12 @@ function adminAuth(req: Request, res: Response, next: NextFunction) {
   const token = req.headers["x-admin-token"] as string | undefined;
   const password = process.env.ADMIN_PASSWORD;
   if (!password) {
-    // No password set — allow access in dev (warn in logs)
+    if (process.env.NODE_ENV === "production") {
+      req.log?.error("ADMIN_PASSWORD not set — admin routes are unavailable");
+      res.status(503).json({ error: "Admin access is not configured" });
+      return;
+    }
+    // Allow local development without an admin password.
     req.log?.warn("ADMIN_PASSWORD not set — admin routes are unprotected");
     return next();
   }
@@ -34,6 +39,49 @@ router.use(adminAuth);
 // ── Verify ────────────────────────────────────────────────────────────────────
 router.post("/admin/verify", (_req: Request, res: Response) => {
   res.json({ ok: true });
+});
+
+// ── Enquiries ──────────────────────────────────────────────────────────────────
+router.get("/admin/enquiries", async (_req: Request, res: Response) => {
+  try {
+    const enquiries = await db.select().from(enquiriesTable).orderBy(desc(enquiriesTable.createdAt));
+    res.json({ enquiries });
+  } catch {
+    res.status(500).json({ error: "Failed to fetch enquiries" });
+  }
+});
+
+router.patch("/admin/enquiries/:id", async (req: Request, res: Response) => {
+  const id = Number(req.params.id);
+  const { read, archived } = req.body as { read?: unknown; archived?: unknown };
+
+  if (!Number.isInteger(id) || id <= 0 || (read !== undefined && typeof read !== "boolean") ||
+      (archived !== undefined && typeof archived !== "boolean")) {
+    res.status(400).json({ error: "A valid id and boolean read or archived value are required" });
+    return;
+  }
+  if (read === undefined && archived === undefined) {
+    res.status(400).json({ error: "Provide read or archived" });
+    return;
+  }
+
+  const updates: { readAt?: Date | null; archivedAt?: Date | null } = {};
+  if (typeof read === "boolean") updates.readAt = read ? new Date() : null;
+  if (typeof archived === "boolean") updates.archivedAt = archived ? new Date() : null;
+
+  try {
+    const [enquiry] = await db.update(enquiriesTable)
+      .set(updates)
+      .where(eq(enquiriesTable.id, id))
+      .returning();
+    if (!enquiry) {
+      res.status(404).json({ error: "Enquiry not found" });
+      return;
+    }
+    res.json({ enquiry });
+  } catch {
+    res.status(500).json({ error: "Failed to update enquiry" });
+  }
 });
 
 // ── List stories (active only) ────────────────────────────────────────────────

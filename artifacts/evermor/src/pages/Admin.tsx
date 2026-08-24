@@ -21,6 +21,18 @@ interface StoryRow {
 }
 interface Photo { id: number; url: string; objectPath: string | null; position: number; }
 interface SlideshowPhoto { id: number; url: string; objectPath: string | null; position: number; }
+interface EnquiryRow {
+  id: number;
+  names: string;
+  email: string;
+  phone: string;
+  location: string;
+  weddingDate: string;
+  venue: string | null;
+  createdAt: string;
+  readAt: string | null;
+  archivedAt: string | null;
+}
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 function apiHeaders(token: string) {
@@ -43,6 +55,15 @@ function embedUrl(raw: string): string | null {
 
 function toSlug(couple: string) {
   return couple.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+}
+
+function formatDate(value: string | null) {
+  if (!value) return "—";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "numeric", month: "short", year: "numeric",
+  }).format(date);
 }
 
 // ── Sortable photo tile ───────────────────────────────────────────────────────
@@ -174,10 +195,13 @@ export default function Admin() {
   const fileRef = useRef<HTMLInputElement>(null);
 
   // Slideshow state
-  const [activeTab, setActiveTab]             = useState<"stories" | "slideshow">("stories");
+  const [activeTab, setActiveTab]             = useState<"stories" | "slideshow" | "enquiries">("stories");
   const [slidePhotos, setSlidePhotos]         = useState<SlideshowPhoto[]>([]);
   const [slideUploading, setSlideUploading]   = useState(false);
   const slideFileRef = useRef<HTMLInputElement>(null);
+  const [enquiries, setEnquiries]             = useState<EnquiryRow[]>([]);
+  const [updatingEnquiryIds, setUpdatingEnquiryIds] = useState<number[]>([]);
+  const [enquiryError, setEnquiryError]       = useState("");
 
   // New story modal
   const [showNew, setShowNew]     = useState(false);
@@ -243,6 +267,45 @@ export default function Admin() {
   }, [authed, token]);
 
   useEffect(() => { loadSlidePhotos(); }, [authed]);
+
+  // ── Load enquiries ──────────────────────────────────────────────────────────
+  const loadEnquiries = useCallback(async () => {
+    if (!authed) return;
+    try {
+      const r = await fetch(`${API}/admin/enquiries`, { headers: { "X-Admin-Token": token } });
+      if (!r.ok) return;
+      const d = await r.json();
+      setEnquiries(d.enquiries || []);
+    } catch {}
+  }, [authed, token]);
+
+  useEffect(() => { loadEnquiries(); }, [authed]);
+
+  // ── Mark enquiry read/unread or archive/restore ─────────────────────────────
+  const updateEnquiry = async (id: number, changes: { read?: boolean; archived?: boolean }) => {
+    if (updatingEnquiryIds.includes(id)) return;
+    setUpdatingEnquiryIds(prev => [...prev, id]);
+    setEnquiryError("");
+    try {
+      const r = await fetch(`${API}/admin/enquiries/${id}`, {
+        method: "PATCH",
+        headers: apiHeaders(token),
+        body: JSON.stringify(changes),
+      });
+      if (!r.ok) {
+        setEnquiryError("Could not update the enquiry. Please try again.");
+        return;
+      }
+      const d = await r.json();
+      if (d.enquiry) {
+        setEnquiries(prev => prev.map(enquiry => enquiry.id === id ? d.enquiry : enquiry));
+      }
+    } catch {
+      setEnquiryError("Could not update the enquiry. Please try again.");
+    } finally {
+      setUpdatingEnquiryIds(prev => prev.filter(enquiryId => enquiryId !== id));
+    }
+  };
 
   // ── Load archived stories ──────────────────────────────────────────────────
   const loadArchivedStories = useCallback(async () => {
@@ -657,6 +720,19 @@ export default function Admin() {
               letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 12,
             }}
           >Slideshow</button>
+          <button
+            onClick={() => setActiveTab("enquiries")}
+            style={{
+              display: "block", width: "100%", textAlign: "left",
+              padding: "8px 24px", border: "none", cursor: "pointer",
+              background: "transparent",
+              borderLeft: activeTab === "enquiries" ? `2px solid ${ink}` : "2px solid transparent",
+              color: activeTab === "enquiries" ? ink : `${ink}55`, fontSize: 11,
+              letterSpacing: "0.14em", textTransform: "uppercase", marginBottom: 12,
+            }}
+          >
+            Enquiries{enquiries.some(e => !e.readAt && !e.archivedAt) ? ` · ${enquiries.filter(e => !e.readAt && !e.archivedAt).length}` : ""}
+          </button>
 
           {activeTab === "stories" && (<>
             {stories.map(s => (
@@ -798,6 +874,75 @@ export default function Admin() {
                   </div>
                 </SortableContext>
               </DndContext>
+            )}
+          </div>
+        )}
+
+        {activeTab === "enquiries" && (
+          <div>
+            <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 32 }}>
+              <div>
+                <h2 style={{ ...serif, fontSize: 28, fontWeight: 300, margin: "0 0 6px" }}>Enquiries</h2>
+                <p style={{ fontSize: 12, color: `${ink}55`, letterSpacing: "0.18em", textTransform: "uppercase", margin: 0 }}>
+                  {enquiries.length} {enquiries.length === 1 ? "submission" : "submissions"}
+                </p>
+              </div>
+              <button
+                onClick={loadEnquiries}
+                style={{ ...sans, fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: ink, background: "transparent", border: line, padding: "10px 18px", cursor: "pointer" }}
+              >Refresh</button>
+            </div>
+            {enquiryError && <p style={{ color: "#c0392b", fontSize: 13, margin: "-16px 0 20px" }}>{enquiryError}</p>}
+
+            {enquiries.length === 0 ? (
+              <div style={{ border: `1px dashed ${ink}30`, borderRadius: 4, padding: "56px 32px", textAlign: "center", color: `${ink}45`, fontSize: 13 }}>
+                No enquiries yet.
+              </div>
+            ) : (
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                {enquiries.map(enquiry => {
+                  const archived = Boolean(enquiry.archivedAt);
+                  const read = Boolean(enquiry.readAt);
+                  const updating = updatingEnquiryIds.includes(enquiry.id);
+                  return (
+                    <article
+                      key={enquiry.id}
+                      style={{
+                        border: line, borderLeft: `3px solid ${archived ? `${ink}25` : read ? `${ink}35` : ink}`,
+                        padding: "20px 24px", opacity: archived ? 0.62 : 1,
+                      }}
+                    >
+                      <div style={{ display: "flex", justifyContent: "space-between", gap: 20, alignItems: "flex-start", marginBottom: 14 }}>
+                        <div>
+                          <h3 style={{ ...serif, fontSize: 23, fontWeight: 400, margin: "0 0 5px" }}>{enquiry.names}</h3>
+                          <p style={{ fontSize: 11, color: `${ink}55`, letterSpacing: "0.1em", textTransform: "uppercase", margin: 0 }}>
+                            Received {formatDate(enquiry.createdAt)} · {archived ? "Archived" : read ? "Read" : "Unread"}
+                          </p>
+                        </div>
+                        <div style={{ display: "flex", gap: 8, flexShrink: 0 }}>
+                          <button
+                            onClick={() => updateEnquiry(enquiry.id, { read: !read })}
+                            disabled={updating}
+                            style={{ ...sans, fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: ink, background: "transparent", border: line, padding: "8px 10px", cursor: updating ? "default" : "pointer", opacity: updating ? 0.5 : 1 }}
+                          >{updating ? "Updating…" : read ? "Mark unread" : "Mark read"}</button>
+                          <button
+                            onClick={() => updateEnquiry(enquiry.id, { archived: !archived })}
+                            disabled={updating}
+                            style={{ ...sans, fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", color: `${ink}70`, background: "transparent", border: line, padding: "8px 10px", cursor: updating ? "default" : "pointer", opacity: updating ? 0.5 : 1 }}
+                          >{archived ? "Restore" : "Archive"}</button>
+                        </div>
+                      </div>
+                      <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: "10px 32px", fontSize: 13, lineHeight: 1.5 }}>
+                        <div><span style={{ color: `${ink}55` }}>Email </span><a href={`mailto:${enquiry.email}`} style={{ color: ink }}>{enquiry.email}</a></div>
+                        <div><span style={{ color: `${ink}55` }}>Phone </span><a href={`tel:${enquiry.phone}`} style={{ color: ink }}>{enquiry.phone}</a></div>
+                        <div><span style={{ color: `${ink}55` }}>Location </span>{enquiry.location}</div>
+                        <div><span style={{ color: `${ink}55` }}>Date </span>{enquiry.weddingDate}</div>
+                        <div><span style={{ color: `${ink}55` }}>Venue </span>{enquiry.venue || "—"}</div>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
             )}
           </div>
         )}
