@@ -71,7 +71,7 @@ export default function About() {
 
       {/* Nav — absolute over the image */}
       <Nav
-        theme="dark"
+        theme="light"
         mounted={mounted}
         position="fixed"
         links={[
