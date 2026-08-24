@@ -53,7 +53,6 @@ export default function Home() {
   const [progressKey, setProgressKey] = useState(0);
   const slideTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const touchStartX = useRef(0);
-  const thumbnailRailRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     fetch(`${API}/slideshow`)
@@ -90,13 +89,6 @@ export default function Home() {
     advanceTo(idx);
     startTimer(slideshowImages.length);
   }, [advanceTo, slideshowImages.length, startTimer]);
-
-  useEffect(() => {
-    const activeThumb = thumbnailRailRef.current?.querySelector<HTMLButtonElement>(
-      `[data-slide-index="${slideIndex}"]`
-    );
-    activeThumb?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-  }, [slideIndex, slideshowImages.length]);
 
   useEffect(() => { setMounted(true); }, []);
 
@@ -326,7 +318,6 @@ export default function Home() {
         style={{ height: "clamp(64px, 8vw, 96px)" }}
       >
         <div
-          ref={thumbnailRailRef}
           className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex items-center justify-center gap-2 overflow-x-auto px-5 md:gap-3 md:px-16"
           style={{
             scrollbarWidth: "none",
