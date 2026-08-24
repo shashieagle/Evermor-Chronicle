@@ -309,10 +309,11 @@ export default function Home() {
         {/* Preview rail — keeps the nearby story visible */}
         <div
           ref={thumbnailRailRef}
-          className="absolute bottom-7 left-0 right-0 z-20 flex items-end justify-center gap-2 overflow-x-auto px-5 pb-1 md:gap-3 md:px-16"
+          className="absolute bottom-1 left-0 right-0 z-20 flex items-end justify-center gap-2 overflow-x-auto px-5 pb-1 md:bottom-2 md:gap-3 md:px-16"
           style={{
             scrollbarWidth: "none",
-            maskImage: "linear-gradient(to right, transparent, black 5%, black 95%, transparent)",
+            maskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
           }}
           aria-label="Slideshow previews"
         >
