@@ -53,6 +53,7 @@ export default function Home() {
   const [progressKey, setProgressKey] = useState(0);
   const slideTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const touchStartX = useRef(0);
+  const thumbnailRailRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     fetch(`${API}/slideshow`)
@@ -85,6 +86,17 @@ export default function Home() {
 
   const goNext = useCallback(() => { advanceTo((slideIndex + 1) % slideshowImages.length); startTimer(slideshowImages.length); }, [slideIndex, slideshowImages.length, advanceTo, startTimer]);
   const goPrev = useCallback(() => { advanceTo((slideIndex - 1 + slideshowImages.length) % slideshowImages.length); startTimer(slideshowImages.length); }, [slideIndex, slideshowImages.length, advanceTo, startTimer]);
+  const selectSlide = useCallback((idx: number) => {
+    advanceTo(idx);
+    startTimer(slideshowImages.length);
+  }, [advanceTo, slideshowImages.length, startTimer]);
+
+  useEffect(() => {
+    const activeThumb = thumbnailRailRef.current?.querySelector<HTMLButtonElement>(
+      `[data-slide-index="${slideIndex}"]`
+    );
+    activeThumb?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+  }, [slideIndex, slideshowImages.length]);
 
   useEffect(() => { setMounted(true); }, []);
 
@@ -288,10 +300,57 @@ export default function Home() {
         </button>
 
         {/* Counter */}
-        <div className="absolute bottom-7 right-7 md:right-10 z-20">
+        <div className="absolute top-7 right-7 md:right-10 z-20">
           <p className="font-sans text-[10px] tracking-[0.18em] text-[#F5F0E8]/35">
             {String(slideIndex + 1).padStart(2, "0")} / {String(slideshowImages.length).padStart(2, "0")}
           </p>
+        </div>
+
+        {/* Preview rail — keeps the nearby story visible */}
+        <div
+          ref={thumbnailRailRef}
+          className="absolute bottom-7 left-0 right-0 z-20 flex items-end justify-center gap-2 overflow-x-auto px-5 pb-1 md:gap-3 md:px-16"
+          style={{
+            scrollbarWidth: "none",
+            maskImage: "linear-gradient(to right, transparent, black 5%, black 95%, transparent)",
+          }}
+          aria-label="Slideshow previews"
+        >
+          {[-2, -1, 0, 1, 2, 3]
+            .map(offset => (slideIndex + offset + slideshowImages.length) % slideshowImages.length)
+            .filter((idx, position, indices) => indices.indexOf(idx) === position)
+            .map((idx, position) => {
+              const isCurrent = idx === slideIndex;
+              const isPast = position < 2 && !isCurrent;
+              return (
+                <button
+                  key={`${idx}-${position}`}
+                  type="button"
+                  data-slide-index={idx}
+                  onClick={() => selectSlide(idx)}
+                  aria-label={`${isCurrent ? "Current" : isPast ? "Previous" : "Next"} image, ${idx + 1} of ${slideshowImages.length}`}
+                  aria-current={isCurrent ? "true" : undefined}
+                  className="group relative shrink-0 overflow-hidden transition-all duration-500 focus:outline-none focus-visible:ring-1 focus-visible:ring-[#F5F0E8]/80"
+                  style={{
+                    width: "clamp(48px, 7vw, 98px)",
+                    aspectRatio: "1.45",
+                    opacity: isCurrent ? 1 : isPast ? 0.48 : 0.72,
+                    border: isCurrent
+                      ? "1px solid rgba(245,240,232,0.95)"
+                      : "1px solid rgba(245,240,232,0.22)",
+                    boxShadow: isCurrent ? "0 0 0 3px rgba(12,9,6,0.4)" : "none",
+                  }}
+                >
+                  <img
+                    src={slideshowImages[idx]}
+                    alt={`Preview ${idx + 1}`}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    style={{ filter: isCurrent ? "none" : "sepia(0.08) brightness(0.78) saturate(0.82)" }}
+                  />
+                </button>
+              );
+            })}
         </div>
 
         {/* Progress bar */}
