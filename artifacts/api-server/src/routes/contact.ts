@@ -88,7 +88,7 @@ router.post("/contact", async (req: Request, res: Response) => {
   try {
     const { error: sendError } = await resend.emails.send({
       from: "Evermor Tales <enquiries@evermortales.com>",
-      to: "hello@evermortales.com",
+      to: "hello.evermortales@gmail.com",
       replyTo: email,
       subject: `New enquiry — ${names}`,
       html,
