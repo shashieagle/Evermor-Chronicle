@@ -23,6 +23,7 @@ router.get("/stories", async (_req: Request, res: Response) => {
       (order.get(a.slug) ?? Number.MAX_SAFE_INTEGER) -
       (order.get(b.slug) ?? Number.MAX_SAFE_INTEGER)
     );
+    res.set("Cache-Control", "no-store");
     res.json({ stories: rows });
   } catch {
     res.status(500).json({ error: "Failed to fetch stories" });
@@ -38,6 +39,7 @@ router.get("/stories/:slug", async (req: Request, res: Response) => {
     const photos = await db.select().from(storyPhotosTable)
       .where(eq(storyPhotosTable.storySlug, req.params.slug))
       .orderBy(asc(storyPhotosTable.position));
+    res.set("Cache-Control", "no-store");
     res.json({ story, photos });
   } catch {
     res.status(500).json({ error: "Failed to fetch story" });

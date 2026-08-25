@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "wouter";
 import Nav from "../components/Nav";
-import { storiesBySlug, stories } from "../data/stories";
+import { storiesBySlug } from "../data/stories";
+import { isStoryReadyForSlug, type StoryLoadStatus } from "./storyLoadState";
 
 const BASE = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
 
@@ -154,17 +155,34 @@ function EditorialGallery({ photos, alt }: { photos: string[]; alt: string }) {
 
 interface DbPhoto { id: number; url: string; position: number; }
 
+interface ApiStory {
+  slug: string;
+  title: string;
+  couple: string;
+  location: string;
+  heroImage: string | null;
+  photo2?: string | null;
+  hasFilm: boolean;
+  narrative: string | null;
+  pause: string | null;
+  reflection: string | null;
+  videoUrl: string | null;
+  filmRuntime: string | null;
+}
+
 export default function Beginnings() {
   const { slug } = useParams<{ slug: string }>();
   const [mounted, setMounted] = useState(false);
 
   const staticStory = slug ? storiesBySlug[slug] : undefined;
-  const currentIndex = stories.findIndex((s) => s.slug === slug);
-  const nextStory = stories[(currentIndex + 1) % stories.length];
 
-  // DB overlay — fetched after mount, silent fallback on error
-  const [dbOverlay, setDbOverlay] = useState<Record<string, any>>({});
+  // The database is the source of truth for story content. Static data only
+  // fills legacy local gallery image values after the DB response succeeds.
+  const [storyStatus, setStoryStatus] = useState<StoryLoadStatus>("loading");
+  const [dbStory, setDbStory] = useState<ApiStory | null>(null);
   const [dbPhotos, setDbPhotos] = useState<DbPhoto[]>([]);
+  const [dbStories, setDbStories] = useState<ApiStory[]>([]);
+  const [loadedStorySlug, setLoadedStorySlug] = useState<string | null>(null);
 
   const [narrativeRef, narrativeInView] = useInView();
   const [pauseRef, pauseInView] = useInView();
@@ -177,31 +195,86 @@ export default function Beginnings() {
 
   useEffect(() => {
     if (!slug) return;
-    fetch(`${BASE}/api/stories/${slug}`)
+    let cancelled = false;
+    const cacheBust = `?v=${Date.now()}`;
+
+    // Reset on navigation so a previous story can never flash while the new
+    // database response is in flight.
+    setStoryStatus("loading");
+    setDbStory(null);
+    setDbPhotos([]);
+    setDbStories([]);
+    setLoadedStorySlug(null);
+
+    fetch(`${BASE}/api/stories/${encodeURIComponent(slug)}${cacheBust}`, {
+      cache: "no-store",
+      headers: { "Cache-Control": "no-cache" },
+    })
+      .then(async (r) => {
+        if (!r.ok) throw new Error(`Story request failed: ${r.status}`);
+        return r.json();
+      })
+      .then(d => {
+        if (cancelled) return;
+        if (!d?.story) throw new Error("Story response did not include a story");
+        setDbStory(d.story);
+        setDbPhotos(Array.isArray(d.photos) ? d.photos : []);
+        setLoadedStorySlug(slug);
+        setStoryStatus("ready");
+      })
+      .catch(() => {
+        if (!cancelled) setStoryStatus("error");
+      });
+
+    // The next-story link also comes from the database so edited metadata
+    // cannot leak through from the static fallback.
+    fetch(`${BASE}/api/stories${cacheBust}`, {
+      cache: "no-store",
+      headers: { "Cache-Control": "no-cache" },
+    })
       .then(r => r.ok ? r.json() : null)
       .then(d => {
-        if (!d) return;
-        if (d.story) setDbOverlay(d.story);
-        if (d.photos?.length > 0) setDbPhotos(d.photos);
+        if (!cancelled && Array.isArray(d?.stories)) setDbStories(d.stories);
       })
       .catch(() => {});
+
+    return () => { cancelled = true; };
   }, [slug]);
 
-  if (!staticStory) {
+  const storyIsReady = isStoryReadyForSlug(storyStatus, loadedStorySlug, slug) && dbStory !== null;
+
+  if (!storyIsReady && storyStatus !== "error") {
     return (
       <div className="min-h-screen bg-[#FAFAF8] flex items-center justify-center">
-        <p className="font-serif font-light text-[#3A342C]/50 text-[20px]">This beginning hasn't been found.</p>
+        <p className="font-sans font-light text-[#3A342C]/35 text-[11px] uppercase tracking-[0.2em]">
+          Loading story…
+        </p>
       </div>
     );
   }
 
-  // Merge static + DB — DB fields win when present
-  const story = { ...staticStory, ...dbOverlay };
+  if (storyStatus === "error" || !dbStory) {
+    return (
+      <div className="min-h-screen bg-[#FAFAF8] flex items-center justify-center">
+        <p className="font-serif font-light text-[#3A342C]/50 text-[20px]">
+          This beginning couldn't be loaded.
+        </p>
+      </div>
+    );
+  }
+
+  // Merge only after the DB request succeeds. DB values win, including empty
+  // strings, so stale static copy is never used in place of an edit.
+  const story = { ...(staticStory ?? {}), ...dbStory };
 
   // Build photo pool — DB uploaded photos take priority, else use hero + photo2
-  const base = [staticStory.heroImage, staticStory.photo2].filter(Boolean) as string[];
+  const base = [story.heroImage, story.photo2].filter(Boolean) as string[];
   const pool = dbPhotos.length > 0 ? dbPhotos.map(p => p.url) : base;
   const alt = story.couple;
+  const currentIndex = dbStories.findIndex((s) => s.slug === slug);
+  const nextStory = currentIndex >= 0 && dbStories.length > 1
+    ? dbStories[(currentIndex + 1) % dbStories.length]
+    : undefined;
 
   // Split pool across two gallery sections
   const split = Math.ceil(pool.length / 2);
@@ -216,7 +289,7 @@ export default function Beginnings() {
       <section className="relative h-[100vh] w-full overflow-hidden bg-[#1A1612]">
         <div className={`absolute inset-0 z-0 transition-opacity duration-[1200ms] ease-in-out ${mounted ? "opacity-100" : "opacity-0"}`}>
           <img
-            src={story.heroImage}
+            src={story.heroImage ?? undefined}
             alt={`${story.couple} — ${story.location}`}
             className="w-full h-full object-cover object-center"
             loading="eager"
@@ -397,7 +470,7 @@ export default function Beginnings() {
                 <p className="font-sans font-light text-[11px] uppercase tracking-[0.28em] text-[#3A342C]/35 shrink-0">Next beginning</p>
                 <div className="flex items-center gap-8 flex-1">
                   <img
-                    src={nextStory.heroImage}
+                    src={nextStory.heroImage ?? undefined}
                     alt={nextStory.couple}
                     className="w-[80px] h-[56px] object-cover object-center opacity-75 group-hover:opacity-100 transition-opacity duration-500"
                   />
