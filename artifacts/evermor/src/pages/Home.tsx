@@ -378,14 +378,14 @@ export default function Home() {
           </p>
           <h2
             ref={headingRef}
-            className={`font-serif font-light text-[#3A342C] leading-[0.95] tracking-[-0.02em] transition-all duration-[900ms] ease-out ${headingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+            className="font-serif font-light text-[#3A342C] tracking-[-0.02em] transition-all duration-[900ms] ease-out opacity-100 translate-y-0 text-[45px]"
             style={{ fontSize: "clamp(52px, 9vw, 120px)" }}
           >
             Beginnings
           </h2>
           <p
             ref={introRef}
-            className={`font-serif font-light italic text-[#3A342C]/45 leading-[1.8] transition-all duration-[800ms] ease-out ${introInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+            className="font-serif font-light italic text-[#3A342C]/45 transition-all duration-[800ms] ease-out opacity-100 translate-y-0 text-[19px]"
             style={{ fontSize: "clamp(13px, 1.1vw, 16px)", marginTop: "clamp(12px, 1.5vw, 20px)", transitionDelay: introInView ? "120ms" : "0ms" }}
           >
             Every beginning is different. Every emotion is real.
