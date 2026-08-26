@@ -383,7 +383,7 @@ export default function Home() {
         <div className="text-center px-6" style={{ marginBottom: "clamp(40px, 6vw, 72px)" }}>
           <p
             className="font-sans uppercase tracking-[0.28em] text-[#8C6D4F] text-[12px]"
-            style={{ fontSize: "clamp(8px, 0.8vw, 10px)", marginBottom: "clamp(14px, 2vw, 22px)" }}
+            style={{ marginBottom: "clamp(14px, 2vw, 22px)" }}
           >
             A Collection of Stories
           </p>
@@ -532,7 +532,7 @@ export default function Home() {
           <p
             ref={closingRef}
             className="font-serif font-light italic text-[#3A342C]/45 transition-all duration-[800ms] ease-out opacity-100 translate-y-0 text-[20px]"
-            style={{ fontSize: "clamp(18px, 2vw, 26px)", marginBottom: "clamp(20px, 3vw, 32px)" }}
+            style={{ marginBottom: "clamp(20px, 3vw, 32px)" }}
           >
             No two beginnings are ever the same.
           </p>
@@ -597,7 +597,7 @@ export default function Home() {
           <p
             ref={ch6NoteRef}
             className="font-sans font-light text-[#3A342C] tracking-[0.1em] transition-all duration-[800ms] ease-out opacity-100 text-[11px]"
-            style={{ fontSize: "clamp(9px, 0.85vw, 11px)", marginTop: "clamp(20px, 2.5vw, 32px)" }}
+            style={{ marginTop: "clamp(20px, 2.5vw, 32px)" }}
           >
             Accepting a limited number of weddings each year so every story receives the care it deserves.
           </p>
