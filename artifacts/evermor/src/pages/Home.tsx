@@ -390,7 +390,7 @@ export default function Home() {
           <h2
             ref={headingRef}
             className="font-serif font-light text-[#3A342C] tracking-[-0.02em] transition-all duration-[900ms] ease-out opacity-100 translate-y-0 text-[54px]"
-            style={{ fontSize: "clamp(52px, 9vw, 120px)" }}
+            style={{ fontSize: "clamp(38px, 4.5vw, 54px)" }}
           >
             Beginnings
           </h2>
