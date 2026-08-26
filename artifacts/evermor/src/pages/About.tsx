@@ -161,6 +161,7 @@ export default function About() {
                   <Fade key={i}>
                     <p
                       className={`font-serif text-[#3A342C] ${
+                        i === 0 ||
                         line === "Because a wedding lasts a day." ||
                         line === "The beginning of a family lasts much longer."
                           ? "font-semibold"
@@ -168,10 +169,9 @@ export default function About() {
                       }`}
                       style={{
                         fontSize:
-                          i === 0
-                            ? "clamp(22px, 2.1vw, 30px)"
-                            : line === "Because a wedding lasts a day." ||
-                              line === "The beginning of a family lasts much longer."
+                          i === 0 ||
+                          line === "Because a wedding lasts a day." ||
+                          line === "The beginning of a family lasts much longer."
                             ? "clamp(20px, 1.9vw, 26px)"
                             : "clamp(17px, 1.5vw, 21px)",
                         lineHeight: 1.85,
