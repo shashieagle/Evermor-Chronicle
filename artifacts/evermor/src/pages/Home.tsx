@@ -161,7 +161,7 @@ export default function Home() {
           className={`max-w-[700px] w-full text-center transition-all duration-[900ms] ease-out ${copyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
         >
           <p
-            className="font-serif font-light text-[#3A342C] leading-[1.25] tracking-[-0.005em]"
+            className="font-serif font-light text-[#3A342C] tracking-[-0.005em] text-[30px]"
             style={{ fontSize: "clamp(26px, 3.8vw, 54px)", marginBottom: "clamp(28px, 4vw, 44px)" }}
           >
             "Long after the flowers fade and the music ends, what remains are the moments we return to."
@@ -536,7 +536,7 @@ export default function Home() {
           </p>
           <p
             ref={ch6NoteRef}
-            className="font-sans font-light text-[#3A342C]/30 tracking-[0.1em] transition-all duration-[800ms] ease-out opacity-100 text-[13px]"
+            className="font-sans font-light text-[#3A342C] tracking-[0.1em] transition-all duration-[800ms] ease-out opacity-100 text-[13px]"
             style={{ fontSize: "clamp(9px, 0.85vw, 11px)", marginTop: "clamp(20px, 2.5vw, 32px)" }}
           >
             Accepting a limited number of weddings each year so every story receives the care it deserves.
