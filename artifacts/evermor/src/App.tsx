@@ -13,6 +13,7 @@ import BeginYourStory from './pages/BeginYourStory';
 import Admin from './pages/Admin';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
+import DraftBanner from './components/DraftBanner';
 
 const queryClient = new QueryClient();
 
@@ -54,6 +55,7 @@ function App() {
       <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, '')}>
         <Router />
       </WouterRouter>
+      <DraftBanner />
     </QueryClientProvider>
   );
 }
