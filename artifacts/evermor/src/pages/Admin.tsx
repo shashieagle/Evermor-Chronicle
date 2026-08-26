@@ -223,6 +223,23 @@ export default function Admin() {
   const [syncing, setSyncing]     = useState(false);
   const [syncMsg, setSyncMsg]     = useState("");
   const [syncStatus, setSyncStatus] = useState<"success" | "warning" | "error" | "">("");
+  const syncMessageTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const clearSyncMessageTimer = () => {
+    if (syncMessageTimer.current !== null) {
+      clearTimeout(syncMessageTimer.current);
+      syncMessageTimer.current = null;
+    }
+  };
+
+  const scheduleSyncMessageClear = () => {
+    clearSyncMessageTimer();
+    syncMessageTimer.current = setTimeout(() => {
+      syncMessageTimer.current = null;
+      setSyncMsg("");
+      setSyncStatus("");
+    }, 8000);
+  };
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -418,6 +435,7 @@ export default function Admin() {
 
   // ── Sync to production ─────────────────────────────────────────────────────
   const syncToProduction = async () => {
+    clearSyncMessageTimer();
     setSyncing(true); setSyncMsg(""); setSyncStatus("");
     try {
       // Step 1: write the snapshot to object storage
@@ -429,7 +447,7 @@ export default function Admin() {
         setSyncMsg(`Error: ${d.error || "Sync failed"}`);
         setSyncStatus("error");
         setSyncing(false);
-        setTimeout(() => { setSyncMsg(""); setSyncStatus(""); }, 8000);
+        scheduleSyncMessageClear();
         return;
       }
 
@@ -456,7 +474,7 @@ export default function Admin() {
       setSyncStatus("error");
     }
     setSyncing(false);
-    setTimeout(() => { setSyncMsg(""); setSyncStatus(""); }, 8000);
+    scheduleSyncMessageClear();
   };
 
   // ── Archive story (soft-delete) ────────────────────────────────────────────
