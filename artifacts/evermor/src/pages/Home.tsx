@@ -497,7 +497,7 @@ export default function Home() {
         >
           <h2
             ref={ch6HeadRef}
-            className={`font-serif font-light text-[#3A342C] leading-[1.08] tracking-[-0.01em] transition-all duration-[1000ms] ease-out ${ch6HeadInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+            className="font-serif font-light text-[#3A342C] tracking-[-0.01em] transition-all duration-[1000ms] ease-out opacity-100 translate-y-0 text-center text-[40px]"
             style={{ fontSize: "clamp(34px, 5.5vw, 78px)" }}
           >
             Every family<br />remembers differently.
@@ -529,14 +529,14 @@ export default function Home() {
             style={{ marginBottom: "clamp(28px, 4vw, 44px)" }}
           />
           <p
-            className={`font-serif font-light text-[#3A342C]/65 leading-[1.82] max-w-[580px] transition-all duration-[1000ms] ease-out ${ch6ProseInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+            className="font-serif font-light text-[#3A342C]/65 max-w-[580px] transition-all duration-[1000ms] ease-out opacity-100 translate-y-0 text-[19px]"
             style={{ fontSize: "clamp(16px, 1.45vw, 21px)" }}
           >
             Some beginnings last a day. The memories they create can last forever. If our way of seeing the world feels like yours, we'd be honoured to preserve the beginning of your family's story.
           </p>
           <p
             ref={ch6NoteRef}
-            className={`font-sans font-light text-[#3A342C]/30 tracking-[0.1em] transition-all duration-[800ms] ease-out ${ch6NoteInView ? "opacity-100" : "opacity-0"}`}
+            className="font-sans font-light text-[#3A342C]/30 tracking-[0.1em] transition-all duration-[800ms] ease-out opacity-100 text-[13px]"
             style={{ fontSize: "clamp(9px, 0.85vw, 11px)", marginTop: "clamp(20px, 2.5vw, 32px)" }}
           >
             Accepting a limited number of weddings each year so every story receives the care it deserves.
