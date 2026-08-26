@@ -29,6 +29,7 @@ export default function Home() {
   const [imageRef, imageInView] = useInView();
   const [ch3imgRef, ch3imgInView] = useInView();
   const [fitRef, fitInView] = useInView();
+  const [yaminiHeroImage, setYaminiHeroImage] = useState("/beginnings-yamini-chris.jpg");
 
   // Chapter 5
   const [headingRef, headingInView] = useInView();
@@ -58,6 +59,16 @@ export default function Home() {
     fetch(`${API}/slideshow`)
       .then(r => r.json())
       .then(d => { if (d.photos?.length) setSlideshowImages(d.photos.map((p: any) => p.url)); })
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    fetch(`${API}/stories/yamini-chris`, { cache: "no-store" })
+      .then(r => r.ok ? r.json() : null)
+      .then(d => {
+        const heroImage = d?.story?.heroImage;
+        if (typeof heroImage === "string" && heroImage) setYaminiHeroImage(heroImage);
+      })
       .catch(() => {});
   }, []);
 
@@ -483,7 +494,7 @@ export default function Home() {
             <div className="p-[10px] md:p-[12px] pb-0">
               <div className="relative overflow-hidden" style={{ aspectRatio: "3/2" }}>
                 <img
-                  src="/beginnings-yamini-chris.jpg"
+                  src={yaminiHeroImage}
                   alt="Yamini & Chris"
                   className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
                   loading="lazy"
