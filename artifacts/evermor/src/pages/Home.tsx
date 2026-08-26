@@ -467,6 +467,55 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Yamini & Chris postcard insert */}
+        <div
+          style={{
+            paddingLeft: "clamp(24px, 8vw, 120px)",
+            paddingRight: "clamp(24px, 8vw, 120px)",
+            marginTop: "clamp(24px, 4vw, 48px)",
+          }}
+        >
+          <Link
+            href="/beginnings/yamini-chris"
+            ref={s4ImgRef}
+            className={`block w-full max-w-[620px] mx-auto group cursor-pointer bg-[#F5EDE0] shadow-[0_8px_40px_rgba(58,52,44,0.16)] transition-all duration-[1000ms] ease-out md:rotate-[0.5deg] hover:rotate-0 hover:shadow-[0_16px_56px_rgba(58,52,44,0.22)] ${s4ImgInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+          >
+            <div className="p-[10px] md:p-[12px] pb-0">
+              <div className="relative overflow-hidden" style={{ aspectRatio: "3/2" }}>
+                <img
+                  src="/beginnings-yamini-chris.jpg"
+                  alt="Yamini & Chris"
+                  className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
+                  loading="lazy"
+                />
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E\")",
+                    opacity: 0.12,
+                    mixBlendMode: "overlay" as const,
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-black/38 via-transparent to-black/22" />
+                <div className="absolute top-3 md:top-4 right-3 md:right-4 flex items-center gap-1.5">
+                  <span className="font-sans text-[7px] text-white/70 uppercase tracking-[0.12em]">Bangalore</span>
+                  <div className="w-3.5 h-px bg-white/45" />
+                  <span className="font-sans text-[7px] text-white/70 uppercase tracking-[0.12em]">India</span>
+                </div>
+                <div className="absolute bottom-3 right-3 md:bottom-4 md:right-4">
+                  <p className="font-serif italic text-[9px] text-white/55">Evermor Tales</p>
+                </div>
+              </div>
+              <div className="px-3 pt-4 pb-5">
+                <p className="font-serif italic md:text-[13px] text-[#3A342C]/60 text-[19px] text-center font-medium">
+                  "Two cultures, two continents, and two very different energies came together in one wonderfully personal beginning."
+                </p>
+                <p className="font-sans md:text-[8px] text-[#3A342C]/30 tracking-[0.12em] uppercase mt-2.5 text-[13px] text-center font-bold">— Yamini &amp; Chris</p>
+              </div>
+            </div>
+          </Link>
+        </div>
+
         {/* Closing CTA */}
         <div className="text-center px-6">
           <p
