@@ -531,7 +531,7 @@ export default function Home() {
         <div className="text-center px-6">
           <p
             ref={closingRef}
-            className="font-serif font-light italic text-[#3A342C]/45 transition-all duration-[800ms] ease-out opacity-100 translate-y-0 text-[19px]"
+            className="font-serif font-light italic text-[#3A342C]/45 transition-all duration-[800ms] ease-out opacity-100 translate-y-0 text-[20px]"
             style={{ fontSize: "clamp(18px, 2vw, 26px)", marginBottom: "clamp(20px, 3vw, 32px)" }}
           >
             No two beginnings are ever the same.
