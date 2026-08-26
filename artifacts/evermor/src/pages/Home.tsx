@@ -444,17 +444,17 @@ export default function Home() {
                 <div className="flex-1 flex gap-0 min-h-0">
                   <div className="flex-[5] pr-4 border-r border-[#3A342C]/8 flex flex-col justify-between">
                     <div>
-                      <p className="font-sans uppercase text-[7px] tracking-[0.22em] text-[#8C6D4F] mb-2">Photography & Film</p>
-                      <p className="font-serif font-semibold text-[14px] md:text-[17px] text-[#3A342C] leading-[1.15] mb-2.5">Shaun &amp; Sowmya</p>
+                      <p className="font-sans uppercase tracking-[0.22em] text-[#8C6D4F] mb-2 text-[13px]">Photography & Film</p>
+                      <p className="font-serif font-semibold md:text-[17px] text-[#3A342C] mb-2.5 text-[23px]">Shaun &amp; Sowmya</p>
                       <div className="w-6 h-px bg-[#3A342C]/12 mb-2.5" />
-                      <p className="font-sans text-[10px] md:text-[11px] text-[#3A342C]/48 leading-[1.75]">
+                      <p className="font-sans md:text-[11px] text-[#3A342C]/48 text-[19px]">
                         Held in the golden light of Bangalore across two days of ceremony, laughter, and the quiet moments only families share.
                       </p>
                     </div>
                     <p className="font-sans text-[7px] text-[#3A342C]/25 tracking-[0.1em] uppercase mt-4">evermortales.com</p>
                   </div>
                   <div className="flex-[4] pl-4 flex flex-col justify-center relative overflow-hidden">
-                    <p className="font-serif italic text-[11px] md:text-[12px] text-[#3A342C]/55 leading-[1.9]">
+                    <p className="font-serif italic md:text-[12px] text-[#3A342C]/55 text-[19px]">
                       "There is always a moment when the world falls quiet and they see only each other."
                     </p>
                     <div className="absolute bottom-0 right-0 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center text-center" style={{ border: "1px solid rgba(58,52,44,0.14)" }}>
@@ -471,7 +471,7 @@ export default function Home() {
         <div className="text-center px-6">
           <p
             ref={closingRef}
-            className={`font-serif font-light italic text-[#3A342C]/45 leading-[1.5] transition-all duration-[800ms] ease-out ${closingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+            className="font-serif font-light italic text-[#3A342C]/45 transition-all duration-[800ms] ease-out opacity-100 translate-y-0 text-[19px]"
             style={{ fontSize: "clamp(18px, 2vw, 26px)", marginBottom: "clamp(20px, 3vw, 32px)" }}
           >
             No two beginnings are ever the same.
