@@ -223,7 +223,7 @@ export default function Home() {
           className={`max-w-[740px] w-full transition-all duration-[900ms] ease-out ${fitInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
         >
           <p
-            className="font-sans uppercase tracking-[0.18em] text-[#8C6D4F]"
+            className="font-sans uppercase tracking-[0.18em] text-[#8C6D4F] text-[14px]"
             style={{ fontSize: "clamp(12px, 1.1vw, 14px)", marginBottom: "clamp(16px, 2.5vw, 24px)" }}
           >
             You'll love working with us if
@@ -371,7 +371,7 @@ export default function Home() {
         {/* Header */}
         <div className="text-center px-6" style={{ marginBottom: "clamp(40px, 6vw, 72px)" }}>
           <p
-            className="font-sans uppercase tracking-[0.28em] text-[#8C6D4F]"
+            className="font-sans uppercase tracking-[0.28em] text-[#8C6D4F] text-[14px]"
             style={{ fontSize: "clamp(8px, 0.8vw, 10px)", marginBottom: "clamp(14px, 2vw, 22px)" }}
           >
             A Collection of Stories
