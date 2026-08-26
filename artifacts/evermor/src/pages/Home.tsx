@@ -417,10 +417,10 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="px-3 pt-4 pb-5">
-                  <p className="font-serif italic text-[11px] md:text-[13px] text-[#3A342C]/60 leading-[1.8]">
+                  <p className="font-serif italic md:text-[13px] text-[#3A342C]/60 text-[19px] text-center font-medium">
                     "What we're most grateful for isn't just the photographs. It's that you noticed the moments we didn't even realise were happening. Years later, those are the memories we return to most."
                   </p>
-                  <p className="font-sans text-[7px] md:text-[8px] text-[#3A342C]/30 tracking-[0.12em] uppercase mt-2.5">— Shaun &amp; Sowmya</p>
+                  <p className="font-sans md:text-[8px] text-[#3A342C]/30 tracking-[0.12em] uppercase mt-2.5 text-[13px] text-center font-bold">— Shaun &amp; Sowmya</p>
                 </div>
               </div>
             </Link>
