@@ -161,7 +161,7 @@ export default function Home() {
           className={`max-w-[700px] w-full text-center transition-all duration-[900ms] ease-out ${copyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
         >
           <p
-            className="font-serif font-light text-[#3A342C] tracking-[-0.005em] text-[30px]"
+            className="font-serif font-light text-[#3A342C] tracking-[-0.005em] text-[29px]"
             style={{ fontSize: "clamp(26px, 3.8vw, 54px)", marginBottom: "clamp(28px, 4vw, 44px)" }}
           >
             "Long after the flowers fade and the music ends, what remains are the moments we return to."
@@ -529,7 +529,7 @@ export default function Home() {
             style={{ marginBottom: "clamp(28px, 4vw, 44px)" }}
           />
           <p
-            className="font-serif font-light text-[#3A342C]/65 max-w-[580px] transition-all duration-[1000ms] ease-out opacity-100 translate-y-0 text-[19px]"
+            className="font-serif font-light italic text-[#3A342C]/65 max-w-[580px] transition-all duration-[1000ms] ease-out opacity-100 translate-y-0 text-[19px]"
             style={{ fontSize: "clamp(16px, 1.45vw, 21px)" }}
           >
             Some beginnings last a day. The memories they create can last forever. If our way of seeing the world feels like yours, we'd be honoured to preserve the beginning of your family's story.
