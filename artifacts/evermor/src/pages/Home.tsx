@@ -168,7 +168,7 @@ export default function Home() {
           </p>
           <div className="w-8 h-px bg-[#3A342C]/20 mx-auto" style={{ marginBottom: "clamp(24px, 3.5vw, 40px)" }} />
           <p
-            className="font-serif font-light text-[#3A342C]/60 leading-[1.9]"
+            className="font-serif font-light text-[#3A342C]/60 text-[19px]"
             style={{ fontSize: "clamp(14px, 1.2vw, 17px)" }}
           >
             We created Evermor to hold that beginning the way it deserves to be held — carefully, honestly, and with the full weight of what it meant. Not just preserved, but kept alive.
