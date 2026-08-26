@@ -53,9 +53,7 @@ function Fade({
 const paragraphs: (string | null)[] = [
   "We didn't discover weddings yesterday.",
   null,
-  "We've been photographing weddings for years.",
-  null,
-  "We've stood beside hundreds of families, watched nervous brides take their first steps towards the mandap, seen parents try to hold back tears, friends turn ordinary moments into memories, and witnessed the quiet changes that happen between two people on a wedding day.",
+  "We've been photographing weddings for years. We've stood beside hundreds of families, witnessed nervous brides, teary parents, chaotic friends, and the quiet moments that happen between two people on a wedding day.",
   null,
   "For a long time, we thought we were simply documenting those moments.",
   null,
@@ -63,17 +61,15 @@ const paragraphs: (string | null)[] = [
   null,
   "Something changed.",
   null,
-  "We began to understand that the photographs we treasured most weren't necessarily the beautiful ones. They were the photographs that brought back something we had almost forgotten — a glance, a conversation, the way someone held our hand, a parent looking at us when they thought we weren't watching.",
+  "We realised the photographs we treasured most weren't necessarily the beautiful ones. They were the ones that brought something back — a glance, a conversation, a parent's expression, a moment we had almost forgotten.",
   null,
   "That changed the way we photograph.",
   null,
-  "Today, we don't arrive simply to document a celebration. We arrive curious about the people behind it — what matters to them, who they love, what their families carry with them, and which moments might mean something years from now.",
+  "Today, we don't arrive simply to document a celebration. We arrive curious about the people behind it — what matters to them, who they love, and which moments might still mean something years from now.",
   null,
   "Because a wedding lasts a day.",
   null,
-  "But the beginning of a family lasts much longer.",
-  null,
-  "And that is what we want to preserve.",
+  "The beginning of a family lasts much longer.",
 ];
 
 export default function About() {
