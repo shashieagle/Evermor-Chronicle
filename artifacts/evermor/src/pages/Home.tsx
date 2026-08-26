@@ -382,7 +382,7 @@ export default function Home() {
         {/* Header */}
         <div className="text-center px-6" style={{ marginBottom: "clamp(40px, 6vw, 72px)" }}>
           <p
-            className="font-sans uppercase tracking-[0.28em] text-[#8C6D4F] text-[13px]"
+            className="font-sans uppercase tracking-[0.28em] text-[#8C6D4F] text-[12px]"
             style={{ fontSize: "clamp(8px, 0.8vw, 10px)", marginBottom: "clamp(14px, 2vw, 22px)" }}
           >
             A Collection of Stories
