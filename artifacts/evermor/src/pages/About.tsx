@@ -162,7 +162,7 @@ export default function About() {
                     <p
                       className="font-serif font-light text-[#3A342C]"
                       style={{
-                        fontSize: "clamp(17px, 1.5vw, 21px)",
+                        fontSize: i === 0 ? "clamp(22px, 2.1vw, 30px)" : "clamp(17px, 1.5vw, 21px)",
                         lineHeight: 1.85,
                         margin: 0,
                       }}
