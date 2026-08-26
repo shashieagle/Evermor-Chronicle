@@ -596,7 +596,7 @@ export default function Home() {
           </p>
           <p
             ref={ch6NoteRef}
-            className="font-sans font-light text-[#3A342C] tracking-[0.1em] transition-all duration-[800ms] ease-out opacity-100 text-[13px]"
+            className="font-sans font-light text-[#3A342C] tracking-[0.1em] transition-all duration-[800ms] ease-out opacity-100 text-[11px]"
             style={{ fontSize: "clamp(9px, 0.85vw, 11px)", marginTop: "clamp(20px, 2.5vw, 32px)" }}
           >
             Accepting a limited number of weddings each year so every story receives the care it deserves.
