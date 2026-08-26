@@ -1,3 +1,4 @@
 - [Snapshot sync flow](snapshot-sync-flow.md) — admin PUT only updates DB; must POST /api/admin/sync after or changes are lost on restart
 - [Logo files](logo-files.md) — transparent PNGs saved to artifacts/evermor/public; background removed via ImageMagick
 - [Admin password deployment](admin-password-deployment.md) — changing ADMIN_PASSWORD requires republishing before the live admin panel accepts it
+- [Evermor publish smoke check](evermor-publish-smoke-check.md) — manual script rebuilds via artifact.toml config and fails if index.html references missing/stale assets
