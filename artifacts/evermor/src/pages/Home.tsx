@@ -229,8 +229,8 @@ export default function Home() {
             You'll love working with us if
           </p>
           <p
-            className="font-serif font-light italic text-[#3A342C]/65 leading-[1.75]"
-            style={{ fontSize: "clamp(20px, 2.4vw, 34px)" }}
+            className="font-serif font-light italic text-[#3A342C] leading-[1.7]"
+            style={{ fontSize: "clamp(19px, 2.15vw, 30px)", color: "#3A342C", opacity: 1 }}
           >
             Let us move through your wedding like family — quietly, without announcement. Let us sneak a laugh in between rituals, because joy is always the best light. Let us disappear from the stage every now and then; we promise we're somewhere better. And let us gently guide you — not into a pose, but into discovering how you actually look when you forget we're there.
           </p>
