@@ -519,7 +519,7 @@ export default function Home() {
               </div>
               <div className="px-3 pt-4 pb-5">
                 <p className="font-serif italic md:text-[13px] text-[#3A342C]/60 text-[19px] text-center font-medium">
-                  "Two cultures, two continents, and two very different energies came together in one wonderfully personal beginning."
+                  "The photographs are beautiful — they capture not just how the day looked, but how it felt to be there."
                 </p>
                 <p className="font-sans md:text-[8px] text-[#3A342C]/30 tracking-[0.12em] uppercase mt-2.5 text-[13px] text-center font-bold">— Yamini &amp; Chris</p>
               </div>
