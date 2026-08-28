@@ -10,6 +10,7 @@ import AdminJournal from './pages/AdminJournal';
 import About from './pages/About';
 import Approach from './pages/Approach';
 import BeginYourStory from './pages/BeginYourStory';
+import StoryDNA from './pages/StoryDNA';
 import Admin from './pages/Admin';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
@@ -40,6 +41,7 @@ function Router() {
         <Route path="/admin/journal" component={AdminJournal} />
         <Route path="/about" component={About} />
         <Route path="/approach" component={Approach} />
+        <Route path="/story-dna" component={StoryDNA} />
         <Route path="/begin-your-story" component={BeginYourStory} />
         <Route path="/admin" component={Admin} />
       </Switch>
