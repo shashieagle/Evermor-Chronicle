@@ -265,16 +265,17 @@ export default function StoryDNA() {
           className={`max-w-[600px] transition-all duration-[1200ms] ease-out ${closingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
         >
           <h2 className="font-serif text-[36px] md:text-[54px] text-[#3A342C] font-light mb-6">
-            Keep the reflection.
+            Curious about your story<br />
+            <span className="italic text-[#8C6D4F]">or ready to begin?</span>
           </h2>
           <p className="font-serif italic text-[#3A342C]/60 text-[20px] mb-10">
-            A free Evermor DNA reading for the two of you, shaped with care from everything we have learned from hundreds of couples.
+            Take the free Evermor DNA reading above—or, if you already know you’d like to enquire, you can begin your story with us here.
           </p>
           <Link 
             href={INQUIRY_DESTINATION}
             className="inline-flex items-center gap-4 font-sans text-[#F5F0E8] bg-[#3A342C] tracking-[0.16em] uppercase px-8 py-4 hover:bg-[#1A1612] transition-colors duration-500 text-[11px]"
           >
-            <span>Begin Your Story</span>
+            <span>Enquire with Evermor</span>
             <span>→</span>
           </Link>
         </div>
