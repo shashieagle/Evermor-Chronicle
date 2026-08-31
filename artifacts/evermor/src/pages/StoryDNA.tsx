@@ -2,8 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import { Link } from "wouter";
 import Nav from "../components/Nav";
 
-const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfA-IctROACzhLKmq2Ghzdoep_Cm7EkaC0KQ43uTUxm4M83ow/viewform";
-const GOOGLE_FORM_EMBED_URL = `${GOOGLE_FORM_URL}?embedded=true`;
+const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfA-IctROACzhLKmq2Ghzdoep_Cm7EkaC0KQ43uTUxm4M83ow/viewform?pli=1";
+const GOOGLE_FORM_EMBED_URL = `${GOOGLE_FORM_URL}&embedded=true`;
 const INQUIRY_DESTINATION = "/begin-your-story";
 
 function useInView(threshold = 0.12) {
