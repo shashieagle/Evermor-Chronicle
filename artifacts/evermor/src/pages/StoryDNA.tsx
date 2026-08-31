@@ -55,7 +55,6 @@ export default function StoryDNA() {
     };
   }, []);
 
-  const [introRef, introInView] = useInView();
   const [collageRef, collageInView] = useInView();
   const [quoteRef, quoteInView] = useInView();
   const [closingRef, closingInView] = useInView();
@@ -116,23 +115,7 @@ export default function StoryDNA() {
         </div>
       </section>
 
-      {/* 2. The Concept (Intro) */}
-      <section className="px-6 md:px-16 lg:px-[100px] py-[10vh] md:py-[15vh]">
-        <div
-          ref={introRef}
-          className={`max-w-[720px] mx-auto text-center transition-all duration-[1200ms] ease-out ${introInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
-        >
-          <h2 className="font-serif text-[28px] md:text-[42px] font-light text-[#3A342C] mb-8">
-            Every relationship has a fingerprint.
-          </h2>
-          <p className="font-serif text-[18px] md:text-[22px] italic text-[#3A342C]/60 leading-[1.7] mb-12">
-            Story DNA looks beneath the answers. You each receive a personal reading, then a relationship reading that reveals what you may not realise about each other, why you work, and the story beneath your story.
-          </p>
-          <div className="w-px h-16 bg-[#8C6D4F]/30 mx-auto" />
-        </div>
-      </section>
-
-      {/* 3. The gift */}
+      {/* 2. The gift */}
       <section className="px-6 md:px-16 lg:px-[100px] py-[12vh] md:py-[16vh] bg-[#3A342C] text-[#F5F0E8]">
         <div className="max-w-[1120px] mx-auto">
           <div className="max-w-[720px] mb-16 md:mb-20">
@@ -177,7 +160,7 @@ export default function StoryDNA() {
         </div>
       </section>
 
-      {/* 4. The Visual Archive (Collage) */}
+      {/* 3. The Visual Archive (Collage) */}
       <section className="py-[10vh] md:py-[15vh] bg-[#F5EDE0]">
         <div className="px-6 md:px-16 lg:px-[100px] max-w-[1400px] mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
           <div 
@@ -221,7 +204,7 @@ export default function StoryDNA() {
         </div>
       </section>
 
-      {/* 5. Cinematic Image & Quote */}
+      {/* 4. Cinematic Image & Quote */}
       <section className="relative py-[20vh] bg-[#1A1612] text-[#F5F0E8] overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
@@ -245,7 +228,7 @@ export default function StoryDNA() {
         </div>
       </section>
 
-      {/* 6. Story DNA form preview */}
+      {/* 5. Story DNA form preview */}
       <section id="story-dna-form" className="px-6 md:px-16 lg:px-[100px] py-[12vh] md:py-[16vh] bg-[#F5EDE0]">
         <div className="max-w-[1160px] mx-auto grid lg:grid-cols-[0.72fr_1.28fr] gap-12 lg:gap-24 items-start">
           <div className="lg:sticky lg:top-28">
@@ -285,7 +268,7 @@ export default function StoryDNA() {
         </div>
       </section>
 
-      {/* 7. The Closing / CTA */}
+      {/* 6. The Closing / CTA */}
       <section className="py-[15vh] px-6 md:px-16 bg-[#EFEFED] flex justify-center text-center">
         <div 
           ref={closingRef}
