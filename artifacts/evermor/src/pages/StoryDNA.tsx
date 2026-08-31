@@ -115,9 +115,7 @@ export default function StoryDNA() {
       <section className="px-6 md:px-16 lg:px-[100px] py-[12vh] md:py-[16vh] bg-[#3A342C] text-[#F5F0E8]">
         <div className="max-w-[1120px] mx-auto">
           <div className="max-w-[720px] mb-16 md:mb-20">
-            <p className="font-sans uppercase tracking-[0.24em] text-[#C5A888] text-[10px] md:text-[11px] mb-6">
-              A gift from Evermor
-            </p>
+            <p className="font-sans uppercase tracking-[0.24em] text-[#C5A888] text-[10px] md:text-[11px] mb-6">an invitation to pause</p>
             <h2 className="font-serif text-[38px] md:text-[62px] leading-[1.08] font-light mb-7">
               Two separate answers.<br />
               <span className="italic text-[#C5A888]">One deeper understanding.</span>
