@@ -2,7 +2,9 @@ import { useEffect, useState, useRef } from "react";
 import { Link } from "wouter";
 import Nav from "../components/Nav";
 
-const CTA_DESTINATION = "/begin-your-story";
+const GOOGLE_FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfA-IctROACzhLKmq2Ghzdoep_Cm7EkaC0KQ43uTUxm4M83ow/viewform";
+const GOOGLE_FORM_EMBED_URL = `${GOOGLE_FORM_URL}?embedded=true`;
+const INQUIRY_DESTINATION = "/begin-your-story";
 
 function useInView(threshold = 0.12) {
   const [isInView, setIsInView] = useState(false);
@@ -105,6 +107,12 @@ export default function StoryDNA() {
           <p className="font-serif font-light text-[#3A342C]/70 text-[20px] md:text-[26px] leading-[1.6]">
             Before the planning takes over, before the details crowd the vision—let's talk about what actually matters. The blueprint of your connection.
           </p>
+          <a
+            href="#story-dna-form"
+            className="mt-8 inline-flex items-center gap-3 font-sans text-[#3A342C]/65 hover:text-[#8C6D4F] tracking-[0.16em] uppercase transition-colors duration-300 text-[10px] md:text-[11px]"
+          >
+            Begin the reflection <span aria-hidden="true">↓</span>
+          </a>
         </div>
       </section>
 
@@ -192,7 +200,47 @@ export default function StoryDNA() {
         </div>
       </section>
 
-      {/* 5. The Closing / CTA */}
+      {/* 5. Story DNA form preview */}
+      <section id="story-dna-form" className="px-6 md:px-16 lg:px-[100px] py-[12vh] md:py-[16vh] bg-[#F5EDE0]">
+        <div className="max-w-[1160px] mx-auto grid lg:grid-cols-[0.72fr_1.28fr] gap-12 lg:gap-24 items-start">
+          <div className="lg:sticky lg:top-28">
+            <p className="font-sans uppercase tracking-[0.24em] text-[#8C6D4F] text-[10px] md:text-[11px] mb-6">
+              Your Story DNA
+            </p>
+            <h2 className="font-serif text-[38px] md:text-[54px] leading-[1.08] text-[#3A342C] font-light mb-6">
+              The questions<br />
+              <span className="italic text-[#8C6D4F]">worth keeping.</span>
+            </h2>
+            <p className="font-serif italic text-[#3A342C]/65 text-[19px] md:text-[22px] leading-[1.6] max-w-[390px]">
+              Take a quiet moment to tell us about the things that make your relationship unmistakably yours.
+            </p>
+            <a
+              href={GOOGLE_FORM_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-8 inline-flex items-center gap-3 font-sans text-[#3A342C] border-b border-[#3A342C]/30 pb-2 hover:border-[#8C6D4F] hover:text-[#8C6D4F] tracking-[0.14em] uppercase transition-colors duration-300 text-[10px] md:text-[11px]"
+            >
+              Open the full form <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+
+          <div className="bg-[#FAFAF8] p-3 md:p-5 shadow-[0_20px_60px_rgba(58,52,44,0.10)]">
+            <div className="border border-[#3A342C]/10 overflow-hidden bg-white">
+              <iframe
+                src={GOOGLE_FORM_EMBED_URL}
+                title="Discover Your Story DNA form"
+                className="block w-full h-[560px] md:h-[620px]"
+                loading="lazy"
+              />
+            </div>
+            <p className="font-sans text-[#3A342C]/45 text-[10px] tracking-[0.08em] mt-4 text-center">
+              Prefer a little more room? <a href={GOOGLE_FORM_URL} target="_blank" rel="noreferrer" className="underline underline-offset-4 hover:text-[#8C6D4F] transition-colors">Open the form in a new tab.</a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. The Closing / CTA */}
       <section className="py-[15vh] px-6 md:px-16 bg-[#EFEFED] flex justify-center text-center">
         <div 
           ref={closingRef}
@@ -205,7 +253,7 @@ export default function StoryDNA() {
             Take the first step toward an archive that feels profoundly yours.
           </p>
           <Link 
-            href={CTA_DESTINATION}
+            href={INQUIRY_DESTINATION}
             className="inline-flex items-center gap-4 font-sans text-[#F5F0E8] bg-[#3A342C] tracking-[0.16em] uppercase px-8 py-4 hover:bg-[#1A1612] transition-colors duration-500 text-[11px]"
           >
             <span>Begin Your Story</span>
