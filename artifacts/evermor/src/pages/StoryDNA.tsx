@@ -105,7 +105,7 @@ export default function StoryDNA() {
           }}
         >
           <p className="font-serif font-light text-[#3A342C]/70 text-[20px] md:text-[26px] leading-[1.6]">
-            Before the planning takes over, before the details crowd the vision—let's talk about what actually matters. The blueprint of your connection.
+            Before the planning takes over, before the details crowd the vision—take a moment to understand the two people at the heart of it all, and the story they are becoming together.
           </p>
           <a
             href="#story-dna-form"
@@ -126,13 +126,58 @@ export default function StoryDNA() {
             Every relationship has a fingerprint.
           </h2>
           <p className="font-serif text-[18px] md:text-[22px] italic text-[#3A342C]/60 leading-[1.7] mb-12">
-            A distinct way of moving, speaking, and loving. We call this your Story DNA. It is the invisible thread that connects the grand rituals to the quiet, in-between moments.
+            Story DNA looks beneath the answers. You each receive a personal reading, then a relationship reading that reveals what you may not realise about each other, why you work, and the story beneath your story.
           </p>
           <div className="w-px h-16 bg-[#8C6D4F]/30 mx-auto" />
         </div>
       </section>
 
-      {/* 3. The Visual Archive (Collage) */}
+      {/* 3. The gift */}
+      <section className="px-6 md:px-16 lg:px-[100px] py-[12vh] md:py-[16vh] bg-[#3A342C] text-[#F5F0E8]">
+        <div className="max-w-[1120px] mx-auto">
+          <div className="max-w-[720px] mb-16 md:mb-20">
+            <p className="font-sans uppercase tracking-[0.24em] text-[#C5A888] text-[10px] md:text-[11px] mb-6">
+              A gift from Evermor
+            </p>
+            <h2 className="font-serif text-[38px] md:text-[62px] leading-[1.08] font-light mb-7">
+              Two separate answers.<br />
+              <span className="italic text-[#C5A888]">One deeper understanding.</span>
+            </h2>
+            <p className="font-serif text-[19px] md:text-[24px] leading-[1.65] text-[#F5F0E8]/70">
+              You each answer independently. We read your answers separately, then place them beside each other to find what repeats underneath: your personalities, fears, values, hopes, and what you ask each other to protect.
+            </p>
+            <p className="font-sans font-light text-[12px] leading-[1.8] tracking-[0.04em] text-[#F5F0E8]/50 mt-5 max-w-[620px]">
+              No score. No perfect match. No verdict. Just a private reading of your answers, created freely from everything we have learned from understanding hundreds of couples.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-10 md:gap-12 border-t border-[#F5F0E8]/20 pt-10">
+            <div>
+              <p className="font-sans text-[#C5A888] text-[11px] tracking-[0.18em] mb-5">01</p>
+              <h3 className="font-serif text-[26px] md:text-[30px] font-light mb-4">Your individual DNA</h3>
+              <p className="font-sans font-light text-[13px] leading-[1.8] text-[#F5F0E8]/55">
+                The person beneath the answers: your instincts, contradictions, needs, and the things you may not yet realise about yourself.
+              </p>
+            </div>
+            <div>
+              <p className="font-sans text-[#C5A888] text-[11px] tracking-[0.18em] mb-5">02</p>
+              <h3 className="font-serif text-[26px] md:text-[30px] font-light mb-4">Your relationship DNA</h3>
+              <p className="font-sans font-light text-[13px] leading-[1.8] text-[#F5F0E8]/55">
+                Your essence, dynamics, archetype, and the beautiful tensions that make the two of you work.
+              </p>
+            </div>
+            <div>
+              <p className="font-sans text-[#C5A888] text-[11px] tracking-[0.18em] mb-5">03</p>
+              <h3 className="font-serif text-[26px] md:text-[30px] font-light mb-4">Your memory DNA</h3>
+              <p className="font-sans font-light text-[13px] leading-[1.8] text-[#F5F0E8]/55">
+                The voices, people, rituals, ordinary moments, and memories that matter most to preserve.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. The Visual Archive (Collage) */}
       <section className="py-[10vh] md:py-[15vh] bg-[#F5EDE0]">
         <div className="px-6 md:px-16 lg:px-[100px] max-w-[1400px] mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
           <div 
@@ -151,32 +196,32 @@ export default function StoryDNA() {
             </div>
           </div>
           <div className="w-full lg:w-1/2 max-w-[500px]">
-            <h3 className="font-sans uppercase tracking-[0.2em] text-[#8C6D4F] text-[11px] mb-6">The Process</h3>
+            <h3 className="font-sans uppercase tracking-[0.2em] text-[#8C6D4F] text-[11px] mb-6">How it works</h3>
             <h2 className="font-serif text-[32px] md:text-[46px] leading-[1.2] text-[#3A342C] font-light mb-6">
-              Not a questionnaire. <br />An exploration.
+              Not a questionnaire. <br />A mirror.
             </h2>
             <p className="font-sans font-light text-[#3A342C]/70 text-[14px] leading-[1.8] mb-8">
-              We do not believe in generic formulas. To photograph you honestly, we need to know you deeply. The Story DNA process is a gentle unearthing of your history, your quirks, and the people who made you who you are.
+              Fill it in individually, without comparing answers. When we have both of your responses, we will read the shape of each person and the space you create together, then share your Evermor DNA reading back with you as a gift — a new language for the things you may feel but have never named.
             </p>
             <ul className="flex flex-col gap-6 font-serif text-[19px] text-[#3A342C]/80">
               <li className="flex gap-4">
                 <span className="text-[#8C6D4F] italic">01.</span>
-                <span>We explore the roots of your connection.</span>
+                <span>Answer independently, in your own words.</span>
               </li>
               <li className="flex gap-4">
                 <span className="text-[#8C6D4F] italic">02.</span>
-                <span>We identify the images that will matter in twenty years.</span>
+                <span>Receive a persona reading for each of you.</span>
               </li>
               <li className="flex gap-4">
                 <span className="text-[#8C6D4F] italic">03.</span>
-                <span>We shape a photographic approach that is entirely your own.</span>
+                <span>Discover your relationship and memory DNA together.</span>
               </li>
             </ul>
           </div>
         </div>
       </section>
 
-      {/* 4. Cinematic Image & Quote */}
+      {/* 5. Cinematic Image & Quote */}
       <section className="relative py-[20vh] bg-[#1A1612] text-[#F5F0E8] overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
@@ -200,7 +245,7 @@ export default function StoryDNA() {
         </div>
       </section>
 
-      {/* 5. Story DNA form preview */}
+      {/* 6. Story DNA form preview */}
       <section id="story-dna-form" className="px-6 md:px-16 lg:px-[100px] py-[12vh] md:py-[16vh] bg-[#F5EDE0]">
         <div className="max-w-[1160px] mx-auto grid lg:grid-cols-[0.72fr_1.28fr] gap-12 lg:gap-24 items-start">
           <div className="lg:sticky lg:top-28">
@@ -212,7 +257,7 @@ export default function StoryDNA() {
               <span className="italic text-[#8C6D4F]">worth keeping.</span>
             </h2>
             <p className="font-serif italic text-[#3A342C]/65 text-[19px] md:text-[22px] leading-[1.6] max-w-[390px]">
-              Take a quiet moment to tell us about the things that make your relationship unmistakably yours.
+              Complete it separately, then let us reflect the people you are—and the relationship you are becoming—back to you.
             </p>
             <a
               href={GOOGLE_FORM_URL}
@@ -240,17 +285,17 @@ export default function StoryDNA() {
         </div>
       </section>
 
-      {/* 6. The Closing / CTA */}
+      {/* 7. The Closing / CTA */}
       <section className="py-[15vh] px-6 md:px-16 bg-[#EFEFED] flex justify-center text-center">
         <div 
           ref={closingRef}
           className={`max-w-[600px] transition-all duration-[1200ms] ease-out ${closingInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
         >
           <h2 className="font-serif text-[36px] md:text-[54px] text-[#3A342C] font-light mb-6">
-            Begin the discovery.
+            Keep the reflection.
           </h2>
           <p className="font-serif italic text-[#3A342C]/60 text-[20px] mb-10">
-            Take the first step toward an archive that feels profoundly yours.
+            A free Evermor DNA reading for the two of you, shaped with care from everything we have learned from hundreds of couples.
           </p>
           <Link 
             href={INQUIRY_DESTINATION}
