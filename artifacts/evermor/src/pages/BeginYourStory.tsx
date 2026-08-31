@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "wouter";
 import Nav from "../components/Nav";
 
 const BASE = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
@@ -207,20 +208,28 @@ export default function BeginYourStory() {
               </p>
             )}
 
-            {/* Submit */}
-            <button
-              type="submit"
-              disabled={sending || !formReady}
-              aria-disabled={sending || !formReady}
-              className={`font-sans font-light tracking-[0.18em] uppercase transition-all duration-300 outline-none ${
-                formReady
-                  ? "text-[#F5F0E8] bg-[#3A342C] hover:bg-[#2A2520] cursor-pointer"
-                  : "text-[#3A342C]/35 bg-transparent cursor-not-allowed"
-              } disabled:opacity-40`}
-              style={{ fontSize: "clamp(10px, 0.95vw, 12px)", padding: "15px 24px" }}
-            >
-              {sending ? "Sending…" : "Discover Your Story DNA\u00a0\u00a0→"}
-            </button>
+            <div className="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-7">
+              <button
+                type="submit"
+                disabled={sending || !formReady}
+                aria-disabled={sending || !formReady}
+                className={`font-sans font-light tracking-[0.18em] uppercase transition-all duration-300 outline-none ${
+                  formReady
+                    ? "text-[#F5F0E8] bg-[#3A342C] hover:bg-[#2A2520] cursor-pointer"
+                    : "text-[#3A342C]/35 bg-transparent cursor-not-allowed"
+                } disabled:opacity-40`}
+                style={{ fontSize: "clamp(10px, 0.95vw, 12px)", padding: "15px 24px" }}
+              >
+                {sending ? "Sending…" : "Submit Enquiry"}
+              </button>
+              <Link
+                href="/story-dna"
+                className="inline-flex items-center gap-3 self-start font-sans font-light text-[#3A342C]/65 hover:text-[#8C6D4F] tracking-[0.14em] uppercase transition-colors duration-300 border-b border-[#3A342C]/25 hover:border-[#8C6D4F] pb-2"
+                style={{ fontSize: "clamp(10px, 0.95vw, 12px)" }}
+              >
+                Discover Your Story DNA <span aria-hidden="true">→</span>
+              </Link>
+            </div>
 
           </form>
         </div>
