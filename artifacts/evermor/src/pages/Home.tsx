@@ -157,7 +157,7 @@ export default function Home() {
               transform: mounted ? "translateY(0)" : "translateY(10px)",
             }}
           >
-            <span className="text-[13px]">Discover Your Story DNA</span>
+            <span className="text-[13px]">Discover the gift from evermor</span>
             <span>→</span>
           </Link>
         </div>
