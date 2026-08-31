@@ -10,23 +10,12 @@ export default function BeginYourStory() {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [formReady, setFormReady] = useState(false);
 
   useEffect(() => { setMounted(true); }, []);
-
-  function updateFormReady(e: React.FormEvent<HTMLFormElement>) {
-    const form = e.currentTarget;
-    const requiredFields = ["your-names", "email", "phone", "location", "wedding-date", "venue"];
-    setFormReady(requiredFields.every((id) => {
-      const field = form.elements.namedItem(id) as HTMLInputElement | null;
-      return Boolean(field?.value.trim() && field.checkValidity());
-    }));
-  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!e.currentTarget.checkValidity()) {
-      setFormReady(false);
       e.currentTarget.reportValidity();
       return;
     }
@@ -169,7 +158,7 @@ export default function BeginYourStory() {
           </p>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} onChange={updateFormReady} noValidate>
+          <form onSubmit={handleSubmit} noValidate>
 
             {/* Row 1 — Names | Email */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-10 mb-10">
@@ -211,13 +200,9 @@ export default function BeginYourStory() {
             <div className="flex flex-col sm:flex-row sm:items-center gap-5 sm:gap-7">
               <button
                 type="submit"
-                disabled={sending || !formReady}
-                aria-disabled={sending || !formReady}
-                className={`font-sans font-light tracking-[0.18em] uppercase transition-all duration-300 outline-none ${
-                  formReady
-                    ? "text-[#F5F0E8] bg-[#3A342C] hover:bg-[#2A2520] cursor-pointer"
-                    : "text-[#3A342C]/35 bg-transparent cursor-not-allowed"
-                } disabled:opacity-40`}
+                disabled={sending}
+                aria-disabled={sending}
+                className="font-sans font-light tracking-[0.18em] uppercase transition-all duration-300 outline-none text-[#F5F0E8] bg-[#3A342C] hover:bg-[#2A2520] cursor-pointer disabled:opacity-60 disabled:cursor-wait"
                 style={{ fontSize: "clamp(10px, 0.95vw, 12px)", padding: "15px 24px" }}
               >
                 {sending ? "Sending…" : "Submit Enquiry"}
