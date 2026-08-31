@@ -70,7 +70,6 @@ export default function StoryDNA() {
   return (
     <div className="bg-[#EFEFED] text-[#3A342C] min-h-screen flex flex-col font-serif">
       <Nav theme="light" mounted={mounted} position="absolute" links={navLinks} />
-
       {/* 1. Hero: Literary & Slow */}
       <section className="pt-[25vh] md:pt-[30vh] pb-[10vh] px-6 md:px-16 lg:px-[100px] max-w-[1400px] mx-auto w-full">
         <p
@@ -80,9 +79,7 @@ export default function StoryDNA() {
             opacity: mounted ? 1 : 0,
             transform: mounted ? "translateY(0)" : "translateY(15px)",
           }}
-        >
-          An Invitation to Pause
-        </p>
+        >A gift From evermor</p>
         <h1
           className="font-serif font-light leading-[1.05] tracking-[-0.02em] text-[#3A342C]"
           style={{
@@ -114,7 +111,6 @@ export default function StoryDNA() {
           </a>
         </div>
       </section>
-
       {/* 2. The gift */}
       <section className="px-6 md:px-16 lg:px-[100px] py-[12vh] md:py-[16vh] bg-[#3A342C] text-[#F5F0E8]">
         <div className="max-w-[1120px] mx-auto">
@@ -159,7 +155,6 @@ export default function StoryDNA() {
           </div>
         </div>
       </section>
-
       {/* 3. The Visual Archive (Collage) */}
       <section className="py-[10vh] md:py-[15vh] bg-[#F5EDE0]">
         <div className="px-6 md:px-16 lg:px-[100px] max-w-[1400px] mx-auto flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
@@ -203,7 +198,6 @@ export default function StoryDNA() {
           </div>
         </div>
       </section>
-
       {/* 4. Cinematic Image & Quote */}
       <section className="relative py-[20vh] bg-[#1A1612] text-[#F5F0E8] overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -227,7 +221,6 @@ export default function StoryDNA() {
           </p>
         </div>
       </section>
-
       {/* 5. Story DNA form preview */}
       <section id="story-dna-form" className="px-6 md:px-16 lg:px-[100px] py-[12vh] md:py-[16vh] bg-[#F5EDE0]">
         <div className="max-w-[1160px] mx-auto grid lg:grid-cols-[0.72fr_1.28fr] gap-12 lg:gap-24 items-start">
@@ -267,7 +260,6 @@ export default function StoryDNA() {
           </div>
         </div>
       </section>
-
       {/* 6. The Closing / CTA */}
       <section className="py-[15vh] px-6 md:px-16 bg-[#EFEFED] flex justify-center text-center">
         <div 
@@ -289,7 +281,6 @@ export default function StoryDNA() {
           </Link>
         </div>
       </section>
-
     </div>
   );
 }
