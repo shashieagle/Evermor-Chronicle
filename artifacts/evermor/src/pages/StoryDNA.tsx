@@ -144,7 +144,7 @@ export default function StoryDNA() {
               <span className="italic text-[#C5A888]">One deeper understanding.</span>
             </h2>
             <p className="font-serif text-[19px] md:text-[24px] leading-[1.65] text-[#F5F0E8]/70">
-              You each answer independently. We read your answers separately, then place them beside each other to find what repeats underneath: your personalities, fears, values, hopes, and what you ask each other to protect.
+              You’ll each fill it out on your own. Then we’ll look at your answers together to understand what makes you each tick, what you value, and what makes your relationship uniquely yours.
             </p>
             <p className="font-sans font-light text-[12px] leading-[1.8] tracking-[0.04em] text-[#F5F0E8]/50 mt-5 max-w-[620px]">
               No score. No perfect match. No verdict. Just a private reading of your answers, created freely from everything we have learned from understanding hundreds of couples.
