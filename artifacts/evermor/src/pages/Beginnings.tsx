@@ -341,7 +341,7 @@ export default function Beginnings() {
       <section className="bg-white py-20 md:py-32 lg:py-48">
         <div
           ref={narrativeRef}
-          className={`max-w-[620px] mx-auto px-6 md:px-0 transition-all duration-[1000ms] ease-out ${narrativeInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          className={`max-w-[620px] mx-auto px-6 md:px-0 opacity-100 transition-transform duration-[1000ms] ease-out ${narrativeInView ? "translate-y-0" : "translate-y-8"}`}
         >
           <p className="font-sans font-light text-[11px] uppercase tracking-[0.3em] text-[#3A342C]/40 mb-10">
             {story.location}
@@ -363,7 +363,7 @@ export default function Beginnings() {
       <section className="bg-white py-20 md:py-40 lg:py-64">
         <div
           ref={pauseRef}
-          className={`max-w-[560px] mx-auto px-6 md:px-0 text-center transition-all duration-[1100ms] ease-out ${pauseInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+          className={`max-w-[560px] mx-auto px-6 md:px-0 text-center opacity-100 transition-transform duration-[1100ms] ease-out ${pauseInView ? "translate-y-0" : "translate-y-6"}`}
         >
           <p className="font-serif font-light italic text-[22px] md:text-[28px] lg:text-[32px] text-[#3A342C]/65 leading-[1.6] tracking-[0.01em]">
             {story.pause}
@@ -432,7 +432,7 @@ export default function Beginnings() {
       <section className="bg-white py-20 md:py-40 lg:py-64">
         <div
           ref={reflectionRef}
-          className={`max-w-[580px] mx-auto px-6 md:px-0 transition-all duration-[1000ms] ease-out ${reflectionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          className={`max-w-[580px] mx-auto px-6 md:px-0 opacity-100 transition-transform duration-[1000ms] ease-out ${reflectionInView ? "translate-y-0" : "translate-y-8"}`}
         >
           <div className="w-[32px] border-t border-[#3A342C]/20 mb-12" />
           <p className="font-serif font-light text-[18px] md:text-[22px] text-[#3A342C]/70 leading-[1.8] tracking-[0.01em]">
@@ -445,7 +445,7 @@ export default function Beginnings() {
       <section className="bg-white py-20 md:py-32 lg:py-48">
         <div
           ref={inviteRef}
-          className={`max-w-[640px] mx-auto px-6 md:px-0 text-center transition-all duration-[1000ms] ease-out ${inviteInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+          className={`max-w-[640px] mx-auto px-6 md:px-0 text-center opacity-100 transition-transform duration-[1000ms] ease-out ${inviteInView ? "translate-y-0" : "translate-y-6"}`}
         >
           <p className="font-sans font-light text-[11px] uppercase tracking-[0.3em] text-[#3A342C]/40 mb-10">Begin Your Story</p>
           <p className="font-serif font-light text-[26px] md:text-[34px] text-[#3A342C] leading-[1.4] tracking-[0.01em] mb-14">
