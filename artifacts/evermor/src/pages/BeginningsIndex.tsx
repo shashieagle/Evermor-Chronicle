@@ -13,6 +13,7 @@ interface ApiStory {
   location: string;
   heroImage: string | null;
   hasFilm: boolean;
+  narrative: string | null;
 }
 
 function useInView(threshold = 0.15) {
@@ -120,6 +121,7 @@ export default function BeginningsIndex() {
 function StoryRow({ story, index }: { story: ApiStory; index: number }) {
   const [ref, inView] = useInView();
   const [imgRef, imgInView] = useInView(0.05);
+  const description = story.narrative?.trim().split(/\n\n+/)[0] || "";
 
   return (
     <Link href={`/beginnings/${story.slug}`}>
@@ -154,6 +156,11 @@ function StoryRow({ story, index }: { story: ApiStory; index: number }) {
           <p className="font-sans font-light text-[14px] text-[#3A342C]/55 tracking-[0.05em] mb-6">
             {story.couple}
           </p>
+          {description && (
+            <p className="max-w-[410px] font-serif font-light text-[16px] md:text-[17px] text-[#3A342C]/65 leading-[1.65] tracking-[0.005em] mb-6">
+              {description}
+            </p>
+          )}
           {story.hasFilm && (
             <span
               className="inline-flex w-fit items-center text-[#3A342C]/40"
