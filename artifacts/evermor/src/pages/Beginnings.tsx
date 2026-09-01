@@ -281,7 +281,6 @@ export default function Beginnings() {
   const gallery1 = pool.slice(0, split).length ? pool.slice(0, split) : pool;
   const gallery2 = pool.slice(split).length ? pool.slice(split) : pool;
   const videoEmbed = story.videoUrl ? embedUrl(story.videoUrl) : null;
-  const openingDescription = story.narrative?.trim().split(/\n\n+/)[0] || "";
 
   return (
     <div className="bg-white text-[#3A342C]">
@@ -325,11 +324,6 @@ export default function Beginnings() {
           <p className={`mt-2 md:mt-3 font-sans text-[11px] md:text-[12px] font-light text-[#F5F0E8]/50 uppercase tracking-[0.28em] transition-all duration-[800ms] ease-out delay-[600ms] ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}>
             {story.location}
           </p>
-          {openingDescription && (
-            <p className={`mt-6 max-w-[620px] font-serif font-light text-[17px] md:text-[20px] text-[#F5F0E8]/75 leading-[1.6] tracking-[0.005em] transition-all duration-[900ms] ease-out delay-[700ms] ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"}`}>
-              {openingDescription}
-            </p>
-          )}
           <div
             className={`mt-10 md:mt-14 transition-all duration-[800ms] ease-out delay-[900ms] ${mounted ? "opacity-100" : "opacity-0"}`}
             style={{ animation: "evermor-breathe 3s ease-in-out infinite" }}
