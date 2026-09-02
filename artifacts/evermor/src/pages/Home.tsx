@@ -245,135 +245,6 @@ export default function Home() {
           >Let us move through your wedding like family — quietly, without announcement. Let us sneak a laugh in between rituals, because joy is always the best light. Let us disappear from the stage now and then; we promise we're somewhere better. And let us gently guide you — not into a pose, but into discovering how you actually look when you forget we're there.</p>
         </div>
       </section>
-      {/* ── Image Slideshow ─────────────────────────────────────────────── */}
-      {slideshowImages.length > 0 && (
-      <>
-      <section
-        className="relative overflow-hidden bg-[#0C0906]"
-        style={{ height: "90vh" }}
-        onTouchStart={e => { touchStartX.current = e.touches[0].clientX; }}
-        onTouchEnd={e => {
-          const delta = touchStartX.current - e.changedTouches[0].clientX;
-          if (Math.abs(delta) > 48) delta > 0 ? goNext() : goPrev();
-        }}
-      >
-        <style>{`@keyframes slideProgress { from { transform: scaleX(0); } to { transform: scaleX(1); } }`}</style>
-
-        {/* Stacked images — crossfade */}
-        {slideshowImages.map((src, i) => (
-          <div
-            key={src}
-            className="absolute inset-y-0 left-[5%] right-[5%] transition-opacity duration-[1400ms] ease-in-out"
-            style={{ opacity: i === slideIndex ? 1 : 0, zIndex: i === slideIndex ? 2 : 1 }}
-          >
-            <img
-              src={src}
-              alt={`Gallery ${i + 1}`}
-              className="w-full h-full object-cover object-center"
-              loading="lazy"
-              style={{ filter: "sepia(0.05) contrast(1.04) saturate(0.92) brightness(0.94)" }}
-            />
-          </div>
-        ))}
-
-        {/* Grain */}
-        <div className="absolute inset-0 pointer-events-none z-10" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E\")", opacity: 0.12, mixBlendMode: "overlay" as const }} />
-
-        {/* Top + bottom fade */}
-        <div className="absolute inset-x-0 top-0 h-20 pointer-events-none z-10" style={{ background: "linear-gradient(to bottom, rgba(12,9,6,0.6), transparent)" }} />
-        <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none z-10" style={{ background: "linear-gradient(to top, rgba(12,9,6,0.55), transparent)" }} />
-
-        {/* Prev / Next arrows */}
-        <button
-          onClick={goPrev}
-          aria-label="Previous"
-          className="absolute left-5 md:left-8 top-1/2 -translate-y-1/2 z-20 w-9 h-9 flex items-center justify-center opacity-0 hover:opacity-100 focus:opacity-100 transition-opacity duration-300 group"
-          style={{ border: "1px solid rgba(245,240,232,0.25)", borderRadius: "50%" }}
-        >
-          <span className="text-[#F5F0E8]/70 group-hover:text-[#F5F0E8] text-[14px] transition-colors duration-200">←</span>
-        </button>
-        <button
-          onClick={goNext}
-          aria-label="Next"
-          className="absolute right-5 md:right-8 top-1/2 -translate-y-1/2 z-20 w-9 h-9 flex items-center justify-center opacity-0 hover:opacity-100 focus:opacity-100 transition-opacity duration-300 group"
-          style={{ border: "1px solid rgba(245,240,232,0.25)", borderRadius: "50%" }}
-        >
-          <span className="text-[#F5F0E8]/70 group-hover:text-[#F5F0E8] text-[14px] transition-colors duration-200">→</span>
-        </button>
-
-        {/* Counter */}
-        <div className="absolute top-7 right-7 md:right-10 z-20">
-          <p className="font-sans text-[10px] tracking-[0.18em] text-[#F5F0E8]/35">
-            {String(slideIndex + 1).padStart(2, "0")} / {String(slideshowImages.length).padStart(2, "0")}
-          </p>
-        </div>
-
-        {/* Progress bar */}
-        <div className="absolute bottom-0 inset-x-0 z-20 h-[2px] bg-[#F5F0E8]/8">
-          <div
-            key={progressKey}
-            style={{
-              height: "100%",
-              background: "rgba(245,240,232,0.45)",
-              transformOrigin: "left center",
-              animation: `slideProgress ${SLIDE_DURATION}ms linear forwards`,
-            }}
-          />
-        </div>
-      </section>
-      {/* Preview rail — entirely on the light space below the slideshow */}
-      <div
-        className="relative bg-[#EFEFED]"
-        style={{ height: "clamp(64px, 8vw, 96px)" }}
-      >
-        <div
-          className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex items-center justify-center gap-2 overflow-x-auto px-5 md:gap-3 md:px-16"
-          style={{
-            scrollbarWidth: "none",
-            maskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
-            WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
-          }}
-          aria-label="Slideshow previews"
-        >
-          {[-2, -1, 0, 1, 2, 3]
-            .map(offset => (slideIndex + offset + slideshowImages.length) % slideshowImages.length)
-            .filter((idx, position, indices) => indices.indexOf(idx) === position)
-            .map((idx, position) => {
-              const isCurrent = idx === slideIndex;
-              const isPast = position < 2 && !isCurrent;
-              return (
-                <button
-                  key={`${idx}-${position}`}
-                  type="button"
-                  data-slide-index={idx}
-                  onClick={() => selectSlide(idx)}
-                  aria-label={`${isCurrent ? "Current" : isPast ? "Previous" : "Next"} image, ${idx + 1} of ${slideshowImages.length}`}
-                  aria-current={isCurrent ? "true" : undefined}
-                  className="group relative shrink-0 overflow-hidden transition-all duration-500 focus:outline-none focus-visible:ring-1 focus-visible:ring-[#3A342C]/70"
-                  style={{
-                    width: "clamp(48px, 7vw, 98px)",
-                    aspectRatio: "1.45",
-                    opacity: isCurrent ? 1 : isPast ? 0.48 : 0.72,
-                    border: isCurrent
-                      ? "1px solid rgba(58,52,44,0.85)"
-                      : "1px solid rgba(58,52,44,0.22)",
-                    boxShadow: isCurrent ? "0 0 0 3px rgba(239,239,237,0.92), 0 5px 18px rgba(58,52,44,0.16)" : "none",
-                  }}
-                >
-                  <img
-                    src={slideshowImages[idx]}
-                    alt={`Preview ${idx + 1}`}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                    style={{ filter: isCurrent ? "none" : "sepia(0.08) brightness(0.78) saturate(0.82)" }}
-                  />
-                </button>
-              );
-            })}
-        </div>
-      </div>
-      </>
-      )}
       {/* ── Chapter 5 — Beginnings ───────────────────────────────────────── */}
       <section
         className="bg-[#EFEFED] overflow-hidden"
@@ -547,6 +418,135 @@ export default function Home() {
           </Link>
         </div>
       </section>
+      {/* ── Image Slideshow ─────────────────────────────────────────────── */}
+      {slideshowImages.length > 0 && (
+      <>
+      <section
+        className="relative overflow-hidden bg-[#0C0906]"
+        style={{ height: "90vh" }}
+        onTouchStart={e => { touchStartX.current = e.touches[0].clientX; }}
+        onTouchEnd={e => {
+          const delta = touchStartX.current - e.changedTouches[0].clientX;
+          if (Math.abs(delta) > 48) delta > 0 ? goNext() : goPrev();
+        }}
+      >
+        <style>{`@keyframes slideProgress { from { transform: scaleX(0); } to { transform: scaleX(1); } }`}</style>
+
+        {/* Stacked images — crossfade */}
+        {slideshowImages.map((src, i) => (
+          <div
+            key={src}
+            className="absolute inset-y-0 left-[5%] right-[5%] transition-opacity duration-[1400ms] ease-in-out"
+            style={{ opacity: i === slideIndex ? 1 : 0, zIndex: i === slideIndex ? 2 : 1 }}
+          >
+            <img
+              src={src}
+              alt={`Gallery ${i + 1}`}
+              className="w-full h-full object-cover object-center"
+              loading="lazy"
+              style={{ filter: "sepia(0.05) contrast(1.04) saturate(0.92) brightness(0.94)" }}
+            />
+          </div>
+        ))}
+
+        {/* Grain */}
+        <div className="absolute inset-0 pointer-events-none z-10" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E\")", opacity: 0.12, mixBlendMode: "overlay" as const }} />
+
+        {/* Top + bottom fade */}
+        <div className="absolute inset-x-0 top-0 h-20 pointer-events-none z-10" style={{ background: "linear-gradient(to bottom, rgba(12,9,6,0.6), transparent)" }} />
+        <div className="absolute inset-x-0 bottom-0 h-24 pointer-events-none z-10" style={{ background: "linear-gradient(to top, rgba(12,9,6,0.55), transparent)" }} />
+
+        {/* Prev / Next arrows */}
+        <button
+          onClick={goPrev}
+          aria-label="Previous"
+          className="absolute left-5 md:left-8 top-1/2 -translate-y-1/2 z-20 w-9 h-9 flex items-center justify-center opacity-0 hover:opacity-100 focus:opacity-100 transition-opacity duration-300 group"
+          style={{ border: "1px solid rgba(245,240,232,0.25)", borderRadius: "50%" }}
+        >
+          <span className="text-[#F5F0E8]/70 group-hover:text-[#F5F0E8] text-[14px] transition-colors duration-200">←</span>
+        </button>
+        <button
+          onClick={goNext}
+          aria-label="Next"
+          className="absolute right-5 md:right-8 top-1/2 -translate-y-1/2 z-20 w-9 h-9 flex items-center justify-center opacity-0 hover:opacity-100 focus:opacity-100 transition-opacity duration-300 group"
+          style={{ border: "1px solid rgba(245,240,232,0.25)", borderRadius: "50%" }}
+        >
+          <span className="text-[#F5F0E8]/70 group-hover:text-[#F5F0E8] text-[14px] transition-colors duration-200">→</span>
+        </button>
+
+        {/* Counter */}
+        <div className="absolute top-7 right-7 md:right-10 z-20">
+          <p className="font-sans text-[10px] tracking-[0.18em] text-[#F5F0E8]/35">
+            {String(slideIndex + 1).padStart(2, "0")} / {String(slideshowImages.length).padStart(2, "0")}
+          </p>
+        </div>
+
+        {/* Progress bar */}
+        <div className="absolute bottom-0 inset-x-0 z-20 h-[2px] bg-[#F5F0E8]/8">
+          <div
+            key={progressKey}
+            style={{
+              height: "100%",
+              background: "rgba(245,240,232,0.45)",
+              transformOrigin: "left center",
+              animation: `slideProgress ${SLIDE_DURATION}ms linear forwards`,
+            }}
+          />
+        </div>
+      </section>
+      {/* Preview rail — entirely on the light space below the slideshow */}
+      <div
+        className="relative bg-[#EFEFED]"
+        style={{ height: "clamp(64px, 8vw, 96px)" }}
+      >
+        <div
+          className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex items-center justify-center gap-2 overflow-x-auto px-5 md:gap-3 md:px-16"
+          style={{
+            scrollbarWidth: "none",
+            maskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to right, transparent 0%, black 12%, black 88%, transparent 100%)",
+          }}
+          aria-label="Slideshow previews"
+        >
+          {[-2, -1, 0, 1, 2, 3]
+            .map(offset => (slideIndex + offset + slideshowImages.length) % slideshowImages.length)
+            .filter((idx, position, indices) => indices.indexOf(idx) === position)
+            .map((idx, position) => {
+              const isCurrent = idx === slideIndex;
+              const isPast = position < 2 && !isCurrent;
+              return (
+                <button
+                  key={`${idx}-${position}`}
+                  type="button"
+                  data-slide-index={idx}
+                  onClick={() => selectSlide(idx)}
+                  aria-label={`${isCurrent ? "Current" : isPast ? "Previous" : "Next"} image, ${idx + 1} of ${slideshowImages.length}`}
+                  aria-current={isCurrent ? "true" : undefined}
+                  className="group relative shrink-0 overflow-hidden transition-all duration-500 focus:outline-none focus-visible:ring-1 focus-visible:ring-[#3A342C]/70"
+                  style={{
+                    width: "clamp(48px, 7vw, 98px)",
+                    aspectRatio: "1.45",
+                    opacity: isCurrent ? 1 : isPast ? 0.48 : 0.72,
+                    border: isCurrent
+                      ? "1px solid rgba(58,52,44,0.85)"
+                      : "1px solid rgba(58,52,44,0.22)",
+                    boxShadow: isCurrent ? "0 0 0 3px rgba(239,239,237,0.92), 0 5px 18px rgba(58,52,44,0.16)" : "none",
+                  }}
+                >
+                  <img
+                    src={slideshowImages[idx]}
+                    alt={`Preview ${idx + 1}`}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    style={{ filter: isCurrent ? "none" : "sepia(0.08) brightness(0.78) saturate(0.82)" }}
+                  />
+                </button>
+              );
+            })}
+        </div>
+      </div>
+      </>
+      )}
       {/* ── Chapter 6 — Memory ──────────────────────────────────────────── */}
       <section className="bg-[#EFEFED] overflow-hidden" style={{ borderTop: "1px solid rgba(58,52,44,0.08)" }}>
 
