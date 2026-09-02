@@ -92,7 +92,7 @@ export default function BeginYourStory() {
           style={{ transition: "opacity 1200ms ease-in-out", opacity: mounted ? 1 : 0 }}
         >
           <img
-            src="/beginnings-shaun-sowmya.jpg"
+             src="/begin-your-story-dsc-6413.jpg"
             alt="Begin your story"
             className="w-full h-full object-cover object-center"
             loading="eager"
