@@ -112,7 +112,7 @@ export default function Home() {
           style={{ transition: "opacity 1400ms ease-in-out", opacity: mounted ? 1 : 0 }}
         >
           <img
-            src="/hero.jpg"
+             src="/home-hero-dsc-0366.jpg"
             alt="Evermor Tales — Preserving the beginning of your family"
             className="w-full h-full object-cover"
           />
