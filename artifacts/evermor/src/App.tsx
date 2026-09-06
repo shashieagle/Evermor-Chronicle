@@ -1,20 +1,21 @@
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Route, Switch, Router as WouterRouter, useLocation } from 'wouter';
 import Home from './pages/Home';
-import Beginnings from './pages/Beginnings';
-import BeginningsIndex from './pages/BeginningsIndex';
-import Journal from './pages/Journal';
-import JournalPost from './pages/JournalPost';
-import AdminJournal from './pages/AdminJournal';
-import About from './pages/About';
-import Approach from './pages/Approach';
-import BeginYourStory from './pages/BeginYourStory';
-import StoryDNA from './pages/StoryDNA';
-import Admin from './pages/Admin';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import DraftBanner from './components/DraftBanner';
+
+const Beginnings = lazy(() => import('./pages/Beginnings'));
+const BeginningsIndex = lazy(() => import('./pages/BeginningsIndex'));
+const Journal = lazy(() => import('./pages/Journal'));
+const JournalPost = lazy(() => import('./pages/JournalPost'));
+const AdminJournal = lazy(() => import('./pages/AdminJournal'));
+const About = lazy(() => import('./pages/About'));
+const Approach = lazy(() => import('./pages/Approach'));
+const BeginYourStory = lazy(() => import('./pages/BeginYourStory'));
+const StoryDNA = lazy(() => import('./pages/StoryDNA'));
+const Admin = lazy(() => import('./pages/Admin'));
 
 const queryClient = new QueryClient();
 
@@ -32,19 +33,21 @@ function Router() {
   return (
     <>
       <ScrollToTop />
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/beginnings" component={BeginningsIndex} />
-        <Route path="/beginnings/:slug" component={Beginnings} />
-        <Route path="/journal" component={Journal} />
-        <Route path="/journal/:slug" component={JournalPost} />
-        <Route path="/admin/journal" component={AdminJournal} />
-        <Route path="/about" component={About} />
-        <Route path="/approach" component={Approach} />
-        <Route path="/story-dna" component={StoryDNA} />
-        <Route path="/begin-your-story" component={BeginYourStory} />
-        <Route path="/admin" component={Admin} />
-      </Switch>
+      <Suspense fallback={<div className="min-h-screen bg-[#EFEFED]" aria-label="Loading page" />}>
+        <Switch>
+          <Route path="/" component={Home} />
+          <Route path="/beginnings" component={BeginningsIndex} />
+          <Route path="/beginnings/:slug" component={Beginnings} />
+          <Route path="/journal" component={Journal} />
+          <Route path="/journal/:slug" component={JournalPost} />
+          <Route path="/admin/journal" component={AdminJournal} />
+          <Route path="/about" component={About} />
+          <Route path="/approach" component={Approach} />
+          <Route path="/story-dna" component={StoryDNA} />
+          <Route path="/begin-your-story" component={BeginYourStory} />
+          <Route path="/admin" component={Admin} />
+        </Switch>
+      </Suspense>
       {!isAdmin && <Footer />}
       {!isAdmin && <WhatsAppButton />}
     </>

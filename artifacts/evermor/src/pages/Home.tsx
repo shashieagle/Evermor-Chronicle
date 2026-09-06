@@ -56,20 +56,33 @@ export default function Home() {
   const touchStartX = useRef(0);
 
   useEffect(() => {
-    fetch(`${API}/slideshow`)
-      .then(r => r.json())
-      .then(d => { if (d.photos?.length) setSlideshowImages(d.photos.map((p: any) => p.url)); })
-      .catch(() => {});
-  }, []);
+    const loadBelowFoldData = () => {
+      fetch(`${API}/slideshow`)
+        .then(r => r.json())
+        .then(d => { if (d.photos?.length) setSlideshowImages(d.photos.map((p: any) => p.url)); })
+        .catch(() => {});
 
-  useEffect(() => {
-    fetch(`${API}/stories/yamini-chris`, { cache: "no-store" })
-      .then(r => r.ok ? r.json() : null)
-      .then(d => {
-        const heroImage = d?.story?.heroImage;
-        if (typeof heroImage === "string" && heroImage) setYaminiHeroImage(heroImage);
-      })
-      .catch(() => {});
+      fetch(`${API}/stories/yamini-chris`)
+        .then(r => r.ok ? r.json() : null)
+        .then(d => {
+          const heroImage = d?.story?.heroImage;
+          if (typeof heroImage === "string" && heroImage) setYaminiHeroImage(heroImage);
+        })
+        .catch(() => {});
+    };
+
+    let fallbackTimer: ReturnType<typeof setTimeout> | undefined;
+    let idleCallbackId: number | undefined;
+    if ("requestIdleCallback" in window) {
+      idleCallbackId = (window as any).requestIdleCallback(loadBelowFoldData, { timeout: 2000 });
+    } else {
+      fallbackTimer = setTimeout(loadBelowFoldData, 800);
+    }
+
+    return () => {
+      if (idleCallbackId !== undefined) (window as any).cancelIdleCallback(idleCallbackId);
+      if (fallbackTimer) clearTimeout(fallbackTimer);
+    };
   }, []);
 
   const advanceTo = useCallback((idx: number) => {
@@ -100,6 +113,13 @@ export default function Home() {
     advanceTo(idx);
     startTimer(slideshowImages.length);
   }, [advanceTo, slideshowImages.length, startTimer]);
+  const mountedSlideIndices = slideshowImages.length
+    ? new Set([
+        (slideIndex - 1 + slideshowImages.length) % slideshowImages.length,
+        slideIndex,
+        (slideIndex + 1) % slideshowImages.length,
+      ])
+    : new Set<number>();
 
   useEffect(() => { setMounted(true); }, []);
 
@@ -109,12 +129,18 @@ export default function Home() {
       <section className="relative h-[100vh] w-full overflow-hidden bg-[#1A1612]">
         <div
           className="absolute inset-0 z-0"
-          style={{ transition: "opacity 1400ms ease-in-out", opacity: mounted ? 1 : 0 }}
         >
           <img
-             src="/home-hero-dsc-0366.jpg"
+            src="/home-hero-1920.webp"
+            srcSet="/home-hero-960.webp 960w, /home-hero-1920.webp 1920w"
+            sizes="100vw"
             alt="Evermor Tales — Preserving the beginning of your family"
             className="w-full h-full object-cover"
+            width="1920"
+            height="1187"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
           />
           <div className="absolute inset-0 bg-[#1A1612]/10" />
           <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-black/50 to-transparent" />
@@ -208,11 +234,14 @@ export default function Home() {
                       ))}
                       <div style={{ outline: "1px solid rgba(140,109,79,0.28)", outlineOffset: "-1px" }}>
                         <img
-                          src="/chapter2.jpg"
+                          src="/chapter2-1400.webp"
+                          srcSet="/chapter2-760.webp 760w, /chapter2-1400.webp 1400w"
+                          sizes="(max-width: 768px) 86vw, 700px"
                           alt="Editorial photograph"
                           className="w-full object-cover object-center block"
                           style={{ height: "clamp(200px, 35vw, 520px)", filter: "sepia(0.18) contrast(1.04) saturate(0.88) brightness(0.97)" }}
                           loading="lazy"
+                          decoding="async"
                         />
                       </div>
                     </div>
@@ -286,7 +315,15 @@ export default function Home() {
             >
               <div className="p-[10px] md:p-[12px] pb-0">
                 <div className="relative overflow-hidden" style={{ aspectRatio: "3/2" }}>
-                  <img src="/beginnings-shaun-sowmya.jpg" alt="Shaun & Sowmya" className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]" loading="lazy" />
+                  <img
+                    src="/beginnings-shaun-sowmya-1400.webp"
+                    srcSet="/beginnings-shaun-sowmya-760.webp 760w, /beginnings-shaun-sowmya-1400.webp 1400w"
+                    sizes="(max-width: 768px) 88vw, 42vw"
+                    alt="Shaun & Sowmya"
+                    className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-[1.02]"
+                    loading="lazy"
+                    decoding="async"
+                  />
                   <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='256' height='256' filter='url(%23n)'/%3E%3C/svg%3E\")", opacity: 0.12, mixBlendMode: "overlay" as const }} />
                   <div className="absolute inset-0 bg-gradient-to-b from-black/38 via-transparent to-black/22" />
                   <div className="absolute top-3 md:top-4 right-3 md:right-4 flex items-center gap-1.5">
@@ -433,7 +470,10 @@ export default function Home() {
         <style>{`@keyframes slideProgress { from { transform: scaleX(0); } to { transform: scaleX(1); } }`}</style>
 
         {/* Stacked images — crossfade */}
-        {slideshowImages.map((src, i) => (
+        {slideshowImages
+          .map((src, i) => ({ src, i }))
+          .filter(({ i }) => mountedSlideIndices.has(i))
+          .map(({ src, i }) => (
           <div
             key={src}
             className="absolute inset-y-0 left-[5%] right-[5%] transition-opacity duration-[1400ms] ease-in-out"
@@ -444,6 +484,7 @@ export default function Home() {
               alt={`Gallery ${i + 1}`}
               className="w-full h-full object-cover object-center"
               loading="lazy"
+              decoding="async"
               style={{ filter: "sepia(0.05) contrast(1.04) saturate(0.92) brightness(0.94)" }}
             />
           </div>
@@ -508,12 +549,12 @@ export default function Home() {
           }}
           aria-label="Slideshow previews"
         >
-          {[-2, -1, 0, 1, 2, 3]
+          {[-1, 0, 1]
             .map(offset => (slideIndex + offset + slideshowImages.length) % slideshowImages.length)
             .filter((idx, position, indices) => indices.indexOf(idx) === position)
             .map((idx, position) => {
               const isCurrent = idx === slideIndex;
-              const isPast = position < 2 && !isCurrent;
+              const isPast = position < 1 && !isCurrent;
               return (
                 <button
                   key={`${idx}-${position}`}
@@ -538,6 +579,7 @@ export default function Home() {
                     alt={`Preview ${idx + 1}`}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
+                    decoding="async"
                     style={{ filter: isCurrent ? "none" : "sepia(0.08) brightness(0.78) saturate(0.82)" }}
                   />
                 </button>
@@ -574,7 +616,15 @@ export default function Home() {
             className="relative w-full overflow-hidden"
             style={{ maxWidth: "920px", aspectRatio: "16/9", boxShadow: "0 24px 80px rgba(58,52,44,0.16)" }}
           >
-            <img src="/memory-collage.jpg" alt="A collage of memory objects" className="w-full h-full object-cover object-center" loading="lazy" />
+            <img
+              src="/memory-collage-1200.webp"
+              srcSet="/memory-collage-760.webp 760w, /memory-collage-1200.webp 1200w"
+              sizes="(max-width: 768px) 90vw, 920px"
+              alt="A collage of memory objects"
+              className="w-full h-full object-cover object-center"
+              loading="lazy"
+              decoding="async"
+            />
           </div>
         </div>
 
