@@ -3,7 +3,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Route, Switch, Router as WouterRouter, useLocation } from 'wouter';
 import Home from './pages/Home';
 import Footer from './components/Footer';
-import WhatsAppButton from './components/WhatsAppButton';
 import DraftBanner from './components/DraftBanner';
 
 const Beginnings = lazy(() => import('./pages/Beginnings'));
@@ -49,7 +48,6 @@ function Router() {
         </Switch>
       </Suspense>
       {!isAdmin && <Footer />}
-      {!isAdmin && <WhatsAppButton />}
     </>
   );
 }
