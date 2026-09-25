@@ -1,5 +1,5 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "vite",
   "installCommand": "pnpm install --frozen-lockfile",
   "buildCommand": "PORT=19470 BASE_PATH=/ pnpm --filter @workspace/evermor run build",
   "outputDirectory": "artifacts/evermor/dist/public",
