@@ -4,6 +4,7 @@ import { storiesTable, storyPhotosTable, journalPostsTable, slideshowPhotosTable
 import { eq, asc, desc, isNull, isNotNull } from "drizzle-orm";
 import { ObjectStorageService, writeJsonToStorage, readJsonFromStorage } from "../lib/objectStorage";
 import { applySeedSnapshot } from "../seed";
+import { createSlideshowVariants } from "../lib/slideshowVariants";
 
 const router: IRouter = Router();
 const objectStorageService = new ObjectStorageService();
@@ -255,9 +256,46 @@ router.post("/admin/slideshow", async (req: Request, res: Response) => {
   if (!objectPath) return res.status(400).json({ error: "objectPath required" });
   try {
     const url = `/api/storage${objectPath}`;
-    const [photo] = await db.insert(slideshowPhotosTable).values({ url, objectPath, position: position ?? 0 }).returning();
+    const variants = await createSlideshowVariants(objectPath);
+    const [photo] = await db.insert(slideshowPhotosTable).values({
+      url,
+      objectPath,
+      ...variants,
+      position: position ?? 0,
+    }).returning();
     res.json({ photo });
-  } catch { res.status(500).json({ error: "Failed to save slideshow photo" }); }
+  } catch (err) {
+    req.log?.error({ err, objectPath }, "Failed to optimize slideshow photo");
+    res.status(500).json({ error: "Failed to optimize and save slideshow photo" });
+  }
+});
+
+// Generate missing variants for slideshow photos uploaded before optimization.
+router.post("/admin/slideshow/backfill", async (req: Request, res: Response) => {
+  try {
+    const photos = await db.select().from(slideshowPhotosTable).orderBy(asc(slideshowPhotosTable.position));
+    let optimized = 0;
+    const failures: number[] = [];
+    for (const photo of photos) {
+      if (photo.displayUrl && photo.thumbnailUrl) continue;
+      if (!photo.objectPath) {
+        failures.push(photo.id);
+        continue;
+      }
+      try {
+        const variants = await createSlideshowVariants(photo.objectPath);
+        await db.update(slideshowPhotosTable).set(variants).where(eq(slideshowPhotosTable.id, photo.id));
+        optimized += 1;
+      } catch (err) {
+        req.log?.error({ err, photoId: photo.id }, "Failed to backfill slideshow variants");
+        failures.push(photo.id);
+      }
+    }
+    res.status(failures.length ? 207 : 200).json({ ok: failures.length === 0, optimized, failures });
+  } catch (err) {
+    req.log?.error({ err }, "Failed to backfill slideshow variants");
+    res.status(500).json({ error: "Failed to backfill slideshow variants" });
+  }
 });
 
 // Reorder slideshow photos
@@ -384,7 +422,10 @@ router.post("/admin/sync", async (_req: Request, res: Response) => {
         storySlug: p.storySlug, url: p.url, objectPath: p.objectPath, position: p.position,
       })),
       slideshow: slideshow.map(p => ({
-        url: p.url, objectPath: p.objectPath, position: p.position,
+        url: p.url, objectPath: p.objectPath,
+        displayUrl: p.displayUrl, displayObjectPath: p.displayObjectPath,
+        thumbnailUrl: p.thumbnailUrl, thumbnailObjectPath: p.thumbnailObjectPath,
+        position: p.position,
       })),
       syncedAt: new Date().toISOString(),
     };

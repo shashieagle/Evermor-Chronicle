@@ -20,7 +20,14 @@ interface StoryRow {
   narrative: string | null; pause: string | null; reflection: string | null;
 }
 interface Photo { id: number; url: string; objectPath: string | null; position: number; }
-interface SlideshowPhoto { id: number; url: string; objectPath: string | null; position: number; }
+interface SlideshowPhoto {
+  id: number;
+  url: string;
+  objectPath: string | null;
+  displayUrl?: string | null;
+  thumbnailUrl?: string | null;
+  position: number;
+}
 interface EnquiryRow {
   id: number;
   names: string;

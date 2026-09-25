@@ -28,11 +28,15 @@ export const storyPhotosTable = pgTable("story_photos", {
 });
 
 export const slideshowPhotosTable = pgTable("slideshow_photos", {
-  id:         serial("id").primaryKey(),
-  url:        text("url").notNull(),
-  objectPath: text("object_path"),
-  position:   integer("position").notNull().default(0),
-  createdAt:  timestamp("created_at").defaultNow(),
+  id:                    serial("id").primaryKey(),
+  url:                   text("url").notNull(),
+  objectPath:            text("object_path"),
+  displayUrl:            text("display_url"),
+  displayObjectPath:     text("display_object_path"),
+  thumbnailUrl:          text("thumbnail_url"),
+  thumbnailObjectPath:   text("thumbnail_object_path"),
+  position:              integer("position").notNull().default(0),
+  createdAt:             timestamp("created_at").defaultNow(),
 });
 
 export type SlideshowPhoto = typeof slideshowPhotosTable.$inferSelect;

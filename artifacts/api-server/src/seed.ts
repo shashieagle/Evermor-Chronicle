@@ -15,7 +15,10 @@ export interface DbSnapshot {
     storySlug: string; url: string; objectPath: string | null; position: number;
   }[];
   slideshow: {
-    url: string; objectPath: string | null; position: number;
+    url: string; objectPath: string | null;
+    displayUrl?: string | null; displayObjectPath?: string | null;
+    thumbnailUrl?: string | null; thumbnailObjectPath?: string | null;
+    position: number;
   }[];
 }
 

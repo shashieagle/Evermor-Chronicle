@@ -6,6 +6,12 @@ const BASE = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
 const API  = `${BASE}/api`;
 const SLIDE_DURATION = 5000;
 
+interface SlideshowImage {
+  originalUrl: string;
+  displayUrl: string;
+  thumbnailUrl: string;
+}
+
 function useInView(threshold = 0.12) {
   const [isInView, setIsInView] = useState(false);
   const ref = useRef<any>(null);
@@ -49,7 +55,7 @@ export default function Home() {
   const [ch6BtnRef, ch6BtnInView] = useInView();
 
   // Slideshow
-  const [slideshowImages, setSlideshowImages] = useState<string[]>([]);
+  const [slideshowImages, setSlideshowImages] = useState<SlideshowImage[]>([]);
   const [slideIndex, setSlideIndex] = useState(0);
   const [progressKey, setProgressKey] = useState(0);
   const slideTimerRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -59,7 +65,15 @@ export default function Home() {
     const loadBelowFoldData = () => {
       fetch(`${API}/slideshow`)
         .then(r => r.json())
-        .then(d => { if (d.photos?.length) setSlideshowImages(d.photos.map((p: any) => p.url)); })
+        .then(d => {
+          if (d.photos?.length) {
+            setSlideshowImages(d.photos.map((p: any) => ({
+              originalUrl: p.url,
+              displayUrl: p.displayUrl || p.url,
+              thumbnailUrl: p.thumbnailUrl || p.displayUrl || p.url,
+            })));
+          }
+        })
         .catch(() => {});
 
       fetch(`${API}/stories/yamini-chris`)
@@ -471,16 +485,16 @@ export default function Home() {
 
         {/* Stacked images — crossfade */}
         {slideshowImages
-          .map((src, i) => ({ src, i }))
+          .map((image, i) => ({ image, i }))
           .filter(({ i }) => mountedSlideIndices.has(i))
-          .map(({ src, i }) => (
+          .map(({ image, i }) => (
           <div
-            key={src}
+            key={image.originalUrl}
             className="absolute inset-y-0 left-[5%] right-[5%] transition-opacity duration-[1400ms] ease-in-out"
             style={{ opacity: i === slideIndex ? 1 : 0, zIndex: i === slideIndex ? 2 : 1 }}
           >
             <img
-              src={src}
+              src={image.displayUrl}
               alt={`Gallery ${i + 1}`}
               className="w-full h-full object-cover object-center"
               loading="lazy"
@@ -575,7 +589,7 @@ export default function Home() {
                   }}
                 >
                   <img
-                    src={slideshowImages[idx]}
+                    src={slideshowImages[idx].thumbnailUrl}
                     alt={`Preview ${idx + 1}`}
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
