@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "buildCommand": "PORT=19470 BASE_PATH=/ pnpm --filter @workspace/evermor run build",
+  "outputDirectory": "artifacts/evermor/dist/public",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://evermor-chronicle.onrender.com/api/:path*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
