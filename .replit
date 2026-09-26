@@ -24,3 +24,9 @@ channel = "stable-25_05"
 
 [objectStorage]
 defaultBucketID = "replit-objstore-975e5bc7-0021-4059-8f6f-458cb993be14"
+
+[userenv]
+
+[userenv.shared]
+R2_ACCOUNT_ID = "13aebce316d2ff0c4d828a854f1acc48"
+R2_BUCKET_NAME = "evermorgallery"

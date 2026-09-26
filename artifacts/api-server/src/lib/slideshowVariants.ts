@@ -15,12 +15,9 @@ function variantPath(originalPath: string, suffix: "display" | "thumbnail"): str
 }
 
 export async function createSlideshowVariants(objectPath: string): Promise<SlideshowVariants> {
-  const original = await storage.getObjectEntityFile(objectPath);
-  const [source] = await original.download();
+  const source = await storage.readObjectEntity(objectPath);
   const displayObjectPath = variantPath(objectPath, "display");
   const thumbnailObjectPath = variantPath(objectPath, "thumbnail");
-  const display = original.bucket.file(variantPath(original.name, "display"));
-  const thumbnail = original.bucket.file(variantPath(original.name, "thumbnail"));
 
   const [displayBuffer, thumbnailBuffer] = await Promise.all([
     sharp(source)
@@ -36,16 +33,14 @@ export async function createSlideshowVariants(objectPath: string): Promise<Slide
   ]);
 
   await Promise.all([
-    display.save(displayBuffer, {
-      contentType: "image/webp",
-      resumable: false,
-      metadata: { cacheControl: "public, max-age=31536000, immutable" },
-    }),
-    thumbnail.save(thumbnailBuffer, {
-      contentType: "image/webp",
-      resumable: false,
-      metadata: { cacheControl: "public, max-age=31536000, immutable" },
-    }),
+    storage.writeObjectEntity(
+      displayObjectPath, displayBuffer, "image/webp",
+      "public, max-age=31536000, immutable",
+    ),
+    storage.writeObjectEntity(
+      thumbnailObjectPath, thumbnailBuffer, "image/webp",
+      "public, max-age=31536000, immutable",
+    ),
   ]);
 
   return {

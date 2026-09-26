@@ -350,12 +350,15 @@ export default function Admin() {
       const file = files[i];
       try {
         const urlRes = await fetch(`${API}/admin/photos/request-url`, { method: "POST", headers: apiHeaders(token) });
+        if (!urlRes.ok) throw new Error(`Upload URL request failed (${urlRes.status})`);
         const { uploadURL, objectPath } = await urlRes.json();
-        await fetch(uploadURL, { method: "PUT", body: file, headers: { "Content-Type": file.type } });
+        const uploadRes = await fetch(uploadURL, { method: "PUT", body: file, headers: { "Content-Type": file.type } });
+        if (!uploadRes.ok) throw new Error(`Photo upload failed (${uploadRes.status})`);
         const saveRes = await fetch(`${API}/admin/slideshow`, {
           method: "POST", headers: apiHeaders(token),
           body: JSON.stringify({ objectPath, position: nextPos + i }),
         });
+        if (!saveRes.ok) throw new Error(`Saving slideshow photo failed (${saveRes.status})`);
         const { photo } = await saveRes.json();
         setSlidePhotos(prev => [...prev, photo]);
       } catch (e) { console.error("Slide upload failed:", e); }
@@ -530,12 +533,15 @@ export default function Admin() {
         const urlRes = await fetch(`${API}/admin/photos/request-url`, {
           method: "POST", headers: apiHeaders(token),
         });
+        if (!urlRes.ok) throw new Error(`Upload URL request failed (${urlRes.status})`);
         const { uploadURL, objectPath } = await urlRes.json();
-        await fetch(uploadURL, { method: "PUT", body: file, headers: { "Content-Type": file.type } });
+        const uploadRes = await fetch(uploadURL, { method: "PUT", body: file, headers: { "Content-Type": file.type } });
+        if (!uploadRes.ok) throw new Error(`Photo upload failed (${uploadRes.status})`);
         const saveRes = await fetch(`${API}/admin/stories/${selected}/photos`, {
           method: "POST", headers: apiHeaders(token),
           body: JSON.stringify({ objectPath, position: nextPos + i }),
         });
+        if (!saveRes.ok) throw new Error(`Saving story photo failed (${saveRes.status})`);
         const { photo } = await saveRes.json();
         setPhotos(prev => [...prev, photo]);
       } catch (e) { console.error("Upload failed:", e); }

@@ -14,6 +14,30 @@ import {
 const router: IRouter = Router();
 const objectStorageService = new ObjectStorageService();
 
+function sendStorageResponse(req: Request, res: Response, response: globalThis.Response): void {
+  res.status(response.status);
+  response.headers.forEach((value, key) => res.setHeader(key, value));
+  if (!response.body) {
+    res.end();
+    return;
+  }
+
+  const nodeStream = Readable.fromWeb(response.body as ReadableStream<Uint8Array>);
+  nodeStream.on('error', (error) => {
+    req.log.error({ err: error }, 'Error streaming storage object');
+    if (!res.headersSent) {
+      res.removeHeader('Content-Length');
+      res.status(502).json({ error: 'Failed to stream object' });
+    } else {
+      res.destroy();
+    }
+  });
+  res.on('close', () => {
+    if (!res.writableEnded) nodeStream.destroy();
+  });
+  nodeStream.pipe(res);
+}
+
 function hasAuthenticatedSession(
   req: Request,
 ): req is Request & { isAuthenticated: () => boolean } {
@@ -53,9 +77,8 @@ router.post(
     try {
       const { name, size, contentType } = parsed.data;
 
-      const uploadURL = await objectStorageService.getObjectEntityUploadURL();
-      const objectPath =
-        objectStorageService.normalizeObjectEntityPath(uploadURL);
+      const { uploadURL, objectPath } =
+        await objectStorageService.getObjectEntityUploadInfo();
 
       res.json(
         RequestUploadUrlResponse.parse({
@@ -92,17 +115,7 @@ router.get(
 
       const response = await objectStorageService.downloadObject(file);
 
-      res.status(response.status);
-      response.headers.forEach((value, key) => res.setHeader(key, value));
-
-      if (response.body) {
-        const nodeStream = Readable.fromWeb(
-          response.body as ReadableStream<Uint8Array>,
-        );
-        nodeStream.pipe(res);
-      } else {
-        res.end();
-      }
+      sendStorageResponse(req, res, response);
     } catch (error) {
       req.log.error({ err: error }, 'Error serving public object');
       res.status(500).json({ error: 'Failed to serve public object' });
@@ -142,17 +155,7 @@ router.get('/storage/objects/*path', async (req: Request, res: Response) => {
 
     const response = await objectStorageService.downloadObject(objectFile);
 
-    res.status(response.status);
-    response.headers.forEach((value, key) => res.setHeader(key, value));
-
-    if (response.body) {
-      const nodeStream = Readable.fromWeb(
-        response.body as ReadableStream<Uint8Array>,
-      );
-      nodeStream.pipe(res);
-    } else {
-      res.end();
-    }
+    sendStorageResponse(req, res, response);
   } catch (error) {
     if (error instanceof ObjectNotFoundError) {
       req.log.warn({ err: error }, 'Object not found');

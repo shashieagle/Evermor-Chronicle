@@ -166,13 +166,16 @@ export default function AdminJournal() {
       const urlRes = await fetch(`${API}/admin/photos/request-url`, {
         method: "POST", headers: apiHeaders(token),
       });
+      if (!urlRes.ok) throw new Error(`Upload URL request failed (${urlRes.status})`);
       const { uploadURL, objectPath } = await urlRes.json();
-      await fetch(uploadURL, { method: "PUT", body: file, headers: { "Content-Type": file.type } });
+      const uploadRes = await fetch(uploadURL, { method: "PUT", body: file, headers: { "Content-Type": file.type } });
+      if (!uploadRes.ok) throw new Error(`Cover upload failed (${uploadRes.status})`);
       // Construct public URL (same pattern as story photos)
       const pubRes = await fetch(`${API}/admin/journal/${selected}/cover`, {
         method: "POST", headers: apiHeaders(token),
         body: JSON.stringify({ objectPath }),
       });
+      if (!pubRes.ok) throw new Error(`Saving cover image failed (${pubRes.status})`);
       const { coverImage } = await pubRes.json();
       setForm(f => ({ ...f, coverImage }));
     } catch (e) { console.error("Upload failed:", e); }

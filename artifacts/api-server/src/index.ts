@@ -1,6 +1,7 @@
 import app from "./app";
 import { logger } from "./lib/logger";
 import { seedIfEmpty, deduplicatePhotos } from "./seed";
+import { isR2Storage, validateStorageConfig } from "./lib/objectStorage";
 
 const rawPort = process.env["PORT"];
 
@@ -16,12 +17,16 @@ if (Number.isNaN(port) || port <= 0) {
   throw new Error(`Invalid PORT value: "${rawPort}"`);
 }
 
+validateStorageConfig();
+
 app.listen(port, async (err) => {
   if (err) {
     logger.error({ err }, "Error listening on port");
     process.exit(1);
   }
   logger.info({ port }, "Server listening");
-  await deduplicatePhotos();
-  await seedIfEmpty();
+  if (!isR2Storage()) {
+    await deduplicatePhotos();
+    await seedIfEmpty();
+  }
 });

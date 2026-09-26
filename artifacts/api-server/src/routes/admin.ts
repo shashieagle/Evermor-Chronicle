@@ -185,8 +185,7 @@ router.post("/admin/stories/:slug/restore", async (req: Request, res: Response) 
 // ── Request upload URL ────────────────────────────────────────────────────────
 router.post("/admin/photos/request-url", async (req: Request, res: Response) => {
   try {
-    const uploadURL = await objectStorageService.getObjectEntityUploadURL();
-    const objectPath = objectStorageService.normalizeObjectEntityPath(uploadURL);
+    const { uploadURL, objectPath } = await objectStorageService.getObjectEntityUploadInfo();
     res.json({ uploadURL, objectPath });
   } catch (err) {
     res.status(500).json({ error: "Failed to generate upload URL" });
