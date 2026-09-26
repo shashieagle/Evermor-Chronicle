@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "wouter";
 import Nav from "../components/Nav";
 import { storiesBySlug } from "../data/stories";
@@ -22,17 +22,21 @@ function embedUrl(raw: string): string | null {
 
 function useInView(threshold = 0.08) {
   const [isInView, setIsInView] = useState(false);
-  const ref = useRef<any>(null);
+  const [element, setElement] = useState<HTMLElement | null>(null);
+  const ref = useCallback((node: HTMLElement | null) => setElement(node), []);
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+    if (!element) return;
+    if (typeof IntersectionObserver === "undefined") {
+      setIsInView(true);
+      return;
+    }
     const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setIsInView(true); obs.unobserve(el); } },
+      ([e]) => { if (e.isIntersecting) { setIsInView(true); obs.unobserve(element); } },
       { threshold }
     );
-    obs.observe(el);
+    obs.observe(element);
     return () => obs.disconnect();
-  }, []);
+  }, [element, threshold]);
   return [ref, isInView] as const;
 }
 
@@ -186,7 +190,6 @@ export default function Beginnings() {
 
   const [narrativeRef, narrativeInView] = useInView();
   const [pauseRef, pauseInView] = useInView();
-  const [filmRef, filmInView] = useInView(0.05);
   const [reflectionRef, reflectionInView] = useInView();
   const [inviteRef, inviteInView] = useInView();
   const [nextRef, nextInView] = useInView(0.05);
@@ -373,10 +376,7 @@ export default function Beginnings() {
 
       {/* ── 5. Film (conditional) — middle of the story ──────────── */}
       {story.hasFilm && (
-        <section
-          ref={filmRef}
-          className={`bg-[#1A1612] transition-opacity duration-[1200ms] ease-out ${filmInView ? "opacity-100" : "opacity-0"}`}
-        >
+        <section className="bg-[#1A1612]">
           {videoEmbed ? (
             /* Embedded player */
             <div style={{ padding: "clamp(40px,8vw,80px) clamp(24px,8vw,15%) clamp(56px,10vw,112px)" }}>
