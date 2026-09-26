@@ -5,3 +5,4 @@
 - [Google Forms embedding](google-forms-embedding.md) — embedded Story DNA form must use the Google Forms embedded URL variant
 - [Story content visibility](story-text-visibility.md) — Beginnings writing and Film must remain visible without relying on scroll observers
 - [External database migrations](external-database-migrations.md) — copy from published production, use direct Neon connections, and treat object files as a separate migration
+- [Scoped GitHub publishing](scoped-github-publishing.md) — shell GitHub fetch may work while push auth fails; use the connected API and exclude auto-checkpointed attachments
