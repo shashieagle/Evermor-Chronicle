@@ -3,5 +3,5 @@
 - [Admin password deployment](admin-password-deployment.md) — changing ADMIN_PASSWORD requires republishing before the live admin panel accepts it
 - [Evermor publish smoke check](evermor-publish-smoke-check.md) — manual script rebuilds via artifact.toml config and fails if index.html references missing/stale assets
 - [Google Forms embedding](google-forms-embedding.md) — embedded Story DNA form must use the Google Forms embedded URL variant
-- [Story text visibility](story-text-visibility.md) — Beginnings copy must stay opaque; observer animation may move it but must never hide it
+- [Story content visibility](story-text-visibility.md) — Beginnings writing and Film must remain visible without relying on scroll observers
 - [External database migrations](external-database-migrations.md) — copy from published production, use direct Neon connections, and treat object files as a separate migration
